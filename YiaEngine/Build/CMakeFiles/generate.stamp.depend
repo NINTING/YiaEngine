@@ -1,0 +1,23 @@
+# CMake generation dependency list for this directory.
+D:/Cmake/cmake-3.18.4-win64-x64/share/cmake-3.18/Modules/CMakeCInformation.cmake
+D:/Cmake/cmake-3.18.4-win64-x64/share/cmake-3.18/Modules/CMakeCXXInformation.cmake
+D:/Cmake/cmake-3.18.4-win64-x64/share/cmake-3.18/Modules/CMakeCommonLanguageInclude.cmake
+D:/Cmake/cmake-3.18.4-win64-x64/share/cmake-3.18/Modules/CMakeGenericSystem.cmake
+D:/Cmake/cmake-3.18.4-win64-x64/share/cmake-3.18/Modules/CMakeInitializeConfigs.cmake
+D:/Cmake/cmake-3.18.4-win64-x64/share/cmake-3.18/Modules/CMakeLanguageInformation.cmake
+D:/Cmake/cmake-3.18.4-win64-x64/share/cmake-3.18/Modules/CMakeRCInformation.cmake
+D:/Cmake/cmake-3.18.4-win64-x64/share/cmake-3.18/Modules/CMakeSystemSpecificInformation.cmake
+D:/Cmake/cmake-3.18.4-win64-x64/share/cmake-3.18/Modules/CMakeSystemSpecificInitialize.cmake
+D:/Cmake/cmake-3.18.4-win64-x64/share/cmake-3.18/Modules/Compiler/CMakeCommonCompilerMacros.cmake
+D:/Cmake/cmake-3.18.4-win64-x64/share/cmake-3.18/Modules/Compiler/MSVC-C.cmake
+D:/Cmake/cmake-3.18.4-win64-x64/share/cmake-3.18/Modules/Compiler/MSVC-CXX.cmake
+D:/Cmake/cmake-3.18.4-win64-x64/share/cmake-3.18/Modules/Platform/Windows-MSVC-C.cmake
+D:/Cmake/cmake-3.18.4-win64-x64/share/cmake-3.18/Modules/Platform/Windows-MSVC-CXX.cmake
+D:/Cmake/cmake-3.18.4-win64-x64/share/cmake-3.18/Modules/Platform/Windows-MSVC.cmake
+D:/Cmake/cmake-3.18.4-win64-x64/share/cmake-3.18/Modules/Platform/Windows.cmake
+D:/Cmake/cmake-3.18.4-win64-x64/share/cmake-3.18/Modules/Platform/WindowsPaths.cmake
+F:/YiaEngineRepos/YiaEngine/Build/CMakeFiles/3.18.4/CMakeCCompiler.cmake
+F:/YiaEngineRepos/YiaEngine/Build/CMakeFiles/3.18.4/CMakeCXXCompiler.cmake
+F:/YiaEngineRepos/YiaEngine/Build/CMakeFiles/3.18.4/CMakeRCCompiler.cmake
+F:/YiaEngineRepos/YiaEngine/Build/CMakeFiles/3.18.4/CMakeSystem.cmake
+F:/YiaEngineRepos/YiaEngine/CMakeLists.txt
