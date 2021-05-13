@@ -1,2 +1,5 @@
 Asset filter=lfs diff=lfs merge=lfs -text
 YiaEngine filter=lfs diff=lfs merge=lfs -text
+cmake-gui.exe filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text
+*.bin filter=lfs diff=lfs merge=lfs -text
