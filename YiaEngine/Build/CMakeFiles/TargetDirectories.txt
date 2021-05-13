@@ -1,3 +1,0 @@
-F:/YiaEngineRepos/YiaEngine/Build/CMakeFiles/ALL_BUILD.dir
-F:/YiaEngineRepos/YiaEngine/Build/CMakeFiles/ZERO_CHECK.dir
-F:/YiaEngineRepos/YiaEngine/Build/YiaEngine/CMakeFiles/YiaEngine.dir

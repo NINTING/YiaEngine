@@ -1,0 +1,2 @@
+Asset filter=lfs diff=lfs merge=lfs -text
+YiaEngine filter=lfs diff=lfs merge=lfs -text
