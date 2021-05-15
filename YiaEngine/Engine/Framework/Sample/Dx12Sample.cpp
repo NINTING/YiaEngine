@@ -162,6 +162,8 @@ void App::LoadPipeline(HWND hwnd)
 	ThrowIfFailed(factory->CreateSwapChain(g_CommandQueue.Get(), &swapChainDesc, &swapChain));
 
 	ThrowIfFailed(swapChain.As(&g_SwapChain));
+	
+	//¿ØÖÆ´°¿ÚÇÐ»»(alt-enter)
 	ThrowIfFailed(factory->MakeWindowAssociation(hwnd, DXGI_MWA_NO_ALT_ENTER));
 
 	g_frameIndex = g_SwapChain->GetCurrentBackBufferIndex();

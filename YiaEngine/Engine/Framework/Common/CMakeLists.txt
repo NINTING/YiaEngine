@@ -3,7 +3,7 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
-<<<<<<< HEAD
+
 include_directories("${PROJECT_SOURCE_DIR}/Framework/Common/IO")
 
 # 添加可执行
@@ -15,11 +15,10 @@ add_executable(${PROJECT_NAME} WIN32 ${SRC_LIST} ${Sample_LIST} ${ASSETLODER_LIS
 
 add_subdirectory(Test)
 #target_link_libraries(${PROJECT_NAME} PRIVATE  WindowDLL)
-=======
+
 
 
 # 添加可执行
-aux_source_directory(. SRC_LIST)
+#aux_source_directory(. SRC_LIST)
 
-add_executable(YiaEngine ${SRC_LIST} )
->>>>>>> 1b64f9a6cddcadbb4d87f89773874e0d8cff1652
+#add_executable(YiaEngine ${SRC_LIST} )
