@@ -3,8 +3,13 @@
 
 namespace YiaEngine::Graghic
 {
-	class FrameGraph
+	struct  PassNode
 	{
+
+	};
+	struct FrameGraph
+	{
+		
 	
 	}
 

@@ -35,7 +35,7 @@ namespace YiaEngine
 	class BmpParser:public ImageParser
 	{
 	public:
-		virtual ImageData Parser(const Buffer&buffer)
+		virtual ImageData Parser(const Buffer& buffer)
 		{
 			BitMap_FileHead* pFileHead = reinterpret_cast<BitMap_FileHead*>(buffer.m_pdata);
 			BitMap_DataHead* pDataHead = reinterpret_cast<BitMap_DataHead*>(buffer.m_pdata + BITMAP_FILEHEAD_SIZE);

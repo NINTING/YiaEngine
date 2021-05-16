@@ -6,6 +6,7 @@
 
 #include <windows.h>
 #include <windowsx.h>
+#include <initguid.h>
 #include <d3d12.h>
 #include <DXGI1_4.h>
 #include <wrl/client.h>
@@ -18,6 +19,7 @@
 #include <string>
 #include "d3dx12.h"
 
+#include"Image.h"
 using namespace DirectX;
 using namespace Microsoft::WRL;
 using Microsoft::WRL::ComPtr;
@@ -34,6 +36,7 @@ struct Vertex
 {
 	XMFLOAT3 position;
 	XMFLOAT4 color;
+	XMFLOAT2 uv;
 };
 
 
@@ -88,7 +91,14 @@ public:
 	ComPtr<ID3D12GraphicsCommandList>g_commandList;
 	ComPtr<ID3D12Resource>g_vertexBuffer;
 	ComPtr<ID3D12Resource> g_renderTargets[2];
+	ComPtr<ID3D12Resource>g_texture;
+	ComPtr<ID3D12DescriptorHeap>g_SRVHeap;
+
+	
 	UINT g_rtvDescriptorSize;
+
+	bool firstLoadAsset;
+
 	//Í¬²½
 	ComPtr<ID3D12Fence> g_Fence;
 	D3D12_VERTEX_BUFFER_VIEW g_VertexBufferView;

@@ -80,7 +80,7 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
         {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
-
+         
             app->Render();
         }
     }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Image.h"
-
+#include"Buffer.h"
 namespace YiaEngine
 {
 	class ImageParser
