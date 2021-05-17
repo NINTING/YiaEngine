@@ -207,16 +207,24 @@ void App::LoadAsset()
 		CD3DX12_DESCRIPTOR_RANGE rootPara[1];
 		rootPara[0].Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
 		CD3DX12_ROOT_PARAMETER para[1];
-		para[0].InitAsDescriptorTable(1, rootPara);
+		para[0].InitAsDescriptorTable(1, rootPara,D3D12_SHADER_VISIBILITY_PIXEL);
 		rootDesc.Init(1, para, 1, &linearClamp, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
-		ComPtr<ID3DBlob> error;
+				ComPtr<ID3DBlob> error;
 		ComPtr<ID3DBlob> signature;
 
 		ThrowIfFailed(D3D12SerializeRootSignature(&rootDesc, D3D_ROOT_SIGNATURE_VERSION_1, &signature, &error));
 		ThrowIfFailed(g_device->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&g_rootSignature)));
 
-	}
+		/*CD3DX12_ROOT_SIGNATURE_DESC rootDesc;
+		rootDesc.Init(0, nullptr, 0, nullptr, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+		ComPtr<ID3DBlob> error;
+		ComPtr<ID3DBlob> signature;
 
+		ThrowIfFailed(D3D12SerializeRootSignature(&rootDesc, D3D_ROOT_SIGNATURE_VERSION_1, &signature, &error));
+		ThrowIfFailed(g_device->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&g_rootSignature)));
+	*/
+	}
+	
 	{
 		ComPtr<ID3DBlob> vertexShader;
 		ComPtr<ID3DBlob> pixelShader;
@@ -229,40 +237,56 @@ void App::LoadAsset()
 #endif
 		ComPtr<ID3DBlob>error;
 		//GetCurrentDirectory();F:\YiaEngineRepos\YiaEngine\Engine\Framework\Shader\Shader.hlsl
-		auto hr = D3DCompileFromFile(L"F:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/Shader.hlsl", nullptr, nullptr, "VSMain", "vs_5_0", compileFlags, 0, &vertexShader,&error);
+		auto hr = D3DCompileFromFile(L"F:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/DeferShader.hlsl", nullptr, nullptr, "VSMain", "vs_5_0", compileFlags, 0, &vertexShader,&error);
 		if (error != nullptr)
 		{
 			OutputDebugStringA((char*)error->GetBufferPointer());
 		}
 		ThrowIfFailed(hr);
-		hr = D3DCompileFromFile(L"F:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/Shader.hlsl", nullptr, nullptr, "PSMain", "ps_5_0", compileFlags, 0, &pixelShader, &error);
+		hr = D3DCompileFromFile(L"F:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/DeferShader.hlsl", nullptr, nullptr, "PSMain", "ps_5_0", compileFlags, 0, &pixelShader, &error);
 		if (error != nullptr)
 		{
 			OutputDebugStringA((char*)error->GetBufferPointer());
 		}
 		ThrowIfFailed(hr);
-		D3D12_INPUT_ELEMENT_DESC inputElementDescs[] =
+
+		/*ThrowIfFailed(D3DCompileFromFile(L"F:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/DeferShader.hlsl", nullptr, nullptr, "VSMain", "vs_5_0", compileFlags, 0, &vertexShader, nullptr));
+		ThrowIfFailed(D3DCompileFromFile(L"F:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/DeferShader.hlsl", nullptr, nullptr, "PSMain", "ps_5_0", compileFlags, 0, &pixelShader, nullptr));*/
+
+
+		D3D12_INPUT_ELEMENT_DESC inputElementDescs[] 
 		{
 			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-			{ "TEXCOORD0", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
+
 		};
-		
+		/*D3D12_INPUT_ELEMENT_DESC inputElementDescs[] =
+		{
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
+		};*/
+		D3D12_INPUT_LAYOUT_DESC inputLayoutDesc = {};
+		inputLayoutDesc.NumElements = _countof(inputElementDescs);
+		inputLayoutDesc.pInputElementDescs = inputElementDescs;
+
 		D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc = {};
-				psoDesc.InputLayout = { inputElementDescs ,_countof(inputElementDescs) };
-				psoDesc.pRootSignature = g_rootSignature.Get();
-				psoDesc.VS = { reinterpret_cast<UINT8*>(vertexShader->GetBufferPointer()), vertexShader->GetBufferSize() };
-				psoDesc.PS = { reinterpret_cast<UINT8*>(pixelShader->GetBufferPointer()), pixelShader->GetBufferSize() };
-				psoDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
-				psoDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
-				psoDesc.DepthStencilState.DepthEnable = FALSE;
-				psoDesc.DepthStencilState.StencilEnable = FALSE;
-				psoDesc.SampleMask = UINT_MAX;
-				psoDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
-				psoDesc.NumRenderTargets = 1;
-				psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
-				psoDesc.SampleDesc.Count = 1;
-				ThrowIfFailed(g_device->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&g_pipelineState)));
+		psoDesc.InputLayout = inputLayoutDesc;
+		psoDesc.pRootSignature = g_rootSignature.Get();
+		psoDesc.VS = { reinterpret_cast<UINT8*>(vertexShader->GetBufferPointer()), vertexShader->GetBufferSize() };
+		psoDesc.PS = { reinterpret_cast<UINT8*>(pixelShader->GetBufferPointer()), pixelShader->GetBufferSize() };
+		psoDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
+		psoDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
+		psoDesc.DepthStencilState.DepthEnable = FALSE;
+		psoDesc.DepthStencilState.StencilEnable = FALSE;
+		psoDesc.SampleMask = UINT_MAX;
+		psoDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+		psoDesc.NumRenderTargets = 1; 
+		psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
+		psoDesc.SampleDesc.Count = 1;
+
+		ThrowIfFailed(g_device->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&g_pipelineState)));
 			
 	}
 	ThrowIfFailed(g_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, g_commandAllocator.Get(), g_pipelineState.Get(), IID_PPV_ARGS(&g_commandList)));
@@ -275,6 +299,7 @@ void App::LoadAsset()
 			{ { -1.0f, 1.f , 0.0f }, { 1.0f, 0.0f, 0.0f, 1.0f },{0,0} },
 			{ { 1.0f, 1.f , 0.0f }, { 0.0f, 1.0f, 0.0f, 1.0f },{1,0} },
 			{ { -1.f, -1.f , 0.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } ,{0,1}},
+
 			{ { -1.f, -1.f , 0.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } ,{0,1}},
 			{ { 1.f, 1.f , 0.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } ,{1,0}},
 			{ { 1.f, -1.f , 0.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } ,{1,1}}
@@ -330,54 +355,41 @@ void App::LoadAsset()
 			nullptr,
 			IID_PPV_ARGS(&g_texture)));
 		ComPtr<ID3D12Resource> tempraryUpload = nullptr;
+
+		UINT64 textureUploadBufferSize;
+		g_device->GetCopyableFootprints(&desc, 0, 1, 0, nullptr, nullptr, nullptr, &textureUploadBufferSize);
+		
+
 		ThrowIfFailed(g_device->CreateCommittedResource(
 			&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),
 			D3D12_HEAP_FLAG_NONE,
-			&desc,
+			&CD3DX12_RESOURCE_DESC::Buffer(textureUploadBufferSize),
 			D3D12_RESOURCE_STATE_GENERIC_READ,
 			nullptr,
 			IID_PPV_ARGS(&tempraryUpload)));
 
-		D3D12_SUBRESOURCE_DATA initData = { image.pData,image.pitch };
+		D3D12_SUBRESOURCE_DATA initData = { image.pData,image.pitch,image.data_size };
 		UpdateSubresources<1>(g_commandList.Get(), g_texture.Get(), tempraryUpload.Get(), 0, 0, 1, &initData);
 		g_commandList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(
 			g_texture.Get(),
 			D3D12_RESOURCE_STATE_COPY_DEST,
-			D3D12_RESOURCE_STATE_COMMON));
+			D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE));
 
-		D3D12_DESCRIPTOR_HEAP_DESC srvHeapdesc;
+		D3D12_DESCRIPTOR_HEAP_DESC srvHeapdesc = {};
 		srvHeapdesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 		srvHeapdesc.NumDescriptors = 1;
-		srvHeapdesc.Flags =	D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
-		g_device->CreateDescriptorHeap(&srvHeapdesc, IID_PPV_ARGS(&g_SRVHeap));
+		srvHeapdesc.Flags =	D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+		ThrowIfFailed(g_device->CreateDescriptorHeap(&srvHeapdesc, IID_PPV_ARGS(&g_SRVHeap)));
 		
-		CD3DX12_CPU_DESCRIPTOR_HANDLE srvHandle(g_RTVHeap->GetCPUDescriptorHandleForHeapStart());
-		g_device->CreateShaderResourceView(g_texture.Get(), nullptr, srvHandle);		
+		CD3DX12_CPU_DESCRIPTOR_HANDLE srvHandle(g_SRVHeap->GetCPUDescriptorHandleForHeapStart());
+		g_device->CreateShaderResourceView(g_texture.Get(), nullptr, srvHandle);
+
+		ThrowIfFailed(g_commandList->Close());
 		ID3D12CommandList* ppCommandLists[] = { g_commandList.Get() };
 
 		g_CommandQueue->ExecuteCommandLists(1, ppCommandLists);
 	}
-	{
-
-		CD3DX12_STATIC_SAMPLER_DESC linearClamp(0, D3D12_FILTER_MIN_MAG_MIP_LINEAR,
-			D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
-			D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
-			D3D12_TEXTURE_ADDRESS_MODE_CLAMP);
 	
-		CD3DX12_ROOT_SIGNATURE_DESC rootDesc;
-
-		CD3DX12_DESCRIPTOR_RANGE rootPara[1];
-		rootPara[0].Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
-		CD3DX12_ROOT_PARAMETER para[1];
-		para[0].InitAsDescriptorTable(1, rootPara);
-		rootDesc.Init(1, para, 1, &linearClamp, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
-		ComPtr<ID3DBlob> error;
-		ComPtr<ID3DBlob> signature;
-
-		ThrowIfFailed(D3D12SerializeRootSignature(&rootDesc, D3D_ROOT_SIGNATURE_VERSION_1, &signature, &error));
-		ThrowIfFailed(g_device->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&g_rootSignature)));
-		
-	}
 	{
 		ThrowIfFailed(g_device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&g_Fence)));
 		g_fenceValue = 1;
@@ -415,9 +427,16 @@ void App::PopulateCommandList()
 	g_commandList->RSSetViewports(1, &g_viewport);
 	g_commandList->RSSetScissorRects(1, &g_scissorRect);
 
-	CD3DX12_GPU_DESCRIPTOR_HANDLE tex(g_SRVHeap->GetGPUDescriptorHandleForHeapStart());
-	tex.Offset(0, g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV));
-	g_commandList->SetGraphicsRootDescriptorTable(0, tex);
+	// set the descriptor heap
+	ID3D12DescriptorHeap* descriptorHeaps[] = { g_SRVHeap.Get() };
+	g_commandList->SetDescriptorHeaps(_countof(descriptorHeaps), descriptorHeaps);
+
+
+	//CD3DX12_GPU_DESCRIPTOR_HANDLE tex();
+	//tex.Offset(0, 0);
+	g_commandList->SetGraphicsRootDescriptorTable(0, g_SRVHeap->GetGPUDescriptorHandleForHeapStart());
+
+
 
 	auto  barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
 	g_commandList->ResourceBarrier(1, &barrier);

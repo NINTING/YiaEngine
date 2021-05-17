@@ -123,6 +123,6 @@ namespace YiaEngine
 	using vec2f = vec<float, 2>;
 	using vec3f = vec<float, 3>;
 	using vec4f = vec<float, 4>;
-	using R8G8B8A8U = vec<uint32_t, 4>;
-	using R8G8B8U = vec<uint32_t, 3>;
+	using R8G8B8A8U = vec<uint8_t, 4>;
+	using R8G8B8U = vec<uint8_t, 3>;
 }

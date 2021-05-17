@@ -59,8 +59,21 @@ namespace YiaEngine
 				{
 					for (int x = 0; x < imageData.width; x++)
 					{
-						(imageData.pData + x + (y - imageData.height + 1)*imageData.width)->bgr =
+						
+
+					#if defined(_DEBUG)
+						uint8_t* p = (sourceData + y * sourcePitch + x * (pDataHead->BitCount >> 3));
+						uint8_t* h = sourceData;
+						uint8_t* c= sourceData +y * sourcePitch -1;
+						auto debugColor = *(reinterpret_cast<R8G8B8U*>(sourceData + y * sourcePitch + x * (pDataHead->BitCount >> 3)));
+
+					#endif // DEBUG
+
+						
+						(imageData.pData + x + ( imageData.height - y - 1)*imageData.width)->bgr =
 							*(reinterpret_cast<R8G8B8U*>(sourceData + y * sourcePitch + x * (pDataHead->BitCount >> 3)));
+
+						
 					}
 				}
 			}

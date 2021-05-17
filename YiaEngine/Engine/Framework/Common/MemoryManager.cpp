@@ -1,7 +1,7 @@
 #pragma once
 #include "MemoryManager.h"
 #include <malloc.h>
-
+#include<string.h>
 using namespace YiaEngine;
 
 namespace YiaEngine
@@ -84,7 +84,21 @@ void* YiaEngine::MemoryManager::Allocate(size_t size)
     if (allocator)
       return  allocator->Allocate();
     else
+    {
+        
+#if defined(_DEBUG)
+        void* p = malloc(size);
+        memset(
+            reinterpret_cast<char*>(p) ,
+            0,
+            size
+        );
+        return p;
+#else
         return malloc(size);
+#endif
+        
+    }
 }
 
 void* YiaEngine::MemoryManager::Allocate(size_t size, size_t aligment)
