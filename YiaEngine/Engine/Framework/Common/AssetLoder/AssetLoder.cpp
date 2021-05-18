@@ -36,10 +36,10 @@ AssetLoder::AssetFilePtr AssetLoder::OpenFile(const char* name, FILE_OPEN_MODE m
 			switch (mode)
 			{
 			case FILE_OPEN_MODE::BINARY:
-				fp = fopen(fullPath.c_str(), "r");
+				fp = fopen(fullPath.c_str(), "rb");
 				break;
 			case FILE_OPEN_MODE::TEXT:
-				fp = fopen(fullPath.c_str(), "rb");
+				fp = fopen(fullPath.c_str(), "r");
 				break;
 			default:
 				break;
@@ -102,7 +102,7 @@ Buffer YiaEngine::AssetLoder::OpenAndReadBinary(const char* name)
 	if (fp) {
 		size_t len = GetSize(fp);
 		pbuffer = new Buffer(len);
-		fread(pbuffer->m_pdata, len, 1, reinterpret_cast<FILE*>(fp));
+		size_t s = fread(pbuffer->m_pdata, len, 1, reinterpret_cast<FILE*>(fp));
 		
 		CloseFile(fp);
 

@@ -25,6 +25,44 @@ inline void ThrowIfFailed(HRESULT hr)
 		throw HrException(hr);
 	}
 }
+UINT TextureWidth = 200;
+UINT TextureHeight = 200;
+UINT TexturePixelSize = 32;
+std::vector<UINT8> GenerateTextureData()
+{
+	const UINT rowPitch = TextureWidth * TexturePixelSize;
+	const UINT cellPitch = rowPitch >> 3;        // The width of a cell in the checkboard texture.
+	const UINT cellHeight = TextureWidth >> 3;    // The height of a cell in the checkerboard texture.
+	const UINT textureSize = rowPitch * TextureHeight;
+
+	std::vector<UINT8> data(textureSize);
+	UINT8* pData = &data[0];
+
+	for (UINT n = 0; n < textureSize; n += TexturePixelSize)
+	{
+		UINT x = n % rowPitch;
+		UINT y = n / rowPitch;
+		UINT i = x / cellPitch;
+		UINT j = y / cellHeight;
+
+		if (i % 2 == j % 2)
+		{
+			pData[n] = 0x00;        // R
+			pData[n + 1] = 0x00;    // G
+			pData[n + 2] = 0x00;    // B
+			pData[n + 3] = 0xff;    // A
+		}
+		else
+		{
+			pData[n] = 0xff;        // R
+			pData[n + 1] = 0xff;    // G
+			pData[n + 2] = 0xff;    // B
+			pData[n + 3] = 0xff;    // A
+		}
+	}
+
+	return data;
+}
 
  void GetHardwareAdapter(
 	 IDXGIFactory1* pFactory,
@@ -38,31 +76,58 @@ inline void ThrowIfFailed(HRESULT hr)
 	 ComPtr<IDXGIFactory6> factory6;
 	 if (SUCCEEDED(pFactory->QueryInterface(IID_PPV_ARGS(&factory6))))
 	 {
-		 for (
-			 UINT adapterIndex = 0;
-			 DXGI_ERROR_NOT_FOUND != factory6->EnumAdapterByGpuPreference(
-				 adapterIndex,
-				 requestHighPerformanceAdapter == true ? DXGI_GPU_PREFERENCE_HIGH_PERFORMANCE : DXGI_GPU_PREFERENCE_UNSPECIFIED,
-				 IID_PPV_ARGS(&adapter));
-			 ++adapterIndex)
+		 //for (
+			// UINT adapterIndex = 0;
+			// DXGI_ERROR_NOT_FOUND != factory6->EnumAdapterByGpuPreference(
+			//	 adapterIndex,
+			//	 requestHighPerformanceAdapter == true ? DXGI_GPU_PREFERENCE_HIGH_PERFORMANCE : DXGI_GPU_PREFERENCE_UNSPECIFIED,
+			//	 IID_PPV_ARGS(&adapter));
+			// ++adapterIndex)
+		 //{
+			// DXGI_ADAPTER_DESC1 desc;
+			// adapter->GetDesc1(&desc);
+
+			// if (desc.Flags & DXGI_ADAPTER_FLAG_SOFTWARE)
+			// {
+			//	 // Don't select the Basic Render Driver adapter.
+			//	 // If you want a software adapter, pass in "/warp" on the command line.
+			//	 continue;
+			// }
+
+			// // Check to see whether the adapter supports Direct3D 12, but don't create the
+			// // actual device yet.
+			// if (SUCCEEDED(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_11_0, _uuidof(ID3D12Device), nullptr)))
+			// {
+			//	 break;
+			// }
+		 //}
+
+		 int adapterIndex = 0; // we'll start looking for directx 12  compatible graphics devices starting at index 0
+
+		 bool adapterFound = false; // set this to true when a good one was found
+
+		 // find first hardware gpu that supports d3d 12
+		 while (factory6->EnumAdapters1(adapterIndex, &adapter) != DXGI_ERROR_NOT_FOUND)
 		 {
 			 DXGI_ADAPTER_DESC1 desc;
 			 adapter->GetDesc1(&desc);
 
 			 if (desc.Flags & DXGI_ADAPTER_FLAG_SOFTWARE)
 			 {
-				 // Don't select the Basic Render Driver adapter.
-				 // If you want a software adapter, pass in "/warp" on the command line.
+				 // we dont want a software device
+				 adapterIndex++; // add this line here. Its not currently in the downloadable project
 				 continue;
 			 }
 
-			 // Check to see whether the adapter supports Direct3D 12, but don't create the
-			 // actual device yet.
-			 if (SUCCEEDED(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_11_0, _uuidof(ID3D12Device), nullptr)))
-			 {
-				 break;
-			 }
+			 // we want a device that is compatible with direct3d 12 (feature level 11 or higher)
+			 ThrowIfFailed(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_11_0, _uuidof(ID3D12Device), nullptr));
+			
+
+			 adapterIndex++;
 		 }
+
+		 
+
 	 }
 	 else
 	 {
@@ -197,18 +262,33 @@ void App::LoadAsset()
 {
 	{
 
+		/*CD3DX12_STATIC_SAMPLER_DESC linearClamp(0, D3D12_FILTER_MIN_MAG_MIP_POINT,
+			D3D12_TEXTURE_ADDRESS_MODE_BORDER,
+			D3D12_TEXTURE_ADDRESS_MODE_BORDER,
+			D3D12_TEXTURE_ADDRESS_MODE_BORDER);*/
 		CD3DX12_STATIC_SAMPLER_DESC linearClamp(0, D3D12_FILTER_MIN_MAG_MIP_LINEAR,
 			D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
 			D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
 			D3D12_TEXTURE_ADDRESS_MODE_CLAMP);
-
 		CD3DX12_ROOT_SIGNATURE_DESC rootDesc;
 
 		CD3DX12_DESCRIPTOR_RANGE rootPara[1];
 		rootPara[0].Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
-		CD3DX12_ROOT_PARAMETER para[1];
-		para[0].InitAsDescriptorTable(1, rootPara,D3D12_SHADER_VISIBILITY_PIXEL);
-		rootDesc.Init(1, para, 1, &linearClamp, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+		/*CD3DX12_ROOT_PARAMETER para[1];
+		para[0].InitAsDescriptorTable(1, rootPara,D3D12_SHADER_VISIBILITY_PIXEL);*/
+
+		D3D12_ROOT_DESCRIPTOR_TABLE descriptorTable;
+		descriptorTable.NumDescriptorRanges = _countof(rootPara); // we only have one range
+		descriptorTable.pDescriptorRanges = rootPara; // the pointer to the beginning of our ranges array
+		D3D12_ROOT_PARAMETER  rootParameters[1];
+		rootParameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+		rootParameters[0].DescriptorTable = descriptorTable; // this is the root descriptor for this root parameter
+		rootParameters[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
+
+
+
+
+		rootDesc.Init(1, rootParameters, 1, &linearClamp, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 				ComPtr<ID3DBlob> error;
 		ComPtr<ID3DBlob> signature;
 
@@ -257,8 +337,8 @@ void App::LoadAsset()
 		D3D12_INPUT_ELEMENT_DESC inputElementDescs[] 
 		{
 			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
+	
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0,12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
 
 		};
 		/*D3D12_INPUT_ELEMENT_DESC inputElementDescs[] =
@@ -294,15 +374,15 @@ void App::LoadAsset()
 	ThrowIfFailed(g_commandList->Close());
 
 	{
-		Vertex triangleVertices[] =
+		Vertex_Pos_Uv triangleVertices[] =
 		{
-			{ { -1.0f, 1.f , 0.0f }, { 1.0f, 0.0f, 0.0f, 1.0f },{0,0} },
-			{ { 1.0f, 1.f , 0.0f }, { 0.0f, 1.0f, 0.0f, 1.0f },{1,0} },
-			{ { -1.f, -1.f , 0.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } ,{0,1}},
+			{ { -1.0f, 1.f , 0.0f },{0,0} },
+			{ { 1.0f, 1.f , 0.0f }, {1,0} },
+			{ { -1.f, -1.f , 0.0f }, {0,1}},
 
-			{ { -1.f, -1.f , 0.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } ,{0,1}},
-			{ { 1.f, 1.f , 0.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } ,{1,0}},
-			{ { 1.f, -1.f , 0.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } ,{1,1}}
+			{ { -1.f, -1.f , 0.0f }, {0,1}},
+			{ { 1.f, 1.f , 0.0f }, {1,0}},
+			{ { 1.f, -1.f , 0.0f }, {1,1}}
 		};
 
 
@@ -323,7 +403,7 @@ void App::LoadAsset()
 		memcpy(pVertexBegin, triangleVertices, sizeof(triangleVertices));
 		g_vertexBuffer->Unmap(0, nullptr);
 		g_VertexBufferView.BufferLocation = g_vertexBuffer->GetGPUVirtualAddress();
-		g_VertexBufferView.StrideInBytes = sizeof(Vertex);
+		g_VertexBufferView.StrideInBytes = sizeof(Vertex_Pos_Uv);
 		g_VertexBufferView.SizeInBytes = vertexBufferSize;
 
 	}
@@ -345,8 +425,11 @@ void App::LoadAsset()
 		ThrowIfFailed(g_commandAllocator->Reset());
 		ThrowIfFailed(g_commandList->Reset(g_commandAllocator.Get(), g_pipelineState.Get()));
 
+
+		std::vector<UINT8> texture	= GenerateTextureData();
+
 		//D3D12_RESOURCE_DESC desc;
-		auto desc = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_R8G8B8A8_UINT,image.width,image.height);
+		auto desc = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_R8G8B8A8_UNORM,image.width,image.height);
 		ThrowIfFailed(g_device->CreateCommittedResource(
 			&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
 			D3D12_HEAP_FLAG_NONE,
@@ -356,9 +439,10 @@ void App::LoadAsset()
 			IID_PPV_ARGS(&g_texture)));
 		ComPtr<ID3D12Resource> tempraryUpload = nullptr;
 
-		UINT64 textureUploadBufferSize;
+		UINT64 textureUploadBufferSize, textureUploadBufferSize2;
 		g_device->GetCopyableFootprints(&desc, 0, 1, 0, nullptr, nullptr, nullptr, &textureUploadBufferSize);
 		
+		textureUploadBufferSize2 = GetRequiredIntermediateSize(g_texture.Get(), 0, 1);
 
 		ThrowIfFailed(g_device->CreateCommittedResource(
 			&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),
@@ -368,7 +452,8 @@ void App::LoadAsset()
 			nullptr,
 			IID_PPV_ARGS(&tempraryUpload)));
 
-		D3D12_SUBRESOURCE_DATA initData = { image.pData,image.pitch,image.data_size };
+		//D3D12_SUBRESOURCE_DATA initData = { &texture[0], TextureWidth * TexturePixelSize,TextureWidth * TexturePixelSize * TextureHeight };
+		D3D12_SUBRESOURCE_DATA initData = { image.pData, image.pitch,image.data_size };
 		UpdateSubresources<1>(g_commandList.Get(), g_texture.Get(), tempraryUpload.Get(), 0, 0, 1, &initData);
 		g_commandList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(
 			g_texture.Get(),
@@ -381,8 +466,16 @@ void App::LoadAsset()
 		srvHeapdesc.Flags =	D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 		ThrowIfFailed(g_device->CreateDescriptorHeap(&srvHeapdesc, IID_PPV_ARGS(&g_SRVHeap)));
 		
-		CD3DX12_CPU_DESCRIPTOR_HANDLE srvHandle(g_SRVHeap->GetCPUDescriptorHandleForHeapStart());
-		g_device->CreateShaderResourceView(g_texture.Get(), nullptr, srvHandle);
+	
+		// now we create a shader resource view (descriptor that points to the texture and describes it)
+		D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+		srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+		srvDesc.Format = desc.Format;
+		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+		srvDesc.Texture2D.MipLevels = 1;
+		g_device->CreateShaderResourceView(g_texture.Get(), &srvDesc, g_SRVHeap->GetCPUDescriptorHandleForHeapStart());
+
+	//	g_device->CreateShaderResourceView(g_texture.Get(), nullptr, srvHandle);
 
 		ThrowIfFailed(g_commandList->Close());
 		ID3D12CommandList* ppCommandLists[] = { g_commandList.Get() };

@@ -12,8 +12,6 @@ struct PSInput
 struct  VSInput
 {
     float3 position : POSITION;
-    float4 color : COLOR;
-    
     float2 uv:TEXCOORD;
 };
 
@@ -30,6 +28,6 @@ PSInput VSMain(VSInput input)
 float4 PSMain(PSInput input) : SV_TARGET
 {
     //float4 color = gTex.Sample(gsamLinearClamp,input.uv);
-  return t1.Sample(s1, input.uv);
+    return t1.Sample(s1, input.uv);
    //return float4(input.uv,0,0);
 }

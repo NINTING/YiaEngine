@@ -32,13 +32,19 @@ inline std::string  HrToString(HRESULT hr);
 
 
 
-struct Vertex
+struct Vertex_Pos_Color_Uv
 {
 	XMFLOAT3 position;
 	XMFLOAT4 color;
 	XMFLOAT2 uv;
 };
 
+struct Vertex_Pos_Uv
+{
+	XMFLOAT3 position;
+
+	XMFLOAT2 uv;
+};
 
 class HrException :public std::runtime_error
 {

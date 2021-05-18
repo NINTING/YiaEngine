@@ -65,7 +65,7 @@ namespace YiaEngine
 						uint8_t* p = (sourceData + y * sourcePitch + x * (pDataHead->BitCount >> 3));
 						uint8_t* h = sourceData;
 						uint8_t* c= sourceData +y * sourcePitch -1;
-						auto debugColor = *(reinterpret_cast<R8G8B8U*>(sourceData + y * sourcePitch + x * (pDataHead->BitCount >> 3)));
+						auto debugColor = *(reinterpret_cast<R8G8B8U*>(sourceData + 200));
 
 					#endif // DEBUG
 
