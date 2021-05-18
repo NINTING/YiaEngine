@@ -1,13 +1,10 @@
+/YiaEngine/.vs
+/YiaEngine/Build
+/YiaEngine/out
+/YiaEngine/Engine/.vs
+/YiaEngine/Engine/.vscode
+/YiaEngine/Engine/out
 
-.vs/slnx.sqlite
-.vs/YiaEngineRepos/v16/Browse.VC.db
-.vs/YiaEngineRepos/v16/Browse.VC.db-shm
-.vs/YiaEngineRepos/v16/Browse.VC.db-wal
-.vs/YiaEngineRepos/v16/Browse.VC.opendb
-vsout/.vs/YiaEngine/v16/Browse.VC.db
-vsout/.vs/YiaEngine/v16/Browse.VC.db-shm
-vsout/.vs/YiaEngine/v16/Browse.VC.db-wal
-vsout/.vs/YiaEngine/v16/Browse.VC.opendb
-vsout/.vs/YiaEngine/v16/Solution.VC.db
-vsout/.vs/YiaEngine/v16/Solution.VC.db-shm
-vsout/.vs/YiaEngine/v16/Solution.VC.db-wal
+/.vs
+/out
+/vsout
