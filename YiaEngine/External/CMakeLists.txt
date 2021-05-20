@@ -8,7 +8,8 @@ project(YiaEngine)
 # 包含子项目。
 
 
-add_subdirectory("External")
-add_subdirectory ("Engine")
+set(ExternalDir ${CMAKE_SOURCE_DIR}/YiaEngine/External CACHE INTERNAL "ThridLibraryDirection")
+
+include_directories("${CMAKE_SOURCE_DIR}/YiaEngine/External/crossguid")
 
 # TODO: 如有需要，请添加测试并安装目标。

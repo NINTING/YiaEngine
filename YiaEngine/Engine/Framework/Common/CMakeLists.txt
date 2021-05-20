@@ -17,13 +17,13 @@ aux_source_directory(${PROJECT_SOURCE_DIR}/Framework/Common/AssetLoder ASSETLODE
 aux_source_directory(${PROJECT_SOURCE_DIR}/Framework/Common/ImageParser PARSER_LIST)
 
 
-
 add_executable(${PROJECT_NAME} WIN32 
 	${SRC_LIST} 
 	${Sample_LIST} 
 	${ASSETLODER_LIST} 
 	${PROJECT_SOURCE_DIR}/Framework/Windows/WindowBase.cpp
-	${PARSER_LIST})
+	${PARSER_LIST}
+	${ExternalDir}/crossguid/guid.cpp)
 
 target_link_libraries(${PROJECT_NAME} GeomMath)
 

@@ -4,7 +4,7 @@
 
 #include"AssetLoder.h"
 
-
+#include"SceneObject.h"
 
 
 inline std::string  HrToString(HRESULT hr)
