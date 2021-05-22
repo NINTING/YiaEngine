@@ -23,7 +23,7 @@ add_executable(${PROJECT_NAME} WIN32
 	${ASSETLODER_LIST} 
 	${PROJECT_SOURCE_DIR}/Framework/Windows/WindowBase.cpp
 	${PARSER_LIST}
-	${ExternalDir}/crossguid/guid.cpp)
+	${ExternalDir}/crossguid/guid.cpp "MacroHelp.h")
 
 target_link_libraries(${PROJECT_NAME} GeomMath)
 

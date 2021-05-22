@@ -1,9 +1,17 @@
 #pragma once
+#ifndef FRAMEWORK_MATH_GEOMATH_H_
+#define FRAMEWORK_MATH_GEOMATH_H_
+
+
+
 //#include"Include/simple.h"
+#include<string.h>
+
 #include<initializer_list>
-#include<cstring>
-#include"swizzle.h"
-#include"AddByElement.h"
+
+#include "operation/AddByElement.h"
+#include "swizzle.h"
+
 
 
 
@@ -125,4 +133,6 @@ namespace YiaEngine
 	using vec4f = vec<float, 4>;
 	using R8G8B8A8U = vec<uint8_t, 4>;
 	using R8G8B8U = vec<uint8_t, 3>;
-}
+}//YiaEngine
+
+#endif // !FRAMEWORK_MATH_GEOMATH_H_
