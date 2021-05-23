@@ -35,11 +35,11 @@ namespace YiaEngine
 	class BmpParser:public ImageParser
 	{
 	public:
-		virtual ImageData Parser(const Buffer& buffer)
+		virtual Image Parser(const Buffer& buffer)
 		{
 			BitMap_FileHead* pFileHead = reinterpret_cast<BitMap_FileHead*>(buffer.m_pdata);
 			BitMap_DataHead* pDataHead = reinterpret_cast<BitMap_DataHead*>(buffer.m_pdata + BITMAP_FILEHEAD_SIZE);
-			ImageData imageData;
+			Image imageData;
 			if (pFileHead->Sinature == 0x4D42)
 			{
 				printf("bmpÍ¼Æ¬³¤¿í(w:%d,h:%d)\n", pDataHead->Width, pDataHead->Height);

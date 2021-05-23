@@ -5,7 +5,7 @@
 namespace YiaEngine
 {
 	
-	struct ImageData
+	struct Image
 	{
 		uint32_t width;
 		uint32_t height;
