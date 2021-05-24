@@ -22,6 +22,7 @@ include_directories("${PROJECT_SOURCE_DIR}/Framework/Scene")
 
 include_directories("${CMAKE_SOURCE_DIR}/YiaEngine/External")
 include_directories("${CMAKE_SOURCE_DIR}/YiaEngine/External/crossguid")
+
 add_subdirectory ("Framework")
 IF(WIN32)
     SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS") 

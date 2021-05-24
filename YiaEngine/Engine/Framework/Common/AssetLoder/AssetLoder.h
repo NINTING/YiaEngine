@@ -32,6 +32,8 @@ namespace YiaEngine
 
 
 		~AssetLoder() {};
+		
+		std::string GetFullFilePath(const char* name);
 		AssetFilePtr OpenFile(const char* name, FILE_OPEN_MODE mode);
 
 		void AddSearchPath(const char* path);
@@ -44,7 +46,7 @@ namespace YiaEngine
 		int GetSize(AssetFilePtr);
 
 		void CloseFile(AssetFilePtr fp);
-
+	
 	private:
 		std::vector<std::string> searchPath;
 
