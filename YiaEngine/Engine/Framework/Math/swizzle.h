@@ -4,7 +4,7 @@
 
 namespace YiaEngine
 {
-	template<typename T, int N> struct vec;
+	template<typename T, int N> struct Vec;
 
 	template<typename T, int...Indexes>
 	struct swizzle {
@@ -19,12 +19,12 @@ namespace YiaEngine
 			return reinterpret_cast<T*>(this)[i];
 		}
 
-		operator vec<T, sizeof...(Indexes)>()const
+		operator Vec<T, sizeof...(Indexes)>()const
 		{
-			return vec<T, sizeof...(Indexes)>(std::initializer_list<T>{elem(Indexes)...});
+			return Vec<T, sizeof...(Indexes)>(std::initializer_list<T>{elem(Indexes)...});
 		}
 
-		swizzle& operator =(const vec<T, sizeof...(Indexes)>& rhs)
+		swizzle& operator =(const Vec<T, sizeof...(Indexes)>& rhs)
 		{
 			T* tmp = reinterpret_cast<T*>(this);
 			int idx[] = { Indexes... };

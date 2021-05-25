@@ -8,13 +8,31 @@
 #include<string>
 #include<vector>
 
+#include<assert.h>
+
 #include "crossguid/guid.hpp"
 
 #include "Common/MacroHelp.h"
 #include "Common/ImageParser/Image.h"
 #include "Math/Geometry.h"
+
 namespace YiaEngine
 {
+	class BaseSceneObject;
+	class MeshObject;
+	class GemometryObject;
+	class MeshObject;
+	class VertexArray;
+	class IndexArray;
+	class TextureObject;
+	class LightObject;
+	class SpotLight;
+	class PointLight;
+	class CameraObject;
+	class Transform;
+	class Translation;
+	class Rotation;
+	class Scale;
 
 	enum DataType
 	{
@@ -92,7 +110,7 @@ namespace YiaEngine
 			return s;
 		}
 	};
-	class GemometryObject : BaseSceneObject
+	class GemometryObject :public BaseSceneObject
 	{
 
 	public:
@@ -109,7 +127,7 @@ namespace YiaEngine
 		//每个Lod 对应一个mesh
 		std::vector<std::shared_ptr<MeshObject>> meshs_;
 	};
-	class MeshObject : BaseSceneObject
+	class MeshObject :public BaseSceneObject
 	{
 
 	public:
@@ -190,7 +208,7 @@ namespace YiaEngine
 		kMirror_Border
 	};
 
-	class TextureObject:BaseSceneObject {
+	class TextureObject:public BaseSceneObject {
 	public:
 	private:
 		std::string name_;
@@ -223,7 +241,7 @@ namespace YiaEngine
 			BaseSceneObject(SceneObjectType::kTextureObject),
 			texcoord_(texcoord),
 			image_(image){}
-		TextureObject(uint32_t texcoord, const std::shared_ptr<Image>& image):
+		TextureObject(uint32_t texcoord, const std::shared_ptr<Image>&& image):
 			BaseSceneObject(SceneObjectType::kTextureObject),
 			texcoord_(texcoord),
 			image_(std::move(image)) {}
@@ -266,7 +284,7 @@ namespace YiaEngine
 	using ValueParam = VariantParam<float>;
 	using Value = float;
 
-	class MaterialObject:BaseSceneObject
+	class MaterialObject:public BaseSceneObject
 	{
 
 	protected:
@@ -274,12 +292,12 @@ namespace YiaEngine
 		std::string name_;
 		bool two_side_;
 	};
-	class PBRMaterial:MaterialObject
+	class PBRMaterial:public MaterialObject
 	{
 	public:
 		PBRMaterial() = default;
 		PBRMaterial(const PBRMaterial&) = default;
-		PBRMaterial(const PBRMaterial&&) = default;
+		//PBRMaterial(const PBRMaterial&&) = default;
 		PBRMaterial& operator=(const PBRMaterial&) = default;
 		PBRMaterial& operator=(PBRMaterial&&) = default;
 	private:
@@ -327,7 +345,7 @@ namespace YiaEngine
 			return instance * 1.f / distance;
 		}
 	};
-	class LightObject :BaseSceneObject
+	class LightObject :public BaseSceneObject
 	{
 	protected:
 		LightObject():BaseSceneObject(SceneObjectType::kLightObject){}
@@ -340,7 +358,7 @@ namespace YiaEngine
 		float near_clip_;
 		float far_clip_;
 	};
-	class SpotLight:LightObject
+	class SpotLight:public LightObject
 	{
 	public:
 		SpotLight():LightObject(){}
@@ -349,13 +367,13 @@ namespace YiaEngine
 		float out_angle_;
 	};
 
-	class PointLight :LightObject
+	class PointLight :public LightObject
 	{
 	public:
 		PointLight():LightObject() {}
 	};
 
-	class DirectionLight :LightObject
+	class DirectionLight :public LightObject
 	{
 		DirectionLight():LightObject() {}
 	};
@@ -371,7 +389,7 @@ namespace YiaEngine
 		Perspective,
 		Orthogonal
 	};
-	class CameraObject :BaseSceneObject
+	class CameraObject :public BaseSceneObject
 	{
 	public:
 		CameraObject():BaseSceneObject(SceneObjectType::kCameraObject){}
@@ -400,7 +418,7 @@ namespace YiaEngine
 		bool object_only_;
 	};
 
-	class Translation :Transform
+	class Translation :public Transform
 	{
 	public:
 		Translation(float dis_x, float dis_y, float dis_z):Transform()
@@ -429,12 +447,12 @@ namespace YiaEngine
 		}
 	};
 
-	class Rotation : Transform
+	class Rotation :public Transform
 	{
 
 	};
 
-	class Scale :Transform
+	class Scale :public Transform
 	{
 
 	};

@@ -7,6 +7,6 @@ namespace YiaEngine
 	class ImageParser
 	{
 	public:
-		virtual ImageData Parser(const Buffer& buffer) = 0;
+		virtual Image Parser(const Buffer& buffer) = 0;
 	};
 }

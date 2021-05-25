@@ -11,6 +11,11 @@
 #include"Scene/SceneObject.h"
 #include"Common/AssetLoder/AssetLoder.h"
 
+void DoTheSceneProcessing(const aiScene* scene)
+{
+
+}
+
 bool DoTheImportThing(const std::string& pFile) {
     // Create an instance of the Importer class
     Assimp::Importer importer;
@@ -37,14 +42,11 @@ bool DoTheImportThing(const std::string& pFile) {
     return true;
 }
 
-void DoTheSceneProcessing(const aiScene* scene)
-{
 
-}
 int main()
 {
     AssetLoder assetLoder;
     std::string path = assetLoder.GetFullFilePath("Box/Box.gltf");
     DoTheImportThing(path);
-    return 0;
+    return 0;                                                                                                                                                                                                                                                                    
 }

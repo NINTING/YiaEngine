@@ -15,6 +15,8 @@ if (MSVC_VERSION GREATER_EQUAL "1900")
     endif()
 endif()
 
+set(MAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG  ${projectDir}/build/${name}/debug)
+
 add_subdirectory ("YiaEngine")
 include(CTest)
 # TODO: 如有需要，请添加测试并安装目标。

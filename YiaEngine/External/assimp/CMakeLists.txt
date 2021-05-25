@@ -7,7 +7,7 @@ project(YiaEngine)
 
 # 包含子项目。
 
+#assimp-vc142-mt.dll
 
-
-Set(assimpLib assimp-vc142-mt.lib assimp-vc142-mt.dll CACHE INTERNAL "assimpLib")
+Set(assimpLib assimp-vc142-mt.lib  CACHE INTERNAL "assimpLib")
 # TODO: 如有需要，请添加测试并安装目标。

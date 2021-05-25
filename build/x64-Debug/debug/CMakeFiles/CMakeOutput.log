@@ -1,0 +1,90 @@
+The system is: Windows - 10.0.18363 - AMD64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: F:/vs2019/VC/Tools/MSVC/14.27.29110/bin/Hostx64/x64/cl.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.27.29112 版
+版权所有(C) Microsoft Corporation。保留所有权利。
+
+CMakeCCompilerId.c
+Microsoft (R) Incremental Linker Version 14.27.29112.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:CMakeCCompilerId.exe 
+CMakeCCompilerId.obj 
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.exe"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.obj"
+
+The C compiler identification is MSVC, found in "F:/YiaEngineRepos/build/x64-Debug/debug/CMakeFiles/3.17.20032601-MSVC_2/CompilerIdC/CMakeCCompilerId.exe"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: F:/vs2019/VC/Tools/MSVC/14.27.29110/bin/Hostx64/x64/cl.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.27.29112 版
+版权所有(C) Microsoft Corporation。保留所有权利。
+
+CMakeCXXCompilerId.cpp
+Microsoft (R) Incremental Linker Version 14.27.29112.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:CMakeCXXCompilerId.exe 
+CMakeCXXCompilerId.obj 
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.exe"
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.obj"
+
+The CXX compiler identification is MSVC, found in "F:/YiaEngineRepos/build/x64-Debug/debug/CMakeFiles/3.17.20032601-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.exe"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: F:/YiaEngineRepos/build/x64-Debug/debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):F:\VS2019\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_34832 && [1/2] Building C object CMakeFiles\cmTC_34832.dir\testCCompiler.c.obj
+[2/2] Linking C executable cmTC_34832.exe
+
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: F:/YiaEngineRepos/build/x64-Debug/debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):F:\VS2019\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_403b3 && [1/2] Building C object CMakeFiles\cmTC_403b3.dir\CMakeCCompilerABI.c.obj
+[2/2] Linking C executable cmTC_403b3.exe
+
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: F:/YiaEngineRepos/build/x64-Debug/debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):F:\VS2019\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_f9826 && [1/2] Building CXX object CMakeFiles\cmTC_f9826.dir\testCXXCompiler.cxx.obj
+[2/2] Linking CXX executable cmTC_f9826.exe
+
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: F:/YiaEngineRepos/build/x64-Debug/debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):F:\VS2019\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_8d6c3 && [1/2] Building CXX object CMakeFiles\cmTC_8d6c3.dir\CMakeCXXCompilerABI.cpp.obj
+[2/2] Linking CXX executable cmTC_8d6c3.exe
+
+
+
+Performing C++ SOURCE FILE Test _cpp_latest_flag_supported succeeded with the following output:
+Change Dir: F:/YiaEngineRepos/build/x64-Debug/debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):F:\VS2019\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_3b0e8 && [1/2] Building CXX object CMakeFiles\cmTC_3b0e8.dir\src.cxx.obj
+[2/2] Linking CXX executable cmTC_3b0e8.exe
+
+
+Source file was:
+int main() { return 0; }

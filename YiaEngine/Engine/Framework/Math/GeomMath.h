@@ -45,9 +45,6 @@ namespace YiaEngine
 			return VecAdd(lhs, rhs);
 		}
 
-		
-		
-
 	};
 #pragma endregion
 
@@ -122,7 +119,7 @@ namespace YiaEngine
 			for (const T* it = list.begin(); it != list.end(); ++it, ++i)
 				data[i] = *it;
 		}
-		T& operator [](int idx) { return data[index]; }
+		T& operator [](int idx) { return data[idx]; }
 		const T& operator [](int idx)const { return data[index]; }
 		operator T* () { return data; }
 		operator const T* ()const { return const_cast<const T*>(data); }
@@ -161,16 +158,16 @@ namespace YiaEngine
 				data[i] = *it;
 		}
 		Vec<T, C>& operator[](int col) {
-			return data[col]
+			return data[col];
 		}
 		const Vec<T, C>& operator[](int col)const {
-			return data[col]
+			return data[col];
 		}
-		void Translation<T, 4, 4>(T x, T y, T z) {
+		/*void Translation<T, 4, 4>(T x, T y, T z) {
 			data[3][0] += x;
 			data[3][1] += y;
 			data[3][2] += z;
-		}
+		}*/
 		static Matrix Identity()
 		{
 			
