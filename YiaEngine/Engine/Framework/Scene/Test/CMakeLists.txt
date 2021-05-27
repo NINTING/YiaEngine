@@ -20,13 +20,13 @@ add_executable(SceneTest test.cpp ${SceneList}
 
 #install (FILES  "${CMAKE_SOURCE_DIR}/YiaEngine/External/assimp/assimp-vc142-mt.dll" DESTINATION bin)
 
-file(COPY ${CMAKE_SOURCE_DIR}/YiaEngine/External/assimp/assimp-vc142-mt.dll
+file(COPY ${CMAKE_SOURCE_DIR}/YiaEngine/External/assimp/assimp-vc142-mtd.dll
 DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 #set_target_properties(SceneTest PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${MAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG} )
 
 target_link_libraries(SceneTest 
-	${CMAKE_SOURCE_DIR}/YiaEngine/External/assimp/assimp-vc142-mt.lib 
+	${CMAKE_SOURCE_DIR}/YiaEngine/External/assimp/assimp-vc142-mtd.lib 
 		)
 
 add_test(NAME Test_Scene COMMAND SceneTest)

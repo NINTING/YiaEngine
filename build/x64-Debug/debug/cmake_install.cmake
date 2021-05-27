@@ -1,8 +1,8 @@
-# Install script for directory: F:/YiaEngineRepos
+# Install script for directory: E:/YiaEngineRepos
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "F:/YiaEngineRepos/build/x64-Debug/install")
+  set(CMAKE_INSTALL_PREFIX "E:/YiaEngineRepos/build/x64-Debug/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("F:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/cmake_install.cmake")
+  include("E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/cmake_install.cmake")
 
 endif()
 
@@ -46,5 +46,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "F:/YiaEngineRepos/build/x64-Debug/debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "E:/YiaEngineRepos/build/x64-Debug/debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

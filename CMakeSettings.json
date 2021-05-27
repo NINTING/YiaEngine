@@ -1,5 +1,4 @@
 ﻿{
-  // 请参阅 https://go.microsoft.com/fwlink/?linkid=834763，了解有关此文件的详细信息。
   "configurations": [
     {
       "name": "x64-Debug",
@@ -11,6 +10,18 @@
       "cmakeCommandArgs": "",
       "buildCommandArgs": "",
       "ctestCommandArgs": ""
+    },
+    {
+      "name": "x64-Clang-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "buildRoot": "${projectDir}\\build\\${name}\\debug",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": [ "clang_cl_x64_x64" ],
+      "variables": []
     }
   ]
 }

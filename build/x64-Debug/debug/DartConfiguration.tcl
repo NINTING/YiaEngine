@@ -4,14 +4,14 @@
 
 
 # Configuration directories and files
-SourceDirectory: F:/YiaEngineRepos
-BuildDirectory: F:/YiaEngineRepos/build/x64-Debug/debug
+SourceDirectory: E:/YiaEngineRepos
+BuildDirectory: E:/YiaEngineRepos/build/x64-Debug/debug
 
 # Where to place the cost data store
 CostDataFile: 
 
 # Site is something like machine.domain, i.e. pragmatic.crd
-Site: LAPTOP-NQ4Q68FJ
+Site: LAPTOP-M038D0QH
 
 # Build name is osname-revision-compiler, i.e. Linux-2.4.2-2smp-c++
 BuildName: Win32-ninja
@@ -26,8 +26,8 @@ SubmitURL: http://
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "F:/vs2019/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe" "F:/YiaEngineRepos"
-MakeCommand: F:\vs2019\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe --build . --config "${CTEST_CONFIGURATION_TYPE}"
+ConfigureCommand: "C:/D/VS2019/IDE/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe" "E:/YiaEngineRepos"
+MakeCommand: C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe --build . --config "${CTEST_CONFIGURATION_TYPE}"
 DefaultCTestConfigurationType: Release
 
 # version control
@@ -35,35 +35,35 @@ UpdateVersionOnly:
 
 # CVS options
 # Default is "-d -P -A"
-CVSCommand: CVSCOMMAND-NOTFOUND
-CVSUpdateOptions: -d -A -P
+CVSCommand: 
+CVSUpdateOptions: 
 
 # Subversion options
-SVNCommand: SVNCOMMAND-NOTFOUND
+SVNCommand: 
 SVNOptions: 
 SVNUpdateOptions: 
 
 # Git options
-GITCommand: D:/Git/cmd/git.exe
+GITCommand: C:/D/CodeBest/Git/cmd/git.exe
 GITInitSubmodules: 
 GITUpdateOptions: 
 GITUpdateCustom: 
 
 # Perforce options
-P4Command: P4COMMAND-NOTFOUND
+P4Command: 
 P4Client: 
 P4Options: 
 P4UpdateOptions: 
 P4UpdateCustom: 
 
 # Generic update command
-UpdateCommand: D:/Git/cmd/git.exe
+UpdateCommand: C:/D/CodeBest/Git/cmd/git.exe
 UpdateOptions: 
 UpdateType: git
 
 # Compiler info
-Compiler: F:/vs2019/VC/Tools/MSVC/14.27.29110/bin/Hostx64/x64/cl.exe
-CompilerVersion: 19.27.29112.0
+Compiler: C:/D/VS2019/IDE/VC/Tools/MSVC/14.29.30037/bin/Hostx64/x64/cl.exe
+CompilerVersion: 19.29.30037.0
 
 # Dynamic analysis (MemCheck)
 PurifyCommand: 
@@ -71,6 +71,8 @@ ValgrindCommand:
 ValgrindCommandOptions: 
 DrMemoryCommand: 
 DrMemoryCommandOptions: 
+CudaSanitizerCommand: 
+CudaSanitizerCommandOptions: 
 MemoryCheckType: 
 MemoryCheckSanitizerOptions: 
 MemoryCheckCommand: MEMORYCHECK_COMMAND-NOTFOUND
@@ -80,10 +82,6 @@ MemoryCheckSuppressionFile:
 # Coverage
 CoverageCommand: COVERAGE_COMMAND-NOTFOUND
 CoverageExtraFlags: -l
-
-# Cluster commands
-SlurmBatchCommand: SLURM_SBATCH_COMMAND-NOTFOUND
-SlurmRunCommand: SLURM_SRUN_COMMAND-NOTFOUND
 
 # Testing options
 # TimeOut is the amount of time in seconds to wait for processes

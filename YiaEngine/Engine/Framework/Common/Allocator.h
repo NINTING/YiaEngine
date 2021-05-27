@@ -32,7 +32,7 @@ namespace YiaEngine
 		void Free(void* p);
 		void FreeAll(void);
 	private:
-		BlockHeader* Allocator::NextBlock(BlockHeader* p);
+		BlockHeader* NextBlock(BlockHeader* p);
 #if defined(_DEBUG)
 		void FillAllocatedBlock(BlockHeader* block);
 		void FillFreeBlock(BlockHeader* block);

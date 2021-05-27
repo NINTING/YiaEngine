@@ -120,7 +120,7 @@ namespace YiaEngine
 				data[i] = *it;
 		}
 		T& operator [](int idx) { return data[idx]; }
-		const T& operator [](int idx)const { return data[index]; }
+		const T& operator [](int idx)const { return data[idx]; }
 		operator T* () { return data; }
 		operator const T* ()const { return const_cast<const T*>(data); }
 

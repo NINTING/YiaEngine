@@ -1,8 +1,8 @@
-# Install script for directory: F:/YiaEngineRepos/YiaEngine/Engine/Framework/Common/Test
+# Install script for directory: E:/YiaEngineRepos/YiaEngine/Engine/Framework/Common/Test
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "F:/YiaEngineRepos/build/x64-Debug/install")
+  set(CMAKE_INSTALL_PREFIX "E:/YiaEngineRepos/build/x64-Debug/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

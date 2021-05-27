@@ -1,13 +1,13 @@
 
 
-
+//
 
 #include <assimp/Importer.hpp>      // C++ importer interface
 #include <assimp/scene.h>           // Output data structure
 #include <assimp/postprocess.h>     // Post processing flags
 
-
-
+//
+//
 #include"Scene/SceneObject.h"
 #include"Common/AssetLoder/AssetLoder.h"
 
@@ -46,7 +46,7 @@ bool DoTheImportThing(const std::string& pFile) {
 int main()
 {
     AssetLoder assetLoder;
-    std::string path = assetLoder.GetFullFilePath("Box/Box.gltf");
+  std::string path = assetLoder.GetFullFilePath("Box/Box.gltf");
     DoTheImportThing(path);
     return 0;                                                                                                                                                                                                                                                                    
 }
