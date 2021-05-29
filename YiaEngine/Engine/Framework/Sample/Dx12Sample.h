@@ -31,7 +31,7 @@ using Microsoft::WRL::ComPtr;
 inline std::string  HrToString(HRESULT hr);
 
 
-
+struct FrameResource;
 struct Vertex_Pos_Color_Uv
 {
 	XMFLOAT3 position;
@@ -111,6 +111,21 @@ public:
 	UINT g_frameIndex = 0;
 	HANDLE g_fenceEvent;
 	UINT64 g_fenceValue = 0;
+	
+	std::vector<std::unique_ptr<FrameResource>>frame_resouces_;
+	int frames_count_;
+	int current_frame_;
+	ComPtr<ID3D12CommandAllocator>current_cmd_alloc;
 
+};
+
+struct FrameResource
+{
+	FrameResource(ID3D12Device* device) {
+		fence = 0;
+		ThrowIfFailed(device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&cmd_list_alloctor)));
+	}
+	uint32_t fence;
+	ComPtr<ID3D12CommandAllocator>cmd_list_alloctor;
 };
 

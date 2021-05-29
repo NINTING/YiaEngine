@@ -1,10 +1,14 @@
 //‰÷»æª˘±æ…Ë÷√
+
+
+
+
 #include"Dx12Sample.h"
 #include"BmpParser.h"
-
 #include"AssetLoder.h"
-
 #include"SceneObject.h"
+#include"SceneNode.h"
+
 
 
 inline std::string  HrToString(HRESULT hr)
@@ -76,31 +80,7 @@ std::vector<UINT8> GenerateTextureData()
 	 ComPtr<IDXGIFactory6> factory6;
 	 if (SUCCEEDED(pFactory->QueryInterface(IID_PPV_ARGS(&factory6))))
 	 {
-		 //for (
-			// UINT adapterIndex = 0;
-			// DXGI_ERROR_NOT_FOUND != factory6->EnumAdapterByGpuPreference(
-			//	 adapterIndex,
-			//	 requestHighPerformanceAdapter == true ? DXGI_GPU_PREFERENCE_HIGH_PERFORMANCE : DXGI_GPU_PREFERENCE_UNSPECIFIED,
-			//	 IID_PPV_ARGS(&adapter));
-			// ++adapterIndex)
-		 //{
-			// DXGI_ADAPTER_DESC1 desc;
-			// adapter->GetDesc1(&desc);
-
-			// if (desc.Flags & DXGI_ADAPTER_FLAG_SOFTWARE)
-			// {
-			//	 // Don't select the Basic Render Driver adapter.
-			//	 // If you want a software adapter, pass in "/warp" on the command line.
-			//	 continue;
-			// }
-
-			// // Check to see whether the adapter supports Direct3D 12, but don't create the
-			// // actual device yet.
-			// if (SUCCEEDED(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_11_0, _uuidof(ID3D12Device), nullptr)))
-			// {
-			//	 break;
-			// }
-		 //}
+	
 
 		 int adapterIndex = 0; // we'll start looking for directx 12  compatible graphics devices starting at index 0
 
@@ -159,14 +139,22 @@ std::vector<UINT8> GenerateTextureData()
 
 void App::WaitForPreviousFrame()
 {
-	float fence = g_fenceValue;
-	g_CommandQueue->Signal(g_Fence.Get(), fence);
-	g_fenceValue++;
-	if (g_Fence->GetCompletedValue() < fence)
+	//float fence = g_fenceValue;
+	
+	
+	
+	current_frame_ = (current_frame_+1) % (frames_count_);
+	float fence = frame_resouces_[current_frame_]->fence;
+
+	if (fence!= 0 && g_Fence->GetCompletedValue() < fence)
 	{
 		g_Fence->SetEventOnCompletion(fence, g_fenceEvent);
 		WaitForSingleObject(g_fenceEvent, INFINITE);
 	}
+
+	frame_resouces_[current_frame_]->fence = ++g_fenceValue;
+	g_CommandQueue->Signal(g_Fence.Get(), frame_resouces_[current_frame_]->fence);
+	
 	g_frameIndex = g_SwapChain->GetCurrentBackBufferIndex();
 
 }
@@ -253,7 +241,10 @@ void App::LoadPipeline(HWND hwnd)
 		}
 	
 	}
-
+	for (int i = 0; i < frames_count_; i++)
+	{
+		frame_resouces_.push_back( std::make_unique<FrameResource>(g_device));
+	}
 
 	ThrowIfFailed(g_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&g_commandAllocator)));
 }
@@ -385,6 +376,7 @@ void App::LoadAsset()
 			{ { 1.f, -1.f , 0.0f }, {1,1}}
 		};
 
+		YiaEngine::GeometryNode node;
 
 
 		const UINT vertexBufferSize = sizeof(triangleVertices);
@@ -485,7 +477,7 @@ void App::LoadAsset()
 	
 	{
 		ThrowIfFailed(g_device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&g_Fence)));
-		g_fenceValue = 1;
+		g_fenceValue = 0;
 
 		// Create an event handle to use for frame synchronization.
 		g_fenceEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
@@ -513,7 +505,8 @@ void App::Render()
 
 void App::PopulateCommandList()
 {
-	ThrowIfFailed(g_commandAllocator->Reset());
+	current_cmd_alloc = frame_resouces_[current_frame_]->cmd_list_alloctor;
+	ThrowIfFailed(current_cmd_alloc->Reset());
 	ThrowIfFailed(g_commandList->Reset(g_commandAllocator.Get(), g_pipelineState.Get()));
 	
 	g_commandList->SetGraphicsRootSignature(g_rootSignature.Get());

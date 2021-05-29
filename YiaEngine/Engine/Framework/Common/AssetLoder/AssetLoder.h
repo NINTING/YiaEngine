@@ -1,4 +1,8 @@
 #pragma once
+#ifndef COMMON_ASSET_LODER
+#define COMMON_ASSET_LODER
+
+
 /****************************
 AssetLoder
 资源加载模块
@@ -10,8 +14,11 @@ AssetLoder
 
 #include<vector>
 #include<string>
+
+
 #include"MemoryManager.h"
 #include"Buffer.h"
+#include"Scene/SceneObject.h"
 namespace YiaEngine
 {
 
@@ -41,14 +48,16 @@ namespace YiaEngine
 		
 		Buffer OpenAndReadText(const char* name);
 		Buffer OpenAndReadBinary(const char* name);
+		std::shared_ptr<MeshObject> LoadMesh(const char* name);
 		//void ReadFile(AssetFilePtr fp);
 		Buffer* ReadText(AssetFilePtr fp);
+		
 		int GetSize(AssetFilePtr);
-
 		void CloseFile(AssetFilePtr fp);
-	
+		
 	private:
 		std::vector<std::string> searchPath;
 
 	};
 }
+#endif // !COMMON_ASSET_LODER

@@ -80,6 +80,8 @@ Allocator* YiaEngine::MemoryManager::LookupAllocate(size_t size)
 
 void* YiaEngine::MemoryManager::Allocate(size_t size)
 {
+    if (size == 0)
+        return nullptr;
     Allocator* allocator = LookupAllocate(size);
     if (allocator)
       return  allocator->Allocate();

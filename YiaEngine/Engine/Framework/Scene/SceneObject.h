@@ -20,7 +20,7 @@ namespace YiaEngine
 {
 	class BaseSceneObject;
 	class MeshObject;
-	class GemometryObject;
+	class GeometryObject;
 	class MeshObject;
 	class VertexArray;
 	class IndexArray;
@@ -110,14 +110,15 @@ namespace YiaEngine
 			return s;
 		}
 	};
-	class GemometryObject :public BaseSceneObject
+	class GeometryObject :public BaseSceneObject
 	{
 
 	public:
-		GemometryObject() :BaseSceneObject(SceneObjectType::kGemometryObject) {}
-		GemometryObject(const GemometryObject&) = default;
-		GemometryObject(GemometryObject&&) = default;
-		GemometryObject& operator =(const GemometryObject&) = default;
+		GeometryObject() :BaseSceneObject(SceneObjectType::kGemometryObject) {}
+		GeometryObject(const GeometryObject&) = default;
+		GeometryObject(GeometryObject&&) = default;
+		void AddMesh(const std::shared_ptr<MeshObject>& mesh) { meshs_.push_back(mesh); }
+		GeometryObject& operator =(const GeometryObject&) = default;
 
 	private:
 		bool visible_ = true;
@@ -143,6 +144,24 @@ namespace YiaEngine
 			primitive_(mesh.primitive_),
 			index_arrays_(std::move(mesh.index_arrays_)),
 			vertex_arrays_(std::move(mesh.vertex_arrays_)) {}
+
+		void set_vertex_arrays(const std::vector<VertexArray>& vertex_arrays)
+		{
+			vertex_arrays_ = vertex_arrays;
+		}
+		void set_index_arrays(const std::vector<IndexArray>& index_arrays)
+		{
+			index_arrays_ = index_arrays;
+		}
+		void add_vertex_array(const VertexArray& vertex_array)
+		{
+			vertex_arrays_.push_back(vertex_array);
+		}
+		void add_index_array(const IndexArray& index_array)
+		{
+			index_arrays_.push_back(index_array);
+		}
+
 	private:
 		int lod_;
 		MeshPrimitive primitive_;
@@ -150,6 +169,8 @@ namespace YiaEngine
 		std::vector<VertexArray>vertex_arrays_;
 	};
 
+	//代表每个顶点的属性的集合
+	//采用Struct Of Array组织形式
 
 	class VertexArray
 	{
@@ -163,7 +184,7 @@ namespace YiaEngine
 		VertexArray(VertexArray&& vertexarray) = default;
 		VertexArray& operator = (const VertexArray&) = default;
 		VertexArray& operator = (VertexArray&&) = default;
-	
+		
 	private:
 		DataType data_type_;
 		VertexAttribute attribute_;
@@ -190,9 +211,13 @@ namespace YiaEngine
 		//material_id_与GemometryNode的materialRef相对应
 		uint32_t material_id_;
 
-		//网格构成存在不连续时，会使用strip形式，
+		//网格构成存在不连续时，将会使用strip形式，
 		//当存在line_strip 或者 triangle_trip时，会在不连续的地方
 		//给出重置信号，restart就是这个重置信号。
+
+		//when the mesh is discontinuous,data_type_ = xxx_trip
+		//when the data_type_ = xxx_trip, the reset signal will be given at the 
+		//discontinus place. restart is the reset signal
 		uint64_t restart_;
 
 	};
@@ -421,6 +446,7 @@ namespace YiaEngine
 	class Translation :public Transform
 	{
 	public:
+		Translation() = default;
 		Translation(float dis_x, float dis_y, float dis_z):Transform()
 		{
 			matrix_[3][0] = dis_x;

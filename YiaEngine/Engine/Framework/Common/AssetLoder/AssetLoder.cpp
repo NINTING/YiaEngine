@@ -1,7 +1,14 @@
-#include "AssetLoder.h"
+
 
 #include <iostream>
 #include <fstream>
+
+
+#include <assimp/Importer.hpp>      // C++ importer interface
+#include <assimp/scene.h>           // Output data structure
+#include <assimp/postprocess.h>     // Post processing flags
+
+#include "AssetLoder.h"
 
 namespace YiaEngine
 {
@@ -40,6 +47,7 @@ namespace YiaEngine
 			upPath.append("../");
 		}
 	}
+
 	AssetLoder::AssetFilePtr AssetLoder::OpenFile(const char* name, FILE_OPEN_MODE mode)
 	{
 		FILE* fp = nullptr;
@@ -146,6 +154,93 @@ namespace YiaEngine
 
 		return std::move(*pbuffer);
 
+	}
+	std::shared_ptr<MeshObject> AssetLoder::LoadMesh(const char* name)
+	{
+		Assimp::Importer importer;
+
+		// And have it read the given file with some example postprocessing
+		// Usually - if speed is not the most important aspect for you - you'll
+		// probably to request more postprocessing than we do in this example.
+		auto full_name = GetFullFilePath(name);
+		const aiScene* scene = importer.ReadFile(full_name,
+			aiProcess_CalcTangentSpace |
+			aiProcess_Triangulate |
+			aiProcess_JoinIdenticalVertices |
+			aiProcess_SortByPType);
+
+		// If the import failed, report it
+		if (!scene) {
+			printf("%s", (importer.GetErrorString()));
+			return false;
+		}
+		std::shared_ptr<MeshObject> mesh_object = std::make_shared<MeshObject>();
+		for (int i = 0; i < scene->mNumMeshes; i++)
+		{
+			//顶点属性
+			if (scene->mMeshes[i]->HasPositions())
+			{
+				//顶点坐标
+				uint32_t vertices_num = scene->mMeshes[i]->mNumVertices;
+				VertexArray positions(VertexAttribute::kPosition, DataType::kFloat3,
+					scene->mMeshes[i]->mVertices, vertices_num);
+				mesh_object->add_vertex_array(positions);
+				//法线
+				if (scene->mMeshes[i]->HasNormals())
+				{
+					VertexArray normals(VertexAttribute::kNormal, DataType::kFloat3,
+						scene->mMeshes[i]->mNormals, vertices_num);
+					mesh_object->add_vertex_array(normals);
+
+				}
+				//切线
+				if (scene->mMeshes[i]->HasTangentsAndBitangents())
+				{
+					VertexArray tangent(VertexAttribute::kTangent, DataType::kFloat3,
+						scene->mMeshes[i]->mTangents, vertices_num);
+					VertexArray bit_tangent(VertexAttribute::kBitangent, DataType::kFloat3,
+						scene->mMeshes[i]->mBitangents, vertices_num);
+					mesh_object->add_vertex_array(tangent);
+
+					mesh_object->add_vertex_array(bit_tangent);
+					
+				}
+				//纹理坐标
+				for (int j = 0; j < scene->mMeshes[i]->GetNumUVChannels(); j++)
+				{
+					if (scene->mMeshes[i]->HasTextureCoords(j))
+					{
+						VertexArray texcoord(VertexAttribute::kTexcoord, DataType::kFloat3,
+							scene->mMeshes[i]->mTextureCoords[i], vertices_num);
+						mesh_object->add_vertex_array(texcoord);
+
+					}
+				}
+				//顶点色
+				for (int j = 0; j < scene->mMeshes[i]->GetNumColorChannels(); j++)
+				{
+					if (scene->mMeshes[i]->HasTextureCoords(j))
+					{
+						VertexArray color(VertexAttribute::kColor, DataType::kFloat4,
+							scene->mMeshes[i]->mColors[i], vertices_num);
+						mesh_object->add_vertex_array(color);
+
+					}
+				}
+			}
+			//索引
+			if(scene->mMeshes[i]->HasFaces())
+			{
+				for (int i = 0; i < scene->mMeshes[i]->mNumFaces; i++)
+				{
+					IndexArray index_array(DataType::kUint32,
+						scene->mMeshes[i]->mFaces[i].mIndices,
+						scene->mMeshes[i]->mFaces[i].mNumIndices);
+					mesh_object->add_index_array(index_array);
+				}
+			}
+		}
+		return std::move(mesh_object);
 	}
 	Buffer* YiaEngine::AssetLoder::ReadText(AssetFilePtr fp)
 	{

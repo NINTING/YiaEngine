@@ -89,6 +89,12 @@ namespace YiaEngine
 		Vec(const T& v) :x(v), y(v),z(v) {}
 		Vec(const Vec& v) :x(v.x), y(v.y),z(v.z) {}
 		Vec(const T& a, const T& b, const T& c) : x(a), y(b),z(c) {}
+		Vec& operator = (const Vec& lhs) { 
+			data[0] = lhs.x;
+			data[1] = lhs.y;
+			data[2] = lhs.z;
+			return *this;
+		}
 		Vec(std::initializer_list<T> list) {
 			int i = 0;
 			for (const T* it = list.begin(); it != list.end(); ++it, ++i)
@@ -129,6 +135,7 @@ namespace YiaEngine
 		static const Vec One() { return Vec(1); }
 	};
 	
+
 	template<typename T, int N,int M> struct mat
 	{
 		Vec<T, M> data[N];

@@ -1,9 +1,12 @@
 #pragma once
 
-#include "MemoryManager.h"
 #include<stdint.h>
 #include<stdio.h>
 #include<cstring>
+
+
+#include "MemoryManager.h"
+
 namespace YiaEngine
 {
 	//extern MemoryManager* g_pMemoryManager;
