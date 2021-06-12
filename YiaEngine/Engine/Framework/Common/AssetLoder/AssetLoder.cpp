@@ -168,16 +168,34 @@ namespace YiaEngine
 			aiProcess_Triangulate |
 			aiProcess_JoinIdenticalVertices |
 			aiProcess_SortByPType);
-
+		
 		// If the import failed, report it
 		if (!scene) {
 			printf("%s", (importer.GetErrorString()));
-			return false;
+			return nullptr;
 		}
+		
 		std::shared_ptr<MeshObject> mesh_object = std::make_shared<MeshObject>();
+		for (int i = 0; i < scene->mNumMaterials; i++)
+		{
+			scene->mMaterials[i]->Get();
+		}
 		for (int i = 0; i < scene->mNumMeshes; i++)
 		{
+			switch (scene->mMeshes[i]->mPrimitiveTypes)
+			{
+			case aiPrimitiveType::aiPrimitiveType_POINT:
+				mesh_object->set_primitive(MeshPrimitive::kPoint);
+				break;
+			case aiPrimitiveType::aiPrimitiveType_TRIANGLE:
+				mesh_object->set_primitive(MeshPrimitive::kTriangle);
+				break;
+			default:
+				break;
+			}
+			
 			//顶点属性
+			
 			if (scene->mMeshes[i]->HasPositions())
 			{
 				//顶点坐标
@@ -231,16 +249,16 @@ namespace YiaEngine
 			//索引
 			if(scene->mMeshes[i]->HasFaces())
 			{
-				for (int i = 0; i < scene->mMeshes[i]->mNumFaces; i++)
+				for (uint32_t j = 0; j < scene->mMeshes[i]->mNumFaces; j++)
 				{
 					IndexArray index_array(DataType::kUint32,
-						scene->mMeshes[i]->mFaces[i].mIndices,
-						scene->mMeshes[i]->mFaces[i].mNumIndices);
+						scene->mMeshes[i]->mFaces[j].mIndices,
+						scene->mMeshes[i]->mFaces[j].mNumIndices);
 					mesh_object->add_index_array(index_array);
 				}
 			}
 		}
-		return std::move(mesh_object);
+		return mesh_object;
 	}
 	Buffer* YiaEngine::AssetLoder::ReadText(AssetFilePtr fp)
 	{

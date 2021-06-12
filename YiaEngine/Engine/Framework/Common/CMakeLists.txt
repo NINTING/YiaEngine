@@ -4,6 +4,8 @@
 cmake_minimum_required (VERSION 3.8)
 
 
+
+
 include_directories("${PROJECT_SOURCE_DIR}/Framework/Common/IO")
 
 
@@ -27,7 +29,9 @@ add_executable(${PROJECT_NAME} WIN32
 
 target_link_libraries(${PROJECT_NAME} GeomMath)
 
+#add_subdirectory(AssetLoder)
 add_subdirectory(Test)
+
 #target_link_libraries(${PROJECT_NAME} PRIVATE  WindowDLL)
 
 

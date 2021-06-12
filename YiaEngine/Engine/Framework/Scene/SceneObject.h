@@ -2,26 +2,30 @@
 #ifndef FRAMEWORLK_SCENE_OBJECT_H_
 #define FRAMEWORLK_SCENE_OBJECT_H_
 
-
+#define WINDOWS_PLATFORM
 
 #include<memory>
 #include<string>
 #include<vector>
+#include<sstream>
 
 #include<assert.h>
 
+//#include"MagicEnum.h"
 #include "crossguid/guid.hpp"
 
 #include "Common/MacroHelp.h"
 #include "Common/ImageParser/Image.h"
 #include "Math/Geometry.h"
+#include "Engine/Meta/Meta.h"
+
 
 namespace YiaEngine
 {
 	class BaseSceneObject;
 	class MeshObject;
 	class GeometryObject;
-	class MeshObject;
+
 	class VertexArray;
 	class IndexArray;
 	class TextureObject;
@@ -29,12 +33,13 @@ namespace YiaEngine
 	class SpotLight;
 	class PointLight;
 	class CameraObject;
+	class MaterialObject;
 	class Transform;
 	class Translation;
 	class Rotation;
 	class Scale;
 
-	enum DataType
+	enum class DataType
 	{
 		kUint16,
 		kUint32,
@@ -45,7 +50,7 @@ namespace YiaEngine
 		kDouble
 	};
 
-	enum SceneObjectType
+	enum class SceneObjectType
 	{
 		kGemometryObject,
 		kMeshObject,
@@ -61,6 +66,22 @@ namespace YiaEngine
 		kPoint,
 		kTriangle
 	};
+	//YiaEngine::Meta::EnumMeta<MeshPrimitive>;
+	META_ENUM(MeshPrimitive);
+
+	
+		
+	/*template<>
+	struct YiaEngine::Meta::EnumMeta<MeshPrimitive>
+	{
+		typedef MeshPrimitive type;
+		static constexpr std::string_view type_name{};
+		static constexpr size_t count = enum_count<MeshPrimitive>();
+		static constexpr std::array<MeshPrimitive, count>values{};
+		static constexpr std::array<std::string_view, count> names{};
+		static constexpr Core::CategoryTag tag = Core::CategoryTag::kEnumClassTag;
+	};*/
+	
 
 	enum class VertexAttribute
 	{
@@ -132,8 +153,8 @@ namespace YiaEngine
 	{
 
 	public:
-
-		MeshObject(MeshPrimitive primitive, int lod = 0):
+	
+		MeshObject(MeshPrimitive primitive = MeshPrimitive::kTriangle, int lod = 0):
 			BaseSceneObject(SceneObjectType::kMeshObject),
 			primitive_(primitive),
 			lod_(lod) {}
@@ -161,7 +182,21 @@ namespace YiaEngine
 		{
 			index_arrays_.push_back(index_array);
 		}
-
+		void set_primitive(MeshPrimitive primitive)
+		{
+			primitive_ = primitive;
+		}
+		std::string ToString()
+		{
+			std::stringstream ss;
+			std::string ret;
+			ss << "primitive:";
+			ss << Meta::EnumName(primitive_);
+			ss << "\n";
+			
+			ss >> ret;
+			return ret;
+		}
 	private:
 		int lod_;
 		MeshPrimitive primitive_;

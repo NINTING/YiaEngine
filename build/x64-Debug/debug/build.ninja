@@ -1105,6 +1105,14 @@ build YiaEngine\Engine\Framework\Scene\edit_cache: phony YiaEngine\Engine\Framew
 
 build cmake_object_order_depends_target_SceneTest: phony || YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir
 
+build YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\__\__\External\crossguid\guid.cpp.obj: CXX_COMPILER__SceneTest_Debug ..\..\..\YiaEngine\External\crossguid\guid.cpp || cmake_object_order_depends_target_SceneTest
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid
+  OBJECT_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\__\__\External\crossguid
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\
+  TARGET_PDB = YiaEngine\Engine\Framework\Scene\Test\SceneTest.pdb
+
 build YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\test.cpp.obj: CXX_COMPILER__SceneTest_Debug ..\..\..\YiaEngine\Engine\Framework\Scene\Test\test.cpp || cmake_object_order_depends_target_SceneTest
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
   INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid
@@ -1161,7 +1169,7 @@ build YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Commo
 #############################################
 # Link the executable YiaEngine\Engine\Framework\Scene\Test\SceneTest.exe
 
-build YiaEngine\Engine\Framework\Scene\Test\SceneTest.exe: CXX_EXECUTABLE_LINKER__SceneTest_Debug YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\test.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\SceneManager.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\SceneNode.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common\AssetLoder\AssetLoder.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common\MemoryManager.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common\Allocator.cpp.obj | ..\..\..\YiaEngine\External\assimp\assimp-vc142-mtd.lib
+build YiaEngine\Engine\Framework\Scene\Test\SceneTest.exe: CXX_EXECUTABLE_LINKER__SceneTest_Debug YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\__\__\External\crossguid\guid.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\test.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\SceneManager.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\SceneNode.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common\AssetLoder\AssetLoder.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common\MemoryManager.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common\Allocator.cpp.obj | ..\..\..\YiaEngine\External\assimp\assimp-vc142-mtd.lib
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = ..\..\..\YiaEngine\External\assimp\assimp-vc142-mtd.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
