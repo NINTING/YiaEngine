@@ -186,7 +186,7 @@ namespace YiaEngine
 			static constexpr std::unordered_map<U, size_t> value_to_index{};
 		};
 		template<typename E>
-		constexpr std::string_view EnumName(E V)
+		constexpr std::string_view Serialize(E V)
 		{
 			for (int i = 0; i < EnumMeta<E>::count; i++)
 			{

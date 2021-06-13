@@ -22,6 +22,10 @@ namespace YiaEngine
 		void AddChildNode(std::unique_ptr<BaseSceneNode>&& node) {
 			children_.push_back(std::move(node));
 		}
+		virtual std::string Serialize()
+		{
+			return std::string{};
+		}
 		virtual ~BaseSceneNode() {}
 	protected:
 		std::string name_;
@@ -48,6 +52,19 @@ namespace YiaEngine
 		void AddMatrial(const std::shared_ptr<MaterialObject>& material)
 		{
 			materials_.push_back(material);
+		}
+		std::string Serialize()
+		{
+			std::stringstream ss;
+			std::string ret;
+			ss << BaseSceneNode::Serialize();
+			ss << "GeometryNode:\n";
+			ss << "visible: " << visible_;
+			ss << "shadow: " << shadow_;
+			ss << "motion blur: " << motion_blur_;
+			
+			ss >> ret;
+			return ret;
 		}
 	private:
 		bool visible_;

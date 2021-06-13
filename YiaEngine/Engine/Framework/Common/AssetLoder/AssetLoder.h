@@ -19,6 +19,7 @@ AssetLoder
 #include"MemoryManager.h"
 #include"Buffer.h"
 #include"Scene/SceneObject.h"
+#include"Scene/SceneNode.h"
 namespace YiaEngine
 {
 
@@ -48,7 +49,7 @@ namespace YiaEngine
 		
 		Buffer OpenAndReadText(const char* name);
 		Buffer OpenAndReadBinary(const char* name);
-		std::shared_ptr<MeshObject> LoadMesh(const char* name);
+		std::unique_ptr<GeometryNode> LoadModel(const char* name);
 		//void ReadFile(AssetFilePtr fp);
 		Buffer* ReadText(AssetFilePtr fp);
 		

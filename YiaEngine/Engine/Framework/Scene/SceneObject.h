@@ -39,16 +39,33 @@ namespace YiaEngine
 	class Rotation;
 	class Scale;
 
-	enum class DataType
+	enum class DataType : int
 	{
-		kUint16,
-		kUint32,
-		kFloat1,
-		kFloat2,
-		kFloat3,
-		kFloat4,
-		kDouble
+		kUint16_1 = 1,
+		kUint32_1 = 2,
+		kFloat_1  = 3,
+		kDouble_1 = 4,
+		kUint16_2 = 5,
+		kUint32_2 = 6,
+		kFloat_2  = 7,
+		kDouble_2 = 8,
+		kUint16_3 = 9,
+		kUint32_3 = 10,
+		kFloat_3  = 11,
+		kDouble_3 = 12,
+		kUint16_4 = 13,
+		kUint32_4 = 14,
+		kFloat_4  = 15,
+		kDouble_4 = 16,
 	};
+
+	META_ENUM(DataType);
+	
+	static int getDataTypeForCount(DataType value)
+	{
+		return  (static_cast<int>(value)-1) / 4 + 1;
+	}
+	
 
 	enum class SceneObjectType
 	{
@@ -64,6 +81,7 @@ namespace YiaEngine
 	enum class MeshPrimitive
 	{
 		kPoint,
+		kLine,
 		kTriangle
 	};
 	//YiaEngine::Meta::EnumMeta<MeshPrimitive>;
@@ -93,6 +111,7 @@ namespace YiaEngine
 		kTexcoord
 	};
 
+	META_ENUM(VertexAttribute)
 	//http://www.opengex.org/opengex-spec.pdf
 	
 	//BaseSceneObject提供Guid，所有SceneObject类型都表示一个持久化的Asset
@@ -140,7 +159,22 @@ namespace YiaEngine
 		GeometryObject(GeometryObject&&) = default;
 		void AddMesh(const std::shared_ptr<MeshObject>& mesh) { meshs_.push_back(mesh); }
 		GeometryObject& operator =(const GeometryObject&) = default;
-
+		std::string Serialize()
+		{
+			std::string ret;
+			std::stringstream ss;
+			ss << "GeometryObject\n";
+			
+			ss << meshs_.size();
+			for (int i = 0; i < meshs_.size(); i++)
+			{
+				auto m = meshs_[i];
+				//m->Serialize();
+				//ss << s;
+			}
+			ss >> ret;
+			return ret;
+		}
 	private:
 		bool visible_ = true;
 		bool shadow_ = false;
@@ -186,14 +220,21 @@ namespace YiaEngine
 		{
 			primitive_ = primitive;
 		}
-		std::string ToString()
+		
+		std::string Serialize()
 		{
 			std::stringstream ss;
 			std::string ret;
+			ss << "MeshObject\n";
 			ss << "primitive:";
-			ss << Meta::EnumName(primitive_);
+			ss << Meta::Serialize(primitive_);
 			ss << "\n";
-			
+			ss << "Vertex List\n";
+			for (int i = 0; i < vertex_arrays_.size(); i++)
+			{
+				ss << "#" << i << "\n";
+			//	ss << vertex_arrays_[i].Serialize();
+			}
 			ss >> ret;
 			return ret;
 		}
@@ -212,14 +253,44 @@ namespace YiaEngine
 
 	public:
 		VertexArray(VertexAttribute attribute,
-			DataType data_type = DataType::kFloat3,
+			DataType data_type = DataType::kFloat_3,
 			void*data = nullptr,size_t size = 0):
 			attribute_(attribute),data_type_(data_type),size_(size),data_(data){}
 		VertexArray(const VertexArray& vertexarray) = default;
 		VertexArray(VertexArray&& vertexarray) = default;
 		VertexArray& operator = (const VertexArray&) = default;
 		VertexArray& operator = (VertexArray&&) = default;
-		
+		std::string Serialize()
+		{
+			std::string ret;
+		/*	std::stringstream ss;
+			ss << "Vertex Attribute:\n";
+			ss << "Attribute: " << Meta::Serialize(attribute_) << "\n";
+			ss << "DataType: " << Meta::Serialize(data_type_) << "\n";
+			ss << "DataSize: " << size_ << "\n";
+			ss << "Data:\n";
+			for (int i = 0; i < size_; i++)
+			{
+				switch (data_type_)
+				{
+				case YiaEngine::DataType::kFloat_1:
+				case YiaEngine::DataType::kFloat_2:
+				case YiaEngine::DataType::kFloat_3:
+				case YiaEngine::DataType::kFloat_4:
+					ss << *(reinterpret_cast<const float*>(data_) + i) << " ";
+					break;
+				case YiaEngine::DataType::kDouble_1:
+				case YiaEngine::DataType::kDouble_2:
+				case YiaEngine::DataType::kDouble_3:
+				case YiaEngine::DataType::kDouble_4:
+					ss << *(reinterpret_cast<const double*>(data_) + i) << " ";
+					break;
+				}
+			}
+			ss << "\n";
+			ss >> ret;*/
+			return ret;
+		}
 	private:
 		DataType data_type_;
 		VertexAttribute attribute_;
@@ -230,8 +301,8 @@ namespace YiaEngine
 	class IndexArray
 	{
 	public:
-		IndexArray(DataType data_type = DataType::kUint16,
-			void* data = nullptr, size_t size = 0) :
+		IndexArray(void* data , size_t size,
+			DataType data_type = DataType::kUint16_1,uint32_t material_id = 0) :
 			data_type_(data_type), size_(size),data_(data)	 {}
 		IndexArray(const IndexArray& indexarray) = default;
 		IndexArray(IndexArray&& indexarray) = default;

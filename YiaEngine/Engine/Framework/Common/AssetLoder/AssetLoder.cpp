@@ -155,7 +155,7 @@ namespace YiaEngine
 		return std::move(*pbuffer);
 
 	}
-	std::shared_ptr<MeshObject> AssetLoder::LoadMesh(const char* name)
+	std::unique_ptr<GeometryNode> AssetLoder::LoadModel(const char* name)
 	{
 		Assimp::Importer importer;
 
@@ -175,17 +175,20 @@ namespace YiaEngine
 			return nullptr;
 		}
 		
-		std::shared_ptr<MeshObject> mesh_object = std::make_shared<MeshObject>();
-		for (int i = 0; i < scene->mNumMaterials; i++)
-		{
-			scene->mMaterials[i]->Get();
-		}
+	
+		std::unique_ptr<GeometryNode>geo_node = std::make_unique<GeometryNode>();
+		std::shared_ptr<GeometryObject>geo_obj = std::make_shared<GeometryObject>();
 		for (int i = 0; i < scene->mNumMeshes; i++)
 		{
-			switch (scene->mMeshes[i]->mPrimitiveTypes)
+			std::shared_ptr<MeshObject> mesh_object = std::make_shared<MeshObject>();
+			auto mesh = scene->mMeshes[i];
+			switch (mesh->mPrimitiveTypes)
 			{
 			case aiPrimitiveType::aiPrimitiveType_POINT:
 				mesh_object->set_primitive(MeshPrimitive::kPoint);
+				break;
+			case aiPrimitiveType::aiPrimitiveType_LINE:
+				mesh_object->set_primitive(MeshPrimitive::kLine);
 				break;
 			case aiPrimitiveType::aiPrimitiveType_TRIANGLE:
 				mesh_object->set_primitive(MeshPrimitive::kTriangle);
@@ -193,20 +196,20 @@ namespace YiaEngine
 			default:
 				break;
 			}
+			auto material  = scene->mMaterials[mesh->mMaterialIndex];
 			
 			//顶点属性
-			
 			if (scene->mMeshes[i]->HasPositions())
 			{
 				//顶点坐标
 				uint32_t vertices_num = scene->mMeshes[i]->mNumVertices;
-				VertexArray positions(VertexAttribute::kPosition, DataType::kFloat3,
+				VertexArray positions(VertexAttribute::kPosition, DataType::kFloat_3,
 					scene->mMeshes[i]->mVertices, vertices_num);
 				mesh_object->add_vertex_array(positions);
 				//法线
 				if (scene->mMeshes[i]->HasNormals())
 				{
-					VertexArray normals(VertexAttribute::kNormal, DataType::kFloat3,
+					VertexArray normals(VertexAttribute::kNormal, DataType::kFloat_3,
 						scene->mMeshes[i]->mNormals, vertices_num);
 					mesh_object->add_vertex_array(normals);
 
@@ -214,9 +217,9 @@ namespace YiaEngine
 				//切线
 				if (scene->mMeshes[i]->HasTangentsAndBitangents())
 				{
-					VertexArray tangent(VertexAttribute::kTangent, DataType::kFloat3,
+					VertexArray tangent(VertexAttribute::kTangent, DataType::kFloat_3,
 						scene->mMeshes[i]->mTangents, vertices_num);
-					VertexArray bit_tangent(VertexAttribute::kBitangent, DataType::kFloat3,
+					VertexArray bit_tangent(VertexAttribute::kBitangent, DataType::kFloat_3,
 						scene->mMeshes[i]->mBitangents, vertices_num);
 					mesh_object->add_vertex_array(tangent);
 
@@ -228,7 +231,7 @@ namespace YiaEngine
 				{
 					if (scene->mMeshes[i]->HasTextureCoords(j))
 					{
-						VertexArray texcoord(VertexAttribute::kTexcoord, DataType::kFloat3,
+						VertexArray texcoord(VertexAttribute::kTexcoord, DataType::kFloat_3,
 							scene->mMeshes[i]->mTextureCoords[i], vertices_num);
 						mesh_object->add_vertex_array(texcoord);
 
@@ -239,7 +242,7 @@ namespace YiaEngine
 				{
 					if (scene->mMeshes[i]->HasTextureCoords(j))
 					{
-						VertexArray color(VertexAttribute::kColor, DataType::kFloat4,
+						VertexArray color(VertexAttribute::kColor, DataType::kFloat_4,
 							scene->mMeshes[i]->mColors[i], vertices_num);
 						mesh_object->add_vertex_array(color);
 
@@ -247,18 +250,25 @@ namespace YiaEngine
 				}
 			}
 			//索引
-			if(scene->mMeshes[i]->HasFaces())
+			/*if(scene->mMeshes[i]->HasFaces())
 			{
+			
 				for (uint32_t j = 0; j < scene->mMeshes[i]->mNumFaces; j++)
 				{
-					IndexArray index_array(DataType::kUint32,
-						scene->mMeshes[i]->mFaces[j].mIndices,
-						scene->mMeshes[i]->mFaces[j].mNumIndices);
-					mesh_object->add_index_array(index_array);
+					IndexArray index_array(scene->mMeshes[i]->mFaces[j].mIndices,
+						scene->mMeshes[i]->mFaces[j].mNumIndices, DataType::kUint32_1);
 				}
-			}
+				IndexArray index_array(scene->mMeshes[i]->mFaces[j]
+
+				mesh_object->add_index_array(index_array);
+			}*/
+			mesh_object->Serialize();
+			geo_obj->AddMesh(mesh_object);
+			
 		}
-		return mesh_object;
+		geo_node->set_object_ref(geo_obj);
+		//delete scene;
+		return geo_node;
 	}
 	Buffer* YiaEngine::AssetLoder::ReadText(AssetFilePtr fp)
 	{
