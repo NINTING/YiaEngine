@@ -201,7 +201,7 @@ namespace YiaEngine
 }//YiaEngine
 
 #define META_ENUM(E) \
-		template<>	struct YiaEngine::Meta::EnumMeta<E>			\
+		template<>	struct YiaE ngine::Meta::EnumMeta<E>			\
 		{ \
 			typedef E type;																	\
 			static constexpr std::string_view type_name {#E};								\
