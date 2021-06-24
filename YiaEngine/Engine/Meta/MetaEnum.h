@@ -12,7 +12,7 @@ namespace YiaEngine
 {
 	namespace Meta
 	{
-		constexpr std::string_view pretty_name(std::string_view name) noexcept
+		static constexpr std::string_view pretty_name(std::string_view name) noexcept
 		{
 			for (std::size_t i = name.size(); i > 0; --i) {
 				if (!((name[i - 1] >= '0' && name[i - 1] <= '9') ||
@@ -33,7 +33,7 @@ namespace YiaEngine
 		}
 
 		template<typename E, typename U = std::underlying_type<E>>
-		constexpr int reflected_min()noexcept
+		static constexpr int reflected_min()noexcept
 		{
 			constexpr int lhs = -128;
 			/*constexpr auto rhs = (std::numeric_limits<U>::min)();
@@ -45,7 +45,7 @@ namespace YiaEngine
 		}
 
 		template<typename E, typename U = std::underlying_type<E>>
-		constexpr int reflected_max()noexcept
+		static constexpr int reflected_max()noexcept
 		{
 			constexpr int rhs = 128;
 			/*constexpr auto rhs = (std::numeric_limits<U>::max)();
@@ -57,7 +57,7 @@ namespace YiaEngine
 		}
 
 		template <typename E, E V>
-		constexpr std::string_view enum_string_value() noexcept
+		static constexpr std::string_view enum_string_value() noexcept
 		{
 			auto as = __FUNCSIG__;
 			constexpr std::string_view name{ __FUNCSIG__ + 40, sizeof(__FUNCSIG__) - 57 };
@@ -66,26 +66,26 @@ namespace YiaEngine
 		}
 
 		template <typename E, int O, typename U = std::underlying_type_t<E>>
-		constexpr E value(std::size_t i) noexcept {
+		static constexpr E value(std::size_t i) noexcept {
 
 			return static_cast<E>(static_cast<U>(i) + O);
 
 		}
 
 		template <typename E, auto V>
-		constexpr bool is_valid() noexcept {
+		static constexpr bool is_valid() noexcept {
 			constexpr auto s = enum_string_value<E, V>();
 			return s.size() != 0;
 		}
 
 		template<typename T, std::size_t N, std::size_t...I>
-		constexpr std::array<std::remove_cv_t<T>, N> ToArray(T(&a)[N], std::index_sequence<I...>)
+		static constexpr std::array<std::remove_cv_t<T>, N> ToArray(T(&a)[N], std::index_sequence<I...>)
 		{
 			return { {a[I]...} };
 		}
 
 		template <std::size_t N>
-		constexpr std::size_t values_count(const bool(&valid)[N]) noexcept {
+		static constexpr std::size_t values_count(const bool(&valid)[N]) noexcept {
 			auto count = std::size_t{ 0 };
 			for (std::size_t i = 0; i < N; ++i) {
 				if (valid[i]) {
@@ -97,7 +97,7 @@ namespace YiaEngine
 		}
 
 		template<typename E, int Min, std::size_t...I>
-		constexpr size_t enum_count(std::index_sequence<I...>)
+		static constexpr size_t enum_count(std::index_sequence<I...>)
 		{
 			constexpr bool valid[sizeof...(I)] = { is_valid<E,value<E, Min>(I)>()... };
 			constexpr size_t count = values_count(valid);
@@ -105,7 +105,7 @@ namespace YiaEngine
 		}
 
 		template<typename E>
-		constexpr size_t enum_count()
+		static constexpr size_t enum_count()
 		{
 			constexpr int min_index = reflected_min<E>();
 			constexpr int max_index = reflected_max<E>();
@@ -115,7 +115,7 @@ namespace YiaEngine
 		}
 
 		template<typename E, int Min, std::size_t...I>
-		constexpr auto enum_values(std::index_sequence<I...>) noexcept
+		static constexpr auto enum_values(std::index_sequence<I...>) noexcept
 		{
 			constexpr bool valid[sizeof...(I)] = { is_valid<E,value<E, Min>(I)>()... };
 			constexpr size_t count = values_count(valid);
@@ -138,7 +138,7 @@ namespace YiaEngine
 		
 
 		template<typename E>
-		constexpr auto enum_values()
+		static constexpr auto enum_values()
 		{
 			constexpr int min_index = reflected_min<E>();
 			constexpr int max_index = reflected_max<E>();
@@ -146,18 +146,18 @@ namespace YiaEngine
 			return enum_values<E, min_index>(std::make_index_sequence<range_size>{});
 		}
 		template<typename E, std::size_t...I>
-		constexpr auto enum_string(std::index_sequence<I...>) noexcept
+		static constexpr auto enum_string(std::index_sequence<I...>) noexcept
 		{
 			return std::array<std::string_view, sizeof...(I)>{enum_string_value<E, enum_values<E>()[I]>()...};
 		}
 		template<typename E>
-		constexpr auto enum_string() noexcept
+		static constexpr auto enum_string() noexcept
 		{
 			return enum_string<E>(std::make_index_sequence< enum_values<E>().size()>{});
 		}
 
 		template<typename E,  typename U = std::underlying_type_t<E>,size_t... I,size_t N>
-		constexpr auto enum_value2index(const std::array<E,N>&values,
+		static constexpr auto enum_value2index(const std::array<E,N>&values,
 			const std::array<std::string_view, N>& names,
 			std::index_sequence<I...>)
 		{
@@ -166,7 +166,7 @@ namespace YiaEngine
 		}
 
 		template<typename E, typename U = std::underlying_type_t<E>>
-		constexpr std::unordered_map<U, std::pair<std::string_view, E>> enum_value2index()
+		static constexpr std::unordered_map<U, std::pair<std::string_view, E>> enum_value2index()
 		{
 			auto values = enum_values<E>();
 			auto names = enum_string<E>();
@@ -201,7 +201,7 @@ namespace YiaEngine
 }//YiaEngine
 
 #define META_ENUM(E) \
-		template<>	struct YiaE ngine::Meta::EnumMeta<E>			\
+		template<>	struct YiaEngine::Meta::EnumMeta<E>			\
 		{ \
 			typedef E type;																	\
 			static constexpr std::string_view type_name {#E};								\

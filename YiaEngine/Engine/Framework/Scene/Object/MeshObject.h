@@ -6,6 +6,7 @@
 #include"BaseSceneObject.h"
 #include"VertexArray.h"
 #include"IndexArray.h"
+#include"SceneEnum.h"
 namespace YiaEngine
 {
 	namespace Scene {

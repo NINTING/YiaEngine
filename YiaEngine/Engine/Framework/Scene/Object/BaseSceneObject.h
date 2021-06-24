@@ -2,7 +2,7 @@
 #ifndef SCENE_OBJECT_BASESCENE_OBJECT_H
 #define SCENE_OBJECT_BASESCENE_OBJECT_H
 
-
+#include "crossguid/guid.hpp"
 class BaseSceneObject
 {
 protected:
@@ -26,17 +26,7 @@ public:
 	{
 		return guid_;
 	}
-	std::string ToString()
-	{
-		std::string s;
-
-		s.append("SceneObject:");
-		s.append("Guid:");
-		s.append(guid_.str());
-		s.append("Type:");
-		s.append(ENUM_TO_STRING(type_));
-		return s;
-	}
+	
 };
 
 #endif // SCENE_OBJECT_BASESCENE_OBJECT_H

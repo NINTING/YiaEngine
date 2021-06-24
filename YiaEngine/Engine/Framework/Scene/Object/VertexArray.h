@@ -23,7 +23,7 @@ namespace YiaEngine
 
 		META_ENUM(VertexAttribute)
 
-			class VertexArray
+		class VertexArray
 		{
 		public:
 			VertexArray(VertexAttribute attribute,
@@ -34,7 +34,7 @@ namespace YiaEngine
 			VertexArray(VertexArray&& vertexarray) = default;
 			VertexArray& operator = (const VertexArray&) = default;
 			VertexArray& operator = (VertexArray&&) = default;
-			std::string Serialize()
+		/*	std::string Serialize()
 			{
 				std::string ret;
 				std::stringstream ss;
@@ -64,7 +64,7 @@ namespace YiaEngine
 				ss << "\n";
 				ss >> ret;
 				return ret;
-			}
+			}*/
 		private:
 			DataType data_type_;
 			VertexAttribute attribute_;

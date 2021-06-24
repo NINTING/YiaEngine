@@ -18,7 +18,7 @@ AssetLoder
 
 #include"MemoryManager.h"
 #include"Buffer.h"
-#include"Scene/SceneObject.h"
+#include"Scene/Object/SceneObject.h"
 #include"Scene/SceneNode.h"
 namespace YiaEngine
 {
