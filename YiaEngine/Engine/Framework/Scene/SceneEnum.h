@@ -1,5 +1,6 @@
 #pragma once
-
+#ifndef FRAMEWORK_SCENE_ENUM_H
+#define FRAMEWORK_SCENE_ENUM_H
 
 #include "Engine/Meta/Meta.h"
 
@@ -27,7 +28,7 @@ namespace YiaEngine
 			kDouble_4 = 16,
 		};
 
-		META_ENUM(DataType);
+		
 
 		static int getDataTypeForCount(DataType value)
 		{
@@ -45,4 +46,7 @@ namespace YiaEngine
 			kCameraObject
 		};
 	}
+	META_ENUM(Scene::DataType);
 }
+
+#endif //FRAMEWORK_SCENE_ENUM_H

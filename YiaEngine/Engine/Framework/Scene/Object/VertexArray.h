@@ -10,7 +10,7 @@ namespace YiaEngine
 	{
 		//代表每个顶点的属性的集合
 		//采用Struct Of Array组织形式
-
+		
 		enum class VertexAttribute
 		{
 			kPosition,
@@ -21,7 +21,6 @@ namespace YiaEngine
 			kTexcoord
 		};
 
-		META_ENUM(VertexAttribute)
 
 		class VertexArray
 		{
@@ -71,6 +70,9 @@ namespace YiaEngine
 			void* data_;
 			size_t size_;
 		};
-	}
+
+		
+	}//Scene
+	META_ENUM(Scene::VertexAttribute)
 }// YiaEngine
 #endif // !FRAMEWORK_SCENE_INDEX_ARRAY_H

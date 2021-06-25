@@ -49,7 +49,7 @@ namespace YiaEngine
 		
 		Buffer OpenAndReadText(const char* name);
 		Buffer OpenAndReadBinary(const char* name);
-		std::unique_ptr<GeometryNode> LoadModel(const char* name);
+		std::unique_ptr<Scene::GeometryNode> LoadModel(const char* name);
 		//void ReadFile(AssetFilePtr fp);
 		Buffer* ReadText(AssetFilePtr fp);
 		

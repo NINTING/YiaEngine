@@ -1,8 +1,9 @@
 #pragma once
+
 #include"BaseSceneObject.h"
 
 #include "Common/ImageParser/Image.h"
-
+#include"Scene/SceneEnum.h"
 namespace YiaEngine
 {
 	namespace Scene

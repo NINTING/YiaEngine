@@ -2,6 +2,7 @@
 
 #include"BaseSceneObject.h"
 #include"SceneUtility.h"
+#include"SceneEnum.h"
 namespace YiaEngine
 {
 	namespace Scene

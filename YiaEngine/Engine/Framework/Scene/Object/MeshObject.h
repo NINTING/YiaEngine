@@ -7,8 +7,10 @@
 #include"VertexArray.h"
 #include"IndexArray.h"
 #include"SceneEnum.h"
+#include"Engine/Meta/Meta.h"
 namespace YiaEngine
 {
+	
 	namespace Scene {
 		enum class MeshPrimitive
 		{
@@ -17,8 +19,9 @@ namespace YiaEngine
 			kTriangle
 		};
 		//YiaEngine::Meta::EnumMeta<MeshPrimitive>;
-		META_ENUM(MeshPrimitive);
-
+		//META_ENUM(MeshPrimitive);
+		
+		
 		class MeshObject :public BaseSceneObject
 		{
 
@@ -57,23 +60,23 @@ namespace YiaEngine
 				primitive_ = primitive;
 			}
 
-			std::string Serialize()
-			{
-				std::stringstream ss;
-				std::string ret;
-				ss << "MeshObject\n";
-				ss << "primitive:";
-				ss << Meta::Serialize(primitive_);
-				ss << "\n";
-				ss << "Vertex List\n";
-				for (int i = 0; i < vertex_arrays_.size(); i++)
-				{
-					ss << "#" << i << "\n";
-					//	ss << vertex_arrays_[i].Serialize();
-				}
-				ss >> ret;
-				return ret;
-			}
+			//std::string Serialize()
+			//{
+			//	std::stringstream ss;
+			//	std::string ret;
+			//	ss << "MeshObject\n";
+			//	ss << "primitive:";
+			//	ss << Meta::Serialize(primitive_);
+			//	ss << "\n";
+			//	ss << "Vertex List\n";
+			//	for (int i = 0; i < vertex_arrays_.size(); i++)
+			//	{
+			//		ss << "#" << i << "\n";
+			//		//	ss << vertex_arrays_[i].Serialize();
+			//	}
+			//	ss >> ret;
+			//	return ret;
+			//}
 		private:
 			int lod_;
 			MeshPrimitive primitive_;
@@ -81,4 +84,6 @@ namespace YiaEngine
 			std::vector<VertexArray>vertex_arrays_;
 		};
 	}
+	META_ENUM(Scene::MeshPrimitive);
 }
+

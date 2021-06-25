@@ -376,7 +376,7 @@ void App::LoadAsset()
 			{ { 1.f, -1.f , 0.0f }, {1,1}}
 		};
 
-		YiaEngine::GeometryNode node;
+		YiaEngine::Scene::GeometryNode node;
 
 
 		const UINT vertexBufferSize = sizeof(triangleVertices);

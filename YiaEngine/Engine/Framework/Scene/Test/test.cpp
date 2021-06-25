@@ -15,11 +15,11 @@ int main()
 {
     AssetLoder assetLoder;
     
-    std::shared_ptr<GeometryObject>obj = std::make_shared<GeometryObject>();
+    /*std::shared_ptr<GeometryObject>obj = std::make_shared<GeometryObject>();
     std::shared_ptr<MeshObject> mesh = std::make_shared<MeshObject>();
     std::unique_ptr<GeometryNode> node;
     mesh->Serialize();
-   node = assetLoder.LoadModel("Fox/Fox.gltf");
+   node = assetLoder.LoadModel("Fox/Fox.gltf");*/
   //  std::cout<< node->Serialize()<<std::endl;
 
     /*float* data = mesh_object->object_ref()->

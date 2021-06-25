@@ -12,6 +12,18 @@ namespace YiaEngine
 {
 	namespace Meta
 	{
+
+		template<typename E, typename U = std::underlying_type_t<E>>
+		struct EnumMeta
+		{
+			typedef E type;
+			static constexpr std::string_view type_name{};
+			static constexpr std::unordered_map<std::underlying_type_t<E>, std::pair<std::string_view, E>> datas{};
+			static constexpr Core::CategoryTag tag = Core::CategoryTag::kEnumClassTag;
+			static constexpr std::unordered_map<U, size_t> value_to_index{};
+		};
+
+
 		static constexpr std::string_view pretty_name(std::string_view name) noexcept
 		{
 			for (std::size_t i = name.size(); i > 0; --i) {
@@ -176,15 +188,7 @@ namespace YiaEngine
 		
 		template<typename E>
 		struct metatt{};
-		template<typename E,typename U = std::underlying_type_t<E>>
-		struct EnumMeta
-		{
-			typedef E type;
-			static constexpr std::string_view type_name{};
-			static constexpr std::unordered_map<std::underlying_type_t<E>, std::pair<std::string_view, E>> datas{};
-			static constexpr Core::CategoryTag tag = Core::CategoryTag::kEnumClassTag;
-			static constexpr std::unordered_map<U, size_t> value_to_index{};
-		};
+		
 		template<typename E>
 		constexpr std::string_view Serialize(E V)
 		{

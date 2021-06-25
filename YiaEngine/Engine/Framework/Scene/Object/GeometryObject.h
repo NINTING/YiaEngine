@@ -5,9 +5,9 @@
 #endif // !SCENE_GEOMETRY_OBJECT_H
 
 
-
 #include"BaseSceneObject.h"
 #include"MeshObject.h"
+#include"SceneEnum.h"
 namespace YiaEngine
 {
 	namespace Scene

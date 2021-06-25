@@ -1,6 +1,8 @@
-#pragma once
+#ifndef FRAMEWORK_SCENE_TRANSFORM_H
+#define FRAMEWORK_SCENE_TRANSFORM_H
 
 #include "Math/Geometry.h"
+#include "SceneEnum.h"
 
 
 namespace YiaEngine
@@ -39,13 +41,13 @@ namespace YiaEngine
 			{
 				switch (axis)
 				{
-				case YiaEngine::AxisType::kXAxis:
+				case AxisType::kXAxis:
 					matrix_[3][0] = value;
 					break;
-				case YiaEngine::AxisType::kYAxis:
+				case AxisType::kYAxis:
 					matrix_[3][1] = value;
 					break;
-				case YiaEngine::AxisType::kZAxis:
+				case AxisType::kZAxis:
 					matrix_[3][2] = value;
 					break;
 				default:
@@ -66,3 +68,5 @@ namespace YiaEngine
 		};
 	}//Scene
 }//YiaEngine
+
+#endif

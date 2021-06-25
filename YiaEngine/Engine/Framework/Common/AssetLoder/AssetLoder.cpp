@@ -155,8 +155,9 @@ namespace YiaEngine
 		return std::move(*pbuffer);
 
 	}
-	std::unique_ptr<GeometryNode> AssetLoder::LoadModel(const char* name)
+	std::unique_ptr<Scene::GeometryNode> AssetLoder::LoadModel(const char* name)
 	{
+		using namespace Scene;
 		Assimp::Importer importer;
 
 		// And have it read the given file with some example postprocessing
@@ -177,21 +178,21 @@ namespace YiaEngine
 		
 	
 		std::unique_ptr<GeometryNode>geo_node = std::make_unique<GeometryNode>();
-		std::shared_ptr<GeometryObject>geo_obj = std::make_shared<GeometryObject>();
+		std::shared_ptr<Scene::GeometryObject>geo_obj = std::make_shared<Scene::GeometryObject>();
 		for (int i = 0; i < scene->mNumMeshes; i++)
 		{
-			std::shared_ptr<MeshObject> mesh_object = std::make_shared<MeshObject>();
+			std::shared_ptr<Scene::MeshObject> mesh_object = std::make_shared<Scene::MeshObject>();
 			auto mesh = scene->mMeshes[i];
 			switch (mesh->mPrimitiveTypes)
 			{
 			case aiPrimitiveType::aiPrimitiveType_POINT:
-				mesh_object->set_primitive(MeshPrimitive::kPoint);
+				mesh_object->set_primitive(Scene::MeshPrimitive::kPoint);
 				break;
 			case aiPrimitiveType::aiPrimitiveType_LINE:
-				mesh_object->set_primitive(MeshPrimitive::kLine);
+				mesh_object->set_primitive(Scene::MeshPrimitive::kLine);
 				break;
 			case aiPrimitiveType::aiPrimitiveType_TRIANGLE:
-				mesh_object->set_primitive(MeshPrimitive::kTriangle);
+				mesh_object->set_primitive(Scene::MeshPrimitive::kTriangle);
 				break;
 			default:
 				break;
@@ -262,7 +263,7 @@ namespace YiaEngine
 
 				mesh_object->add_index_array(index_array);
 			}*/
-			mesh_object->Serialize();
+//			mesh_object->Serialize();
 			geo_obj->AddMesh(mesh_object);
 			
 		}
