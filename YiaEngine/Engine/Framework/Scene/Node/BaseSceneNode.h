@@ -2,8 +2,7 @@
 #ifndef SCENE_NODE_BASESCENE_NODE_H
 #define SCENE_NODE_BASESCENE_NODE_H
 
-#include<unique_ptr>
-
+#include<memory>
 
 #include"Object/Transform.h"
 

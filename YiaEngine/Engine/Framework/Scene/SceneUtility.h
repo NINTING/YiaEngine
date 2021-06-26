@@ -14,10 +14,11 @@
 //#include"MagicEnum.h"
 #include "crossguid/guid.hpp"
 
+
 #include "Common/MacroHelp.h"
 #include "Common/ImageParser/Image.h"
 
-
+#include"Scene/Object/MaterialObject.h"
 
 
 namespace YiaEngine
@@ -27,18 +28,7 @@ namespace YiaEngine
 		//http://www.opengex.org/opengex-spec.pdf
 		
 
-		/*template<>
-		struct YiaEngine::Meta::EnumMeta<MeshPrimitive>
-		{
-			typedef MeshPrimitive type;
-			static constexpr std::string_view type_name{};
-			static constexpr size_t count = enum_count<MeshPrimitive>();
-			static constexpr std::array<MeshPrimitive, count>values{};
-			static constexpr std::array<std::string_view, count> names{};
-			static constexpr Core::CategoryTag tag = Core::CategoryTag::kEnumClassTag;
-		};*/
-
-		//BaseSceneObject提供Guid，所有SceneObject类型都表示一个持久化的Asset
+		
 
 
 		enum class AttenType
@@ -59,6 +49,8 @@ namespace YiaEngine
 				return instance * 1.f / distance;
 			}
 		};
+
+	
 	}
 
 }	//YiaEngine

@@ -1,8 +1,10 @@
-#pragma once
+#ifndef SCENE_LIGHT_OBJECT_H
+#define SCENE_LIGHT_OBJECT_H
 
 #include"BaseSceneObject.h"
 #include"SceneUtility.h"
 #include"SceneEnum.h"
+
 namespace YiaEngine
 {
 	namespace Scene
@@ -48,3 +50,4 @@ namespace YiaEngine
 		};
 	}
 }
+#endif //SCENE_LIGHT_OBJECT_H

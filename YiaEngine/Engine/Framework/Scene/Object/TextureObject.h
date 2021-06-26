@@ -1,4 +1,6 @@
 #pragma once
+#ifndef SCENE_TEXTURE_OBJECT_H
+#define SCENE_TEXTURE_OBJECT_H
 
 #include"BaseSceneObject.h"
 
@@ -59,3 +61,4 @@ namespace YiaEngine
 		};
 	}//Scene
 }//YiaEngine
+#endif //SCENE_TEXTURE_OBJECT_H

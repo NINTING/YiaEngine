@@ -2,11 +2,10 @@
 #ifndef FRAMEWORk_SCENE_NODE
 #define FRAMEWORk_SCENE_NODE
 
-#include <string>
-#include<vector>
-
-#include"SceneObject.h"
-#include "Math/Geometry.h"
+#include"Node/BaseSceneNode.h"
+#include"Node/GeometryNode.h"
+#include"Node/CameraNode.h"
+#include"Node/LightNode.h"
 
 
 

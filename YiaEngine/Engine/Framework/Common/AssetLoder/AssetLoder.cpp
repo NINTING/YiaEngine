@@ -153,8 +153,35 @@ namespace YiaEngine
 			pbuffer = new Buffer();
 
 		return std::move(*pbuffer);
+	}
+
+	Scene::VariantParam GetMaterialParameter()
+	{
 
 	}
+
+	std::shared_ptr<Scene::MaterialObject> AssetLoder::CreatePBRMaterial( aiMaterial const* aiMat)
+	{
+		std::shared_ptr<Scene::PBRMaterial> mat_obj = std::make_shared<Scene::PBRMaterial>();
+		aiString mat_name;
+		aiMat->Get(AI_MATKEY_NAME, mat_name);
+		
+		mat_obj->diffuse_
+		Color mat_ambient;
+		aiString texture_path;
+		//mat_obj
+		aiMat->Get(AI_MATKEY_COLOR_AMBIENT, mat_ambient);
+		
+		aiMat->GetTextureCount(aiTextureType_AMBIENT);
+		auto result = aiMat->GetTexture(aiTextureType_AMBIENT,0, &texture_path);
+		if (result == aiReturn_SUCCESS)
+		{
+
+		}
+		result = aiMat->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path);
+		return mat_obj;
+	}
+
 	std::unique_ptr<Scene::GeometryNode> AssetLoder::LoadModel(const char* name)
 	{
 		using namespace Scene;
@@ -198,7 +225,7 @@ namespace YiaEngine
 				break;
 			}
 			auto material  = scene->mMaterials[mesh->mMaterialIndex];
-			
+			geo_node->AddMatrial(CreatePBRMaterial(material));
 			//¶¥µãÊôÐÔ
 			if (scene->mMeshes[i]->HasPositions())
 			{

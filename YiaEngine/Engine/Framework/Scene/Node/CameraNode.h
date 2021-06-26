@@ -2,9 +2,12 @@
 #ifndef SCENE_NODE_CAMERA_NODE_H
 #define SCENE_NODE_CAMERA_NODE_H
 
+#include<memory>
+
+#include "Math/Geometry.h"
 #include"Object/Transform.h"
 #include"BaseSceneNode.h"
-#include "Math/Geometry.h"
+
 namespace YiaEngine
 {
 	namespace Scene

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SCENE_INDEX_ARRAY_H
+#define SCENE_INDEX_ARRAY_H
 
 #include"SceneEnum.h"
 
@@ -37,3 +38,4 @@ namespace YiaEngine
 		};
 	}
 }
+#endif //SCENE_INDEX_ARRAY_H

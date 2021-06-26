@@ -2,6 +2,8 @@
 #ifndef SCENE_CAMERA_OBJECT_H
 #define SCENE_CAMERA_OBJECT_H
 
+
+
 #include"BaseSceneObject.h"
 #include"SceneEnum.h"
 namespace YiaEngine {

@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef SCENE_MESH_OBJECT_H
+#define SCENE_MESH_OBJECT_H
+
+
 #include<sstream>
 #include<string>
 
@@ -87,3 +91,4 @@ namespace YiaEngine
 	META_ENUM(Scene::MeshPrimitive);
 }
 
+#endif //SCENE_MESH_OBJECT_H

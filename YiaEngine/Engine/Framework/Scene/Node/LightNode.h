@@ -1,6 +1,6 @@
 #pragma once
-#ifndef SCENE_NODE_GEOMETRY_NODE_H
-#define SCENE_NODE_GEOMETRY_NODE_H
+#ifndef SCENE_NODE_LIGHT_NODE_H
+#define SCENE_NODE_LIGHT_NODE_H
 
 #include"Object/Transform.h"
 #include"BaseSceneNode.h"
@@ -30,4 +30,4 @@ namespace YiaEngine
 	}//Scene
 }//YiaEngine
 
-#endif // SCENE_NODE_GEOMETRY_NODE_H
+#endif // SCENE_NODE_LIGHT_NODE_H

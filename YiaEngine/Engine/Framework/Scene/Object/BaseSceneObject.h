@@ -3,6 +3,7 @@
 #define SCENE_OBJECT_BASESCENE_OBJECT_H
 
 #include "crossguid/guid.hpp"
+
 #include"SceneEnum.h"
 
 namespace YiaEngine {

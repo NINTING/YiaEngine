@@ -1,12 +1,13 @@
-#pragma once
+#ifndef SCENE_MATERIAL_OBJECT_H
+#define SCENE_MATERIAL_OBJECT_H
 
 
-
-
+#include<cas>
 
 #include "BaseSceneObject.h"
 #include"TextureObject.h"
 #include"SceneEnum.h"
+
 namespace YiaEngine
 {
 	namespace Scene {
@@ -16,71 +17,103 @@ namespace YiaEngine
 		//the VariatParam have (value,texture)
 		//for a material attribute diffuse
 		//it can be color or(and) texture
-		template<typename T>
-		class VariantParam
-		{
 
+		struct MaterialParam
+		{
+			virtual ~MaterialParam()
+			{
+			}
+		};
+		
+		
+		template<typename T>
+		struct VariantParam : MaterialParam
+		{
 		public:
 			VariantParam() = default;
 			VariantParam(const T& value) :value_(value) {}
-			VariantParam(const std::shared_ptr<TextureObject>& texture) :texture_(texture) {}
+			
 			VariantParam(const VariantParam&) = default;
 			VariantParam(VariantParam&&) = default;
 
 			VariantParam(std::shared_ptr<TextureObject>&& texture) :texture_(std::move(texture)) {}
+			virtual ~VariantParam() {}
 
-			/*const T value() { return value_; }
-			void set_value(const T& value) { value_ = value; }
-
-			const std::shared_ptr<TextureObject> texture() { return texture_; }
-			void set_texture(std::shared_ptr<TextureObject>& texture) { texture_ = texture; }*/
-
-
-		private:
-			T value_;
-			std::shared_ptr<TextureObject>texture_;
+			T Value;	
 			//	T value_;
 			//	std::shared_ptr<TextureObject>texture_;
 		};
-		using ColorParam = VariantParam<Color>;
-		using ValueParam = VariantParam<float>;
-		using Value = float;
+		template<>
+		struct VariantParam<TextureObject> : MaterialParam
+		{
+			VariantParam() = default;
+			VariantParam(const std::shared_ptr<TextureObject>& texture) :Texture(texture) {}
+			VariantParam(const VariantParam&) = default;
+			VariantParam(VariantParam&&) = default;
+			virtual ~VariantParam() {}
 
+			std::shared_ptr<TextureObject>Texture;
+		};
+
+		using ColorParam = VariantParam<Color>;
+		using FloatParam = VariantParam<float>;
+		using BoolParam  = VariantParam<bool>;
+		using TextureParam = VariantParam <TextureObject>;
+
+		using Value = float;
+		
 		class MaterialObject :public BaseSceneObject
 		{
-
+		public:
+			virtual ~MaterialObject()
+			{
+			}
+			BoolParam GetBoolParam(std::string param_name)
+			{
+				return *std::dynamic_pointer_cast<BoolParam>(param_[param_name]);
+			}
 		protected:
 			MaterialObject() :BaseSceneObject(SceneObjectType::kMaterialObject) {};
 			std::string name_;
 			bool two_side_;
+			std::unordered_map<std::string,std::shared_ptr<MaterialParam>> param_;
 		};
 		class PBRMaterial :public MaterialObject
 		{
 		public:
-			PBRMaterial() = default;
+			PBRMaterial()
+			{
+
+			}
 			PBRMaterial(const PBRMaterial&) = default;
 			//PBRMaterial(const PBRMaterial&&) = default;
 			PBRMaterial& operator=(const PBRMaterial&) = default;
 			PBRMaterial& operator=(PBRMaterial&&) = default;
-		private:
-			ColorParam diffuse_;
-			ColorParam specular_;
-			ValueParam specular_power_;
-			ColorParam emission_;
-			ValueParam opacity_;
-			ColorParam transparency_;
-			TextureObject norma_map_;
-			TextureObject height_map_;
-			ValueParam height_scale_;
-			TextureObject occlution_;
-			ValueParam roughness_;
-			ValueParam metalness_;
+			
+			
+
+			virtual PBRMaterial(){}
+
+			ColorParam Diffuse;
+			ColorParam Specular;
+			ValueParam Specular_power;
+			ColorParam Emission;
+			ValueParam Opacity;
+			ColorParam Transparency;
+			TextureObject Norma_map;
+			TextureObject Height_map;
+			ValueParam Height_scale;
+			TextureObject Occlution;
+			ValueParam Roughness;
+			ValueParam Metalness;
 			//«Â∆·≤ƒ÷ 
-			ColorParam clearcoat_;
-			ValueParam clearcoat_roughness_;
-			ColorParam sheen_;
-			ValueParam sheen_roughness_;
-			Value ior_;
+			ColorParam Clearcoat;
+			ValueParam Clearcoat_roughness;
+			ColorParam Sheen;
+			ValueParam Sheen_roughness;
+			Value Ior;
 		};
 	}//Scene
 }//YiaEngine
+
+#endif
