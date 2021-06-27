@@ -31,12 +31,12 @@ namespace YiaEngine
 		{
 		public:
 			VariantParam() = default;
-			VariantParam(const T& value) :value_(value) {}
+			VariantParam(const T& value) :Value(value) {}
 			
 			VariantParam(const VariantParam&) = default;
 			VariantParam(VariantParam&&) = default;
 
-			VariantParam(std::shared_ptr<TextureObject>&& texture) :texture_(std::move(texture)) {}
+			
 			virtual ~VariantParam() {}
 
 			T Value;	
@@ -48,8 +48,10 @@ namespace YiaEngine
 		{
 			VariantParam() = default;
 			VariantParam(const std::shared_ptr<TextureObject>& texture) :Texture(texture) {}
+			VariantParam(std::shared_ptr<TextureObject>&& texture) :Texture(std::move(texture)) {}
 			VariantParam(const VariantParam&) = default;
 			VariantParam(VariantParam&&) = default;
+			
 			virtual ~VariantParam() {}
 
 			std::shared_ptr<TextureObject>Texture;
@@ -68,22 +70,62 @@ namespace YiaEngine
 			virtual ~MaterialObject()
 			{
 			}
-			BoolParam GetBoolParam(std::string param_name)
+			
+			template<typename T>
+			T GetParam(std::string param_name)
 			{
-				return *std::dynamic_pointer_cast<BoolParam>(param_[param_name]);
+				if (params_.find(param_name) == params_.end())
+					return T{};
+				return *std::dynamic_pointer_cast<T>(params_[param_name]);
+			}
+			template<typename T>
+			void SetParam(std::string param_name,const T& param)
+			{
+				params_[param_name] = 
+					std::static_pointer_cast<MaterialParam>(std::make_shared<T>(param));
+			}
+			template<typename T>
+			void SetParam(std::string param_name,const std::shared_ptr<T>& param_ptr)
+			{
+				params_[param_name] =std::static_pointer_cast<MaterialParam>(param_ptr);
+			}
+			void SetName(const std::string& material_name)
+			{
+				name_= material_name;
+			}
+			std::string Name()
+			{
+				return name_;
 			}
 		protected:
 			MaterialObject() :BaseSceneObject(SceneObjectType::kMaterialObject) {};
 			std::string name_;
 			bool two_side_;
-			std::unordered_map<std::string,std::shared_ptr<MaterialParam>> param_;
+			std::unordered_map<std::string,std::shared_ptr<MaterialParam>> params_;
 		};
 		class PBRMaterial :public MaterialObject
 		{
 		public:
 			PBRMaterial()
 			{
-
+				params_["Diffuse"]				= std::make_shared<ColorParam>();
+				params_["Diffuse_Tex"]			= std::make_shared<TextureParam>();
+				params_["Specular"]				= std::make_shared<ColorParam>();
+				params_["Specular_power"]		= std::make_shared<FloatParam>();
+				params_["Emission"]				= std::make_shared<ColorParam>();
+				params_["Opacity"]				= std::make_shared<ColorParam>();
+				params_["Transparency"]			= std::make_shared<ColorParam>();
+				params_["Norma_map"]			= std::make_shared<TextureParam>();
+				params_["Height_map"]			= std::make_shared<TextureParam>();
+				params_["Height_scale"]			= std::make_shared<FloatParam>();
+				params_["Occlution"]			= std::make_shared<TextureParam>();
+				params_["Roughness"]			= std::make_shared<FloatParam>();
+				params_["Metalness"]			= std::make_shared<FloatParam>();
+				params_["Clearcoat"]			= std::make_shared<ColorParam>();
+				params_["Clearcoat_roughness"]	= std::make_shared<FloatParam>();
+				params_["Sheen"]				= std::make_shared<ColorParam>();
+				params_["Sheen_roughness"]		= std::make_shared<FloatParam>();
+				params_["Ior"]					= std::make_shared<ColorParam>();
 			}
 			PBRMaterial(const PBRMaterial&) = default;
 			//PBRMaterial(const PBRMaterial&&) = default;
@@ -92,26 +134,8 @@ namespace YiaEngine
 			
 			
 
-			virtual PBRMaterial(){}
+			virtual ~PBRMaterial(){}
 
-			ColorParam Diffuse;
-			ColorParam Specular;
-			ValueParam Specular_power;
-			ColorParam Emission;
-			ValueParam Opacity;
-			ColorParam Transparency;
-			TextureObject Norma_map;
-			TextureObject Height_map;
-			ValueParam Height_scale;
-			TextureObject Occlution;
-			ValueParam Roughness;
-			ValueParam Metalness;
-			//«Â∆·≤ƒ÷ 
-			ColorParam Clearcoat;
-			ValueParam Clearcoat_roughness;
-			ColorParam Sheen;
-			ValueParam Sheen_roughness;
-			Value Ior;
 		};
 	}//Scene
 }//YiaEngine
