@@ -5,7 +5,7 @@
 /YiaEngine/Engine/.vscode
 /YiaEngine/Engine/out
 
-/.vs
-/out
-/vsout
-/build
+.vs/
+out/
+vsout/
+build/
