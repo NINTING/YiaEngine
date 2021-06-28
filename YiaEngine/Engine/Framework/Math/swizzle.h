@@ -21,9 +21,21 @@ namespace YiaEngine
 
 		operator Vec<T, sizeof...(Indexes)>()const
 		{
+			auto s = Vec<T, sizeof...(Indexes)>(std::initializer_list<T>{elem(Indexes)...});
+
 			return Vec<T, sizeof...(Indexes)>(std::initializer_list<T>{elem(Indexes)...});
 		}
+		swizzle() = default;
+		swizzle(const Vec<T, sizeof...(Indexes)>& rhs)
+		{
+			T* tmp = reinterpret_cast<T*>(this);
+			int idx[] = { Indexes... };
+			for (int i = 0; i < sizeof...(Indexes); i++)
+			{
 
+				tmp[idx[i]] = rhs[i];
+			}
+		}
 		swizzle& operator =(const Vec<T, sizeof...(Indexes)>& rhs)
 		{
 			T* tmp = reinterpret_cast<T*>(this);
@@ -36,9 +48,17 @@ namespace YiaEngine
 			return *this;
 		}
 
+		
 	};
+	template<typename T,int... Is,int...Rs>
+	Vec<T, sizeof...(Is)> operator + (const swizzle<T, Is...>&lhs, const swizzle<T, Rs...>&rhs)
+	{
+		DebugSwizzle(lhs);
+		return Vec<T, sizeof...(Is)>(lhs) + Vec<T, sizeof...(Rs)>(rhs);
+	}
+
 	template<typename T, int...Indexes>
-	void DebugSwizzle(swizzle<T, Indexes...>& swi)
+	void DebugSwizzle(const swizzle<T, Indexes...>& swi)
 	{
 		int idx[] = { Indexes... };
 		for (int i = 0; i < sizeof...(Indexes); i++)

@@ -1,8 +1,8 @@
 #ifndef SCENE_MATERIAL_OBJECT_H
 #define SCENE_MATERIAL_OBJECT_H
 
-
-#include<cas>
+//
+//#include<cas>
 
 #include "BaseSceneObject.h"
 #include"TextureObject.h"

@@ -155,10 +155,10 @@ namespace YiaEngine
 		return std::move(*pbuffer);
 	}
 
-	std::shared_ptr<Image> AssetLoder::LoadImage()
-	{
+	//std::shared_ptr<Image> AssetLoder::LoadImage()
+	//{
 
-	}
+	//}
 
 	//Scene::VariantParam GetMaterialParameter()
 	//{
