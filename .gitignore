@@ -8,5 +8,4 @@
 .vs/
 out/
 vsout/
-build/
-/build:
+/build/*
