@@ -21,8 +21,6 @@ namespace YiaEngine
 
 		operator Vec<T, sizeof...(Indexes)>()const
 		{
-			auto s = Vec<T, sizeof...(Indexes)>(std::initializer_list<T>{elem(Indexes)...});
-
 			return Vec<T, sizeof...(Indexes)>(std::initializer_list<T>{elem(Indexes)...});
 		}
 		swizzle() = default;
@@ -53,7 +51,6 @@ namespace YiaEngine
 	template<typename T,int... Is,int...Rs>
 	Vec<T, sizeof...(Is)> operator + (const swizzle<T, Is...>&lhs, const swizzle<T, Rs...>&rhs)
 	{
-		DebugSwizzle(lhs);
 		return Vec<T, sizeof...(Is)>(lhs) + Vec<T, sizeof...(Rs)>(rhs);
 	}
 
