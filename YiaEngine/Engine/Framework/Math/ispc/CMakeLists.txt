@@ -3,7 +3,7 @@
 #
 
 
-set(FUNCTIONS simple AddByElement)
+set(FUNCTIONS simple AddByElement DCT8X8)
 
 foreach(FUNC IN LISTS FUNCTIONS)
 	add_custom_command(OUTPUT ${FUNC}.o 

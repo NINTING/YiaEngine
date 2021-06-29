@@ -10,6 +10,7 @@
 #include<initializer_list>
 
 #include "operation/AddByElement.h"
+#include "operation/DCT8X8.h"
 #include "swizzle.h"
 
 
@@ -23,20 +24,15 @@
 
 namespace YiaEngine
 {
-	template<typename T, int N> struct Vec
-	{
-	
-	};
+	template<typename T, int N> struct Vec;
+
 #pragma region MathOperator
 	template<typename U, int M>
-	Vec< U, M> VecAdd(const Vec<U, M>& lhs, const Vec<U, M>& rhs)
-	{
-		Vec<U, M> ret;
+	static Vec< U, M> VecAdd(const Vec<U, M>& lhs, const Vec<U, M>& rhs);
+	
+	
 
-		ret.x = lhs.x + rhs.x;
-		ispc::AddByElement(lhs, rhs, ret, M);
-		return ret;
-	}
+
 
 	template<typename T, int N> struct vecbase
 	{
@@ -48,7 +44,20 @@ namespace YiaEngine
 	};
 #pragma endregion
 
-	
+	template<typename T, int N> struct Vec :vecbase<T, N>
+	{
+		T data[N];
+		Vec() = default;
+		Vec(std::initializer_list<T> list) {
+			int i = 0;
+			for (const T* it = list.begin(); it != list.end(); ++it, ++i)
+				data[i] = *it;
+		}
+		T& operator [](int idx) { return data[idx]; }
+		const T& operator [](int idx)const { return data[idx]; }
+		operator T* () { return data; }
+		operator const T* ()const { return const_cast<const T*>(data); }
+	};
 
 	template<typename T>
 	struct Vec<T,2>:vecbase<T,2>
@@ -69,7 +78,8 @@ namespace YiaEngine
 			for (const T* it = list.begin(); it != list.end(); ++it, ++i)
 				data[i] = *it;
 		}
-
+		T& operator [](int idx) { return data[idx]; }
+		const T& operator [](int idx)const { return data[idx]; }
 		operator T* () { return data; }
 		operator const T* ()const { return const_cast<const T*>(data); }
 	};
@@ -100,7 +110,8 @@ namespace YiaEngine
 			for (const T* it = list.begin(); it != list.end(); ++it, ++i)
 				data[i] = *it;
 		}
-
+		T& operator [](int idx) { return data[idx]; }
+		const T& operator [](int idx)const { return data[idx]; }
 		operator T* () { return data; }
 		operator const T* ()const { return const_cast<const T*>(data); }
 	};
@@ -153,22 +164,27 @@ namespace YiaEngine
 	template<typename T, int R, int C>
 	struct Matrix
 	{
-		Vec<T, C>data[R];
+		union 
+		{
+			Vec<T, C>vec_data[R];
+			T datas[R*C];
+		};
+		
 
-		Matrix() { memset(data, 0, sizeof(T) * C * R); }
+		Matrix() { memset(datas, 0, sizeof(T) * C * R); }
 		Matrix(const Matrix& mat) = default;
 		Matrix& operator = (const Matrix& mat) = default;
 		
-		Matrix(std::initializer_list<const T>list){
+		Matrix(const std::initializer_list<T>&list){
 			int i = 0;
-			for (const T* it = list.begin(); it != list.end(); ++it, ++i)
-				data[i] = *it;
+			for (auto it = list.begin(); it != list.end(); ++it, ++i)
+				datas[i] = *it;
 		}
 		Vec<T, C>& operator[](int col) {
-			return data[col];
+			return vec_data[col];
 		}
 		const Vec<T, C>& operator[](int col)const {
-			return data[col];
+			return vec_data[col];
 		}
 		/*void Translation<T, 4, 4>(T x, T y, T z) {
 			data[3][0] += x;
@@ -186,15 +202,33 @@ namespace YiaEngine
 				ret[i][i] = 1;	
 			}
 		}
-		
-		
+		operator T*()
+		{
+			return datas;
+		}
+		operator const T* () const
+		{
+			return const_cast<const T*>(datas);
+		}
 	};
 	using Mat4x4f = Matrix<float, 4, 4>;
 
-	//namespace gemo_math
-	//{
-	//	Translation
-	//}
+	
+	template<typename U, int M>
+	static Vec< U, M> VecAdd(const Vec<U, M>& lhs, const Vec<U, M>& rhs)
+	{
+		Vec<U, M> ret;
+
+		//	ret.x = lhs.x + rhs.x;
+		ispc::AddByElement(lhs, rhs, ret, M);
+		return ret;
+	}
+	Matrix<float, 8, 8> DCT8X8(const Matrix<int, 8, 8>& in_mat)
+	{
+		Matrix<float, 8, 8> out_mat;
+		ispc::DCT8X8(in_mat, out_mat);
+		return out_mat;
+	}
 
 }//YiaEngine
 
