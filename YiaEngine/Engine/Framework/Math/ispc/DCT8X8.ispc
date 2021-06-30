@@ -62,3 +62,26 @@ export void DCT8X8(uniform const int32 in_matrix[64],uniform float out_matrix[64
 
     }
 }
+
+export void IDCT8X8(uniform const int32 G[64], uniform int32 g[64])
+{
+    uniform float result_cache[8][8][8][8];
+
+    foreach(x = 0 ... 8, y = 0 ... 8, u = 0 ... 8, v = 0 ... 8) {
+        float scale_factor = ONE_OVER_FOUR * normalizeing_scale_factor(u)
+            * normalizeing_scale_factor(v);
+        float normial = G[u*8+v] * cos((2.0f * x + 1.0f) * u * PI_OVER_SIXTEEN)
+            * cos((2.0f * y + 1.0f) * v * PI_OVER_SIXTEEN);
+        result_cache[x][y][u][v] = scale_factor * normial;
+    }
+
+    foreach(x = 0 ... 8, y = 0 ... 8) {
+        float sum = 0.0f;
+        for (int u = 0; u < 8; u++) {
+            for (int v = 0; v < 8; v++) {
+                sum += result_cache[x][y][u][v];
+            }
+        }
+        g[x*8+y] = round(sum);
+    }
+}

@@ -10,7 +10,9 @@
 #include<initializer_list>
 
 #include "operation/AddByElement.h"
+#include "operation/MatrixOperation.h"
 #include "operation/DCT8X8.h"
+
 #include "swizzle.h"
 
 
@@ -136,12 +138,25 @@ namespace YiaEngine
 			for (const T* it = list.begin(); it != list.end(); ++it, ++i)
 				data[i] = *it;
 		}
+		template<int U>
+		Vec(const Vec<T, U>& in) :x(0), y(0), z(0), w(0)
+		{
+			int count = U > 4 ? 4 : U;
+			memcpy(this, in, sizeof(T) * count);
+		}
 		T& operator [](int idx) { return data[idx]; }
 		const T& operator [](int idx)const { return data[idx]; }
 		operator T* () { return data; }
 		operator const T* ()const { return const_cast<const T*>(data); }
 
-
+		template<int U>
+		operator Vec<T, U>()
+		{
+			Vec<T, U> out{ 0 };
+			int count = U > 4 ? 4 : U;
+			memcpy(out, this, sizeof(T) * count);
+			return out;
+		}
 		static const Vec Zero() { return Vec(0); }
 		static const Vec One() { return Vec(1); }
 	};
@@ -223,10 +238,23 @@ namespace YiaEngine
 		ispc::AddByElement(lhs, rhs, ret, M);
 		return ret;
 	}
+	template<int M>
+	Vec<float, M>  Transform(const Vec< float, M>& lhs, const Matrix < float , M, M > &rhs)
+	{
+		Vec4f out_vec;
+		ispc::Transform(lhs, rhs, M, out_vec);
+		return out_vec;
+	}
 	Matrix<float, 8, 8> DCT8X8(const Matrix<int, 8, 8>& in_mat)
 	{
 		Matrix<float, 8, 8> out_mat;
 		ispc::DCT8X8(in_mat, out_mat);
+		return out_mat;
+	}
+	Matrix<int, 8, 8> IDCT8X8(const Matrix<int, 8, 8>& in_mat)
+	{
+		Matrix<int, 8, 8> out_mat;
+		ispc::IDCT8X8(in_mat, out_mat);
 		return out_mat;
 	}
 

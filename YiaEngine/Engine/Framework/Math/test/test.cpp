@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include "GeomMath.h"
 #include<string>
-
+#include<iostream>
+#include"Common/ColorSpace.h"
 enum pri{
 
 	triangle,
@@ -29,6 +30,16 @@ int main()
 	 v3.yx = vt2.yx + v2.xy;
 	 YiaEngine::Vec2f v1 = vt2.yx ;*/
 	YiaEngine::Matrix<int,8,8> pixel_block = {
+		-416, -33, -60,  32,  48, -40,   0,   0,
+		0, -24, -56,  19,  26,   0,   0,   0 ,
+		-42,  13,  80, -24, -40,   0,   0,   0,
+		-42,  17,  44, -29,   0,   0,   0,   0,
+		 18,   0,   0,   0,   0,   0,   0,   0,
+		  0,   0,   0,   0,   0,   0,   0,   0,
+		  0,   0,   0,   0,   0,   0,   0,   0,
+		  0,   0,   0,   0,   0,   0,   0,   0
+	};
+	YiaEngine::Matrix<int, 8, 8> pixel_block2 = {
 		-76, -73, -67, -62, -58, -67, -64, -55,
 		-65, -69, -73, -38, -19, -43, -59, -56,
 		-66, -69, -60, -15,  16, -24, -62, -55,
@@ -38,17 +49,19 @@ int main()
 		-43, -57, -64, -69, -73, -67, -63, -45,
 		-41, -49, -59, -60, -63, -52, -50, -34
 	};
-	
 
-	auto out = YiaEngine::DCT8X8(pixel_block);
+	auto out = YiaEngine::IDCT8X8(pixel_block);
 
-	for (int i = 0; i < 8; i++)
+	/*for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 8; j++)
 		{
 			auto v = out[i][j];
-			printf("%lf ", v);
+			printf("%d ", v);
 		}
 		printf("\n");
-	}
+	}*/
+	RGB rgb = { 64, 35, 17 };
+	YCbCr ybr = YiaEngine::ConvertRGB2YCbCr(rgb);
+	std::cout << rgb.x <<" " << rgb.y << " " << rgb.z;
 }
