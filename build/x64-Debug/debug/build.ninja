@@ -792,6 +792,14 @@ build YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\MemoryM
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\
   TARGET_PDB = YiaEngine\Engine\Framework\Common\Test\allocTest.pdb
 
+build YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\__\__\__\External\crossguid\guid.cpp.obj: CXX_COMPILER__allocTest_Debug ..\..\..\YiaEngine\External\crossguid\guid.cpp || cmake_object_order_depends_target_allocTest
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\Engine\Framework\Common\IO -I..\..\..\YiaEngine\Engine\Framework\Math\operation
+  OBJECT_DIR = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\__\__\__\External\crossguid
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\
+  TARGET_PDB = YiaEngine\Engine\Framework\Common\Test\allocTest.pdb
+
 build YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\AssetLoder\AssetLoder.cpp.obj: CXX_COMPILER__allocTest_Debug ..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder\AssetLoder.cpp || cmake_object_order_depends_target_allocTest
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
   INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\Engine\Framework\Common\IO -I..\..\..\YiaEngine\Engine\Framework\Math\operation
@@ -808,10 +816,10 @@ build YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\AssetLo
 #############################################
 # Link the executable YiaEngine\Engine\Framework\Common\Test\allocTest.exe
 
-build YiaEngine\Engine\Framework\Common\Test\allocTest.exe: CXX_EXECUTABLE_LINKER__allocTest_Debug YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\test.cpp.obj YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\Allocator.cpp.obj YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\MemoryManager.cpp.obj YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\AssetLoder\AssetLoder.cpp.obj | YiaEngine\Engine\Framework\Math\GeomMath.lib || YiaEngine\Engine\Framework\Math\ispc\GeomMathLib
+build YiaEngine\Engine\Framework\Common\Test\allocTest.exe: CXX_EXECUTABLE_LINKER__allocTest_Debug YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\test.cpp.obj YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\Allocator.cpp.obj YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\MemoryManager.cpp.obj YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\__\__\__\External\crossguid\guid.cpp.obj YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\AssetLoder\AssetLoder.cpp.obj | YiaEngine\Engine\Framework\Math\GeomMath.lib ..\..\..\YiaEngine\External\assimp\assimp-vc142-mtd.lib || YiaEngine\Engine\Framework\Math\ispc\GeomMathLib
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
-  LINK_LIBRARIES = YiaEngine\Engine\Framework\Math\GeomMath.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  LINK_LIBRARIES = YiaEngine\Engine\Framework\Math\GeomMath.lib  ..\..\..\YiaEngine\External\assimp\assimp-vc142-mtd.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -904,7 +912,7 @@ build YiaEngine\Engine\Framework\Math\edit_cache: phony YiaEngine\Engine\Framewo
 #############################################
 # Utility command for GeomMathLib
 
-build YiaEngine\Engine\Framework\Math\ispc\GeomMathLib: phony YiaEngine\Engine\Framework\Math\ispc\CMakeFiles\GeomMathLib YiaEngine\Engine\Framework\Math\GeomMath.lib YiaEngine\Engine\Framework\Math\ispc\AddByElement.o YiaEngine\Engine\Framework\Math\ispc\simple.o
+build YiaEngine\Engine\Framework\Math\ispc\GeomMathLib: phony YiaEngine\Engine\Framework\Math\ispc\CMakeFiles\GeomMathLib YiaEngine\Engine\Framework\Math\GeomMath.lib YiaEngine\Engine\Framework\Math\ispc\AddByElement.o YiaEngine\Engine\Framework\Math\ispc\DCT8X8.o YiaEngine\Engine\Framework\Math\ispc\MatrixOperation.o YiaEngine\Engine\Framework\Math\ispc\simple.o
 
 
 #############################################
@@ -951,8 +959,8 @@ build YiaEngine\Engine\Framework\Math\ispc\CMakeFiles\GeomMathLib: phony YiaEngi
 #############################################
 # Custom command for YiaEngine\Engine\Framework\Math\GeomMath.lib
 
-build YiaEngine\Engine\Framework\Math\GeomMath.lib: CUSTOM_COMMAND YiaEngine\Engine\Framework\Math\ispc\simple.o YiaEngine\Engine\Framework\Math\ispc\AddByElement.o
-  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && lib /MACHINE:X64 /OUT:E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/GeomMath.lib simple.o AddByElement.o && del simple.o AddByElement.o"
+build YiaEngine\Engine\Framework\Math\GeomMath.lib: CUSTOM_COMMAND YiaEngine\Engine\Framework\Math\ispc\simple.o YiaEngine\Engine\Framework\Math\ispc\AddByElement.o YiaEngine\Engine\Framework\Math\ispc\DCT8X8.o YiaEngine\Engine\Framework\Math\ispc\MatrixOperation.o
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && lib /MACHINE:X64 /OUT:E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/GeomMath.lib simple.o AddByElement.o DCT8X8.o MatrixOperation.o && del simple.o AddByElement.o DCT8X8.o MatrixOperation.o"
   DESC = Generating ../GeomMath.lib
   restat = 1
 
@@ -963,6 +971,24 @@ build YiaEngine\Engine\Framework\Math\GeomMath.lib: CUSTOM_COMMAND YiaEngine\Eng
 build YiaEngine\Engine\Framework\Math\ispc\AddByElement.o: CUSTOM_COMMAND ..\..\..\YiaEngine\Engine\Framework\Math\ispc\AddByElement.ispc
   COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E env PATH=E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ispc.exe E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/ispc/AddByElement.ispc -h E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/operation/AddByElement.h -o AddByElement.o"
   DESC = BUILDING AddByElement
+  restat = 1
+
+
+#############################################
+# Custom command for YiaEngine\Engine\Framework\Math\ispc\DCT8X8.o
+
+build YiaEngine\Engine\Framework\Math\ispc\DCT8X8.o: CUSTOM_COMMAND ..\..\..\YiaEngine\Engine\Framework\Math\ispc\DCT8X8.ispc
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E env PATH=E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ispc.exe E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/ispc/DCT8X8.ispc -h E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/operation/DCT8X8.h -o DCT8X8.o"
+  DESC = BUILDING DCT8X8
+  restat = 1
+
+
+#############################################
+# Custom command for YiaEngine\Engine\Framework\Math\ispc\MatrixOperation.o
+
+build YiaEngine\Engine\Framework\Math\ispc\MatrixOperation.o: CUSTOM_COMMAND ..\..\..\YiaEngine\Engine\Framework\Math\ispc\MatrixOperation.ispc
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E env PATH=E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ispc.exe E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/ispc/MatrixOperation.ispc -h E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/operation/MatrixOperation.h -o MatrixOperation.o"
+  DESC = BUILDING MatrixOperation
   restat = 1
 
 

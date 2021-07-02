@@ -21,6 +21,7 @@ AssetLoder
 #include"Buffer.h"
 #include"Scene/SceneObject.h"
 #include"Scene/SceneNode.h"
+
 namespace YiaEngine
 {
 
@@ -50,6 +51,7 @@ namespace YiaEngine
 		
 		Buffer OpenAndReadText(const char* name);
 		Buffer OpenAndReadBinary(const char* name);
+		
 		std::shared_ptr<Scene::MaterialObject> CreatePBRMaterial(aiMaterial const* aiMat);
 		std::unique_ptr<Scene::GeometryNode> LoadModel(const char* name);
 		//void ReadFile(AssetFilePtr fp);

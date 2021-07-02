@@ -1,4 +1,3 @@
-#pragma once
 #ifndef FRAMEWORK_MATH_GEOMATH_H_
 #define FRAMEWORK_MATH_GEOMATH_H_
 
@@ -11,7 +10,7 @@
 
 #include "operation/AddByElement.h"
 #include "operation/MatrixOperation.h"
-#include "operation/DCT8X8.h"
+
 
 #include "swizzle.h"
 
@@ -187,7 +186,10 @@ namespace YiaEngine
 		
 
 		Matrix() { memset(datas, 0, sizeof(T) * C * R); }
-		Matrix(const Matrix& mat) = default;
+		Matrix(const Matrix& mat)
+		{
+			memcpy(datas, mat.datas, sizeof(T) * C * R);
+		}
 		Matrix& operator = (const Matrix& mat) = default;
 		
 		Matrix(const std::initializer_list<T>&list){
@@ -245,18 +247,7 @@ namespace YiaEngine
 		ispc::Transform(lhs, rhs, M, out_vec);
 		return out_vec;
 	}
-	Matrix<float, 8, 8> DCT8X8(const Matrix<int, 8, 8>& in_mat)
-	{
-		Matrix<float, 8, 8> out_mat;
-		ispc::DCT8X8(in_mat, out_mat);
-		return out_mat;
-	}
-	Matrix<int, 8, 8> IDCT8X8(const Matrix<int, 8, 8>& in_mat)
-	{
-		Matrix<int, 8, 8> out_mat;
-		ispc::IDCT8X8(in_mat, out_mat);
-		return out_mat;
-	}
+	
 
 }//YiaEngine
 

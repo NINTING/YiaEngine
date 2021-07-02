@@ -16,7 +16,6 @@ link_directories(${CMAKE_SOURCE_DIR}/YiaEngine/External/assimp)
 add_executable(SceneTest 
 ${CMAKE_SOURCE_DIR}/YiaEngine/External/crossguid/guid.cpp	
 	test.cpp 
-	
 	${SceneList} 
 	${PROJECT_SOURCE_DIR}/Framework/Common/AssetLoder/AssetLoder.cpp
 	${PROJECT_SOURCE_DIR}/Framework/Common/MemoryManager.cpp

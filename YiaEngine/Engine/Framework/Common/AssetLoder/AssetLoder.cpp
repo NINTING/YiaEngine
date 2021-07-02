@@ -168,27 +168,27 @@ namespace YiaEngine
 	std::shared_ptr<Scene::MaterialObject> AssetLoder::CreatePBRMaterial( aiMaterial const* aiMat)
 	{
 		std::shared_ptr<Scene::PBRMaterial> mat_obj = std::make_shared<Scene::PBRMaterial>();
-		aiString mat_name;
-		aiMat->Get(AI_MATKEY_NAME, mat_name);
-		mat_obj->SetName(mat_name.C_Str());
-		
-		Color color;
-		aiString texture_path;
-		//mat_obj
-		aiMat->Get(AI_MATKEY_COLOR_DIFFUSE, color);
-		
-		aiMat->GetTextureCount(aiTextureType_DIFFUSE);
-		auto result = aiMat->GetTexture(aiTextureType_AMBIENT,0, &texture_path);
-		if (result == aiReturn_SUCCESS)
-		{
-			
-		}
-		mat_obj->SetParam("Diffuse", color);
+		//aiString mat_name;
+		//aiMat->Get(AI_MATKEY_NAME, mat_name);
+		//mat_obj->SetName(mat_name.C_Str());
+		//
+		//Color color;
+		//aiString texture_path;
+		////mat_obj
+		//aiMat->Get(AI_MATKEY_COLOR_DIFFUSE, color);
+		//
+		//aiMat->GetTextureCount(aiTextureType_DIFFUSE);
+		//auto result = aiMat->GetTexture(aiTextureType_AMBIENT,0, &texture_path);
+		//if (result == aiReturn_SUCCESS)
+		//{
+		//	
+		//}
+		//mat_obj->SetParam("Diffuse", color);
 
-		result = aiMat->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path);
+		//result = aiMat->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path);
 		return mat_obj;
 	}
-
+	
 	std::unique_ptr<Scene::GeometryNode> AssetLoder::LoadModel(const char* name)
 	{
 		using namespace Scene;

@@ -1,6 +1,6 @@
 #pragma once
-#ifndef FRAMEWORK_SCENE_INDEX_ARRAY_H
-#define FRAMEWORK_SCENE_INDEX_ARRAY_H
+#ifndef FRAMEWORK_SCENE_VERTEX_ARRAY_H
+#define FRAMEWORK_SCENE_VERTEX_ARRAY_H
 
 #include "SceneEnum.h"
 

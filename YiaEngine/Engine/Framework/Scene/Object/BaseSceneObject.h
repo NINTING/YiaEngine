@@ -32,7 +32,8 @@ namespace YiaEngine {
 			{
 				return guid_;
 			}
-
+			
+			
 		};
 	}
 }
