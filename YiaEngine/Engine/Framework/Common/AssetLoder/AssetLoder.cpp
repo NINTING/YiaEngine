@@ -7,6 +7,7 @@
 #include <assimp/Importer.hpp>      // C++ importer interface
 #include <assimp/scene.h>           // Output data structure
 #include <assimp/postprocess.h>     // Post processing flags
+#include "freeImage/FreeImage.h"
 
 #include "AssetLoder.h"
 
@@ -22,6 +23,7 @@ namespace YiaEngine
 		{
 			auto it = searchPath.begin();
 			bool loop = true;
+			
 			while (loop)
 			{
 				fullPath.assign(upPath);
@@ -133,7 +135,7 @@ namespace YiaEngine
 		}
 		else
 			pbuffer = new Buffer();
-
+		
 		return std::move(*pbuffer);
 
 	}
@@ -154,7 +156,125 @@ namespace YiaEngine
 
 		return std::move(*pbuffer);
 	}
+	std::shared_ptr<Image> YiaEngine::AssetLoder::LoadImageFile(const char* filename)
+	{
+	 	std::string full_name = GetFullFilePath(filename);
+		
+		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
+		//pointer to the image, once loaded
+		FIBITMAP* dib(0);
+		//pointer to the image data
+		BYTE* bits(0);
 
+		fif = FreeImage_GetFileType(full_name.c_str(), 0);
+		//if still unknown, try to guess the file format from the file extension
+		if (fif == FIF_UNKNOWN)
+			fif = FreeImage_GetFIFFromFilename(full_name.c_str());
+		//if still unkown, return failure
+		if (fif == FIF_UNKNOWN)
+			return nullptr;
+		
+		//check that the plugin has reading capabilities and load the file
+		if (FreeImage_FIFSupportsReading(fif))
+			dib = FreeImage_Load(fif, full_name.c_str());
+		//if the image failed to load, return failure
+	
+	
+		if (!dib)
+			return nullptr;
+
+		const char* format = FreeImage_GetFIFDescription(fif);
+
+		printf("%s\n", format);
+	
+		//get the image width and height
+		uint32_t width = FreeImage_GetWidth(dib);
+		uint32_t height = FreeImage_GetHeight(dib);
+		uint32_t pitch = FreeImage_GetPitch(dib);
+		uint32_t mem_size = FreeImage_GetMemorySize(dib);
+		uint32_t bpp_size = FreeImage_GetBPP(dib);
+		auto info = FreeImage_GetInfo(dib);
+		bits = FreeImage_GetBits(dib);
+		uint32_t data_size = pitch * height;
+#ifdef DEBUG
+		printf("width0:%d\n", info->bmiHeader.biWidth);
+		printf("width:%d\n", width);
+		printf("height:%d\n", height);
+		printf("pitch:%d\n", pitch);
+		printf("mem_size:%d\n", mem_size);
+		printf("data_size:%d\n", data_size);
+		printf("size:%lld\n", info->bmiHeader.biSize);
+		printf("image size:%d\n", info->bmiHeader.biSizeImage);
+
+		printf("bpp_size:%d\n", bpp_size);
+		
+		printf("image start%p\n", info->bmiColors);
+		printf("image start1%p\n", bits);
+		printf("head size %p\n", sizeof(info->bmiHeader));
+#endif // DEBUG
+		auto type = FreeImage_GetImageType(dib);
+		auto color_type = FreeImage_GetColorType(dib);
+	
+		auto dibsize =  FreeImage_GetDIBSize(dib);
+
+		if ((bits == 0) || (width == 0) || (height == 0))
+			return nullptr;
+		
+		std::shared_ptr<Image> ptr_img = std::shared_ptr<Image>(new Image);
+
+		
+		
+		
+		ptr_img->width = width;
+		ptr_img->height = height;
+		ptr_img->bitCount = info->bmiHeader.biBitCount;
+		ptr_img->data_size = data_size;
+		ptr_img->pitch = pitch;
+		ptr_img->pData = nullptr;
+		uint32_t image_size = 0;
+		R8G8B8A8U* pdata = nullptr;
+		switch (color_type)
+		{
+		case FIC_MINISWHITE:
+			break;
+		case FIC_MINISBLACK:
+			break;
+		case FIC_RGB:
+			pitch = (((32 >> 3) * width) + 3) & ~3;
+			image_size = pitch  * height;
+			ptr_img->pitch = pitch;
+			ptr_img->data_size = image_size;
+			ptr_img->pData = reinterpret_cast<R8G8B8A8U*>(MemoryManager::Instance()->Allocate(image_size));
+			pdata = reinterpret_cast<R8G8B8A8U*>(ptr_img->pData);
+			for (int y = height - 1; y>=0; y--)
+			{
+				for (int x = 0; x < width; x++)
+				{
+					RGBQUAD quad;
+					if (FreeImage_GetPixelColor(dib, x, y, &quad))
+					{
+						(pdata + x + (height - y - 1)  * width)->bgr = *(reinterpret_cast<R8G8B8U*>(&quad));
+					}
+					/*(pdata + x + y * width)->rbg =
+						*(reinterpret_cast<R8G8B8U*>(bits + y *pitch + x * (info->bmiHeader.biBitCount >> 3)));*/
+				}
+			}
+			break;
+		case FIC_PALETTE:
+			break;
+		case FIC_RGBALPHA:
+		break;
+		case FIC_CMYK:
+			break;
+		default:
+			break;
+		}
+
+		return ptr_img;
+		
+		
+
+	}
 	//std::shared_ptr<Image> AssetLoder::LoadImage()
 	//{
 
@@ -165,7 +285,7 @@ namespace YiaEngine
 
 	//}
 
-	std::shared_ptr<Scene::MaterialObject> AssetLoder::CreatePBRMaterial( aiMaterial const* aiMat)
+	std::shared_ptr<Scene::MaterialObject> CreatePBRMaterial( aiMaterial const* aiMat)
 	{
 		std::shared_ptr<Scene::PBRMaterial> mat_obj = std::make_shared<Scene::PBRMaterial>();
 		//aiString mat_name;

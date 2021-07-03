@@ -8,6 +8,7 @@
 
 #include"BmpParser.h"
 #include"JPEGParser.h"
+#include"freeImage/FreeImage.h";
 //#include"AssetLoder/AssetLoder.h"
 
 namespace YiaEngine
@@ -27,12 +28,14 @@ int main()
 	//YiaEngine::g_pMemoryManager->Initialize();
 	//auto buf = AllocateBuffer(); 
 	YiaEngine::AssetLoder assetLoder;
-	YiaEngine::Buffer f = assetLoder.OpenAndReadBinary("huff_simple0.jpg");
+
+	/*YiaEngine::Buffer f = assetLoder.OpenAndReadBinary("huff_simple0.jpg");
 	YiaEngine::JPEGParser parse;
-	auto img = parse.Parser(f);
+	auto img = parse.Parser(f);*/
 //	printf("%d\n", sizeof(parse));
 	//printf("%s\n", f.m_pdata);
-
-//	printf("%p\n", buf.m_pdata);
+	//assetLoder.LoadImageFile("Fox/Texture.png");
+	assetLoder.LoadImageFile("bb.bmp");
+	
 	return 0;
 }
