@@ -25,22 +25,9 @@ add_executable(${PROJECT_NAME} WIN32
 	${ASSETLODER_LIST} 
 	${PROJECT_SOURCE_DIR}/Framework/Windows/WindowBase.cpp
 	${PARSER_LIST}
-	${ExternalDir}/crossguid/guid.cpp "MacroHelp.h"
-	${PROJECT_SOURCE_DIR}/Framework/Common/Allocator.cpp
-	${PROJECT_SOURCE_DIR}/Framework/Common/MemoryManager.cpp
-	${CMAKE_SOURCE_DIR}/YiaEngine/External/crossguid/guid.cpp	
-	)
+	${ExternalDir}/crossguid/guid.cpp "MacroHelp.h")
 
-file(COPY ${CMAKE_SOURCE_DIR}/YiaEngine/External/assimp/assimp-vc142-mtd.dll
-DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-
-file(COPY ${CMAKE_SOURCE_DIR}/YiaEngine/External/freeImage/FreeImage.dll
-DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-
-target_link_libraries(${PROJECT_NAME} GeomMath
-	${CMAKE_SOURCE_DIR}/YiaEngine/External/assimp/assimp-vc142-mtd.lib 
-${CMAKE_SOURCE_DIR}/YiaEngine/External/freeImage/FreeImage.lib
-)
+target_link_libraries(${PROJECT_NAME} GeomMath)
 
 #add_subdirectory(AssetLoder)
 add_subdirectory(Test)

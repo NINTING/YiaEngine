@@ -31,7 +31,7 @@ inline void ThrowIfFailed(HRESULT hr)
 }
 UINT TextureWidth = 200;
 UINT TextureHeight = 200;
-UINT TexturePixelSize = 4;
+UINT TexturePixelSize = 32;
 std::vector<UINT8> GenerateTextureData()
 {
 	const UINT rowPitch = TextureWidth * TexturePixelSize;
@@ -52,8 +52,8 @@ std::vector<UINT8> GenerateTextureData()
 		if (i % 2 == j % 2)
 		{
 			pData[n] = 0x00;        // R
-			pData[n + 1] = 0xFF;    // G
-			pData[n + 2] = 0xFF;    // B
+			pData[n + 1] = 0x00;    // G
+			pData[n + 2] = 0x00;    // B
 			pData[n + 3] = 0xff;    // A
 		}
 		else
@@ -141,20 +141,19 @@ void App::WaitForPreviousFrame()
 {
 	//float fence = g_fenceValue;
 	
+	
+	
+	current_frame_ = (current_frame_+1) % (frames_count_);
+	float fence = frame_resouces_[current_frame_]->fence;
 
-
-	current_frame_ = 0;// (current_frame_+1) % (frames_count_);
-	UINT64  fence = g_fenceValue;// frame_resouces_[current_frame_]->fence;
-	//ThrowIfFailed(g_CommandQueue->Signal(g_Fence.Get(), frame_resouces_[current_frame_]->fence));
-	ThrowIfFailed(g_CommandQueue->Signal(g_Fence.Get(), fence));
-	frame_resouces_[current_frame_]->fence = ++g_fenceValue;
-
-	if ( g_Fence->GetCompletedValue() < fence)
+	if (fence!= 0 && g_Fence->GetCompletedValue() < fence)
 	{
 		g_Fence->SetEventOnCompletion(fence, g_fenceEvent);
 		WaitForSingleObject(g_fenceEvent, INFINITE);
 	}
 
+	frame_resouces_[current_frame_]->fence = ++g_fenceValue;
+	g_CommandQueue->Signal(g_Fence.Get(), frame_resouces_[current_frame_]->fence);
 	
 	g_frameIndex = g_SwapChain->GetCurrentBackBufferIndex();
 
@@ -244,7 +243,7 @@ void App::LoadPipeline(HWND hwnd)
 	}
 	for (int i = 0; i < frames_count_; i++)
 	{
-		frame_resouces_.push_back( std::make_unique<FrameResource>(g_device.Get()));
+		frame_resouces_.push_back( std::make_unique<FrameResource>(g_device));
 	}
 
 	ThrowIfFailed(g_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&g_commandAllocator)));
@@ -254,14 +253,14 @@ void App::LoadAsset()
 {
 	{
 
-		CD3DX12_STATIC_SAMPLER_DESC linearClamp(0, D3D12_FILTER_MIN_MAG_MIP_POINT,
+		/*CD3DX12_STATIC_SAMPLER_DESC linearClamp(0, D3D12_FILTER_MIN_MAG_MIP_POINT,
 			D3D12_TEXTURE_ADDRESS_MODE_BORDER,
 			D3D12_TEXTURE_ADDRESS_MODE_BORDER,
-			D3D12_TEXTURE_ADDRESS_MODE_BORDER);
-		//CD3DX12_STATIC_SAMPLER_DESC linearClamp(0, D3D12_FILTER_MIN_MAG_MIP_LINEAR,
-		//	D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
-		//	D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
-		//	D3D12_TEXTURE_ADDRESS_MODE_CLAMP);
+			D3D12_TEXTURE_ADDRESS_MODE_BORDER);*/
+		CD3DX12_STATIC_SAMPLER_DESC linearClamp(0, D3D12_FILTER_MIN_MAG_MIP_LINEAR,
+			D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
+			D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
+			D3D12_TEXTURE_ADDRESS_MODE_CLAMP);
 		CD3DX12_ROOT_SIGNATURE_DESC rootDesc;
 
 		CD3DX12_DESCRIPTOR_RANGE rootPara[1];
@@ -309,13 +308,13 @@ void App::LoadAsset()
 #endif
 		ComPtr<ID3DBlob>error;
 		//GetCurrentDirectory();F:\YiaEngineRepos\YiaEngine\Engine\Framework\Shader\Shader.hlsl
-		auto hr = D3DCompileFromFile(L"E:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/DeferShader.hlsl", nullptr, nullptr, "VSMain", "vs_5_0", compileFlags, 0, &vertexShader,&error);
+		auto hr = D3DCompileFromFile(L"F:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/DeferShader.hlsl", nullptr, nullptr, "VSMain", "vs_5_0", compileFlags, 0, &vertexShader,&error);
 		if (error != nullptr)
 		{
 			OutputDebugStringA((char*)error->GetBufferPointer());
 		}
 		ThrowIfFailed(hr);
-		hr = D3DCompileFromFile(L"E:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/DeferShader.hlsl", nullptr, nullptr, "PSMain", "ps_5_0", compileFlags, 0, &pixelShader, &error);
+		hr = D3DCompileFromFile(L"F:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/DeferShader.hlsl", nullptr, nullptr, "PSMain", "ps_5_0", compileFlags, 0, &pixelShader, &error);
 		if (error != nullptr)
 		{
 			OutputDebugStringA((char*)error->GetBufferPointer());
@@ -362,8 +361,8 @@ void App::LoadAsset()
 			
 	}
 	ThrowIfFailed(g_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, g_commandAllocator.Get(), g_pipelineState.Get(), IID_PPV_ARGS(&g_commandList)));
-	g_commandList->SetName(L"G_CommandList");
-	//ThrowIfFailed(g_commandList->Close());
+
+	ThrowIfFailed(g_commandList->Close());
 
 	{
 		Vertex_Pos_Uv triangleVertices[] =
@@ -376,7 +375,7 @@ void App::LoadAsset()
 			{ { 1.f, 1.f , 0.0f }, {1,0}},
 			{ { 1.f, -1.f , 0.0f }, {1,1}}
 		};
-		
+
 		YiaEngine::Scene::GeometryNode node;
 
 
@@ -406,31 +405,25 @@ void App::LoadAsset()
 		YiaEngine::AssetLoder assetLoder;
 	
 		YiaEngine::BmpParser bmpParser;
-		/*Image ima = bmpParser.Parser(assetLoder.OpenAndReadBinary("bb.bmp"));
-		Image* image =& ima;*/
-		auto image  = assetLoder.LoadImageFile("Fox/Texture.png");
-		ComPtr<ID3D12GraphicsCommandList> tmpList;
+		auto image = bmpParser.Parser(assetLoder.OpenAndReadBinary("bb.bmp"));
 		
+		ComPtr<ID3D12GraphicsCommandList> tmpList;
 
 		/*ThrowIfFailed(g_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, g_commandAllocator.Get(), g_pipelineState.Get(), IID_PPV_ARGS(&tmpList)));
 
 		ThrowIfFailed(tmpList->Close());*/
 
 
-//		ThrowIfFailed(g_commandAllocator->Reset());
-//		ThrowIfFailed(g_commandList->Reset(g_commandAllocator.Get(), g_pipelineState.Get()));
+		ThrowIfFailed(g_commandAllocator->Reset());
+		ThrowIfFailed(g_commandList->Reset(g_commandAllocator.Get(), g_pipelineState.Get()));
 
 
 		std::vector<UINT8> texture	= GenerateTextureData();
 
 		//D3D12_RESOURCE_DESC desc;
-		auto desc = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_R8G8B8A8_UNORM,image->width,image->height);
-		//auto desc = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_R8G8B8A8_UNORM, TextureWidth, TextureHeight);
-
-		auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
-
+		auto desc = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_R8G8B8A8_UNORM,image.width,image.height);
 		ThrowIfFailed(g_device->CreateCommittedResource(
-			&heap_properties,
+			&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
 			D3D12_HEAP_FLAG_NONE,
 			&desc,
 			D3D12_RESOURCE_STATE_COPY_DEST,
@@ -442,26 +435,22 @@ void App::LoadAsset()
 		g_device->GetCopyableFootprints(&desc, 0, 1, 0, nullptr, nullptr, nullptr, &textureUploadBufferSize);
 		
 		textureUploadBufferSize2 = GetRequiredIntermediateSize(g_texture.Get(), 0, 1);
-		auto heap_properties1 = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
-		auto resource_desc = CD3DX12_RESOURCE_DESC::Buffer(textureUploadBufferSize);
 
 		ThrowIfFailed(g_device->CreateCommittedResource(
-			&heap_properties1,
+			&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),
 			D3D12_HEAP_FLAG_NONE,
-			&resource_desc,
+			&CD3DX12_RESOURCE_DESC::Buffer(textureUploadBufferSize),
 			D3D12_RESOURCE_STATE_GENERIC_READ,
 			nullptr,
 			IID_PPV_ARGS(&tempraryUpload)));
 
-		//D3D12_SUBRESOURCE_DATA initData = { &texture[0], TextureWidth * 4,TextureWidth * 4 * TextureHeight };
-		D3D12_SUBRESOURCE_DATA initData = { image->pData, image->pitch,image->data_size };
+		//D3D12_SUBRESOURCE_DATA initData = { &texture[0], TextureWidth * TexturePixelSize,TextureWidth * TexturePixelSize * TextureHeight };
+		D3D12_SUBRESOURCE_DATA initData = { image.pData, image.pitch,image.data_size };
 		UpdateSubresources<1>(g_commandList.Get(), g_texture.Get(), tempraryUpload.Get(), 0, 0, 1, &initData);
-		
-		auto barrise = CD3DX12_RESOURCE_BARRIER::Transition(
+		g_commandList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(
 			g_texture.Get(),
 			D3D12_RESOURCE_STATE_COPY_DEST,
-			D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
-		g_commandList->ResourceBarrier(1, &barrise);
+			D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE));
 
 		D3D12_DESCRIPTOR_HEAP_DESC srvHeapdesc = {};
 		srvHeapdesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
@@ -488,7 +477,7 @@ void App::LoadAsset()
 	
 	{
 		ThrowIfFailed(g_device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&g_Fence)));
-		g_fenceValue = 1;
+		g_fenceValue = 0;
 
 		// Create an event handle to use for frame synchronization.
 		g_fenceEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
@@ -517,14 +506,12 @@ void App::Render()
 void App::PopulateCommandList()
 {
 	current_cmd_alloc = frame_resouces_[current_frame_]->cmd_list_alloctor;
-	
-
-	//ThrowIfFailed(current_cmd_alloc->Reset());
-	ThrowIfFailed(g_commandAllocator->Reset());
+	ThrowIfFailed(current_cmd_alloc->Reset());
 	ThrowIfFailed(g_commandList->Reset(g_commandAllocator.Get(), g_pipelineState.Get()));
 	
 	g_commandList->SetGraphicsRootSignature(g_rootSignature.Get());
-	
+	g_commandList->RSSetViewports(1, &g_viewport);
+	g_commandList->RSSetScissorRects(1, &g_scissorRect);
 
 	// set the descriptor heap
 	ID3D12DescriptorHeap* descriptorHeaps[] = { g_SRVHeap.Get() };
@@ -534,8 +521,7 @@ void App::PopulateCommandList()
 	//CD3DX12_GPU_DESCRIPTOR_HANDLE tex();
 	//tex.Offset(0, 0);
 	g_commandList->SetGraphicsRootDescriptorTable(0, g_SRVHeap->GetGPUDescriptorHandleForHeapStart());
-	g_commandList->RSSetViewports(1, &g_viewport);
-	g_commandList->RSSetScissorRects(1, &g_scissorRect);
+
 
 
 	auto  barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);

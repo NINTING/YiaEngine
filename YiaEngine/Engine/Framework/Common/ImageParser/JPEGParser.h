@@ -118,23 +118,17 @@ namespace YiaEngine
 					printf("0xFFCO 段\n 长度 = %d\n", SmallEnd2BigEnd16(segment->length));
 					data_ptr += SmallEnd2BigEnd16(segment->length)+2;
 					break;
-				case 0XFFC4:	//huffman 编码
+				case 0XFFC4:
 					printf("0xFFC4 段\n 长度 = %d\n", SmallEnd2BigEnd16(segment->length));
-					
-					
 					data_ptr += SmallEnd2BigEnd16(segment->length)+2;
 					break;
-				case 0xFFDA:	//压缩数据
-					data_ptr += 2;
+				case 0xFFDA:
 					while(1)
 					{
 						data_ptr += 1;
-
-
-
 						if (*data_ptr == 0xff && *(data_ptr + 1) == 0xD9)
 						{
-							data_ptr += 2;
+							data_ptr += 1;
 							break;
 						}
 					};

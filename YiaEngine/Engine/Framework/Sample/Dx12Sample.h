@@ -113,7 +113,7 @@ public:
 	UINT64 g_fenceValue = 0;
 	
 	std::vector<std::unique_ptr<FrameResource>>frame_resouces_;
-	int frames_count_ = 3;
+	int frames_count_;
 	int current_frame_;
 	ComPtr<ID3D12CommandAllocator>current_cmd_alloc;
 
