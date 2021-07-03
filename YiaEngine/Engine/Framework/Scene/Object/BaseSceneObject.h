@@ -25,7 +25,7 @@ namespace YiaEngine {
 			}
 		private:
 			BaseSceneObject() = delete;
-			BaseSceneObject(BaseSceneObject& obj) = delete;
+			BaseSceneObject(const BaseSceneObject& obj) = delete;
 			BaseSceneObject& operator = (const BaseSceneObject& obj) = delete;
 		public:
 			xg::Guid GetGuid()

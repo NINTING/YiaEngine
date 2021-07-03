@@ -1,0 +1,28 @@
+﻿  BUILDING AddByElement
+CUSTOMBUILD : warning : No --target specified on command-line. Using default system target "avx2-i32x8".
+  BUILDING DCT8X8
+CUSTOMBUILD : warning : No --target specified on command-line. Using default system target "avx2-i32x8".
+  E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/ispc/DCT8X8.ispc:59:38: Performance Warning: Gather required to load value.
+                  out_matrix[u*8+v] += chache[u][v][x][y];
+                                       ^^^^^^^^^^^^^^^^^^
+  
+  E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/ispc/DCT8X8.ispc:82:24: Performance Warning: Gather required to load value.
+                  sum += result_cache[x][y][u][v];
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  
+  BUILDING MatrixOperation
+CUSTOMBUILD : warning : No --target specified on command-line. Using default system target "avx2-i32x8".
+  BUILDING simple
+CUSTOMBUILD : warning : No --target specified on command-line. Using default system target "avx2-i32x8".
+  Generating ../GeomMath.lib
+  Microsoft (R) Library Manager Version 14.29.30037.0
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+C:\D\VS2019\IDE\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(241,5): warning MSB8065: 项“E:\YiaEngineRepos\YiaEngine\Engine\Framework\Math\ispc\AddByElement.ispc”的自定义生成成功，但尚未创建指定的输出“e:\yiaenginerepos\vs2019\yiaengine\engine\framework\math\ispc\addbyelement.o”。这可能会导致增量生成无法正常工作。
+C:\D\VS2019\IDE\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(241,5): warning MSB8065: 项“E:\YiaEngineRepos\YiaEngine\Engine\Framework\Math\ispc\DCT8X8.ispc”的自定义生成成功，但尚未创建指定的输出“e:\yiaenginerepos\vs2019\yiaengine\engine\framework\math\ispc\dct8x8.o”。这可能会导致增量生成无法正常工作。
+C:\D\VS2019\IDE\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(241,5): warning MSB8065: 项“E:\YiaEngineRepos\YiaEngine\Engine\Framework\Math\ispc\MatrixOperation.ispc”的自定义生成成功，但尚未创建指定的输出“e:\yiaenginerepos\vs2019\yiaengine\engine\framework\math\ispc\matrixoperation.o”。这可能会导致增量生成无法正常工作。
+C:\D\VS2019\IDE\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(241,5): warning MSB8065: 项“E:\YiaEngineRepos\YiaEngine\Engine\Framework\Math\ispc\simple.ispc”的自定义生成成功，但尚未创建指定的输出“e:\yiaenginerepos\vs2019\yiaengine\engine\framework\math\ispc\simple.o”。这可能会导致增量生成无法正常工作。
+C:\D\VS2019\IDE\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(241,5): warning MSB8064: 项“E:\YiaEngineRepos\VS2019\CMakeFiles\6d91daea99d57aa8f920689531e7eee0\GeomMath.lib.rule”的自定义生成成功，但指定的依赖项“e:\yiaenginerepos\vs2019\yiaengine\engine\framework\math\ispc\simple.o”不存在。这可能会导致增量生成无法正常工作。
+C:\D\VS2019\IDE\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(241,5): warning MSB8064: 项“E:\YiaEngineRepos\VS2019\CMakeFiles\6d91daea99d57aa8f920689531e7eee0\GeomMath.lib.rule”的自定义生成成功，但指定的依赖项“e:\yiaenginerepos\vs2019\yiaengine\engine\framework\math\ispc\addbyelement.o”不存在。这可能会导致增量生成无法正常工作。
+C:\D\VS2019\IDE\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(241,5): warning MSB8064: 项“E:\YiaEngineRepos\VS2019\CMakeFiles\6d91daea99d57aa8f920689531e7eee0\GeomMath.lib.rule”的自定义生成成功，但指定的依赖项“e:\yiaenginerepos\vs2019\yiaengine\engine\framework\math\ispc\dct8x8.o”不存在。这可能会导致增量生成无法正常工作。
+C:\D\VS2019\IDE\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(241,5): warning MSB8064: 项“E:\YiaEngineRepos\VS2019\CMakeFiles\6d91daea99d57aa8f920689531e7eee0\GeomMath.lib.rule”的自定义生成成功，但指定的依赖项“e:\yiaenginerepos\vs2019\yiaengine\engine\framework\math\ispc\matrixoperation.o”不存在。这可能会导致增量生成无法正常工作。

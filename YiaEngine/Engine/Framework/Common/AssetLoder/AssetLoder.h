@@ -15,7 +15,7 @@ AssetLoder
 #include<vector>
 #include<string>
 
-#include<assimp/material.h>
+
 
 #include"MemoryManager.h"
 #include"Buffer.h"
@@ -51,8 +51,10 @@ namespace YiaEngine
 		
 		Buffer OpenAndReadText(const char* name);
 		Buffer OpenAndReadBinary(const char* name);
+
+		std::shared_ptr<Image> LoadImageFile(const char* filename);
 		
-		std::shared_ptr<Scene::MaterialObject> CreatePBRMaterial(aiMaterial const* aiMat);
+//		std::shared_ptr<Scene::MaterialObject> CreatePBRMaterial(aiMaterial const* aiMat);
 		std::unique_ptr<Scene::GeometryNode> LoadModel(const char* name);
 		//void ReadFile(AssetFilePtr fp);
 		Buffer* ReadText(AssetFilePtr fp);

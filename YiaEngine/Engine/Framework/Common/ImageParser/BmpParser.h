@@ -54,7 +54,7 @@ namespace YiaEngine
 				uint8_t* sourceData = buffer.m_pdata + pFileHead->Offset;
 				uint32_t sourcePitch = (((pDataHead->BitCount >> 3) * imageData.width) + 3) & ~3;
 
-
+				R8G8B8U* pdata = reinterpret_cast<R8G8B8U*>(imageData.pData);
 				for (int y = imageData.height - 1; y >= 0; y--)
 				{
 					for (int x = 0; x < imageData.width; x++)
@@ -70,7 +70,7 @@ namespace YiaEngine
 					#endif // DEBUG
 
 						
-						(imageData.pData + x + ( imageData.height - y - 1)*imageData.width)->bgr =
+						(pdata + x + ( imageData.height - y - 1)*imageData.width)->bgr =
 							*(reinterpret_cast<R8G8B8U*>(sourceData + y * sourcePitch + x * (pDataHead->BitCount >> 3)));
 
 						

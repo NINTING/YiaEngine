@@ -1,0 +1,9 @@
+﻿  Checking Build System
+  CMake is re-running because E:/YiaEngineRepos/VS2019/CMakeFiles/generate.stamp is out-of-date.
+    the file 'E:/YiaEngineRepos/CMakeLists.txt'
+    is newer than 'E:/YiaEngineRepos/VS2019/CMakeFiles/generate.stamp.depend'
+    result='-1'
+  -- Selecting Windows SDK version 10.0.19041.0 to target Windows 10.0.19042.
+  -- Configuring done
+  -- Generating done
+  -- Build files have been written to: E:/YiaEngineRepos/VS2019
