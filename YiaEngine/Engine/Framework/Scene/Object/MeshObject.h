@@ -24,8 +24,7 @@ namespace YiaEngine
 		};
 		//YiaEngine::Meta::EnumMeta<MeshPrimitive>;
 		//META_ENUM(MeshPrimitive);
-		
-		
+	
 		class MeshObject :public BaseSceneObject
 		{
 
@@ -63,7 +62,14 @@ namespace YiaEngine
 			{
 				primitive_ = primitive;
 			}
+			std::vector<VertexArray> Vertices()
+			{
+				return vertex_arrays_;
+			}
+			void GetVertex(int i)
+			{
 
+			}
 			//std::string Serialize()
 			//{
 			//	std::stringstream ss;

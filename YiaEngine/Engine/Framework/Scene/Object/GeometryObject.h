@@ -20,8 +20,16 @@ namespace YiaEngine
 			GeometryObject() :BaseSceneObject(SceneObjectType::kGemometryObject) {}
 			GeometryObject(const GeometryObject&) = default;
 			GeometryObject(GeometryObject&&) = default;
-			void AddMesh(const std::shared_ptr<MeshObject>& mesh) { meshs_.push_back(mesh); }
+			void AddMesh(const std::shared_ptr<MeshObject>& mesh) { meshes_.push_back(mesh); }
 			GeometryObject& operator =(const GeometryObject&) = default;
+			std::vector<std::shared_ptr<MeshObject>> MeshArray()
+			{
+				return meshes_;
+			}
+			int MeshCount()
+			{
+				return meshes_.size();
+			}
 			//std::string Serialize()
 			//{
 			//	std::string ret;
@@ -44,7 +52,7 @@ namespace YiaEngine
 			bool motion_blur_ = false;
 
 			//每个Lod 对应一个mesh
-			std::vector<std::shared_ptr<MeshObject>> meshs_;
+			std::vector<std::shared_ptr<MeshObject>> meshes_;
 		};
 	}
 }

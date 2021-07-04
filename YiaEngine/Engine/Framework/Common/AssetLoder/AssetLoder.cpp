@@ -330,12 +330,13 @@ namespace YiaEngine
 			return nullptr;
 		}
 		
+		
 	
-		std::unique_ptr<GeometryNode>geo_node = std::make_unique<GeometryNode>();
-		std::shared_ptr<Scene::GeometryObject>geo_obj = std::make_shared<Scene::GeometryObject>();
+		std::unique_ptr<GeometryNode>geo_node = std::unique_ptr<GeometryNode>(new GeometryNode());
+		std::shared_ptr<Scene::GeometryObject>geo_obj = std::shared_ptr<Scene::GeometryObject>(new GeometryObject());
 		for (int i = 0; i < scene->mNumMeshes; i++)
 		{
-			std::shared_ptr<Scene::MeshObject> mesh_object = std::make_shared<Scene::MeshObject>();
+			std::shared_ptr<Scene::MeshObject> mesh_object = std::shared_ptr<Scene::MeshObject>(new Scene::MeshObject);
 			auto mesh = scene->mMeshes[i];
 			switch (mesh->mPrimitiveTypes)
 			{
@@ -358,8 +359,10 @@ namespace YiaEngine
 			{
 				//顶点坐标
 				uint32_t vertices_num = scene->mMeshes[i]->mNumVertices;
+				Vec3f* vertices = new Vec3f[vertices_num];
+				memcpy(vertices, scene->mMeshes[i]->mVertices, vertices_num*sizeof(float)*3);
 				VertexArray positions(VertexAttribute::kPosition, DataType::kFloat_3,
-					scene->mMeshes[i]->mVertices, vertices_num);
+					vertices, vertices_num);
 				mesh_object->add_vertex_array(positions);
 				//法线
 				if (scene->mMeshes[i]->HasNormals())
@@ -386,10 +389,12 @@ namespace YiaEngine
 				{
 					if (scene->mMeshes[i]->HasTextureCoords(j))
 					{
-						VertexArray texcoord(VertexAttribute::kTexcoord, DataType::kFloat_3,
-							scene->mMeshes[i]->mTextureCoords[i], vertices_num);
-						mesh_object->add_vertex_array(texcoord);
+						Vec3f* uvs = new Vec3f[vertices_num];
+						memcpy(uvs, scene->mMeshes[i]->mTextureCoords[i], vertices_num * sizeof(float) * 3);
 
+						VertexArray texcoord(VertexAttribute::kTexcoord, DataType::kFloat_3,
+							uvs, vertices_num);
+						mesh_object->add_vertex_array(texcoord);
 					}
 				}
 				//顶点色
@@ -405,24 +410,24 @@ namespace YiaEngine
 				}
 			}
 			//索引
-			/*if(scene->mMeshes[i]->HasFaces())
+			if(scene->mMeshes[i]->HasFaces())
 			{
-			
+				uint32_t* indeces = new uint32_t[scene->mMeshes[i]->mNumFaces * 3];
 				for (uint32_t j = 0; j < scene->mMeshes[i]->mNumFaces; j++)
 				{
-					IndexArray index_array(scene->mMeshes[i]->mFaces[j].mIndices,
-						scene->mMeshes[i]->mFaces[j].mNumIndices, DataType::kUint32_1);
+					*(indeces + j * 3 + 0) = scene->mMeshes[i]->mFaces[j].mIndices[0];
+					*(indeces + j * 3 + 1) = scene->mMeshes[i]->mFaces[j].mIndices[1];
+					*(indeces + j * 3 + 2) = scene->mMeshes[i]->mFaces[j].mIndices[2];
 				}
-				IndexArray index_array(scene->mMeshes[i]->mFaces[j]
-
+				IndexArray index_array(indeces,scene->mMeshes[i]->mNumFaces * 3, DataType::kUint32_1);
 				mesh_object->add_index_array(index_array);
-			}*/
+			}
 //			mesh_object->Serialize();
 			geo_obj->AddMesh(mesh_object);
-			
 		}
-		geo_node->set_object_ref(geo_obj);
 		//delete scene;
+		geo_node->set_object_ref(geo_obj);
+		
 		return geo_node;
 	}
 	Buffer* YiaEngine::AssetLoder::ReadText(AssetFilePtr fp)

@@ -912,7 +912,7 @@ build YiaEngine\Engine\Framework\Math\edit_cache: phony YiaEngine\Engine\Framewo
 #############################################
 # Utility command for GeomMathLib
 
-build YiaEngine\Engine\Framework\Math\ispc\GeomMathLib: phony YiaEngine\Engine\Framework\Math\ispc\CMakeFiles\GeomMathLib YiaEngine\Engine\Framework\Math\GeomMath.lib YiaEngine\Engine\Framework\Math\ispc\AddByElement.o YiaEngine\Engine\Framework\Math\ispc\DCT8X8.o YiaEngine\Engine\Framework\Math\ispc\MatrixOperation.o YiaEngine\Engine\Framework\Math\ispc\simple.o
+build YiaEngine\Engine\Framework\Math\ispc\GeomMathLib: phony YiaEngine\Engine\Framework\Math\ispc\CMakeFiles\GeomMathLib YiaEngine\Engine\Framework\Math\GeomMath.lib YiaEngine\Engine\Framework\Math\ispc\AddByElement.o YiaEngine\Engine\Framework\Math\ispc\DCT8X8.o YiaEngine\Engine\Framework\Math\ispc\MatrixOperation.o YiaEngine\Engine\Framework\Math\ispc\SubtractByElement.o YiaEngine\Engine\Framework\Math\ispc\simple.o
 
 
 #############################################
@@ -959,8 +959,8 @@ build YiaEngine\Engine\Framework\Math\ispc\CMakeFiles\GeomMathLib: phony YiaEngi
 #############################################
 # Custom command for YiaEngine\Engine\Framework\Math\GeomMath.lib
 
-build YiaEngine\Engine\Framework\Math\GeomMath.lib: CUSTOM_COMMAND YiaEngine\Engine\Framework\Math\ispc\simple.o YiaEngine\Engine\Framework\Math\ispc\AddByElement.o YiaEngine\Engine\Framework\Math\ispc\DCT8X8.o YiaEngine\Engine\Framework\Math\ispc\MatrixOperation.o
-  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && lib /MACHINE:X64 /OUT:E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/GeomMath.lib simple.o AddByElement.o DCT8X8.o MatrixOperation.o && del simple.o AddByElement.o DCT8X8.o MatrixOperation.o"
+build YiaEngine\Engine\Framework\Math\GeomMath.lib: CUSTOM_COMMAND YiaEngine\Engine\Framework\Math\ispc\simple.o YiaEngine\Engine\Framework\Math\ispc\AddByElement.o YiaEngine\Engine\Framework\Math\ispc\DCT8X8.o YiaEngine\Engine\Framework\Math\ispc\MatrixOperation.o YiaEngine\Engine\Framework\Math\ispc\SubtractByElement.o
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && lib /MACHINE:X64 /OUT:E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/GeomMath.lib simple.o AddByElement.o DCT8X8.o MatrixOperation.o SubtractByElement.o && del simple.o AddByElement.o DCT8X8.o MatrixOperation.o SubtractByElement.o"
   DESC = Generating ../GeomMath.lib
   restat = 1
 
@@ -989,6 +989,15 @@ build YiaEngine\Engine\Framework\Math\ispc\DCT8X8.o: CUSTOM_COMMAND ..\..\..\Yia
 build YiaEngine\Engine\Framework\Math\ispc\MatrixOperation.o: CUSTOM_COMMAND ..\..\..\YiaEngine\Engine\Framework\Math\ispc\MatrixOperation.ispc
   COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E env PATH=E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ispc.exe E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/ispc/MatrixOperation.ispc -h E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/operation/MatrixOperation.h -o MatrixOperation.o"
   DESC = BUILDING MatrixOperation
+  restat = 1
+
+
+#############################################
+# Custom command for YiaEngine\Engine\Framework\Math\ispc\SubtractByElement.o
+
+build YiaEngine\Engine\Framework\Math\ispc\SubtractByElement.o: CUSTOM_COMMAND ..\..\..\YiaEngine\Engine\Framework\Math\ispc\SubtractByElement.ispc
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E env PATH=E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ispc.exe E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/ispc/SubtractByElement.ispc -h E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/operation/SubtractByElement.h -o SubtractByElement.o"
+  DESC = BUILDING SubtractByElement
   restat = 1
 
 

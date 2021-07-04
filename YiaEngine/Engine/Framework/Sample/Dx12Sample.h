@@ -95,7 +95,8 @@ public:
 	ComPtr<ID3D12RootSignature>g_rootSignature;
 	ComPtr<ID3D12PipelineState>g_pipelineState;
 	ComPtr<ID3D12GraphicsCommandList>g_commandList;
-	ComPtr<ID3D12Resource>g_vertexBuffer;
+	ComPtr<ID3D12Resource>g_vertexBuffer[2];
+	ComPtr<ID3D12Resource>g_indexBuffer;
 	ComPtr<ID3D12Resource> g_renderTargets[2];
 	ComPtr<ID3D12Resource>g_texture;
 	ComPtr<ID3D12DescriptorHeap>g_SRVHeap;
@@ -107,7 +108,8 @@ public:
 
 	//Í¬²½
 	ComPtr<ID3D12Fence> g_Fence;
-	D3D12_VERTEX_BUFFER_VIEW g_VertexBufferView;
+	D3D12_VERTEX_BUFFER_VIEW g_VertexBufferView[10];
+	D3D12_INDEX_BUFFER_VIEW g_IndexBufferView;
 	UINT g_frameIndex = 0;
 	HANDLE g_fenceEvent;
 	UINT64 g_fenceValue = 0;

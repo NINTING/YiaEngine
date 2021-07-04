@@ -28,6 +28,7 @@ namespace YiaEngine {
 			float near_clip_;
 			float far_clip_;
 			float aspect_;
+	
 		};
 	}
 }

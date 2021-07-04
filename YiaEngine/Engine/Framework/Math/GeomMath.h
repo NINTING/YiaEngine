@@ -10,7 +10,7 @@
 
 #include "operation/AddByElement.h"
 #include "operation/MatrixOperation.h"
-
+#include"operation/SubtractByElement.h"
 
 #include "swizzle.h"
 
@@ -31,7 +31,8 @@ namespace YiaEngine
 	template<typename U, int M>
 	static Vec< U, M> VecAdd(const Vec<U, M>& lhs, const Vec<U, M>& rhs);
 	
-	
+	template<typename U, int M>
+	static Vec< U, M> VecSubtract(const Vec<U, M>& lhs, const Vec<U, M>& rhs);
 
 
 
@@ -40,6 +41,10 @@ namespace YiaEngine
 		friend Vec<T, N> operator + (const Vec<T, N>& lhs, const Vec<T, N>& rhs)
 		{
 			return VecAdd(lhs, rhs);
+		}
+		friend Vec<T, N> operator - (const Vec<T, N>& lhs, const Vec<T, N>& rhs)
+		{
+			return VecSubtract(lhs, rhs);
 		}
 
 	};
@@ -238,6 +243,15 @@ namespace YiaEngine
 
 		//	ret.x = lhs.x + rhs.x;
 		ispc::AddByElement(lhs, rhs, ret, M);
+		return ret;
+	}
+	template<typename U, int M>
+	static Vec< U, M> VecSubtract(const Vec<U, M>& lhs, const Vec<U, M>& rhs)
+	{
+		Vec<U, M> ret;
+
+		//	ret.x = lhs.x + rhs.x;
+		ispc::SubtractByElement(lhs, rhs, ret, M);
 		return ret;
 	}
 	template<int M>

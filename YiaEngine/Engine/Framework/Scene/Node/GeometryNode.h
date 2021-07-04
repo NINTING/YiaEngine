@@ -22,7 +22,8 @@ namespace YiaEngine
 				object_ref_(object) {}
 			GeometryNode(std::shared_ptr<GeometryObject>&& object) :
 				object_ref_(std::move(object)) {}
-			const std::shared_ptr<GeometryObject> object_ref() { return object_ref_; }
+			const std::shared_ptr<GeometryObject> Object() { return object_ref_; }
+	
 			~GeometryNode() {}
 			void set_object_ref(const std::shared_ptr<GeometryObject>& object)
 			{

@@ -36,6 +36,7 @@ namespace YiaEngine
 				matrix_[3][0] = dis_x;
 				matrix_[3][1] = dis_y;
 				matrix_[3][2] = dis_z;
+				translation_.xyz = { dis_x,dis_y,dis_z };
 			}
 			Translation(AxisType axis, float value) :Transform()
 			{
@@ -43,18 +44,26 @@ namespace YiaEngine
 				{
 				case AxisType::kXAxis:
 					matrix_[3][0] = value;
+					translation_.x = value;
 					break;
 				case AxisType::kYAxis:
 					matrix_[3][1] = value;
+					translation_.y = value;
 					break;
 				case AxisType::kZAxis:
 					matrix_[3][2] = value;
+					translation_.z = value;
 					break;
 				default:
 					assert(0);
 				}
-
 			}
+			operator Vec3f() const
+			{
+				return translation_;
+			}
+		private:
+			Vec3f translation_;
 		};
 
 		class Rotation :public Transform
