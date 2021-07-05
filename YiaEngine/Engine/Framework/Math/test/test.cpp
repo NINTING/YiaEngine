@@ -9,7 +9,7 @@ enum pri{
 	triangle,
 	list
 };
-
+#include"TestFunc.h"
 int main()
 {
 	
@@ -64,4 +64,22 @@ int main()
 	//RGB rgb = { 64, 35, 17 };
 	//YCbCr ybr = YiaEngine::ConvertRGB2YCbCr(rgb);
 	//std::cout << rgb.x <<" " << rgb.y << " " << rgb.z;
+	float a[8][12];
+	float b[12] = {0};
+	float c[12] = { 2,0,1,8,2,4,0,-3};
+	ispc::f_f(b,c);
+
+	//ispc::programInstance(b);
+	////printf("%lf\n", a[0]);
+	for (int i = 0; i < 8; i++)
+	{
+		/*for (int j = 0; j < 12; j++)
+		{
+			printf("%lf ", a[i][j]);
+		}*/
+		printf("%lf\n", b[i]);
+		/*printf("%lf\n", a[i][0]);
+		printf("\n");*/
+	}
+
 }

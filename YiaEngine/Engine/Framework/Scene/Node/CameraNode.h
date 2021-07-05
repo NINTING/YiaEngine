@@ -29,7 +29,8 @@ namespace YiaEngine
 			{
 				Vec3f up{ 0,1,0 };
 				Vec3f front = target_ - position_;
-			//	Vec3f right = 
+				Vec3f right = 
+			//                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      	Vec3f right = 
 			}
 		private:
 			std::shared_ptr<CameraObject>object_ref_;

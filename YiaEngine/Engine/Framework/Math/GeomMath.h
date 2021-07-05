@@ -34,8 +34,6 @@ namespace YiaEngine
 	template<typename U, int M>
 	static Vec< U, M> VecSubtract(const Vec<U, M>& lhs, const Vec<U, M>& rhs);
 
-
-
 	template<typename T, int N> struct vecbase
 	{
 		friend Vec<T, N> operator + (const Vec<T, N>& lhs, const Vec<T, N>& rhs)
@@ -261,7 +259,9 @@ namespace YiaEngine
 		ispc::Transform(lhs, rhs, M, out_vec);
 		return out_vec;
 	}
-	
+	Vec3f Cross(const Vec3f& lhs, const Vec3f& rhs);
+
+	Vec3f Dot(const Vec3f& lhs, const Vec3f& rhs);
 
 }//YiaEngine
 
