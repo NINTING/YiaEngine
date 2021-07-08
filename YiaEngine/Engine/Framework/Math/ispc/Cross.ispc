@@ -34,9 +34,13 @@
 export void Cross(uniform const float lhs[],uniform const float rhs[], uniform float vout[],
                    uniform int count) {
     
-    uniform int t0 = 3,0,2,1;
-    foreach (index = ) {
-        
-        vout += lhs[index] * rhs[index];
+    uniform int a0[3] = {1,0,0};
+    uniform int a1[3] = {2,2,1};
+    uniform int b0[3] = {2,2,1};
+    uniform int b1[3] = {1,0,0};
+    foreach (index =0...count) {
+        vout[index] = 0;
+        float val = lhs[a0[index]]*rhs[a1[index]] - lhs[b0[index]]*rhs[b1[index]];
+        atomic_add_local(&vout[index],val);
     }
 }

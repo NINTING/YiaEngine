@@ -32,6 +32,7 @@ namespace ispc { /* namespace */
 #if defined(__cplusplus) && (! defined(__ISPC_NO_EXTERN_C) || !__ISPC_NO_EXTERN_C )
 extern "C" {
 #endif // __cplusplus
+    extern void Multipy(const float * lhs, const float * rhs, int32_t count, float * out_mat);
     extern void Transform(const float * in_vec, const float * in_matrix, int32_t count, float * out_vec);
 #if defined(__cplusplus) && (! defined(__ISPC_NO_EXTERN_C) || !__ISPC_NO_EXTERN_C )
 } /* end extern C */

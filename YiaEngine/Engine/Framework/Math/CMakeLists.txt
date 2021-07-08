@@ -15,11 +15,13 @@ SET(GEOMMATH_LIB_HEADER_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/operation)
 #add_custom_command(OUTPUT ${GEOMMATH_LIB_FILE} COMMAND ${ISPC_COMPILER} ${ISPC_OPTIONS} -o )
 
 add_library(GeomMath STATIC IMPORTED GLOBAL)
-add_dependencies(GeomMath GeomMathLib)
+add_dependencies(GeomMath GeomMathLib )
+
 set_target_properties(GeomMath 
 					PROPERTIES
 					IMPORTED_LOCATION ${GEOMMATH_LIB_FILE}
 					INTERFACE_INCLUDE_DIRECTORIES ${GEOMMATH_LIB_HEADER_FOLDER}
 					)
+
 add_subdirectory(ispc)
 add_subdirectory(test)

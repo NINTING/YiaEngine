@@ -10,7 +10,6 @@
 #include"SceneNode.h"
 
 
-
 inline std::string  HrToString(HRESULT hr)
 {
 	char s_str[64] = {};
@@ -380,7 +379,7 @@ void App::LoadAsset()
 			{ { 1.f, 1.f , 0.0f }, {1,0}},
 			{ { 1.f, -1.f , 0.0f }, {1,1}}
 		};
-		Vec3f pos[] = {
+		YiaEngine::Vec3f pos[] = {
 			{ -1.0f, 1.f , 0.0f },
 			{ 1.0f, 1.f , 0.0f },
 			{ -1.f, -1.f , 0.0f },
@@ -388,7 +387,7 @@ void App::LoadAsset()
 			{ 1.f, 1.f , 0.0f },
 			{ 1.f, -1.f , 0.0f }
 		};
-		Vec2f uv[] =
+		YiaEngine::Vec2f uv[] =
 		{
 			{0,0},
 			{1,0},
@@ -485,9 +484,12 @@ void App::LoadAsset()
 		//{
 		//	Vec3f d
 		//}
+		using Camera = YiaEngine::Scene::CameraNode;
+		std::unique_ptr<Camera> camera = std::unique_ptr<Camera>(new Camera());
+		auto viewproj = camera->ViewProjMatrix();
+		
+		
 
-	
-	
 		YiaEngine::BmpParser bmpParser;
 		/*Image ima = bmpParser.Parser(assetLoder.OpenAndReadBinary("bb.bmp"));
 		Image* image =& ima;*/

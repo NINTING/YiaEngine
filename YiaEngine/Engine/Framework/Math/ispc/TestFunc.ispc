@@ -50,10 +50,21 @@ export void result(uniform float RET[]) {
 
 
 export void programInstance(uniform float RET[8]) {
-    if(programIndex)
-    RET[programIndex] += 1;
-    
+    /*
+    foreach(i = 0...5,j = 0...7)
+    {
+        RET[programIndex]+=1;
+    }*/
+    float val = programIndex;
+    atomic_add_local(&RET[0],programIndex);
+    //==
+    /*for(int j = 0;j<5;j++)
+    {
+        RET[programIndex] += 1
+    }*/
 }
+
+
 /*
 export void ifTest(uniform float in[8],uniform float RET[8]) {
     if(in[programIndex] < in[(programIndex+2)%8])

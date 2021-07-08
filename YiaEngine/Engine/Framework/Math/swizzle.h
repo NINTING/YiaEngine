@@ -1,7 +1,7 @@
 #pragma once
 #include<initializer_list>
-#include <GeomMath.h>
 
+#include<stdio.h>
 namespace YiaEngine
 {
 	template<typename T, int N> struct Vec;

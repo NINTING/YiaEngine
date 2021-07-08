@@ -6,11 +6,6 @@
 
 #include"GeomMath.h"
 
-using namespace YiaEngine;
 
-namespace YiaEngine
-{
-	
-}//YiaEngine
 
 #endif // !FRAMEWORL_MATH_GEOMETRY_H_

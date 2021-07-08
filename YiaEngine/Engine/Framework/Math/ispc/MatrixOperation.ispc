@@ -35,8 +35,23 @@ export void Transform(uniform const float in_vec[],uniform const float in_matrix
     foreach(i = 0...count)
     {
         out_vec[i] = 0;
-        for(int j = 0;j<count;j++){
+        for(int j = 0;j<count;j++)        
+        {
             out_vec[i] += in_vec[j] * in_matrix[j*count+i];
         }
     }
+}
+
+export void Multipy(uniform const float lhs[],uniform const float rhs[],uniform int count,uniform float out_mat[]) {
+    foreach(i = 0...count*4)
+    {
+        out_mat[i] = 0;
+        int r = i / 4;
+        int c = i % 4;
+        for(int j = 0;j<count;j++){
+            out_mat[i] += lhs[j + r*4] * rhs[j*count+c];
+        }
+        
+    }
+    
 }

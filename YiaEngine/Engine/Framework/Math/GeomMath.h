@@ -10,8 +10,9 @@
 
 #include "operation/AddByElement.h"
 #include "operation/MatrixOperation.h"
-#include"operation/SubtractByElement.h"
-
+#include "operation/SubtractByElement.h"
+#include "operation/Dot.h"
+#include "operation/Cross.h"
 #include "swizzle.h"
 
 
@@ -99,7 +100,7 @@ namespace YiaEngine
 			SWIZZLE3(T, x, y, z);
 			SWIZZLE3(T, r, g, b);
 		};
-		Vec() { };
+		Vec() :x(0), y(0), z(0) { };
 		Vec(const T& v) :x(v), y(v),z(v) {}
 		Vec(const Vec& v) :x(v.x), y(v.y),z(v.z) {}
 		Vec(const T& a, const T& b, const T& c) : x(a), y(b),z(c) {}
@@ -221,6 +222,7 @@ namespace YiaEngine
 			{
 				ret[i][i] = 1;	
 			}
+			return ret;
 		}
 		operator T*()
 		{
@@ -230,10 +232,19 @@ namespace YiaEngine
 		{
 			return const_cast<const T*>(datas);
 		}
+	public:
+		
+		friend	Matrix<float, R, R> operator * (const Matrix<float, R, R>& lhs, const Matrix<float, R, R>& rhs)
+		{
+			Matrix<float, R, R> ret;
+			ispc::Multipy(lhs, rhs, R, ret);
+			return ret;
+		}
 	};
 	using Mat4x4f = Matrix<float, 4, 4>;
 
 	
+
 	template<typename U, int M>
 	static Vec< U, M> VecAdd(const Vec<U, M>& lhs, const Vec<U, M>& rhs)
 	{
@@ -259,11 +270,23 @@ namespace YiaEngine
 		ispc::Transform(lhs, rhs, M, out_vec);
 		return out_vec;
 	}
-	Vec3f Cross(const Vec3f& lhs, const Vec3f& rhs);
+	template<int M>
+	Vec3f Cross(const Vec< float, M>& lhs, const const Vec< float, M>& rhs)
+	{
+		Vec3f ret;
+		ispc::Cross(lhs, rhs, ret, M);
+		return ret;
+	}
+	template<int M>
+	float Dot(const Vec< float, M>& lhs, const Vec< float, M>& rhs)
+	{
+		float ret = 0;
+		ispc::Dot(lhs, rhs, &ret, M);
+		return ret;
+	}
+}
 
-	Vec3f Dot(const Vec3f& lhs, const Vec3f& rhs);
-
-}//YiaEngine
+//YiaEngine
 
 
 

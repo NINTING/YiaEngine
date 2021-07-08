@@ -31,6 +31,10 @@ namespace YiaEngine
 		{
 		public:
 			Translation() = default;
+			Translation(const Vec3f& position):translation_(position)
+			{
+				matrix_[3] = position;
+			}
 			Translation(float dis_x, float dis_y, float dis_z) :Transform()
 			{
 				matrix_[3][0] = dis_x;
@@ -62,6 +66,9 @@ namespace YiaEngine
 			{
 				return translation_;
 			}
+			float X() { return translation_.x; };
+			float Y() { return translation_.x; };
+			float Z() { return translation_.x; };
 		private:
 			Vec3f translation_;
 		};

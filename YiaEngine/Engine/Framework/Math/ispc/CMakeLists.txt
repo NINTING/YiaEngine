@@ -3,7 +3,7 @@
 #
 
 
-set(FUNCTIONS simple AddByElement DCT8X8 MatrixOperation SubtractByElement TestFunc)
+set(FUNCTIONS simple AddByElement DCT8X8 MatrixOperation SubtractByElement TestFunc Dot Cross)
 
 foreach(FUNC IN LISTS FUNCTIONS)
 	add_custom_command(OUTPUT ${FUNC}.o 
@@ -19,7 +19,8 @@ IF(${WIN32})
 add_custom_command(OUTPUT ${GEOMMATH_LIB_FILE}
 					COMMAND ${ISPC_LIBRARIAN_OPTIONS} ${OBJECTS}
 					COMMAND del  ${OBJECTS}
-					DEPENDS ${OBJECTS})
+					DEPENDS ${OBJECTS}
+					)
 ENDIF(${WIN32})
 add_custom_target(GeomMathLib
 	DEPENDS ${GEOMMATH_LIB_FILE}

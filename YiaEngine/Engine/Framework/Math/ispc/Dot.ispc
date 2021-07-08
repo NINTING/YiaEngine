@@ -31,9 +31,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-export void SubtractByElement(uniform const float lhs[],uniform const float rhs[], uniform float out,
+export void Dot(uniform const float lhs[],uniform const float rhs[], float* uniform  out,
                    uniform int count) {
-    for(int index = 0;index < count;index++) {
-        out += lhs[index] * rhs[index];
+    foreach(index = 0...count) {
+        atomic_add_local( out, lhs[index] * rhs[index]);
     }
 }
