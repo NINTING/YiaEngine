@@ -2,6 +2,12 @@
 Texture2D t1 : register(t0);
 SamplerState s1 : register(s0);
 
+
+cbuffer ConstBufferPerFrame : register(b0)
+{
+    float4x4 vpMat;
+}
+
 struct PSInput
 {
     float4 position : SV_POSITION;
@@ -9,25 +15,26 @@ struct PSInput
     float2 uv   :TEXCOORD;
 };
 
+
 struct  VSInput
 {
     float3 position : POSITION;
-    float2 uv:TEXCOORD;
+    float3 uv:TEXCOORD;
 };
 
 PSInput VSMain(VSInput input)
 {
     PSInput result;
 
-    result.position = float4(input.position,1.0f);
- 
+    //result.position = float4(input.position,1.0f);
+    result.position = mul(float4(input.position, 1.0f), vpMat);
     result.uv = input.uv;
     return result;
 }
 
 float4 PSMain(PSInput input) : SV_TARGET
 {
-    //float4 color = gTex.Sample(gsamLinearClamp,input.uv);
+  //  float4 color = float4(1,1,1,1);
    return t1.Sample(s1, input.uv);
-   //return float4(input.uv,0,0);
+    //return color;
 }

@@ -13,6 +13,7 @@
 #include "operation/SubtractByElement.h"
 #include "operation/Dot.h"
 #include "operation/Cross.h"
+#include"operation/VectorFunc.h"
 #include "swizzle.h"
 
 
@@ -261,6 +262,14 @@ namespace YiaEngine
 
 		//	ret.x = lhs.x + rhs.x;
 		ispc::SubtractByElement(lhs, rhs, ret, M);
+		return ret;
+	}
+	template< int M>
+	static Vec< float, M> Normalize(const Vec<float, M>& lhs)
+	{
+		Vec<float, M> ret;
+		//	ret.x = lhs.x + rhs.x;
+		ispc::Normalize(lhs, ret, M);
 		return ret;
 	}
 	template<int M>

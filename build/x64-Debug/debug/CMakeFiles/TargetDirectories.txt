@@ -49,6 +49,8 @@ E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/Test/C
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/Test/CMakeFiles/rebuild_cache.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/Test/CMakeFiles/test.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/Test/CMakeFiles/edit_cache.dir
+E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/Combine.dir
+E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/CommonMath.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/rebuild_cache.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/test.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/edit_cache.dir
@@ -60,6 +62,7 @@ E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/test/CMa
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/test/CMakeFiles/rebuild_cache.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/test/CMakeFiles/test.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/test/CMakeFiles/edit_cache.dir
+E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Scene/CMakeFiles/YiaScene.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Scene/CMakeFiles/rebuild_cache.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Scene/CMakeFiles/test.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Scene/CMakeFiles/edit_cache.dir

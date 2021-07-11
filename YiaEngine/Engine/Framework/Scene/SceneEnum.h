@@ -10,31 +10,27 @@ namespace YiaEngine
 	{
 		enum class DataType : int
 		{
-			kUint16_1 = 1,
-			kUint32_1 = 2,
-			kFloat_1 = 3,
-			kDouble_1 = 4,
-			kUint16_2 = 5,
-			kUint32_2 = 6,
-			kFloat_2 = 7,
-			kDouble_2 = 8,
-			kUint16_3 = 9,
-			kUint32_3 = 10,
-			kFloat_3 = 11,
-			kDouble_3 = 12,
-			kUint16_4 = 13,
-			kUint32_4 = 14,
-			kFloat_4 = 15,
-			kDouble_4 = 16,
+			kUint16_1 = 1,		//2
+			kUint32_1 = 2,		//4
+			kFloat_1 = 3,		//4
+			kUint16_2 = 4,		//4
+			kUint16_3 = 5,		//6
+			kUint16_4 = 6,		//8
+			kDouble_1 = 7,		//8
+			kUint32_2 = 8,		//8
+			kFloat_2 = 9,		//8
+			kUint32_3 = 10,		//12
+			kFloat_3 = 11,		//12
+			kDouble_2 = 12,		//16
+			kUint32_4 = 13,		//16
+			kFloat_4 = 14,		//16
+			kDouble_3 = 15,		//24
+			kDouble_4 = 16,		//32
 		};
 
 		
 
-		static int getDataTypeForCount(DataType value)
-		{
-			return  (static_cast<int>(value) - 1) / 4 + 1;
-		}
-
+		size_t DataTypeStride(DataType data_type);
 
 		enum class SceneObjectType
 		{

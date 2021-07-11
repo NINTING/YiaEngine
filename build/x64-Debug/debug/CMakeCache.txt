@@ -223,6 +223,12 @@ MEMORYCHECK_COMMAND:FILEPATH=MEMORYCHECK_COMMAND-NOTFOUND
 //File that contains suppressions for the memory checker
 MEMORYCHECK_SUPPRESSIONS_FILE:FILEPATH=
 
+//Path to a program.
+MSVC_LIB_TOOL:FILEPATH=C:/D/VS2019/IDE/VC/Tools/MSVC/14.29.30037/bin/Hostx64/x64/lib.exe
+
+//Dependencies for the target
+Math_LIB_DEPENDS:STATIC=general;GeomMath;general;CommonMath;
+
 //Name of the computer/site where compile is being run
 SITE:STRING=LAPTOP-M038D0QH
 

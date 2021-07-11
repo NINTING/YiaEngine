@@ -7,6 +7,7 @@
 
 #include"BaseSceneNode.h"
 
+#include"Object/CameraObject.h"
 
 namespace YiaEngine
 {
@@ -17,7 +18,7 @@ namespace YiaEngine
 			using Object_ptr = std::shared_ptr<CameraObject>;
 		public:
 			CameraNode():object_ref_(new CameraObject()),front_(Vec3f(0,0,1)){}
-			CameraNode(Vec3f postion):position_(postion){}
+			CameraNode(Vec3f postion):object_ref_(new CameraObject()),position_(postion),front_(Vec3f(0, 0, 1)) {}
 			//CameraNode(const std::shared_ptr<CameraNode>&)
 			CameraNode(const std::shared_ptr<CameraObject>& object) :
 				object_ref_(object) {}
@@ -27,12 +28,17 @@ namespace YiaEngine
 			const std::shared_ptr<CameraObject> object() { return object_ref_; }
 			void set_object(const std::shared_ptr<CameraObject>& object) { object_ref_ = object; }
 			Vec3f front() { return front_; };
-			void set_front_(const Vec3f& front) { front_ = front; }
+			void set_front(const Vec3f& front) { 
+				front_ = Normalize(front); 
+			}
+			
+			
+
 			Mat4x4f ViewMatrix()
 			{
 				Vec3f up{ 0,1,0 };
 				Vec3f front = front_;
-				Vec3f right = Cross(up, front);
+				Vec3f right = Normalize(Cross(up, front));
 				up = Cross(front, right);
 				Mat4x4f ret{
 					right.x,up.x,front.x,0,
@@ -46,11 +52,12 @@ namespace YiaEngine
 			{
 				float aspect = object_ref_->Aspect();
 				float half_verticalViewAngle =0.5f * object_ref_->VerticalViewAngle();
-				auto far_clip = object_ref_->FarClip();
+				float half_rad = Angle2Rad(half_verticalViewAngle);
+				float far_clip = object_ref_->FarClip();
 				float near_clip = object_ref_->NearClip();
 				Mat4x4f ret({
-					1.f / (aspect * tanf(half_verticalViewAngle)),0,0,0,
-					0,1.f / tanf(half_verticalViewAngle),0,0,
+					1.f / (aspect * tanf(half_rad)),0,0,0,
+					0,1.f / tanf(half_rad),0,0,
 					0,0,far_clip / (far_clip - near_clip),1.f,
 					0,0,-(near_clip * far_clip) / (far_clip - near_clip),0
 				});

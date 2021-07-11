@@ -4,7 +4,7 @@
 
 #include"Object/Transform.h"
 #include"BaseSceneNode.h"
-#include "Math/Geometry.h"
+#include "Math/YiaMath.h"
 namespace YiaEngine
 {
 	namespace Scene

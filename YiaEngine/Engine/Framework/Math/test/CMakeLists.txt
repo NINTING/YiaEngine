@@ -5,5 +5,8 @@
 
 
 add_executable(GeomMathTest test.cpp )
-target_link_libraries(GeomMathTest  GeomMath )
+add_dependencies(GeomMathTest YiaMath)
+#target_link_libraries(GeomMathTest  GeomMath 
+#	CommonMath)
+ target_link_libraries(GeomMathTest YiaMath)
 add_test(NAME Test_GeomMath COMMAND GeomMathTest)

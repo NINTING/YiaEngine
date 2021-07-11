@@ -37,9 +37,11 @@ DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY ${CMAKE_SOURCE_DIR}/YiaEngine/External/freeImage/FreeImage.dll
 DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
-target_link_libraries(${PROJECT_NAME} GeomMath
+target_link_libraries(${PROJECT_NAME} 
+	YiaMath
+	YiaScene
 	${CMAKE_SOURCE_DIR}/YiaEngine/External/assimp/assimp-vc142-mtd.lib 
-${CMAKE_SOURCE_DIR}/YiaEngine/External/freeImage/FreeImage.lib
+	${CMAKE_SOURCE_DIR}/YiaEngine/External/freeImage/FreeImage.lib
 )
 
 #add_subdirectory(AssetLoder)

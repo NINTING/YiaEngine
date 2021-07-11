@@ -22,6 +22,11 @@ namespace YiaEngine
 			GeometryObject(GeometryObject&&) = default;
 			void AddMesh(const std::shared_ptr<MeshObject>& mesh) { meshes_.push_back(mesh); }
 			GeometryObject& operator =(const GeometryObject&) = default;
+
+			std::shared_ptr<MeshObject> GetMeshObject(int i)
+			{
+				return meshes_[i];
+			}
 			std::vector<std::shared_ptr<MeshObject>> MeshArray()
 			{
 				return meshes_;

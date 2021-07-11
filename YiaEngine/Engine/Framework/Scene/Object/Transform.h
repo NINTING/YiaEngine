@@ -1,7 +1,7 @@
 #ifndef FRAMEWORK_SCENE_TRANSFORM_H
 #define FRAMEWORK_SCENE_TRANSFORM_H
 
-#include "Math/Geometry.h"
+#include "Math/YiaMath.h"
 #include "SceneEnum.h"
 
 
@@ -67,8 +67,8 @@ namespace YiaEngine
 				return translation_;
 			}
 			float X() { return translation_.x; };
-			float Y() { return translation_.x; };
-			float Z() { return translation_.x; };
+			float Y() { return translation_.y; };
+			float Z() { return translation_.z; };
 		private:
 			Vec3f translation_;
 		};

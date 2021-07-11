@@ -62,13 +62,33 @@ namespace YiaEngine
 			{
 				primitive_ = primitive;
 			}
-			std::vector<VertexArray> Vertices()
+			std::vector<VertexArray> vertex_arrays()
 			{
 				return vertex_arrays_;
 			}
-			void GetVertex(int i)
+			
+			const VertexArray GetAttribute(VertexAttribute attribute)const
 			{
+				for (auto it = vertex_arrays_.begin(); it != vertex_arrays_.end(); it++)
+				{
+					if (it->isAttribute(attribute))
+						return *it;
+				}
+				return VertexArray{};
+			}
 
+			const VertexArray GetPosition() const 
+			{
+				return GetAttribute(VertexAttribute::kPosition);
+			}
+			const VertexArray GetUVs() const
+			{
+				return GetAttribute(VertexAttribute::kTexcoord);
+			}
+			const IndexArray GetIndexArray(int i)const
+			{
+				assert(i < index_arrays_.size());
+				return index_arrays_[i];
 			}
 			//std::string Serialize()
 			//{

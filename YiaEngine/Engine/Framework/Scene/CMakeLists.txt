@@ -3,5 +3,10 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
+#aux_source_directory(${CURRENT_SOURCE_DIR}/Framework/Scene COMMON_LIST)
+#aux_source_directory(${CURRENT_SOURCE_DIR}/Framework/Scene/Node NODE_LIST)
+#aux_source_directory(${CURRENT_SOURCE_DIR}/Framework/Scene/Object OBJECT_LIST)
+
+add_library(YiaScene STATIC SceneEnum.cpp)
 
 add_subdirectory("Test")

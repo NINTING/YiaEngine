@@ -4,10 +4,10 @@
 
 #include<memory>
 
-#include"Object/Transform.h"
-#include"BaseSceneNode.h"
-#include "Math/Geometry.h"
 
+#include"BaseSceneNode.h"
+
+#include"Object/GeometryObject.h"
 
 namespace YiaEngine
 {

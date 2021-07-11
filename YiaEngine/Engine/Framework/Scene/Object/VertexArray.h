@@ -2,6 +2,8 @@
 #ifndef FRAMEWORK_SCENE_VERTEX_ARRAY_H
 #define FRAMEWORK_SCENE_VERTEX_ARRAY_H
 
+#include <assert.h>
+
 #include "SceneEnum.h"
 
 namespace YiaEngine
@@ -25,14 +27,45 @@ namespace YiaEngine
 		class VertexArray
 		{
 		public:
+			
+			VertexArray():data_(nullptr),data_size_(0), count_(0){}
 			VertexArray(VertexAttribute attribute,
 				DataType data_type = DataType::kFloat_3,
-				void* data = nullptr, size_t size = 0) :
-				attribute_(attribute), data_type_(data_type), size_(size), data_(data) {}
+				void* data = nullptr, size_t count = 0) :
+				attribute_(attribute), data_type_(data_type),
+				count_(count), data_(data) 
+			{
+				stride_in_bytes_ = DataTypeStride(data_type);
+				data_size_ =count_ * stride_in_bytes_;
+			}
 			VertexArray(const VertexArray& vertexarray) = default;
 			VertexArray(VertexArray&& vertexarray) = default;
 			VertexArray& operator = (const VertexArray&) = default;
 			VertexArray& operator = (VertexArray&&) = default;
+			bool isAttribute(VertexAttribute attribute)const
+			{
+				return attribute_ == attribute;
+			}
+			VertexAttribute attribute()const
+			{
+				return attribute_;
+			}
+			size_t data_size() const
+			{
+				return data_size_;
+			}
+			size_t count()const
+			{
+				return count_;
+			}
+			void* data()const
+			{
+				return data_;
+			}
+			size_t stride()const
+			{
+				return stride_in_bytes_;
+			}
 		/*	std::string Serialize()
 			{
 				std::string ret;
@@ -68,7 +101,9 @@ namespace YiaEngine
 			DataType data_type_;
 			VertexAttribute attribute_;
 			void* data_;
-			size_t size_;
+			size_t stride_in_bytes_;
+			size_t data_size_;
+			size_t count_;
 		};
 
 		

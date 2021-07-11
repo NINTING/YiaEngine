@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Math/Geometry.h"
+#include "Math/YiaMath.h"
 
 namespace YiaEngine
 {

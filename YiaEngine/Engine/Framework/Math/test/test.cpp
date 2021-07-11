@@ -4,12 +4,14 @@
 #include<string>
 #include<iostream>
 #include"Common/ColorSpace.h"
+#include "CommonMath.h"
 enum pri{
 
 	triangle,
 	list
 };
-#include"TestFunc.h"
+
+using namespace YiaEngine;
 int main()
 {
 	
@@ -81,6 +83,10 @@ int main()
 	//	/*printf("%lf\n", a[i][0]);
 	//	printf("\n");*/
 	//}
+	auto rn = Normalize(Vec3f(1, 0, 1));
+
+	float rad = Angle2Rad(10);
+	printf("%lf\n", rad);
 	Vec3f va = { 2,2,3 };
 	Vec3f vb = { 2,3,3 };
 	auto r = YiaEngine::Cross(va, vb);

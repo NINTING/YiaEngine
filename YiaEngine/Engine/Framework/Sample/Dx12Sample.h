@@ -20,6 +20,7 @@
 #include "d3dx12.h"
 
 #include"Image.h"
+#include"SceneNode.h"
 using namespace DirectX;
 using namespace Microsoft::WRL;
 using Microsoft::WRL::ComPtr;
@@ -76,6 +77,9 @@ public:
 
 	void PopulateCommandList();
 
+
+	void LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image,
+		ID3D12DescriptorHeap* descriptor_heap, ID3D12Resource** texture_buffer);
 	void Destroy();
 
 	void Update();
@@ -96,19 +100,24 @@ public:
 	ComPtr<ID3D12PipelineState>g_pipelineState;
 	ComPtr<ID3D12GraphicsCommandList>g_commandList;
 	ComPtr<ID3D12Resource>g_vertexBuffer[2];
+	
 	ComPtr<ID3D12Resource>g_indexBuffer;
 	ComPtr<ID3D12Resource> g_renderTargets[2];
 	ComPtr<ID3D12Resource>g_texture;
+	//ComPtr<ID3D12Resource> tempraryUpload;
 	ComPtr<ID3D12DescriptorHeap>g_SRVHeap;
-
+	ComPtr<ID3D12Resource> g_cbv;
+	ComPtr<ID3D12DescriptorHeap> g_CBVHeap;
 	
 	UINT g_rtvDescriptorSize;
 
 	bool firstLoadAsset;
-
+	
+	std::unique_ptr<YiaEngine::Scene::GeometryNode> g_mode;
 	//Í¬²½
 	ComPtr<ID3D12Fence> g_Fence;
 	D3D12_VERTEX_BUFFER_VIEW g_VertexBufferView[10];
+
 	D3D12_INDEX_BUFFER_VIEW g_IndexBufferView;
 	UINT g_frameIndex = 0;
 	HANDLE g_fenceEvent;

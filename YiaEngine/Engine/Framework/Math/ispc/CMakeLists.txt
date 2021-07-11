@@ -3,7 +3,8 @@
 #
 
 
-set(FUNCTIONS simple AddByElement DCT8X8 MatrixOperation SubtractByElement TestFunc Dot Cross)
+set(FUNCTIONS simple AddByElement DCT8X8 MatrixOperation SubtractByElement TestFunc Dot Cross
+		VectorFunc)
 
 foreach(FUNC IN LISTS FUNCTIONS)
 	add_custom_command(OUTPUT ${FUNC}.o 

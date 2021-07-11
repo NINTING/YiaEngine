@@ -41,6 +41,9 @@ export void Cross(uniform const float lhs[],uniform const float rhs[], uniform f
     foreach (index =0...count) {
         vout[index] = 0;
         float val = lhs[a0[index]]*rhs[a1[index]] - lhs[b0[index]]*rhs[b1[index]];
-        atomic_add_local(&vout[index],val);
+        if(index%2==0)
+            vout[index] = val;
+        else 
+            vout[index] = -val;
     }
 }
