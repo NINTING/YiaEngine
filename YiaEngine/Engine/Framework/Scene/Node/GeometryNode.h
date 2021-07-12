@@ -6,9 +6,8 @@
 
 
 #include"BaseSceneNode.h"
-
 #include"Object/GeometryObject.h"
-
+#include"Object/MaterialObject.h"
 namespace YiaEngine
 {
 	namespace Scene

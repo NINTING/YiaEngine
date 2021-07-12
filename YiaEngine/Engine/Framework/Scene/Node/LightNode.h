@@ -2,9 +2,10 @@
 #ifndef SCENE_NODE_LIGHT_NODE_H
 #define SCENE_NODE_LIGHT_NODE_H
 
-#include"Object/Transform.h"
-#include"BaseSceneNode.h"
 #include "Math/YiaMath.h"
+#include"BaseSceneNode.h"
+#include"Object/Transform.h"
+#include"Object/LightObject.h"
 namespace YiaEngine
 {
 	namespace Scene

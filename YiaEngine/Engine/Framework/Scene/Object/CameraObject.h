@@ -28,7 +28,7 @@ namespace YiaEngine {
 				return aspect_;
 			}
 			CameraObject() :BaseSceneObject(SceneObjectType::kCameraObject),
-				near_clip_(0.1),far_clip_(100),aspect_(1),viewAngle(60),fov_type_(FovType::kVertical) {}
+				near_clip_(0.1),far_clip_(1000),aspect_(1),viewAngle(60),fov_type_(FovType::kVertical) {}
 			float HorizontalViewAngle()
 			{
 				if (fov_type_ == FovType::kHorizontal)

@@ -62,7 +62,7 @@ namespace YiaEngine
 					assert(0);
 				}
 			}
-			operator Vec3f() const
+			operator Vec3f()
 			{
 				return translation_;
 			}

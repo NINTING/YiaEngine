@@ -373,7 +373,7 @@ void App::LoadAsset()
 		psoDesc.pRootSignature = g_rootSignature.Get();
 		psoDesc.VS = { reinterpret_cast<UINT8*>(vertexShader->GetBufferPointer()), vertexShader->GetBufferSize() };
 		psoDesc.PS = { reinterpret_cast<UINT8*>(pixelShader->GetBufferPointer()), pixelShader->GetBufferSize() };
-		psoDesc.RasterizerState = wirframe_rasterized_desc;
+		psoDesc.RasterizerState = defalut_rasterized_desc;
 		psoDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
 		psoDesc.DepthStencilState.DepthEnable = FALSE;
 		psoDesc.DepthStencilState.StencilEnable = FALSE;
@@ -491,7 +491,7 @@ void App::LoadAsset()
 			g_VertexBufferView[1].SizeInBytes = vertexBufferSize;
 		}
 		{
-			auto indexarray = mesh->GetIndexArray();
+			auto indexarray = mesh->GetIndexArray(0);
 			const UINT indexBufferSize = indexarray.data_size();
 			CD3DX12_HEAP_PROPERTIES heapProerties(D3D12_HEAP_TYPE_UPLOAD);
 			auto desc = CD3DX12_RESOURCE_DESC::Buffer(indexBufferSize);
@@ -505,11 +505,11 @@ void App::LoadAsset()
 			float* pIndexBegin;
 			CD3DX12_RANGE readRange(0, 0);
 			ThrowIfFailed(g_indexBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pIndexBegin)));
-			memcpy(pVertexBegin, (UINT8*)mesh->GetUVs().data(), indexBufferSize);
+			memcpy(pIndexBegin, (UINT8*)indexarray.data(), indexBufferSize);
 			g_indexBuffer->Unmap(0, nullptr);
 			g_IndexBufferView.BufferLocation = g_indexBuffer->GetGPUVirtualAddress();
 			g_IndexBufferView.SizeInBytes = indexBufferSize;
-			g_IndexBufferView.Format = DXGI_FORMAT_R16_UINT;
+			g_IndexBufferView.Format = DXGI_FORMAT_R32_UINT;
 		}
 		/*const UINT vertexBufferSize = sizeof(mode->object_ref()->);
 		CD3DX12_HEAP_PROPERTIES heapProerties(D3D12_HEAP_TYPE_UPLOAD);
@@ -541,8 +541,8 @@ void App::LoadAsset()
 		ThrowIfFailed(g_device->CreateDescriptorHeap(&cbvHeapdesc, IID_PPV_ARGS(&g_CBVHeap)));
 
 		using Camera = YiaEngine::Scene::CameraNode;
-		std::unique_ptr<Camera> camera = std::unique_ptr<Camera>(new Camera(YiaEngine::Vec3f(0,0,-2)));
-		camera->set_front(YiaEngine::Vec3f(0, 0,1));
+		std::unique_ptr<Camera> camera = std::unique_ptr<Camera>(new Camera(YiaEngine::Vec3f(190,50,0)));
+		camera->set_front(YiaEngine::Vec3f(-1, 0,0));
 		VPConstBuffer vp_cbuffer;
 		vp_cbuffer.VPMat = camera->ViewProjMatrix();
 		{
@@ -679,15 +679,15 @@ void App::PopulateCommandList()
 	
 
 	// set the descriptor heap
-	ID3D12DescriptorHeap* descriptorHeaps[] = { g_CBVHeap.Get() };/*
+//	ID3D12DescriptorHeap* descriptorHeaps[] = { g_CBVHeap.Get() };/*
 	ID3D12DescriptorHeap* descriptorHeaps[] = { g_SRVHeap.Get() };
-	ID3D12DescriptorHeap* descriptorHeaps[] = { g_SRVHeap.Get() };*/
 	g_commandList->SetDescriptorHeaps(1, descriptorHeaps);
 
 	//CD3DX12_GPU_DESCRIPTOR_HANDLE tex();
 	//tex.Offset(0, 0);
-	g_commandList->SetGraphicsRootDescriptorTable(0, g_SRVHeap->GetGPUDescriptorHandleForHeapStart());
 	g_commandList->SetGraphicsRootDescriptorTable(1, g_CBVHeap->GetGPUDescriptorHandleForHeapStart());
+	g_commandList->SetGraphicsRootDescriptorTable(0, g_SRVHeap->GetGPUDescriptorHandleForHeapStart());
+	
 
 	g_commandList->RSSetViewports(1, &g_viewport);
 	g_commandList->RSSetScissorRects(1, &g_scissorRect);
@@ -708,7 +708,7 @@ void App::PopulateCommandList()
 	auto mesh = g_mode->Object()->GetMeshObject(0);
 	auto indexarray = mesh->GetIndexArray(0);
 
-	g_commandList->DrawIndexedInstanced(indexarray.count, 1, 0, 0, 0);
+	g_commandList->DrawIndexedInstanced(indexarray.count(), 1, 0, 0, 0);
 	//g_commandList->DrawInstanced(6, 1, 0, 0);
 	
 	barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
