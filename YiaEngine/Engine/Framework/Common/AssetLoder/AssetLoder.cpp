@@ -322,7 +322,8 @@ namespace YiaEngine
 			aiProcess_CalcTangentSpace |
 			aiProcess_Triangulate |
 			aiProcess_JoinIdenticalVertices |
-			aiProcess_SortByPType);
+			aiProcess_SortByPType |
+			aiProcess_FlipUVs);
 		
 		// If the import failed, report it
 		if (!scene) {
@@ -353,6 +354,17 @@ namespace YiaEngine
 				break;
 			}
 			auto material  = scene->mMaterials[mesh->mMaterialIndex];
+			aiString path;
+			material->GetTexture(aiTextureType_DIFFUSE, 0, &path);
+			aiUVTransform ut,vt;
+			material->Get(AI_MATKEY_MAPPINGMODE_V_DIFFUSE(0),vt);
+			material->Get(AI_MATKEY_MAPPINGMODE_U_DIFFUSE(0),ut);
+
+			aiUVTransform mappingt,axit,flagt;
+			material->Get(AI_MATKEY_MAPPING_DIFFUSE(0), mappingt);
+			material->Get(AI_MATKEY_TEXMAP_AXIS_DIFFUSE(0), axit);
+			material->Get(AI_MATKEY_TEXFLAGS_DIFFUSE(0), flagt);
+			
 			geo_node->AddMatrial(CreatePBRMaterial(material));
 			//¶¥µãÊôÐÔ
 			if (scene->mMeshes[i]->HasPositions())

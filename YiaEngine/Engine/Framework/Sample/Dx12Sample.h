@@ -79,7 +79,7 @@ public:
 
 
 	void LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image,
-		ID3D12DescriptorHeap* descriptor_heap, ID3D12Resource** texture_buffer);
+		ID3D12DescriptorHeap* descriptor_heap,UINT offset, ID3D12Resource** texture_buffer);
 	void Destroy();
 
 	void Update();
@@ -107,7 +107,7 @@ public:
 	//ComPtr<ID3D12Resource> tempraryUpload;
 	ComPtr<ID3D12DescriptorHeap>g_SRVHeap;
 	ComPtr<ID3D12Resource> g_cbv;
-	ComPtr<ID3D12DescriptorHeap> g_CBVHeap;
+	ComPtr<ID3D12DescriptorHeap> g_SRVCBVHeap;
 	
 	UINT g_rtvDescriptorSize;
 

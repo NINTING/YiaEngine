@@ -12,7 +12,7 @@ struct PSInput
 {
     float4 position : SV_POSITION;
  
-    float2 uv   :TEXCOORD;
+    float3 uv   :TEXCOORD;
 };
 
 
@@ -34,7 +34,8 @@ PSInput VSMain(VSInput input)
 
 float4 PSMain(PSInput input) : SV_TARGET
 {
-  //  float4 color = float4(1,1,1,1);
-   return t1.Sample(s1, input.uv);
+    //  float4 color = float4(1,1,1,1);
+    return t1.Sample(s1,float2( input.uv.x,input.uv.y));
+    return float4(input.uv.xy, 0.f, 0.f);
     //return color;
 }
