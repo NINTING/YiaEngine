@@ -82,13 +82,15 @@ int main()
 	//	printf("%lf\n", b[i]);
 	//	/*printf("%lf\n", a[i][0]);
 	//	printf("\n");*/
-	//}
-	auto rn = Normalize(Vec3f(1, 0, 1));
+	////}
+	//auto rn = Normalize(Vec3f(1, 0, 1));
 
-	float rad = Angle2Rad(10);
-	printf("%lf\n", rad);
-	Vec3f va = { 2,2,3 };
-	Vec3f vb = { 2,3,3 };
-	auto r = YiaEngine::Cross(va, vb);
-	
+	//float rad = Angle2Rad(10);
+	//printf("%lf\n", rad);
+	//Vec3f va = { 2,2,3 };
+	//Vec3f vb = { 2,3,3 };
+	//auto r = YiaEngine::Cross(va, vb);
+	Vec3f a{ 1,2,3 };
+	a += Vec3f(3, 3, 3);
+
 }

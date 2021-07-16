@@ -7,21 +7,6 @@ project(YiaEngine)
 
 # 包含子项目。
 
-include_directories("${CMAKE_SOURCE_DIR}/YiaEngine")
-include_directories("${PROJECT_SOURCE_DIR}/Framework")
-include_directories("${PROJECT_SOURCE_DIR}/Framework/Common")
-include_directories("${PROJECT_SOURCE_DIR}/Framework/Interface")
-include_directories("${PROJECT_SOURCE_DIR}/Framework/Sample")
-include_directories("${PROJECT_SOURCE_DIR}/Framework/Windows")
-include_directories("${PROJECT_SOURCE_DIR}/Framework/Shader")
-include_directories("${PROJECT_SOURCE_DIR}/Framework/Math")
-
-include_directories("${PROJECT_SOURCE_DIR}/Framework/Common/AssetLoder")
-include_directories("${PROJECT_SOURCE_DIR}/Framework/Common/ImageParser")
-include_directories("${PROJECT_SOURCE_DIR}/Framework/Scene")
-
-include_directories("${CMAKE_SOURCE_DIR}/YiaEngine/External")
-include_directories("${CMAKE_SOURCE_DIR}/YiaEngine/External/crossguid")
 
 add_subdirectory ("Framework")
 IF(WIN32)

@@ -46,6 +46,21 @@ namespace YiaEngine
 		{
 			return VecSubtract(lhs, rhs);
 		}
+		Vec<T, N>& operator += (const Vec<T, N>& rhs)
+		{
+			auto* pTmp = reinterpret_cast<Vec<T, N>*>(this);
+			*pTmp = VecAdd(*pTmp, rhs);
+			return *pTmp;
+		}
+
+	/*	Vec<T, N>& operator =(const Vec<T, N>& rhs)
+		{
+			if (this != &rhs)
+			{
+				memcpy(this, &rhs, sizeof(T) * N);
+			}
+			return *this;
+		}*/
 
 	};
 #pragma endregion

@@ -142,10 +142,10 @@ void App::WaitForPreviousFrame()
 	
 
 
-	current_frame_ = 0;// (current_frame_+1) % (frames_count_);
-	UINT64  fence = g_fenceValue;// frame_resouces_[current_frame_]->fence;
-	//ThrowIfFailed(g_CommandQueue->Signal(g_Fence.Get(), frame_resouces_[current_frame_]->fence));
-	ThrowIfFailed(g_CommandQueue->Signal(g_Fence.Get(), fence));
+	current_frame_ =  (current_frame_+1) % (frames_count_);
+	UINT64  fence =  frame_resouces_[current_frame_]->fence;
+	ThrowIfFailed(g_CommandQueue->Signal(g_Fence.Get(), frame_resouces_[current_frame_]->fence));
+	//ThrowIfFailed(g_CommandQueue->Signal(g_Fence.Get(), fence));
 	frame_resouces_[current_frame_]->fence = ++g_fenceValue;
 
 	if ( g_Fence->GetCompletedValue() < fence)
@@ -241,9 +241,14 @@ void App::LoadPipeline(HWND hwnd)
 		}
 	
 	}
+	std::wstring c_name;
+	
 	for (int i = 0; i < frames_count_; i++)
 	{
-		frame_resouces_.push_back( std::make_unique<FrameResource>(g_device.Get()));
+		c_name = L"frame_command";
+		c_name.append(std::to_wstring(i));
+		
+		frame_resouces_.push_back( std::make_unique<FrameResource>(g_device.Get(),c_name.c_str()));
 	}
 
 	ThrowIfFailed(g_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&g_commandAllocator)));
@@ -391,8 +396,8 @@ void App::LoadAsset()
 	//ThrowIfFailed(g_commandList->Close());
 
 	{
-		YiaEngine::AssetLoder assetLoder;
-		g_mode = assetLoder.LoadModel("Fox/Fox.gltf");
+		
+		g_mode = YiaEngine::AssetLoder::Instance()->LoadModel("Fox/Fox.gltf");
 
 		Vertex_Pos_Uv triangleVertices[] =
 		{
@@ -445,90 +450,14 @@ void App::LoadAsset()
 		g_VertexBufferView.BufferLocation = g_vertexBuffer->GetGPUVirtualAddress();
 		g_VertexBufferView.StrideInBytes = sizeof(Vertex_Pos_Uv);
 		g_VertexBufferView.SizeInBytes = vertexBufferSize;*/
-		{
-			auto positiones = mesh->GetPosition();
-			ComPtr<ID3D12Resource> vertexbuffer;
-			const UINT vertexBufferSize = positiones.data_size();
-			CD3DX12_HEAP_PROPERTIES heapProerties(D3D12_HEAP_TYPE_UPLOAD);
-			auto desc = CD3DX12_RESOURCE_DESC::Buffer(vertexBufferSize);
-			ThrowIfFailed(g_device->CreateCommittedResource(
-				&heapProerties,
-				D3D12_HEAP_FLAG_NONE,
-				&desc,
-				D3D12_RESOURCE_STATE_GENERIC_READ,
-				nullptr,
-				IID_PPV_ARGS(&g_vertexBuffer[0])));
-			float* pVertexBegin;
-			CD3DX12_RANGE readRange(0, 0);
-			ThrowIfFailed(g_vertexBuffer[0]->Map(0, &readRange, reinterpret_cast<void**>(&pVertexBegin)));
-			memcpy(pVertexBegin,(UINT8*)mesh->GetPosition().data(), vertexBufferSize);
-			g_vertexBuffer[0]->Unmap(0, nullptr);
-			g_VertexBufferView[0].BufferLocation = g_vertexBuffer[0]->GetGPUVirtualAddress();
-			g_VertexBufferView[0].StrideInBytes = positiones.stride();
-			g_VertexBufferView[0].SizeInBytes = vertexBufferSize;
-		}
-		{
-			auto uvs = mesh->GetUVs();
+		auto positiones = mesh->GetPosition();
+		auto uvs = mesh->GetUVs();
+		BindVertexAttribute(positiones.data(), positiones.data_size(), positiones.stride(), 0);
+		BindVertexAttribute(uvs.data(), uvs.data_size(), uvs.stride(), 1);
 
-			ComPtr<ID3D12Resource> vertexbuffer;
-			const UINT vertexBufferSize = uvs.data_size();;
-			CD3DX12_HEAP_PROPERTIES heapProerties(D3D12_HEAP_TYPE_UPLOAD);
-			auto desc = CD3DX12_RESOURCE_DESC::Buffer(vertexBufferSize);
-			ThrowIfFailed(g_device->CreateCommittedResource(
-				&heapProerties,
-				D3D12_HEAP_FLAG_NONE,
-				&desc,
-				D3D12_RESOURCE_STATE_GENERIC_READ,
-				nullptr,
-				IID_PPV_ARGS(&g_vertexBuffer[1])));
-			float* pVertexBegin;
-			CD3DX12_RANGE readRange(0, 0);
-			ThrowIfFailed(g_vertexBuffer[1]->Map(0, &readRange, reinterpret_cast<void**>(&pVertexBegin)));
-			memcpy(pVertexBegin, (UINT8*)mesh->GetUVs().data(), vertexBufferSize);
-			g_vertexBuffer[1]->Unmap(0, nullptr);
-			g_VertexBufferView[1].BufferLocation = g_vertexBuffer[1]->GetGPUVirtualAddress();
-			g_VertexBufferView[1].StrideInBytes = uvs.stride();
-			g_VertexBufferView[1].SizeInBytes = vertexBufferSize;
-		}
-		{
-			auto indexarray = mesh->GetIndexArray(0);
-			const UINT indexBufferSize = indexarray.data_size();
-			CD3DX12_HEAP_PROPERTIES heapProerties(D3D12_HEAP_TYPE_UPLOAD);
-			auto desc = CD3DX12_RESOURCE_DESC::Buffer(indexBufferSize);
-			ThrowIfFailed(g_device->CreateCommittedResource(
-				&heapProerties,
-				D3D12_HEAP_FLAG_NONE,
-				&desc,
-				D3D12_RESOURCE_STATE_GENERIC_READ,
-				nullptr,
-				IID_PPV_ARGS(&g_indexBuffer)));
-			float* pIndexBegin;
-			CD3DX12_RANGE readRange(0, 0);
-			ThrowIfFailed(g_indexBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pIndexBegin)));
-			memcpy(pIndexBegin, (UINT8*)indexarray.data(), indexBufferSize);
-			g_indexBuffer->Unmap(0, nullptr);
-			g_IndexBufferView.BufferLocation = g_indexBuffer->GetGPUVirtualAddress();
-			g_IndexBufferView.SizeInBytes = indexBufferSize;
-			g_IndexBufferView.Format = DXGI_FORMAT_R32_UINT;
-		}
-		/*const UINT vertexBufferSize = sizeof(mode->object_ref()->);
-		CD3DX12_HEAP_PROPERTIES heapProerties(D3D12_HEAP_TYPE_UPLOAD);
-		auto desc = CD3DX12_RESOURCE_DESC::Buffer(vertexBufferSize);
-		ThrowIfFailed(g_device->CreateCommittedResource(
-			&heapProerties,
-			D3D12_HEAP_FLAG_NONE,
-			&desc,
-			D3D12_RESOURCE_STATE_GENERIC_READ,
-			nullptr,
-			IID_PPV_ARGS(&g_vertexBuffer)));
-		UINT8* pVertexBegin;
-		CD3DX12_RANGE readRange(0, 0);
-		ThrowIfFailed(g_vertexBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pVertexBegin)));
-		memcpy(pVertexBegin, triangleVertices, sizeof(triangleVertices));
-		g_vertexBuffer->Unmap(0, nullptr);
-		g_IndexBufferView.BufferLocation = g_vertexBuffer->GetGPUVirtualAddress();
-		g_IndexBufferView.Format = DXGI_FORMAT::DXGI_FORMAT_R32_UINT;
-		g_IndexBufferView.SizeInBytes = vertexBufferSize;*/
+		auto indexarray = mesh->GetIndexArray(0);
+		BindIndexBuffer(indexarray.data(), indexarray.data_size());
+		
 
 		//{
 		//	Vec3f d
@@ -570,7 +499,7 @@ void App::LoadAsset()
 		YiaEngine::BmpParser bmpParser;
 		/*Image ima = bmpParser.Parser(assetLoder.OpenAndReadBinary("bb.bmp"));
 		Image* image =& ima;*/
-		auto image  = assetLoder.LoadImageFile("Fox/Texture.png");
+		auto image  = YiaEngine::AssetLoder::Instance()->LoadImageFile("Fox/Texture.png");
 		
 
 		ComPtr<ID3D12GraphicsCommandList> tmpList;
@@ -644,6 +573,21 @@ void App::LoadAsset()
 
 		
 	}
+	{
+	ThrowIfFailed(g_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_BUNDLE, IID_PPV_ARGS(&g_BundleAllocator)));
+	g_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_BUNDLE, g_BundleAllocator.Get(), g_pipelineState.Get(), IID_PPV_ARGS(&g_BundleList));
+	
+	//g_BundleList->SetPipelineState(g_pipelineState.Get());
+	g_BundleList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	//g_commandList->IASetIndexBuffer();
+	g_BundleList->IASetVertexBuffers(0, 2, &g_VertexBufferView[0]);
+	g_BundleList->IASetIndexBuffer(&g_IndexBufferView);
+	auto mesh = g_mode->Object()->GetMeshObject(0);
+	auto indexarray = mesh->GetIndexArray(0);
+
+	g_BundleList->DrawIndexedInstanced(indexarray.count(), 1, 0, 0, 0);
+	g_BundleList->Close();
+	}
 	
 	{
 		
@@ -672,8 +616,8 @@ void App::PopulateCommandList()
 	
 
 	//ThrowIfFailed(current_cmd_alloc->Reset());
-	ThrowIfFailed(g_commandAllocator->Reset());
-	ThrowIfFailed(g_commandList->Reset(g_commandAllocator.Get(), g_pipelineState.Get()));
+	ThrowIfFailed(current_cmd_alloc->Reset());
+	ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), g_pipelineState.Get()));
 	
 	g_commandList->SetGraphicsRootSignature(g_rootSignature.Get());
 	
@@ -703,16 +647,17 @@ void App::PopulateCommandList()
 
 	const float clearColor[] = { 0.0f, 0.2f, 0.4f, 1.0f };
 	g_commandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
-	g_commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);		
-	//g_commandList->IASetIndexBuffer();
-	g_commandList->IASetVertexBuffers(0, 2, &g_VertexBufferView[0]);
-	g_commandList->IASetIndexBuffer(&g_IndexBufferView);
-	auto mesh = g_mode->Object()->GetMeshObject(0);
-	auto indexarray = mesh->GetIndexArray(0);
+	//g_commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);		
+	////g_commandList->IASetIndexBuffer();
+	//g_commandList->IASetVertexBuffers(0, 2, &g_VertexBufferView[0]);
+	//g_commandList->IASetIndexBuffer(&g_IndexBufferView);
+	//auto mesh = g_mode->Object()->GetMeshObject(0);
+	//auto indexarray = mesh->GetIndexArray(0);
 
-	g_commandList->DrawIndexedInstanced(indexarray.count(), 1, 0, 0, 0);
+	//g_commandList->DrawIndexedInstanced(indexarray.count(), 1, 0, 0, 0);
+	// 	   
 	//g_commandList->DrawInstanced(6, 1, 0, 0);
-	
+	g_commandList->ExecuteBundle(g_BundleList.Get());
 	barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
 	g_commandList->ResourceBarrier(1, &barrier);
 
@@ -795,3 +740,52 @@ void App::Update()
 	
 
 }
+
+void App::BindVertexAttribute(void* data, size_t data_size,size_t stride ,int index)
+{
+	const UINT vertexBufferSize = data_size;
+	CD3DX12_HEAP_PROPERTIES heapProerties(D3D12_HEAP_TYPE_UPLOAD);
+	auto desc = CD3DX12_RESOURCE_DESC::Buffer(vertexBufferSize);
+	ThrowIfFailed(g_device->CreateCommittedResource(
+		&heapProerties,
+		D3D12_HEAP_FLAG_NONE,
+		&desc,
+		D3D12_RESOURCE_STATE_GENERIC_READ,
+		nullptr,
+		IID_PPV_ARGS(&g_vertexBuffer[index])));
+	float* pVertexBegin;
+	CD3DX12_RANGE readRange(0, 0);
+	ThrowIfFailed(g_vertexBuffer[index]->Map(0, &readRange, reinterpret_cast<void**>(&pVertexBegin)));
+	memcpy(pVertexBegin, (UINT8*)data, vertexBufferSize);
+	g_vertexBuffer[index]->Unmap(0, nullptr);
+	g_VertexBufferView[index].BufferLocation = g_vertexBuffer[index]->GetGPUVirtualAddress();
+	g_VertexBufferView[index].StrideInBytes = stride;
+	g_VertexBufferView[index].SizeInBytes = vertexBufferSize;
+}
+
+void App::BindIndexBuffer(void* data, size_t data_size)
+{
+
+	const UINT indexBufferSize = data_size;
+	CD3DX12_HEAP_PROPERTIES heapProerties(D3D12_HEAP_TYPE_UPLOAD);
+	auto desc = CD3DX12_RESOURCE_DESC::Buffer(indexBufferSize);
+	ThrowIfFailed(g_device->CreateCommittedResource(
+		&heapProerties,
+		D3D12_HEAP_FLAG_NONE,
+		&desc,
+		D3D12_RESOURCE_STATE_GENERIC_READ,
+		nullptr,
+		IID_PPV_ARGS(&g_indexBuffer)));
+	float* pIndexBegin;
+	CD3DX12_RANGE readRange(0, 0);
+	ThrowIfFailed(g_indexBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pIndexBegin)));
+	memcpy(pIndexBegin, (UINT8*)data, indexBufferSize);
+	g_indexBuffer->Unmap(0, nullptr);
+	g_IndexBufferView.BufferLocation = g_indexBuffer->GetGPUVirtualAddress();
+	g_IndexBufferView.SizeInBytes = indexBufferSize;
+	g_IndexBufferView.Format = DXGI_FORMAT_R32_UINT;
+}
+
+//void App::BindVertexAttribute(void* data, size_t data_size, int index)
+//{
+//}

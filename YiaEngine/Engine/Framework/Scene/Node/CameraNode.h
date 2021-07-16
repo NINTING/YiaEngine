@@ -73,6 +73,12 @@ namespace YiaEngine
 			{
 				return ViewMatrix() * ProjectionMatrix();
 			}
+
+			void Walk(Vec3f dir)
+			{
+				position_ += dir;
+			}
+
 		private:
 			std::shared_ptr<CameraObject>object_ref_;
 			Vec3f front_;

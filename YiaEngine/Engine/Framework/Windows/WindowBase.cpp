@@ -16,8 +16,14 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
         // Save the DXSample* passed in to CreateWindow.
         LPCREATESTRUCT pCreateStruct = reinterpret_cast<LPCREATESTRUCT>(lParam);
         SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pCreateStruct->lpCreateParams));
+        return 0;
     }
-    return 0;
+    case WM_LBUTTONDOWN:
+        MessageBox(0, "hello world","Hello", MB_OK);
+        return 0;
+    case WM_LBUTTONDBLCLK:
+
+        return 0;
 
 
 

@@ -12,6 +12,6 @@ set(ExternalDir ${CMAKE_SOURCE_DIR}/YiaEngine/External CACHE INTERNAL "ThridLibr
 
 include_directories("${CMAKE_SOURCE_DIR}/YiaEngine/External/crossguid")
 
-
+add_subdirectory ("ImGui")
 #ADD_SUBDIRECTORY("assimp")
 # TODO: 如有需要，请添加测试并安装目标。

@@ -36,11 +36,10 @@ namespace YiaEngine
 
 	class AssetLoder
 	{
+		AssetLoder() = default;
 	public:
 		void Init();
 		typedef void* AssetFilePtr; //不同文件有不同的格式
-
-
 		~AssetLoder() {};
 		
 		std::string GetFullFilePath(const char* name);
@@ -51,6 +50,16 @@ namespace YiaEngine
 		
 		Buffer OpenAndReadText(const char* name);
 		Buffer OpenAndReadBinary(const char* name);
+
+		static AssetLoder* Instance()
+		{
+			static AssetLoder* assetLoder;
+			if (assetLoder == nullptr)
+			{
+				assetLoder = new AssetLoder();
+			}
+			return assetLoder;
+		}
 
 		std::shared_ptr<Image> LoadImageFile(const char* filename);
 		

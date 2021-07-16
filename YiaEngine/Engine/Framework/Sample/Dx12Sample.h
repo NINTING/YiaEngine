@@ -84,6 +84,10 @@ public:
 
 	void Update();
 
+	void BindVertexAttribute(void* data, size_t data_size, size_t stride, int index);
+
+	void BindIndexBuffer(void* data, size_t data_size);
+
 	int g_width =512;
 	int g_height = 512;
 
@@ -96,9 +100,11 @@ public:
 	ComPtr< IDXGISwapChain3> g_SwapChain;
 	ComPtr<ID3D12DescriptorHeap>g_RTVHeap;
 	ComPtr<ID3D12CommandAllocator>g_commandAllocator;
+	ComPtr<ID3D12CommandAllocator>g_BundleAllocator;
 	ComPtr<ID3D12RootSignature>g_rootSignature;
 	ComPtr<ID3D12PipelineState>g_pipelineState;
 	ComPtr<ID3D12GraphicsCommandList>g_commandList;
+	ComPtr<ID3D12GraphicsCommandList>g_BundleList;
 	ComPtr<ID3D12Resource>g_vertexBuffer[2];
 	
 	ComPtr<ID3D12Resource>g_indexBuffer;
@@ -125,16 +131,17 @@ public:
 	
 	std::vector<std::unique_ptr<FrameResource>>frame_resouces_;
 	int frames_count_ = 3;
-	int current_frame_;
+	int current_frame_ = 0;
 	ComPtr<ID3D12CommandAllocator>current_cmd_alloc;
 
 };
 
 struct FrameResource
 {
-	FrameResource(ID3D12Device* device) {
+	FrameResource(ID3D12Device* device,const WCHAR*name) {
 		fence = 0;
 		ThrowIfFailed(device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&cmd_list_alloctor)));
+		cmd_list_alloctor->SetName(name);
 	}
 	uint32_t fence;
 	ComPtr<ID3D12CommandAllocator>cmd_list_alloctor;
