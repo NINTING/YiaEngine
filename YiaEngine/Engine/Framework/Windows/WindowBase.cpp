@@ -3,6 +3,9 @@
 
 #include"Dx12Sample.h"
 #include "WindowBase.h"
+#include "imgui.h"
+#include "ImGui/backend/imgui_impl_win32.h"
+#include "ImGui/backend/imgui_impl_dx12.h"
 HWND g_hwnd = nullptr;
 // Main message handler for the sample.
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -18,15 +21,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
         SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pCreateStruct->lpCreateParams));
         return 0;
     }
-    case WM_LBUTTONDOWN:
-        MessageBox(0, "hello world","Hello", MB_OK);
-        return 0;
-    case WM_LBUTTONDBLCLK:
-
-        return 0;
-
-
-
+    
     case WM_DESTROY:
         PostQuitMessage(0);
         return 0;
@@ -74,24 +69,84 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
    
 
     ShowWindow(g_hwnd, nCmdShow);
+
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImGui::StyleColorsDark();
+
     app->InitEngine();
     app->LoadPipeline(g_hwnd);
+    
+    ImGui_ImplWin32_Init(g_hwnd);
+    ImGui_ImplDX12_Init(app->g_device.Get(), app->frames_count_,
+        DXGI_FORMAT_R8G8B8A8_UNORM, app->g_SRVHeap.Get(),
+        app->g_SRVHeap->GetCPUDescriptorHandleForHeapStart(),
+        app->g_SRVHeap->GetGPUDescriptorHandleForHeapStart());
+
     app->LoadAsset();
-    // Main sample loop.
+    bool done = false;
     MSG msg = {};
-    while (msg.message != WM_QUIT)
+    while (!done)
     {
-        // Process any messages in the queue.
-        if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+
+        // Main sample loop.
+        msg = {};
+        while (::PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
         {
+            // Process any messages in the queue.
+
             TranslateMessage(&msg);
             DispatchMessage(&msg);
-         
-            app->Render();
+            if (msg.message == WM_QUIT)
+                done = true;
         }
+        if (done)
+            break;
+       ImGui_ImplDX12_NewFrame();
+       ImGui_ImplWin32_NewFrame();
+       ImGui::NewFrame();
+
+        ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+
+        ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+        //ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
+        //ImGui::Checkbox("Another Window", &show_another_window);
+
+ //       ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+        //ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+
+        //if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+        //    counter++;
+        ImGui::SameLine();
+ //       ImGui::Text("counter = %d", counter);
+
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        ImGui::End();
+
+  
+        ImGui::Render();
+
+        app->WaitForPreviousFrame();
+        //app->PopulateSceneCommandList();
+        //app->Render();
+        
+        
+
+        app->PopulateSceneCommandList();
+    //    app->ExecuteCommand();
+
+        app->PopulateUICommandList();
+        app->ExecuteCommand();
+
+        app->SwapPresent();
+
     }
     app->Destroy();
     
+    ImGui_ImplDX12_Shutdown();
+    ImGui_ImplWin32_Shutdown();
+    ImGui::DestroyContext();
 
     // Return this part of the WM_QUIT message to Windows.
     return static_cast<char>(msg.wParam);

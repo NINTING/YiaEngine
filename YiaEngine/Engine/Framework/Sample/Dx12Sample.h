@@ -75,8 +75,12 @@ public:
 	void Render();
 
 
-	void PopulateCommandList();
+	void PopulateSceneCommandList();
 
+	void PopulateUICommandList();
+
+	void SwapPresent();
+	void ClearRenderTarget(CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle);
 
 	void LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image,
 		ID3D12DescriptorHeap* descriptor_heap,UINT offset, ID3D12Resource** texture_buffer);
@@ -87,7 +91,7 @@ public:
 	void BindVertexAttribute(void* data, size_t data_size, size_t stride, int index);
 
 	void BindIndexBuffer(void* data, size_t data_size);
-
+	void ExecuteCommand();
 	int g_width =512;
 	int g_height = 512;
 
@@ -100,6 +104,7 @@ public:
 	ComPtr< IDXGISwapChain3> g_SwapChain;
 	ComPtr<ID3D12DescriptorHeap>g_RTVHeap;
 	ComPtr<ID3D12CommandAllocator>g_commandAllocator;
+	ComPtr<ID3D12CommandAllocator>g_currentCommandAllocator;
 	ComPtr<ID3D12CommandAllocator>g_BundleAllocator;
 	ComPtr<ID3D12RootSignature>g_rootSignature;
 	ComPtr<ID3D12PipelineState>g_pipelineState;

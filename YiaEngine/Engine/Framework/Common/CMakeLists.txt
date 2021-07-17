@@ -28,7 +28,9 @@ add_executable(${PROJECT_NAME} WIN32
 	${ExternalDir}/crossguid/guid.cpp "MacroHelp.h"
 	${PROJECT_SOURCE_DIR}/Framework/Common/Allocator.cpp
 	${PROJECT_SOURCE_DIR}/Framework/Common/MemoryManager.cpp
-	${CMAKE_SOURCE_DIR}/YiaEngine/External/crossguid/guid.cpp	
+	${CMAKE_SOURCE_DIR}/YiaEngine/External/crossguid/guid.cpp
+	${CMAKE_SOURCE_DIR}/YiaEngine/External/ImGui/backend/imgui_impl_dx12.cpp
+	${CMAKE_SOURCE_DIR}/YiaEngine/External/ImGui/backend/imgui_impl_win32.cpp
 	)
 
 file(COPY ${CMAKE_SOURCE_DIR}/YiaEngine/External/assimp/assimp-vc142-mtd.dll
@@ -40,6 +42,7 @@ DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 target_link_libraries(${PROJECT_NAME} 
 	YiaMath
 	YiaScene
+	IMGUI
 	${CMAKE_SOURCE_DIR}/YiaEngine/External/assimp/assimp-vc142-mtd.lib 
 	${CMAKE_SOURCE_DIR}/YiaEngine/External/freeImage/FreeImage.lib
 )

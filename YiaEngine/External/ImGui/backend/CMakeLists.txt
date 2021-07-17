@@ -2,16 +2,14 @@
 # 项目特定的逻辑。
 #
 
+aux_source_directory(. IMPL_TEST_LIST)
 
-# 包含子项目。
-aux_source_directory(. IMGUI_LIST)
+add_executable(ImGuiTest ${IMPL_TEST_LIST})
 
+target_link_libraries(ImGuiTest IMGUI)
 
-add_library(IMGUI STATIC ${IMGUI_LIST})
+add_test(NAME Test_IMGUI COMMAND ImGuiTest)
 
-
- 
-add_subdirectory ("backend")
 
 
 #ADD_SUBDIRECTORY("assimp")

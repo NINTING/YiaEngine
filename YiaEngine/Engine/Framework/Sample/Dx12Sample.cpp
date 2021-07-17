@@ -2,6 +2,9 @@
 
 
 
+#include"imgui.cpp"
+#include "ImGui/backend/imgui_impl_win32.h"
+#include "ImGui/backend/imgui_impl_dx12.h"
 
 #include"Dx12Sample.h"
 #include"BmpParser.h"
@@ -241,6 +244,15 @@ void App::LoadPipeline(HWND hwnd)
 		}
 	
 	}
+	{
+		D3D12_DESCRIPTOR_HEAP_DESC srvHeapdesc = {};
+		srvHeapdesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+		srvHeapdesc.NumDescriptors = 1;
+		srvHeapdesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+		ThrowIfFailed(g_device->CreateDescriptorHeap(&srvHeapdesc, IID_PPV_ARGS(&g_SRVHeap)));
+		g_SRVHeap->SetName(L"UI_SRV");
+	
+	}
 	std::wstring c_name;
 	
 	for (int i = 0; i < frames_count_; i++)
@@ -299,7 +311,7 @@ void App::LoadAsset()
 
 
 		CD3DX12_ROOT_PARAMETER1  rootParameters[2];
-		rootParameters[0].InitAsDescriptorTable(1, &rootRange[0], D3D12_SHADER_VISIBILITY_PIXEL);
+		rootParameters[0].InitAsDescriptorTable(1, &rootRange[0], D3D12_SHADER_VISIBILITY_ALL);
 		rootParameters[1].InitAsDescriptorTable(1, &rootRange[1], D3D12_SHADER_VISIBILITY_ALL);
 	
 			
@@ -512,11 +524,7 @@ void App::LoadAsset()
 
 //		ThrowIfFailed(g_commandAllocator->Reset());
 //		ThrowIfFailed(g_commandList->Reset(g_commandAllocator.Get(), g_pipelineState.Get()));
-		/*D3D12_DESCRIPTOR_HEAP_DESC srvHeapdesc = {};
-		srvHeapdesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
-		srvHeapdesc.NumDescriptors = 1;
-		srvHeapdesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
-		ThrowIfFailed(g_device->CreateDescriptorHeap(&srvHeapdesc, IID_PPV_ARGS(&g_SRVHeap)));*/
+		
 
 		LoadTextureBuffer(image, g_SRVCBVHeap.Get(),1,&g_texture);
 
@@ -598,7 +606,7 @@ void App::LoadAsset()
 
 void App::Render()
 {
-	PopulateCommandList();
+	PopulateSceneCommandList();
 
 	// Execute the command list.
 	ID3D12CommandList* ppCommandLists[] = { g_commandList.Get() };
@@ -610,7 +618,43 @@ void App::Render()
 	WaitForPreviousFrame();
 }
 
-void App::PopulateCommandList()
+void App::SwapPresent()
+{
+	ThrowIfFailed(g_SwapChain->Present(1, 0));
+}
+
+void App::ExecuteCommand()
+{
+	ID3D12CommandList* ppCommandLists[] = { g_commandList.Get() };
+	g_CommandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
+
+	// Present the frame.
+	
+}
+
+void App::PopulateUICommandList()
+{
+//	current_cmd_alloc = frame_resouces_[current_frame_]->cmd_list_alloctor;
+//	ThrowIfFailed(current_cmd_alloc->Reset());
+//	ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), NULL));
+
+	ID3D12DescriptorHeap* descriptorHeaps[] = { g_SRVHeap.Get() };
+	g_commandList->SetDescriptorHeaps(1, descriptorHeaps);
+
+	auto  barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
+	g_commandList->ResourceBarrier(1, &barrier);
+
+	CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(g_RTVHeap->GetCPUDescriptorHandleForHeapStart(), g_frameIndex, g_rtvDescriptorSize);
+	g_commandList->OMSetRenderTargets(1, &rtvHandle, false, nullptr);
+	
+
+	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), g_commandList.Get());
+
+	barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+	g_commandList->ResourceBarrier(1, &barrier);
+	ThrowIfFailed(g_commandList->Close());
+}
+void App::PopulateSceneCommandList()
 {
 	current_cmd_alloc = frame_resouces_[current_frame_]->cmd_list_alloctor;
 	
@@ -626,7 +670,7 @@ void App::PopulateCommandList()
 //	ID3D12DescriptorHeap* descriptorHeaps[] = { g_CBVHeap.Get() };/*
 	ID3D12DescriptorHeap* descriptorHeaps[] = { g_SRVCBVHeap.Get() };
 	g_commandList->SetDescriptorHeaps(1, descriptorHeaps);
-
+	
 	//CD3DX12_GPU_DESCRIPTOR_HANDLE tex();
 	//tex.Offset(0, 0);
 	UINT srv_desc_size = g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
@@ -644,9 +688,9 @@ void App::PopulateCommandList()
 	
 	CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(g_RTVHeap->GetCPUDescriptorHandleForHeapStart(), g_frameIndex, g_rtvDescriptorSize);
 	g_commandList->OMSetRenderTargets(1, &rtvHandle, false, nullptr);
+	ClearRenderTarget(rtvHandle);
 
-	const float clearColor[] = { 0.0f, 0.2f, 0.4f, 1.0f };
-	g_commandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
+	
 	//g_commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);		
 	////g_commandList->IASetIndexBuffer();
 	//g_commandList->IASetVertexBuffers(0, 2, &g_VertexBufferView[0]);
@@ -661,9 +705,13 @@ void App::PopulateCommandList()
 	barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
 	g_commandList->ResourceBarrier(1, &barrier);
 
-	ThrowIfFailed(g_commandList->Close());
+//	ThrowIfFailed(g_commandList->Close());
 }
-
+void App::ClearRenderTarget(CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle)
+{
+	const float clearColor[] = { 0.0f, 0.2f, 0.4f, 1.0f };
+	g_commandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
+}
 void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image,
 	ID3D12DescriptorHeap* descriptor_heap,UINT offset, ID3D12Resource** texture_buffer)
 {
