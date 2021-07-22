@@ -6,14 +6,30 @@
 #include "imgui.h"
 #include "ImGui/backend/imgui_impl_win32.h"
 #include "ImGui/backend/imgui_impl_dx12.h"
+
 HWND g_hwnd = nullptr;
+
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+
+
 // Main message handler for the sample.
-LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+        return true;
 
-
-    switch (message)
+    switch (msg)
     {
+    case WM_SIZE:
+       /* if(app->g_device !=NULL && wParam != SIZE_MINIMIZED)
+        {
+            ImGui_ImplDX12_InvalidateDeviceObjects();
+
+
+            ImGui_ImplDX12_CreateDeviceObjects();
+        }*/
+        return 0;
     case WM_CREATE:
     {
         // Save the DXSample* passed in to CreateWindow.
@@ -28,7 +44,34 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
     }
 
     // Handle any messages the switch statement didn't.
-    return DefWindowProc(hWnd, message, wParam, lParam);
+    return DefWindowProc(hWnd, msg, wParam, lParam);
+
+    //if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+    //    return true;
+
+    //switch (msg)
+    //{
+    //case WM_SIZE:
+    //    //if (App::g_device != NULL && wParam != SIZE_MINIMIZED)
+    //    //{
+    //    //    
+    //    //    /*ImGui_ImplDX12_InvalidateDeviceObjects();
+    //    //    CleanupRenderTarget();
+    //    //    ResizeSwapChain(hWnd, (UINT)LOWORD(lParam), (UINT)HIWORD(lParam));
+    //    //    CreateRenderTarget();
+    //    //    ImGui_ImplDX12_CreateDeviceObjects();*/
+    //    //}
+    //    return 0;
+    //case WM_SYSCOMMAND:
+    //    if ((wParam & 0xfff0) == SC_KEYMENU) // Disable ALT application menu
+    //        return 0;
+    //    break;
+    //case WM_DESTROY:
+    //    ::PostQuitMessage(0);
+    //    return 0;
+    //}
+    //return ::DefWindowProc(hWnd, msg, wParam, lParam);
+
 }
 
 int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
@@ -94,10 +137,8 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
         msg = {};
         while (::PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
         {
-            // Process any messages in the queue.
-
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+            ::TranslateMessage(&msg);
+            ::DispatchMessage(&msg);
             if (msg.message == WM_QUIT)
                 done = true;
         }
@@ -106,37 +147,27 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
        ImGui_ImplDX12_NewFrame();
        ImGui_ImplWin32_NewFrame();
        ImGui::NewFrame();
+       app->WaitForPreviousFrame();
 
-        ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+       //app->PopulateSceneCommandList();
+       //app->Render();
+       
+       
+       //===============   GAMEPLAY   ======================
 
-        ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-        //ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-        //ImGui::Checkbox("Another Window", &show_another_window);
 
- //       ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-        //ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+       app->PopulateSceneCommandList();
+       
 
-        //if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-        //    counter++;
-        ImGui::SameLine();
- //       ImGui::Text("counter = %d", counter);
-
+       //===============   UI   ======================
+        ImGui::Begin("Hello, world!");                       
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
         ImGui::End();
-
   
         ImGui::Render();
 
-        app->WaitForPreviousFrame();
-        //app->PopulateSceneCommandList();
-        //app->Render();
-        
-        
-
-        app->PopulateSceneCommandList();
-    //    app->ExecuteCommand();
-
         app->PopulateUICommandList();
+
         app->ExecuteCommand();
 
         app->SwapPresent();

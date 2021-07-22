@@ -62,7 +62,7 @@ public:
 
 	//void GetHardwareAdapter(IDXGIFactory* pFactory, IDXGIAdapter** ppAdapter);
 
-	void WaitForPreviousFrame();
+	void WaitForPreviousFrame(bool is_end_frame = false);
 
 
 	void InitEngine();
@@ -94,6 +94,9 @@ public:
 	void ExecuteCommand();
 	int g_width =512;
 	int g_height = 512;
+
+	static ComPtr<ID3D12Device> GetCurrentDevice();
+	
 
 	CD3DX12_VIEWPORT  g_viewport;
 	CD3DX12_RECT g_scissorRect;

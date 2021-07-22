@@ -139,12 +139,8 @@ std::vector<UINT8> GenerateTextureData()
 
 
 
-void App::WaitForPreviousFrame()
+void App::WaitForPreviousFrame(bool is_end_frame)
 {
-	//float fence = g_fenceValue;
-	
-
-
 	current_frame_ =  (current_frame_+1) % (frames_count_);
 	UINT64  fence =  frame_resouces_[current_frame_]->fence;
 	ThrowIfFailed(g_CommandQueue->Signal(g_Fence.Get(), frame_resouces_[current_frame_]->fence));
@@ -157,9 +153,11 @@ void App::WaitForPreviousFrame()
 		WaitForSingleObject(g_fenceEvent, INFINITE);
 	}
 
-	
-	g_frameIndex = g_SwapChain->GetCurrentBackBufferIndex();
-
+	if (!is_end_frame)
+	{
+		g_frameIndex = g_SwapChain->GetCurrentBackBufferIndex();
+		current_cmd_alloc = frame_resouces_[current_frame_]->cmd_list_alloctor;
+	}
 }
 
 void App::InitEngine()
@@ -654,9 +652,12 @@ void App::PopulateUICommandList()
 	g_commandList->ResourceBarrier(1, &barrier);
 	ThrowIfFailed(g_commandList->Close());
 }
+
+
+
 void App::PopulateSceneCommandList()
 {
-	current_cmd_alloc = frame_resouces_[current_frame_]->cmd_list_alloctor;
+
 	
 
 	//ThrowIfFailed(current_cmd_alloc->Reset());
@@ -752,7 +753,7 @@ void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image,
 
 	auto barrise = CD3DX12_RESOURCE_BARRIER::Transition(
 		*texture_buffer,
-		D3D12_RESOURCE_STATE_COPY_DEST,
+		D3D12_RESOURCE_STATE_COPY_DEST,  
 		D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 	g_commandList->ResourceBarrier(1, &barrise);
 
@@ -837,3 +838,4 @@ void App::BindIndexBuffer(void* data, size_t data_size)
 //void App::BindVertexAttribute(void* data, size_t data_size, int index)
 //{
 //}
+
