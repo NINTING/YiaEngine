@@ -6,7 +6,7 @@
 #include "imgui.h"
 #include "ImGui/backend/imgui_impl_win32.h"
 #include "ImGui/backend/imgui_impl_dx12.h"
-
+#include"Common/YiaTime.h"
 HWND g_hwnd = nullptr;
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -152,10 +152,11 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
        //app->PopulateSceneCommandList();
        //app->Render();
        
-       
+       YiaEngine::Time::DetalTime = io.DeltaTime;
        //===============   GAMEPLAY   ======================
 
-
+      // app->Update();
+       
        app->PopulateSceneCommandList();
        
 

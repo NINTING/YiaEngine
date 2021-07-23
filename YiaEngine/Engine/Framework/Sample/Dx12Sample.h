@@ -86,14 +86,14 @@ public:
 		ID3D12DescriptorHeap* descriptor_heap,UINT offset, ID3D12Resource** texture_buffer);
 	void Destroy();
 
-	void Update();
+	void Update(float detal_time);
 
 	void BindVertexAttribute(void* data, size_t data_size, size_t stride, int index);
 
 	void BindIndexBuffer(void* data, size_t data_size);
 	void ExecuteCommand();
-	int g_width =512;
-	int g_height = 512;
+	int g_width =1024;
+	int g_height = 1024;
 
 	static ComPtr<ID3D12Device> GetCurrentDevice();
 	

@@ -11,7 +11,7 @@
 #include"AssetLoder.h"
 #include"SceneObject.h"
 
-
+#include"Common/YiaTime.h"
 
 inline std::string  HrToString(HRESULT hr)
 {
@@ -784,9 +784,14 @@ void App::Destroy()
 	CloseHandle(g_fenceEvent);
 }
 
-void App::Update()
+void App::Update(float detal_time)
 {
-	
+	/*
+	* if(Input.IsKeyDown(KeyCodeEnum.W))
+	*	editor_camera->MoveForward(Time.DetalTime)
+	* if(!Input.MouseDetal.IsZero())
+	*	editor_camera->Rotation(Input.MouseDetal);
+	*/
 
 }
 
