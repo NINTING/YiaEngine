@@ -43,3 +43,11 @@ export void Normalize(uniform const float lhs[], uniform float vout[],
     }
    
 }
+export void MultiByElement(uniform const float lhs[],uniform const float rhs[], uniform float vout[],uniform int count)
+{
+     foreach (index = 0 ... count) {
+        vout[index] = lhs[index] * rhs[index];
+    }
+}
+
+

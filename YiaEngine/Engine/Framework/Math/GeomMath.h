@@ -5,6 +5,8 @@
 
 //#include"Include/simple.h"
 #include<string.h>
+#include<assert.h>
+#include<math.h>
 
 #include<initializer_list>
 
@@ -36,6 +38,10 @@ namespace YiaEngine
 	template<typename U, int M>
 	static Vec< U, M> VecSubtract(const Vec<U, M>& lhs, const Vec<U, M>& rhs);
 
+	template<typename U, int M>
+	static Vec< U, M> VecMul(const Vec<U, M>& lhs, const Vec<U, M>& rhs);
+
+
 	template<typename T, int N> struct vecbase
 	{
 		friend Vec<T, N> operator + (const Vec<T, N>& lhs, const Vec<T, N>& rhs)
@@ -46,13 +52,32 @@ namespace YiaEngine
 		{
 			return VecSubtract(lhs, rhs);
 		}
+		friend Vec<T, N> operator * (const Vec<T, N>& lhs, const Vec<T, N>& rhs)
+		{
+			return VecMul(lhs, rhs);
+		}
 		Vec<T, N>& operator += (const Vec<T, N>& rhs)
 		{
 			auto* pTmp = reinterpret_cast<Vec<T, N>*>(this);
 			*pTmp = VecAdd(*pTmp, rhs);
 			return *pTmp;
 		}
-
+		Vec<T, N>& operator *= (const Vec<T, N>& rhs)
+		{
+			auto* pTmp = reinterpret_cast<Vec<T, N>*>(this);
+			*pTmp = VecAdd(*pTmp, rhs);
+			return *pTmp;
+		}
+		bool IsZero()
+		{
+			float* pn = reinterpret_cast<float*>(this);
+			for (int i = 0; i < N; i++)
+			{
+				if(fabsf(*(pn+i))>1e-10)
+					return false;
+			}
+			return true;
+		}
 	/*	Vec<T, N>& operator =(const Vec<T, N>& rhs)
 		{
 			if (this != &rhs)
@@ -258,7 +283,7 @@ namespace YiaEngine
 		}
 	};
 	using Mat4x4f = Matrix<float, 4, 4>;
-
+	using Mat3x3f = Matrix<float, 3, 3>;
 	
 
 	template<typename U, int M>
@@ -279,6 +304,15 @@ namespace YiaEngine
 		ispc::SubtractByElement(lhs, rhs, ret, M);
 		return ret;
 	}
+	template<typename U, int M>
+	static Vec< U, M> VecMul(const Vec<U, M>& lhs, const Vec<U, M>& rhs)
+	{
+		Vec<U, M> ret;
+
+		//	ret.x = lhs.x + rhs.x;
+		ispc::MultiByElement(lhs, rhs, ret, M);
+		return ret;
+	}
 	template< int M>
 	static Vec< float, M> Normalize(const Vec<float, M>& lhs)
 	{
@@ -290,7 +324,15 @@ namespace YiaEngine
 	template<int M>
 	Vec<float, M>  Transform(const Vec< float, M>& lhs, const Matrix < float , M, M > &rhs)
 	{
-		Vec4f out_vec;
+		
+		Vec<float, M> out_vec;
+		ispc::Transform(lhs, rhs, M, out_vec);
+		return out_vec;
+	}
+	template<int M>
+	Vec< float, M> operator* (const Vec< float, M>& lhs, const Matrix < float, M, M >& rhs)
+	{
+		Vec<float,M> out_vec;
 		ispc::Transform(lhs, rhs, M, out_vec);
 		return out_vec;
 	}

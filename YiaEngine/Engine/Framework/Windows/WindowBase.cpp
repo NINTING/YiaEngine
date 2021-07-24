@@ -155,7 +155,7 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
        YiaEngine::Time::DetalTime = io.DeltaTime;
        //===============   GAMEPLAY   ======================
 
-      // app->Update();
+       app->Update();
        
        app->PopulateSceneCommandList();
        

@@ -26,6 +26,10 @@ using namespace Microsoft::WRL;
 using Microsoft::WRL::ComPtr;
 
 
+
+using namespace YiaEngine;
+
+
 //‰÷»æª˘±æ…Ë÷√
 
 
@@ -68,7 +72,7 @@ public:
 	void InitEngine();
 
 	void LoadPipeline(HWND hwnd);
-
+	void UpdateResource();
 
 	void LoadAsset();
 
@@ -86,7 +90,7 @@ public:
 		ID3D12DescriptorHeap* descriptor_heap,UINT offset, ID3D12Resource** texture_buffer);
 	void Destroy();
 
-	void Update(float detal_time);
+	void Update();
 
 	void BindVertexAttribute(void* data, size_t data_size, size_t stride, int index);
 
@@ -141,6 +145,9 @@ public:
 	int frames_count_ = 3;
 	int current_frame_ = 0;
 	ComPtr<ID3D12CommandAllocator>current_cmd_alloc;
+
+	//scene
+	std::unique_ptr<YiaEngine::Scene::CameraNode> editor_camera;
 
 };
 

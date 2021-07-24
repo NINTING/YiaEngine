@@ -12,6 +12,7 @@
 #include"SceneObject.h"
 
 #include"Common/YiaTime.h"
+#include"Common/Input.h"
 
 inline std::string  HrToString(HRESULT hr)
 {
@@ -479,11 +480,11 @@ void App::LoadAsset()
 		srv_cbvHeapdesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 		ThrowIfFailed(g_device->CreateDescriptorHeap(&srv_cbvHeapdesc, IID_PPV_ARGS(&g_SRVCBVHeap)));
 
-		using Camera = YiaEngine::Scene::CameraNode;
-		std::unique_ptr<Camera> camera = std::unique_ptr<Camera>(new Camera(YiaEngine::Vec3f(190,50,0)));
-		camera->set_front(YiaEngine::Vec3f(-1, 0,0));
+	
+		editor_camera =std::unique_ptr<Scene::CameraNode>(new Scene::CameraNode(YiaEngine::Vec3f(190,50,0))) ;
+		editor_camera->set_front(YiaEngine::Vec3f(-1, 0,0));
 		VPConstBuffer vp_cbuffer;
-		vp_cbuffer.VPMat = camera->ViewProjMatrix();
+		vp_cbuffer.VPMat = editor_camera->ViewProjMatrix();
 		{
 			auto tmp_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 			auto tmp_buffer_desc = CD3DX12_RESOURCE_DESC::Buffer(sizeof(VPConstBuffer));
@@ -784,15 +785,41 @@ void App::Destroy()
 	CloseHandle(g_fenceEvent);
 }
 
-void App::Update(float detal_time)
+void App::UpdateResource()
 {
+	VPConstBuffer vp_cbuffer;
+	vp_cbuffer.VPMat = editor_camera->ViewProjMatrix();
+	{
+		CD3DX12_RANGE range(0, 0);
+		UINT8* buffer_begin;
+		ThrowIfFailed(g_cbv->Map(0, &range, reinterpret_cast<void**>(&buffer_begin)));
+		memcpy(buffer_begin, &vp_cbuffer, sizeof(VPConstBuffer));
+	}
+}
+void App::Update()
+{
+	if (YiaEngine::Input::IsKeyDown(YiaEngine::KeyCodeEnum::W))
+	{
+		editor_camera->MoveForward(Time::DetalTime*10);
+	}
+	if (YiaEngine::Input::IsKeyDown(YiaEngine::KeyCodeEnum::S))
+	{
+		editor_camera->MoveForward(-Time::DetalTime * 10);
+	}
+	Vec2f mouse_delta = Input::MouseDragDelta();
+	if (!mouse_delta.IsZero()) {
+		mouse_delta.x /= g_width;
+		mouse_delta.x *= 3.14;
+		editor_camera->RotationEuler(0, mouse_delta.x/10,0);
+	}
+
 	/*
 	* if(Input.IsKeyDown(KeyCodeEnum.W))
 	*	editor_camera->MoveForward(Time.DetalTime)
 	* if(!Input.MouseDetal.IsZero())
 	*	editor_camera->Rotation(Input.MouseDetal);
 	*/
-
+	UpdateResource();
 }
 
 void App::BindVertexAttribute(void* data, size_t data_size,size_t stride ,int index)
