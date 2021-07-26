@@ -2,9 +2,10 @@
 
 
 
-#include"imgui.cpp"
+#include "imgui.h"
 #include "ImGui/backend/imgui_impl_win32.h"
 #include "ImGui/backend/imgui_impl_dx12.h"
+
 
 #include"Dx12Sample.h"
 #include"BmpParser.h"
@@ -228,7 +229,7 @@ void App::LoadPipeline(HWND hwnd)
 		D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc = {};
 		rtvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 		rtvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
-		rtvHeapDesc.NumDescriptors = 2;
+		rtvHeapDesc.NumDescriptors = 3;
 		ThrowIfFailed(g_device->CreateDescriptorHeap(&rtvHeapDesc, IID_PPV_ARGS(&g_RTVHeap)));
 
 		g_rtvDescriptorSize = g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
@@ -244,13 +245,60 @@ void App::LoadPipeline(HWND hwnd)
 	
 	}
 	{
+		//ImGui Resource
 		D3D12_DESCRIPTOR_HEAP_DESC srvHeapdesc = {};
 		srvHeapdesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
-		srvHeapdesc.NumDescriptors = 1;
+		srvHeapdesc.NumDescriptors = 10;
 		srvHeapdesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
-		ThrowIfFailed(g_device->CreateDescriptorHeap(&srvHeapdesc, IID_PPV_ARGS(&g_SRVHeap)));
-		g_SRVHeap->SetName(L"UI_SRV");
-	
+		ThrowIfFailed(g_device->CreateDescriptorHeap(&srvHeapdesc, IID_PPV_ARGS(&g_ImGui_SrvCbvHeap)));
+		g_ImGui_SrvCbvHeap->SetName(L"UI_SRV");
+
+		{		
+			auto desc = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_R8G8B8A8_UNORM, 1024, 1024, 1, 6, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
+			auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+			ThrowIfFailed(g_device->CreateCommittedResource(
+				&heap_properties,
+				D3D12_HEAP_FLAG_NONE,
+				&desc,
+				D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
+				nullptr,
+				IID_PPV_ARGS(&g_scene_tex)));
+
+			D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+			srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+			srvDesc.Format = desc.Format;
+			srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+			srvDesc.Texture2D.MipLevels = desc.MipLevels;
+			UINT srv_desc_size = g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+			CD3DX12_CPU_DESCRIPTOR_HANDLE desc_handle(g_ImGui_SrvCbvHeap->GetCPUDescriptorHandleForHeapStart(), 1, srv_desc_size);
+			g_device->CreateShaderResourceView(g_scene_tex.Get(), &srvDesc, desc_handle);
+
+
+			CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(g_RTVHeap->GetCPUDescriptorHandleForHeapStart(), 2, g_rtvDescriptorSize);
+			g_device->CreateRenderTargetView(g_scene_tex.Get(), nullptr, rtvHandle); 
+			g_scene_tex->SetName(L"SCENE");
+		}
+		/*auto desc = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_R8G8B8A8_UNORM, 300, 300, 1, 6, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
+		auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+		ThrowIfFailed(g_device->CreateCommittedResource(
+			&heap_properties,
+			D3D12_HEAP_FLAG_NONE,
+			&desc,
+			D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
+			nullptr,
+			IID_PPV_ARGS(&g_scene_tex)));
+
+		D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+		srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+		srvDesc.Format = desc.Format;
+		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+		srvDesc.Texture2D.MipLevels = desc.MipLevels;
+		UINT srv_desc_size = g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+		CD3DX12_CPU_DESCRIPTOR_HANDLE desc_1_handle(g_ImGui_SrvCbvHeap->GetCPUDescriptorHandleForHeapStart());
+		CD3DX12_CPU_DESCRIPTOR_HANDLE desc_handle(g_ImGui_SrvCbvHeap->GetCPUDescriptorHandleForHeapStart(), 1, srv_desc_size);
+		g_device->CreateShaderResourceView(g_scene_tex.Get(), &srvDesc, desc_handle);*/
+		
+
 	}
 	std::wstring c_name;
 	
@@ -480,6 +528,10 @@ void App::LoadAsset()
 		srv_cbvHeapdesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 		ThrowIfFailed(g_device->CreateDescriptorHeap(&srv_cbvHeapdesc, IID_PPV_ARGS(&g_SRVCBVHeap)));
 
+		{
+	
+			
+		}
 	
 		editor_camera =std::unique_ptr<Scene::CameraNode>(new Scene::CameraNode(YiaEngine::Vec3f(190,50,0))) ;
 		editor_camera->set_front(YiaEngine::Vec3f(-1, 0,0));
@@ -526,7 +578,16 @@ void App::LoadAsset()
 		
 
 		LoadTextureBuffer(image, g_SRVCBVHeap.Get(),1,&g_texture);
+		//LoadTextureBuffer(image, g_ImGui_SrvCbvHeap.Get(), 2, &g_texture);
 
+		D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+		srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+		srvDesc.Format = g_texture->GetDesc().Format;
+		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+		srvDesc.Texture2D.MipLevels = g_texture->GetDesc().MipLevels;
+		UINT srv_desc_size = g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+		CD3DX12_CPU_DESCRIPTOR_HANDLE desc_handle(g_ImGui_SrvCbvHeap->GetCPUDescriptorHandleForHeapStart(), 2, srv_desc_size);
+		g_device->CreateShaderResourceView(g_texture.Get(), &srvDesc, desc_handle);
 		//std::vector<UINT8> texture	= GenerateTextureData();
 
 		//D3D12_RESOURCE_DESC desc;
@@ -597,6 +658,12 @@ void App::LoadAsset()
 	}
 	
 	{
+
+		
+	
+	}
+
+	{
 		
 		// Create an event handle to use for frame synchronization.
 		
@@ -637,7 +704,7 @@ void App::PopulateUICommandList()
 //	ThrowIfFailed(current_cmd_alloc->Reset());
 //	ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), NULL));
 
-	ID3D12DescriptorHeap* descriptorHeaps[] = { g_SRVHeap.Get() };
+	ID3D12DescriptorHeap* descriptorHeaps[] = { g_ImGui_SrvCbvHeap.Get() };
 	g_commandList->SetDescriptorHeaps(1, descriptorHeaps);
 
 	auto  barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
@@ -645,7 +712,7 @@ void App::PopulateUICommandList()
 
 	CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(g_RTVHeap->GetCPUDescriptorHandleForHeapStart(), g_frameIndex, g_rtvDescriptorSize);
 	g_commandList->OMSetRenderTargets(1, &rtvHandle, false, nullptr);
-	
+	ClearRenderTarget(rtvHandle);
 
 	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), g_commandList.Get());
 
@@ -685,12 +752,14 @@ void App::PopulateSceneCommandList()
 	g_commandList->RSSetScissorRects(1, &g_scissorRect);
 
 
-	auto  barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
+	//auto  barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
+	auto  barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_scene_tex.Get(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE, D3D12_RESOURCE_STATE_RENDER_TARGET);
 	g_commandList->ResourceBarrier(1, &barrier);
 	
-	CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(g_RTVHeap->GetCPUDescriptorHandleForHeapStart(), g_frameIndex, g_rtvDescriptorSize);
-	g_commandList->OMSetRenderTargets(1, &rtvHandle, false, nullptr);
-	ClearRenderTarget(rtvHandle);
+	CD3DX12_CPU_DESCRIPTOR_HANDLE scene_cpu_handle(g_RTVHeap->GetCPUDescriptorHandleForHeapStart(), 2, g_rtvDescriptorSize);
+
+	g_commandList->OMSetRenderTargets(1, &scene_cpu_handle, false, nullptr);
+	ClearRenderTarget(scene_cpu_handle);
 
 	
 	//g_commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);		
@@ -704,7 +773,9 @@ void App::PopulateSceneCommandList()
 	// 	   
 	//g_commandList->DrawInstanced(6, 1, 0, 0);
 	g_commandList->ExecuteBundle(g_BundleList.Get());
-	barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+	//barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+	barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_scene_tex.Get(), D3D12_RESOURCE_STATE_RENDER_TARGET,D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+
 	g_commandList->ResourceBarrier(1, &barrier);
 
 //	ThrowIfFailed(g_commandList->Close());
@@ -785,7 +856,7 @@ void App::Destroy()
 	CloseHandle(g_fenceEvent);
 }
 
-void App::UpdateResource()
+void App::UpdateGPUResource()
 {
 	VPConstBuffer vp_cbuffer;
 	vp_cbuffer.VPMat = editor_camera->ViewProjMatrix();
@@ -798,19 +869,41 @@ void App::UpdateResource()
 }
 void App::Update()
 {
+	static Vec2f last_drag_delta = 0;
 	if (YiaEngine::Input::IsKeyDown(YiaEngine::KeyCodeEnum::W))
 	{
-		editor_camera->MoveForward(Time::DetalTime*10);
+		editor_camera->MoveForward(Time::DetalTime*20);
 	}
 	if (YiaEngine::Input::IsKeyDown(YiaEngine::KeyCodeEnum::S))
 	{
-		editor_camera->MoveForward(-Time::DetalTime * 10);
+		editor_camera->MoveForward(-Time::DetalTime * 20);
+	}
+	if (YiaEngine::Input::IsKeyDown(YiaEngine::KeyCodeEnum::A))
+	{
+		editor_camera->Strafe(-Time::DetalTime * 20);
+	}
+	if (YiaEngine::Input::IsKeyDown(YiaEngine::KeyCodeEnum::D))
+	{
+		editor_camera->Strafe(Time::DetalTime * 20);
 	}
 	Vec2f mouse_delta = Input::MouseDragDelta();
+	//mouse_delta = mouse_delta - last_drag_delta;
+//	last_drag_delta = 0;
 	if (!mouse_delta.IsZero()) {
-		mouse_delta.x /= g_width;
+		/*mouse_delta.x /= g_width;
 		mouse_delta.x *= 3.14;
-		editor_camera->RotationEuler(0, mouse_delta.x/10,0);
+		mouse_delta.y /= g_height;
+		mouse_delta.y *= 3.14;*/
+		//mouse_delta.x = std::fmaxf(mouse_delta.x, 10.f);
+		mouse_delta.x =std::fmaxf(-30.f, std::fminf(mouse_delta.x, 30));
+		mouse_delta.y = std::fmaxf(-30.f, std::fminf(mouse_delta.y, 30));
+		//float delta_radians_x = Angle2Rad(mouse_delta.x * 0.1);
+		float delta_radians_x = Angle2Rad(mouse_delta.x*0.01);
+		float delta_radians_y = Angle2Rad(mouse_delta.y * 0.01);
+		
+		
+		editor_camera->RotationEulerDebug(0, delta_radians_x, delta_radians_y);
+	//	last_drag_delta = mouse_delta;
 	}
 
 	/*
@@ -819,7 +912,7 @@ void App::Update()
 	* if(!Input.MouseDetal.IsZero())
 	*	editor_camera->Rotation(Input.MouseDetal);
 	*/
-	UpdateResource();
+	UpdateGPUResource();
 }
 
 void App::BindVertexAttribute(void* data, size_t data_size,size_t stride ,int index)
@@ -870,4 +963,58 @@ void App::BindIndexBuffer(void* data, size_t data_size)
 //void App::BindVertexAttribute(void* data, size_t data_size, int index)
 //{
 //}
+
+
+
+void App::DrawUI()
+{
+	static bool initUI = true;
+	const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
+	if (initUI)
+	{
+		ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x + 600, main_viewport->WorkPos.y + 20), ImGuiCond_Always);
+		ImGui::SetNextWindowSize(ImVec2(600, 650), ImGuiCond_Always);
+	
+	}
+	ImGui::Begin("Ispector");
+
+	if (ImGui::CollapsingHeader("Transform"))
+	{
+
+		Vec3f front = editor_camera->front();
+		ImGui::InputFloat3("front", front);
+		editor_camera->set_front(front);
+
+		Vec3f pos = editor_camera->position();
+		ImGui::InputFloat3("position", pos);
+		editor_camera->set_position(pos);
+	}
+	ImGui::End();
+	
+	UINT srv_desc_size = g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+		CD3DX12_GPU_DESCRIPTOR_HANDLE desc_handle(g_ImGui_SrvCbvHeap->GetGPUDescriptorHandleForHeapStart(), 1, srv_desc_size);
+		CD3DX12_GPU_DESCRIPTOR_HANDLE desc_handle2(g_ImGui_SrvCbvHeap->GetGPUDescriptorHandleForHeapStart(), 2, srv_desc_size);
+
+	if (initUI)
+	{
+		ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x , main_viewport->WorkPos.y + 20), ImGuiCond_Always);
+		ImGui::SetNextWindowSize(ImVec2(600, 650), ImGuiCond_Always);
+	}
+	auto window_flags = ImGuiWindowFlags_NoMove;
+	bool open = true;
+	
+	ImGui::Begin("Scene", &open, window_flags);
+	
+	ImGui::Image((ImTextureID)desc_handle.ptr, Vec2f(600, 600));
+
+	ImGui::End();
+	//ImGui::Begin("desc_handle2");
+
+	//ImGui::Image((ImTextureID)desc_handle2.ptr, Vec2f(300, 300));
+	//ImGui::End();
+	
+	ImGui::Render();
+	if(initUI)
+		initUI = false;
+}
 

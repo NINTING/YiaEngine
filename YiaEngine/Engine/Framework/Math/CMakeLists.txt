@@ -18,6 +18,7 @@ SET(GEOMMATH_LIB_HEADER_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/operation)
 
 add_library(YiaMath STATIC IMPORTED GLOBAL)
 add_library(GeomMath STATIC IMPORTED GLOBAL)
+add_library(GeomMathEx STATIC GeomMathEx.cpp)
 add_library(CommonMath STATIC CommonMath.cpp)
 
 
@@ -44,7 +45,7 @@ find_program(MSVC_LIB_TOOL lib.exe)
 
 if(MSVC_LIB_TOOL)
 	message(${MSVC_LIB_TOOL})
-	add_dependencies(YiaMath Combine GeomMath CommonMath)
+	add_dependencies(YiaMath Combine GeomMath CommonMath GeomMathEx)
 #    add_custom_target(Combine
 #        COMMAND ${MSVC_LIB_TOOL} /OUT:${CMAKE_CURRENT_BINARY_DIR}/math.lib
 #				${CMAKE_CURRENT_BINARY_DIR}/GeomMath.lib
@@ -57,6 +58,7 @@ if(MSVC_LIB_TOOL)
         COMMAND ${MSVC_LIB_TOOL} /OUT:${CMAKE_CURRENT_BINARY_DIR}/math.lib
 				$<TARGET_FILE:GeomMath> 
 				$<TARGET_FILE:CommonMath> 
+				$<TARGET_FILE:GeomMathEx>
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 		
     )

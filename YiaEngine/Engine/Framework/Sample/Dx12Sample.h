@@ -72,13 +72,13 @@ public:
 	void InitEngine();
 
 	void LoadPipeline(HWND hwnd);
-	void UpdateResource();
+	void UpdateGPUResource();
 
 	void LoadAsset();
 
 	void Render();
 
-
+	void DrawUI();
 	void PopulateSceneCommandList();
 
 	void PopulateUICommandList();
@@ -123,7 +123,7 @@ public:
 	ComPtr<ID3D12Resource> g_renderTargets[2];
 	ComPtr<ID3D12Resource>g_texture;
 	//ComPtr<ID3D12Resource> tempraryUpload;
-	ComPtr<ID3D12DescriptorHeap>g_SRVHeap;
+	ComPtr<ID3D12DescriptorHeap>g_ImGui_SrvCbvHeap;
 	ComPtr<ID3D12Resource> g_cbv;
 	ComPtr<ID3D12DescriptorHeap> g_SRVCBVHeap;
 	
@@ -148,7 +148,7 @@ public:
 
 	//scene
 	std::unique_ptr<YiaEngine::Scene::CameraNode> editor_camera;
-
+	ComPtr<ID3D12Resource> g_scene_tex;
 };
 
 struct FrameResource

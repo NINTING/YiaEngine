@@ -32,24 +32,28 @@ namespace YiaEngine
 			void set_front(const Vec3f& front) { 
 				front_ = Normalize(front); 
 			}
+			Vec3f position() { return position_; };
+			void set_position(const Vec3f& pos) {
+				position_ = pos;
+			}
 			
 			
 
 			Mat4x4f ViewMatrix()
 			{
 				Vec3f front = front_;
-				Vec3f right = Normalize(Cross(up_, front));
+				right_ = Normalize(Cross(up_, front));
 				
-				up_ = Cross(front, right);
+				up_ = Cross(front, right_);
 
-				float x = -Dot(Vec3f(position_), right);
+				float x = -Dot(Vec3f(position_), right_);
 				float y = -Dot(Vec3f(position_), up_);
 				float z = -Dot(Vec3f(position_), front);
 
 				Mat4x4f ret{
-					right.x,up_.x,front.x,0,
-					right.y,up_.y,front.y,0,
-					right.z,up_.z,front.z,0,
+					right_.x,up_.x,front.x,0,
+					right_.y,up_.y,front.y,0,
+					right_.z,up_.z,front.z,0,
 					x, y,z,1
 				};
 				return ret;
@@ -77,6 +81,10 @@ namespace YiaEngine
 			{
 				Walk(front_ * distance);
 			}
+			void Strafe(float distance)
+			{
+				Walk(right_ * distance);
+			}
 			void Walk(Vec3f dir)
 			{
 				position_ = position_ + dir;
@@ -90,18 +98,40 @@ namespace YiaEngine
 				cy = cosf(-y); sy = sinf(-y);
 				cz = cosf(-z); sz = sinf(-z);
 		
-
 				Mat3x3f R = {cy*cz+sy*sx*sz,-cy*sz+sy*sx*cz,sy*cx,
 							 sz*cx,			 cz*cx,			-sx,	
 							 -sy*cz+cy*sx*sz,sz*sy+cy*sx*cz,cy*cx};
 				front_ =Normalize( front_ * R);
 				up_ = Normalize( up_ * R);
 			}
-
+			void RotationEulerDebug(float x, float y, float z)
+			{
+				Yaw(y);
+				Pitch(z);
+			}
+			void Yaw(float radians)
+			{
+				auto R = RotationByAxis(up_, radians);
+				front_ = front_* R;
+				right_ = right_ * R;
+			}
+			void Roll(float radians)
+			{
+				auto R = RotationByAxis(front_, radians);
+				up_ = up_ * R;
+				right_ = right_ * R;
+			}
+			void Pitch(float radians)
+			{
+				auto R = RotationByAxis(right_, radians);
+				front_ = front_ * R;
+				up_ = up_ * R;
+			}
 		private:
 			std::shared_ptr<CameraObject>object_ref_;
 			Vec3f front_;
 			Vec3f up_;
+			Vec3f right_;
 			Translation position_;
 
 		};

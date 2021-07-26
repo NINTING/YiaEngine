@@ -74,6 +74,11 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 }
 
+void DrawUI()
+{
+
+}
+
 int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
 {
     // Parse the command line parameters
@@ -123,9 +128,9 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
     
     ImGui_ImplWin32_Init(g_hwnd);
     ImGui_ImplDX12_Init(app->g_device.Get(), app->frames_count_,
-        DXGI_FORMAT_R8G8B8A8_UNORM, app->g_SRVHeap.Get(),
-        app->g_SRVHeap->GetCPUDescriptorHandleForHeapStart(),
-        app->g_SRVHeap->GetGPUDescriptorHandleForHeapStart());
+        DXGI_FORMAT_R8G8B8A8_UNORM, app->g_ImGui_SrvCbvHeap.Get(),
+        app->g_ImGui_SrvCbvHeap->GetCPUDescriptorHandleForHeapStart(),
+        app->g_ImGui_SrvCbvHeap->GetGPUDescriptorHandleForHeapStart());
 
     app->LoadAsset();
     bool done = false;
@@ -155,17 +160,15 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
        YiaEngine::Time::DetalTime = io.DeltaTime;
        //===============   GAMEPLAY   ======================
 
-       app->Update();
+      
        
        app->PopulateSceneCommandList();
        
 
        //===============   UI   ======================
-        ImGui::Begin("Hello, world!");                       
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-        ImGui::End();
-  
-        ImGui::Render();
+       app->Update();
+       app->DrawUI();
+       
 
         app->PopulateUICommandList();
 

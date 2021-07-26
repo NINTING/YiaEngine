@@ -350,6 +350,10 @@ namespace YiaEngine
 		ispc::Dot(lhs, rhs, &ret, M);
 		return ret;
 	}
+
+
+
+	Mat3x3f RotationByAxis(const Vec3f axis, float radians);
 }
 
 //YiaEngine

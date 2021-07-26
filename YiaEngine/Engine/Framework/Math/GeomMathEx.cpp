@@ -1,18 +1,8 @@
-
-
-
-#include"CommonMath.h"
 #include"GeomMath.h"
+
+
 namespace YiaEngine
 {
-	float Angle2Rad(float angle)
-	{
-		return (angle / 180.f) * PI;
-	}
-	float Red2Angle(float rad)
-	{
-		return rad / PI * 180.f;
-	}
 
 	Mat3x3f RotationByAxis(const Vec3f axis, float radians)
 	{

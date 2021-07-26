@@ -11,6 +11,6 @@ namespace YiaEngine
 	}
 	Vec2f Input::MouseDragDelta()
 	{
-		return ImGui::GetMouseDragDelta();
+		return ImGui::GetMouseDragDelta(0,10);
 	}
 }

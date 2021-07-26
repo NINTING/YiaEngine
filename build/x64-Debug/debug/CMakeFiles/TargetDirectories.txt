@@ -59,6 +59,7 @@ E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/Test/C
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/Test/CMakeFiles/edit_cache.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/Combine.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/CommonMath.dir
+E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/GeomMathEx.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/rebuild_cache.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/test.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/edit_cache.dir
