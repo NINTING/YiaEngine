@@ -9,6 +9,8 @@ project(YiaEngine)
 
 include_directories("${PROJECT_SOURCE_DIR}/Framework")
 include_directories("${PROJECT_SOURCE_DIR}/Framework/Common")
+include_directories("${PROJECT_SOURCE_DIR}/Framework/EditorWindow")
+include_directories("${PROJECT_SOURCE_DIR}/Framework/Editor")
 include_directories("${PROJECT_SOURCE_DIR}/Framework/Interface")
 include_directories("${PROJECT_SOURCE_DIR}/Framework/Sample")
 include_directories("${PROJECT_SOURCE_DIR}/Framework/Windows")

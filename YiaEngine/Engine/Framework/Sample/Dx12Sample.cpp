@@ -169,6 +169,9 @@ void App::InitEngine()
 	g_viewport = CD3DX12_VIEWPORT(0.0f, 0.0f, static_cast<float>(g_width), static_cast<float>(g_height));
 	g_scissorRect = CD3DX12_RECT(0, 0, static_cast<LONG>(g_width), static_cast<LONG>(g_height));
 	g_rtvDescriptorSize = 0;
+
+
+	scene_window_ = std::unique_ptr<SceneWindow>(new SceneWindow("Scene"));
 }
 
 
@@ -995,7 +998,7 @@ void App::DrawUI()
 		CD3DX12_GPU_DESCRIPTOR_HANDLE desc_handle(g_ImGui_SrvCbvHeap->GetGPUDescriptorHandleForHeapStart(), 1, srv_desc_size);
 		CD3DX12_GPU_DESCRIPTOR_HANDLE desc_handle2(g_ImGui_SrvCbvHeap->GetGPUDescriptorHandleForHeapStart(), 2, srv_desc_size);
 
-	if (initUI)
+	/*if (initUI)
 	{
 		ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x , main_viewport->WorkPos.y + 20), ImGuiCond_Always);
 		ImGui::SetNextWindowSize(ImVec2(600, 650), ImGuiCond_Always);
@@ -1007,7 +1010,9 @@ void App::DrawUI()
 	
 	ImGui::Image((ImTextureID)desc_handle.ptr, Vec2f(600, 600));
 
-	ImGui::End();
+	ImGui::End();*/
+	scene_window_->TEMP_SetShowRT(desc_handle);
+	scene_window_->Show();
 	//ImGui::Begin("desc_handle2");
 
 	//ImGui::Image((ImTextureID)desc_handle2.ptr, Vec2f(300, 300));

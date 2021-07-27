@@ -21,6 +21,7 @@
 
 #include"Image.h"
 #include"SceneNode.h"
+#include "Editor/SceneWindow.h"
 using namespace DirectX;
 using namespace Microsoft::WRL;
 using Microsoft::WRL::ComPtr;
@@ -63,7 +64,7 @@ inline void ThrowIfFailed(HRESULT hr);
 class App {
 
 public:
-
+	
 	//void GetHardwareAdapter(IDXGIFactory* pFactory, IDXGIAdapter** ppAdapter);
 
 	void WaitForPreviousFrame(bool is_end_frame = false);
@@ -73,7 +74,7 @@ public:
 
 	void LoadPipeline(HWND hwnd);
 	void UpdateGPUResource();
-
+	
 	void LoadAsset();
 
 	void Render();
@@ -149,6 +150,10 @@ public:
 	//scene
 	std::unique_ptr<YiaEngine::Scene::CameraNode> editor_camera;
 	ComPtr<ID3D12Resource> g_scene_tex;
+
+
+	//GUI
+	std::unique_ptr<SceneWindow> scene_window_;
 };
 
 struct FrameResource
