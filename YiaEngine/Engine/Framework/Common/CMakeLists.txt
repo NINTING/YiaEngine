@@ -17,12 +17,13 @@ set(Sample_LIST ${PROJECT_SOURCE_DIR}/Framework/Sample/Dx12Sample.cpp)
 aux_source_directory(${PROJECT_SOURCE_DIR}/Framework/Windows Window_LIST)
 aux_source_directory(${PROJECT_SOURCE_DIR}/Framework/Common/AssetLoder ASSETLODER_LIST)
 aux_source_directory(${PROJECT_SOURCE_DIR}/Framework/Common/ImageParser PARSER_LIST)
-
+aux_source_directory(${PROJECT_SOURCE_DIR}/Framework/Core Core_LIST)
 
 add_executable(${PROJECT_NAME} WIN32 
 	${SRC_LIST} 
 	${Sample_LIST} 
 	${ASSETLODER_LIST} 
+	${Core_LIST}
 	${PROJECT_SOURCE_DIR}/Framework/Windows/WindowBase.cpp
 	${PARSER_LIST}
 	${ExternalDir}/crossguid/guid.cpp "MacroHelp.h"

@@ -22,6 +22,7 @@
 #include"Image.h"
 #include"SceneNode.h"
 #include "Editor/SceneWindow.h"
+#include"Core/DescriptorHeap.h"
 using namespace DirectX;
 using namespace Microsoft::WRL;
 using Microsoft::WRL::ComPtr;
@@ -52,6 +53,13 @@ struct Vertex_Pos_Uv
 	XMFLOAT2 uv;
 };
 
+struct Vertex_Pos_Uv_Normal
+{
+	XMFLOAT3 position;
+	XMFLOAT2 uv;
+	XMFLOAT3 normal;
+};
+
 class HrException :public std::runtime_error
 {
 public:
@@ -64,7 +72,7 @@ inline void ThrowIfFailed(HRESULT hr);
 class App {
 
 public:
-	
+	App() = default;
 	//void GetHardwareAdapter(IDXGIFactory* pFactory, IDXGIAdapter** ppAdapter);
 
 	void WaitForPreviousFrame(bool is_end_frame = false);
@@ -85,10 +93,9 @@ public:
 	void PopulateUICommandList();
 
 	void SwapPresent();
-	void ClearRenderTarget(CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle);
+	void ClearRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle);
 
-	void LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image,
-		ID3D12DescriptorHeap* descriptor_heap,UINT offset, ID3D12Resource** texture_buffer);
+	void LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, DescriptorHeap descriptor_heap, UINT offset, ID3D12Resource** texture_buffer);
 	void Destroy();
 
 	void Update();
@@ -116,6 +123,7 @@ public:
 	ComPtr<ID3D12CommandAllocator>g_BundleAllocator;
 	ComPtr<ID3D12RootSignature>g_rootSignature;
 	ComPtr<ID3D12PipelineState>g_pipelineState;
+	ComPtr<ID3D12PipelineState>g_pipelineState_normal;
 	ComPtr<ID3D12GraphicsCommandList>g_commandList;
 	ComPtr<ID3D12GraphicsCommandList>g_BundleList;
 	ComPtr<ID3D12Resource>g_vertexBuffer[2];
@@ -151,7 +159,20 @@ public:
 	std::unique_ptr<YiaEngine::Scene::CameraNode> editor_camera;
 	ComPtr<ID3D12Resource> g_scene_tex;
 
+	//Descriptor
+	DescriptorHeap rtv_heap_;
+	DescriptorHeap gui_srv_heap;
+	DescriptorHeap srv_cbv_heap_;
+	DescriptorAllocator descriptor_allcator_[D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES] = 
+	{
+		D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV,
+		D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER ,
+		D3D12_DESCRIPTOR_HEAP_TYPE_RTV ,
+		D3D12_DESCRIPTOR_HEAP_TYPE_DSV
+	};
 
+	DescriptorHandle swap_rtv_handle_[2];
+	DescriptorHandle scene_rtv_handle;
 	//GUI
 	std::unique_ptr<SceneWindow> scene_window_;
 };

@@ -6,7 +6,9 @@
 #include "imgui.h"
 #include "ImGui/backend/imgui_impl_win32.h"
 #include "ImGui/backend/imgui_impl_dx12.h"
+
 #include"Common/YiaTime.h"
+#include"Core/Graphic.h"
 HWND g_hwnd = nullptr;
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -22,7 +24,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     switch (msg)
     {
     case WM_SIZE:
-       /* if(app->g_device !=NULL && wParam != SIZE_MINIMIZED)
+       /* if(app-> Graphic::g_device !=NULL && wParam != SIZE_MINIMIZED)
         {
             ImGui_ImplDX12_InvalidateDeviceObjects();
 
@@ -52,7 +54,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     //switch (msg)
     //{
     //case WM_SIZE:
-    //    //if (App::g_device != NULL && wParam != SIZE_MINIMIZED)
+    //    //if (App:: Graphic::g_device != NULL && wParam != SIZE_MINIMIZED)
     //    //{
     //    //    
     //    //    /*ImGui_ImplDX12_InvalidateDeviceObjects();
@@ -94,7 +96,7 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
     windowClass.lpfnWndProc = WindowProc;
     windowClass.hInstance = hInstance;
     windowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-    windowClass.lpszClassName = LPCSTR( L"DXSampleClass");
+    windowClass.lpszClassName = LPCWSTR( L"DXSampleClass");
     RegisterClassEx(&windowClass);
 
     RECT windowRect = { 0, 0, static_cast<LONG>(app->g_width), static_cast<LONG>(app->g_height) };
@@ -103,7 +105,7 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
     // Create the window and store a handle to it.
     g_hwnd = CreateWindow(
         windowClass.lpszClassName,
-        "WinMain",
+        L"WinMain",
         WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT,
         CW_USEDEFAULT,
@@ -126,11 +128,12 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
     app->InitEngine();
     app->LoadPipeline(g_hwnd);
     
+    auto font_srv_handle = app->gui_srv_heap.Alloc();
     ImGui_ImplWin32_Init(g_hwnd);
-    ImGui_ImplDX12_Init(app->g_device.Get(), app->frames_count_,
-        DXGI_FORMAT_R8G8B8A8_UNORM, app->g_ImGui_SrvCbvHeap.Get(),
-        app->g_ImGui_SrvCbvHeap->GetCPUDescriptorHandleForHeapStart(),
-        app->g_ImGui_SrvCbvHeap->GetGPUDescriptorHandleForHeapStart());
+    ImGui_ImplDX12_Init(Graphic::g_device.Get(), app->frames_count_,
+        DXGI_FORMAT_R8G8B8A8_UNORM, app->gui_srv_heap.heap_ptr(),
+        font_srv_handle,
+        font_srv_handle);
 
     app->LoadAsset();
     bool done = false;

@@ -323,7 +323,8 @@ namespace YiaEngine
 			aiProcess_Triangulate |
 			aiProcess_JoinIdenticalVertices |
 			aiProcess_SortByPType |
-			aiProcess_FlipUVs);
+			aiProcess_FlipUVs	|
+			aiProcess_GenNormals);
 		
 		// If the import failed, report it
 		if (!scene) {

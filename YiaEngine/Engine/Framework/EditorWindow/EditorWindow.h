@@ -9,9 +9,12 @@ namespace YiaEngine
 
 	class EditorWindow
 	{
+	public:
+		static ImGuiViewport* GetMainViewport();
+	protected:
 		std::string name_;
 		bool open_;
-		ImGuiWindowFlags_ window_flag_ = ImGuiWindowFlags_None;
+		ImGuiWindowFlags window_flag_ = ImGuiWindowFlags_None;
 		virtual void OnGui() = 0;
 
 
@@ -33,7 +36,7 @@ namespace YiaEngine
 				is_first_call = false;
 			}
 			BeforeBegin();
-			ImGui::Begin(name_, open_, window_flag_);
+			ImGui::Begin(name_.c_str(), &open_, window_flag_);
 			OnGui();
 			ImGui::End();
 			AfterEnd();
