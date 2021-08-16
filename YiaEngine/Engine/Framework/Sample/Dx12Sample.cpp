@@ -16,6 +16,7 @@
 #include"Common/Input.h"
 
 #include"Core/Graphic.h"
+#include"Core/RootSignature.h"
 inline std::string  HrToString(HRESULT hr)
 {
 	char s_str[64] = {};
@@ -366,22 +367,26 @@ void App::LoadAsset()
 		//	D3D12_TEXTURE_ADDRESS_MODE_CLAMP);
 	
 
-		CD3DX12_DESCRIPTOR_RANGE1 rootRange[2]; 
+		CD3DX12_DESCRIPTOR_RANGE rootRange[2]; 
 		rootRange[0].Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
 		rootRange[1].Init(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, 1, 0);
 		/*CD3DX12_ROOT_PARAMETER para[1];
 		para[0].InitAsDescriptorTable(1, rootPara,D3D12_SHADER_VISIBILITY_PIXEL);*/
 
 
-		CD3DX12_ROOT_PARAMETER1  rootParameters[2];
-		rootParameters[0].InitAsDescriptorTable(1, &rootRange[0], D3D12_SHADER_VISIBILITY_ALL);
-		rootParameters[1].InitAsDescriptorTable(1, &rootRange[1], D3D12_SHADER_VISIBILITY_ALL);
-	
-			
+		//CD3DX12_ROOT_PARAMETER  rootParameters[2];
+		//rootParameters[0].InitAsDescriptorTable(1, &rootRange[0], D3D12_SHADER_VISIBILITY_ALL);
+		//rootParameters[1].InitAsDescriptorTable(1, &rootRange[1], D3D12_SHADER_VISIBILITY_ALL);
+		//
+		Graphic::RootParament rootParameters[2];
+		rootParameters[0].InitAsDescriptorTable(1,D3D12_SHADER_VISIBILITY_ALL);
+		rootParameters[1].InitAsDescriptorTable(1, D3D12_SHADER_VISIBILITY_ALL);
+		rootParameters[0].SetTableRange(0,1,D3D12_DESCRIPTOR_RANGE_TYPE_SRV,0);
+		rootParameters[1].SetTableRange(0,1,D3D12_DESCRIPTOR_RANGE_TYPE_CBV, 0);
 
 		CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC rootDesc;
 
-		rootDesc.Init_1_1(_countof(rootParameters), rootParameters, 1, &linearClamp, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+		rootDesc.Init_1_0(_countof(rootParameters), (const D3D12_ROOT_PARAMETER *)rootParameters, 1, &linearClamp, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 				ComPtr<ID3DBlob> error;
 		ComPtr<ID3DBlob> signature;
 
