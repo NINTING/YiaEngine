@@ -1,6 +1,9 @@
 #pragma once
-#include<d3d12.h>
+#include <d3d12.h>
+#include <wrl/client.h>
+#include <vector>
 
+#include<memory>
 namespace YiaEngine::Graphic
 {
 	class RootParament
@@ -45,6 +48,22 @@ namespace YiaEngine::Graphic
 
 	class RootSignature
 	{
+		public:
+		void Reset(int root_parament_count,int static_sampler_count);
+		void InitStaticSampler(int registerid, D3D12_SAMPLER_DESC desc, D3D12_SHADER_VISIBILITY visibility = D3D12_SHADER_VISIBILITY_ALL);
+		ID3D12RootSignature* root_signature() { return root_signature_.Get(); }
+		void Finalize(const wchar_t* name, D3D12_ROOT_SIGNATURE_FLAGS flag);
+	public:
+		RootParament& operator[](int index) { return paraments_[index]; }
+		const RootParament& operator[](int index) const { return paraments_[index]; }
 
+	private:
+
+		std::unique_ptr<RootParament[]>paraments_;
+		std::unique_ptr<D3D12_STATIC_SAMPLER_DESC[]>samplers_;
+		int static_sampler_count_;
+		int paramenter_count_;
+		int uninit_static_sampler_count_;
+		Microsoft::WRL::ComPtr<ID3D12RootSignature> root_signature_;
 	};
 }

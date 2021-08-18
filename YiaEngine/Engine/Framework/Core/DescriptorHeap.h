@@ -10,10 +10,9 @@
 *	shader-visible 的描述符堆会建立在WRITE_COMBINE memory , GPU local memory.读取速度会非常慢 
 *	如果资源需要在CPU端使用又要绑定到GPU中，需要先存储在non-shader-visible，然后在拷贝至shader-visible heap
 */
-namespace YiaEngine
+namespace YiaEngine::Graphic
 {
 	
-
 	class DescriptorHandle
 	{
 	public:

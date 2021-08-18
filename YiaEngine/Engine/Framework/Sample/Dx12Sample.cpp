@@ -361,6 +361,18 @@ void App::LoadAsset()
 			D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
 			D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
 			D3D12_TEXTURE_ADDRESS_MODE_CLAMP);
+
+		D3D12_SAMPLER_DESC sampler_desc;
+		sampler_desc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
+		sampler_desc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
+		sampler_desc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
+		sampler_desc.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;
+		sampler_desc.MinLOD = 0;
+		sampler_desc.MaxLOD = 0;
+		sampler_desc.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
+		sampler_desc.MipLODBias = 0;
+		sampler_desc.MaxAnisotropy = 0;
+
 		//CD3DX12_STATIC_SAMPLER_DESC linearClamp(0, D3D12_FILTER_MIN_MAG_MIP_LINEAR,
 		//	D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
 		//	D3D12_TEXTURE_ADDRESS_MODE_CLAMP,
@@ -383,6 +395,16 @@ void App::LoadAsset()
 		rootParameters[1].InitAsDescriptorTable(1, D3D12_SHADER_VISIBILITY_ALL);
 		rootParameters[0].SetTableRange(0,1,D3D12_DESCRIPTOR_RANGE_TYPE_SRV,0);
 		rootParameters[1].SetTableRange(0,1,D3D12_DESCRIPTOR_RANGE_TYPE_CBV, 0);
+
+		//rootSignature.AllocRootParamenter()
+		
+		rootSignature.Reset(2, 1);
+		rootSignature.InitStaticSampler(0, sampler_desc);
+		rootSignature[0].InitAsDescriptorTable(1);
+		rootSignature[0].SetTableRange(0, 1, D3D12_DESCRIPTOR_RANGE_TYPE_SRV,0);
+		rootSignature[1].InitAsDescriptorTable(1);
+		rootSignature[1].SetTableRange(0, 1, D3D12_DESCRIPTOR_RANGE_TYPE_CBV,0);
+		rootSignature.Finalize(L"sampleRootSignature", D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 
 		CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC rootDesc;
 
@@ -465,7 +487,7 @@ void App::LoadAsset()
 		CD3DX12_RASTERIZER_DESC defalut_rasterized_desc(D3D12_DEFAULT);
 		D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc = {};
 		psoDesc.InputLayout = inputLayoutDesc;
-		psoDesc.pRootSignature = g_rootSignature.Get();
+		psoDesc.pRootSignature = rootSignature.root_signature();
 		psoDesc.VS = { reinterpret_cast<UINT8*>(vertexShader->GetBufferPointer()), vertexShader->GetBufferSize() };
 		psoDesc.PS = { reinterpret_cast<UINT8*>(pixelShader->GetBufferPointer()), pixelShader->GetBufferSize() };
 		psoDesc.RasterizerState = defalut_rasterized_desc;
@@ -584,7 +606,7 @@ void App::LoadAsset()
 			cbv_desc.SizeInBytes = sizeof(VPConstBuffer);
 		//	 Graphic::g_device->CreateConstantBufferView(&cbv_desc, g_SRVCBVHeap->GetCPUDescriptorHandleForHeapStart());
 			
-			DescriptorHandle cb_handle = srv_cbv_heap_.Alloc(1);
+			Graphic::DescriptorHandle cb_handle = srv_cbv_heap_.Alloc(1);
 			 Graphic::g_device->CreateConstantBufferView(&cbv_desc, cb_handle);
 
 
@@ -773,9 +795,9 @@ void App::PopulateSceneCommandList()
 	ThrowIfFailed(current_cmd_alloc->Reset());
 	ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), g_pipelineState.Get()));
 	
-	g_commandList->SetGraphicsRootSignature(g_rootSignature.Get());
-	
+	//g_commandList->SetGraphicsRootSignature(g_rootSignature.Get());
 
+	g_commandList->SetGraphicsRootSignature(rootSignature.root_signature());
 	// set the descriptor heap
 //	ID3D12DescriptorHeap* descriptorHeaps[] = { g_CBVHeap.Get() };/*
 	//ID3D12DescriptorHeap* descriptorHeaps[] = { g_SRVCBVHeap.Get() };
@@ -830,7 +852,7 @@ void App::ClearRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle)
 	const float clearColor[] = { 0.0f, 0.2f, 0.4f, 1.0f };
 	g_commandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
 }
-void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, DescriptorHeap descriptor_heap,UINT offset, ID3D12Resource** texture_buffer)
+void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Graphic::DescriptorHeap descriptor_heap,UINT offset, ID3D12Resource** texture_buffer)
 {
 
 	//D3D12_RESOURCE_DESC desc;

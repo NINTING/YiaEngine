@@ -23,6 +23,7 @@
 #include"SceneNode.h"
 #include "Editor/SceneWindow.h"
 #include"Core/DescriptorHeap.h"
+#include"Core/RootSignature.h"
 using namespace DirectX;
 using namespace Microsoft::WRL;
 using Microsoft::WRL::ComPtr;
@@ -95,7 +96,7 @@ public:
 	void SwapPresent();
 	void ClearRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle);
 
-	void LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, DescriptorHeap descriptor_heap, UINT offset, ID3D12Resource** texture_buffer);
+	void LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Graphic::DescriptorHeap descriptor_heap, UINT offset, ID3D12Resource** texture_buffer);
 	void Destroy();
 
 	void Update();
@@ -160,10 +161,10 @@ public:
 	ComPtr<ID3D12Resource> g_scene_tex;
 
 	//Descriptor
-	DescriptorHeap rtv_heap_;
-	DescriptorHeap gui_srv_heap;
-	DescriptorHeap srv_cbv_heap_;
-	DescriptorAllocator descriptor_allcator_[D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES] = 
+	Graphic::DescriptorHeap rtv_heap_;
+	Graphic::DescriptorHeap gui_srv_heap;
+	Graphic::DescriptorHeap srv_cbv_heap_;
+	Graphic::DescriptorAllocator descriptor_allcator_[D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES] =
 	{
 		D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV,
 		D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER ,
@@ -171,8 +172,10 @@ public:
 		D3D12_DESCRIPTOR_HEAP_TYPE_DSV
 	};
 
-	DescriptorHandle swap_rtv_handle_[2];
-	DescriptorHandle scene_rtv_handle;
+	Graphic::DescriptorHandle swap_rtv_handle_[2];
+	Graphic::DescriptorHandle scene_rtv_handle;
+
+	Graphic::RootSignature rootSignature;
 	//GUI
 	std::unique_ptr<SceneWindow> scene_window_;
 };

@@ -8,7 +8,7 @@
 
 #include"Core/Graphic.h"
 
-namespace YiaEngine
+namespace YiaEngine::Graphic
 {
 	DescriptorHeap::DescriptorHeap(const wchar_t* name,D3D12_DESCRIPTOR_HEAP_DESC desc)
 	{

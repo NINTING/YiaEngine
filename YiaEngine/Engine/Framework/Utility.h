@@ -27,6 +27,7 @@ namespace YiaEngine
 			Print(buffer);
 			Print("\n");
 		}
+		inline void PrintSubMessage(){}
 #endif
 
 	}
