@@ -85,6 +85,10 @@ namespace YiaEngine
 			{
 				return GetAttribute(VertexAttribute::kTexcoord);
 			}
+			const VertexArray GetNormal() const
+			{
+				return GetAttribute(VertexAttribute::kNormal);
+			}
 			const IndexArray GetIndexArray(int i)const
 			{
 				assert(i < index_arrays_.size());

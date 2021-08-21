@@ -24,6 +24,7 @@
 #include "Editor/SceneWindow.h"
 #include"Core/DescriptorHeap.h"
 #include"Core/RootSignature.h"
+#include"Core/PipelineStateObject.h"
 using namespace DirectX;
 using namespace Microsoft::WRL;
 using Microsoft::WRL::ComPtr;
@@ -127,7 +128,7 @@ public:
 	ComPtr<ID3D12PipelineState>g_pipelineState_normal;
 	ComPtr<ID3D12GraphicsCommandList>g_commandList;
 	ComPtr<ID3D12GraphicsCommandList>g_BundleList;
-	ComPtr<ID3D12Resource>g_vertexBuffer[2];
+	ComPtr<ID3D12Resource>g_vertexBuffer[10];
 	
 	ComPtr<ID3D12Resource>g_indexBuffer;
 	ComPtr<ID3D12Resource> g_renderTargets[2];
@@ -176,6 +177,8 @@ public:
 	Graphic::DescriptorHandle scene_rtv_handle;
 
 	Graphic::RootSignature rootSignature;
+	Graphic::PipelineStateObject pso;
+	Graphic::PipelineStateObject lightpso;
 	//GUI
 	std::unique_ptr<SceneWindow> scene_window_;
 };

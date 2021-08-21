@@ -37,7 +37,8 @@ PSInput VSMain(VSInput input)
     //result.position = float4(input.position,1.0f);
     result.position = mul(vpMat,float4(input.position, 1.0f));
     result.uv = input.uv;
-    result.normal = mul(worldMat, float4(input.normal, 0.0f);
+    //result.normal = mul(worldMat, float4(input.normal, 0.0f);
+    result.normal = input.normal;
     return result;
 }
 

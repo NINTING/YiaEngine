@@ -43,7 +43,7 @@ namespace YiaEngine
 
 
 
-#define ASSEERT_SUCCEEDE(hr,...)\
+#define ASSERT_SUCCEEDED(hr,...)\
 		if(FAILED(hr))					\
 		{\
 			YiaEngine::Utility::Print("\nHRESULT failed in " STRINGIFY_BUILTIN(__FILE__) " @ " STRINGIFY_BUILTIN(__LINE__) "\n"); \

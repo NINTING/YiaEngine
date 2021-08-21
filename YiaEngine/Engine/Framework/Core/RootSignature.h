@@ -6,10 +6,10 @@
 #include<memory>
 namespace YiaEngine::Graphic
 {
-	class RootParament
+	class RootParameter
 	{
 	public:
-		RootParament()
+		RootParameter()
 		{
 			parameter_.ParameterType = (D3D12_ROOT_PARAMETER_TYPE)-1;
 		}
@@ -30,7 +30,7 @@ namespace YiaEngine::Graphic
 			range_ptr->OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
 			range_ptr->RegisterSpace = space;
 		}
-		~RootParament()
+		~RootParameter()
 		{
 			Clear();
 		}
@@ -48,18 +48,20 @@ namespace YiaEngine::Graphic
 
 	class RootSignature
 	{
-		public:
+	public:
 		void Reset(int root_parament_count,int static_sampler_count);
 		void InitStaticSampler(int registerid, D3D12_SAMPLER_DESC desc, D3D12_SHADER_VISIBILITY visibility = D3D12_SHADER_VISIBILITY_ALL);
-		ID3D12RootSignature* root_signature() { return root_signature_.Get(); }
+		//const ID3D12RootSignature* root_signature() const { return root_signature_.Get(); }const ID3D12RootSignature* root_signature() const { return root_signature_.Get(); }
+		ID3D12RootSignature* root_signature()  { return root_signature_.Get(); }
+		ID3D12RootSignature* root_signature() const { return root_signature_.Get(); }
 		void Finalize(const wchar_t* name, D3D12_ROOT_SIGNATURE_FLAGS flag);
 	public:
-		RootParament& operator[](int index) { return paraments_[index]; }
-		const RootParament& operator[](int index) const { return paraments_[index]; }
+		RootParameter& operator[](int index) { return paraments_[index]; }
+		const RootParameter& operator[](int index) const { return paraments_[index]; }
 
 	private:
 
-		std::unique_ptr<RootParament[]>paraments_;
+		std::unique_ptr<RootParameter[]>paraments_;
 		std::unique_ptr<D3D12_STATIC_SAMPLER_DESC[]>samplers_;
 		int static_sampler_count_;
 		int paramenter_count_;

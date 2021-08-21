@@ -6,6 +6,7 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
-		extern Microsoft::WRL::ComPtr<ID3D12Device> g_device;
+		using namespace Microsoft::WRL;
+		extern ComPtr<ID3D12Device> g_device;
 	}
 }

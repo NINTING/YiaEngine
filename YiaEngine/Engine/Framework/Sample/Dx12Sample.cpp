@@ -142,7 +142,24 @@ std::vector<UINT8> GenerateTextureData()
  }
 
 
+ void CompilerShader(const wchar_t*path, const char* entry,const char* target,ID3DBlob** Shader)
+ {
+#if defined(_DEBUG)
+	 // Enable better shader debugging with the graphics debugging tools.
+	 UINT compileFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+#else
+	 UINT compileFlags = 0;
+#endif
+	 ComPtr<ID3DBlob>error;
+	 HRESULT hr = D3DCompileFromFile(path, nullptr, nullptr, entry, target, compileFlags, 0, Shader, &error);
+	 if (error != nullptr)
+	 {
+		 OutputDebugStringA((char*)error->GetBufferPointer());
+	 }
 
+	 ThrowIfFailed(hr);
+
+ }
 void App::WaitForPreviousFrame(bool is_end_frame)
 {
 	current_frame_ =  (current_frame_+1) % (frames_count_);
@@ -390,7 +407,7 @@ void App::LoadAsset()
 		//rootParameters[0].InitAsDescriptorTable(1, &rootRange[0], D3D12_SHADER_VISIBILITY_ALL);
 		//rootParameters[1].InitAsDescriptorTable(1, &rootRange[1], D3D12_SHADER_VISIBILITY_ALL);
 		//
-		Graphic::RootParament rootParameters[2];
+		Graphic::RootParameter rootParameters[2];
 		rootParameters[0].InitAsDescriptorTable(1,D3D12_SHADER_VISIBILITY_ALL);
 		rootParameters[1].InitAsDescriptorTable(1, D3D12_SHADER_VISIBILITY_ALL);
 		rootParameters[0].SetTableRange(0,1,D3D12_DESCRIPTOR_RANGE_TYPE_SRV,0);
@@ -429,6 +446,9 @@ void App::LoadAsset()
 		ComPtr<ID3DBlob> vertexShader;
 		ComPtr<ID3DBlob> pixelShader;
 
+		ComPtr<ID3DBlob> light_vertexShader;
+		ComPtr<ID3DBlob> light_pixelShader;
+
 #if defined(_DEBUG)
 		// Enable better shader debugging with the graphics debugging tools.
 		UINT compileFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
@@ -437,7 +457,7 @@ void App::LoadAsset()
 #endif
 		ComPtr<ID3DBlob>error;
 		//GetCurrentDirectory();F:\YiaEngineRepos\YiaEngine\Engine\Framework\Shader\Shader.hlsl
-		auto hr = D3DCompileFromFile(L"E:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/DeferShader.hlsl", nullptr, nullptr, "VSMain", "vs_5_0", compileFlags, 0, &vertexShader,&error);
+	/*	auto hr = D3DCompileFromFile(L"E:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/DeferShader.hlsl", nullptr, nullptr, "VSMain", "vs_5_0", compileFlags, 0, &vertexShader,&error);
 		if (error != nullptr)
 		{
 			OutputDebugStringA((char*)error->GetBufferPointer());
@@ -448,7 +468,14 @@ void App::LoadAsset()
 		{
 			OutputDebugStringA((char*)error->GetBufferPointer());
 		}
-		ThrowIfFailed(hr);
+		ThrowIfFailed(hr);*/
+
+		CompilerShader(L"E:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/DeferShader.hlsl", "VSMain", "vs_5_0", &vertexShader);
+		CompilerShader(L"E:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/DeferShader.hlsl", "PSMain", "ps_5_0", &pixelShader);
+
+
+		CompilerShader(L"E:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/SampleLightShader.hlsl", "VSMain", "vs_5_0", &light_vertexShader);
+		CompilerShader(L"E:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/SampleLightShader.hlsl", "PSMain", "ps_5_0", &light_pixelShader);
 
 		/*ThrowIfFailed(D3DCompileFromFile(L"F:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/DeferShader.hlsl", nullptr, nullptr, "VSMain", "vs_5_0", compileFlags, 0, &vertexShader, nullptr));
 		ThrowIfFailed(D3DCompileFromFile(L"F:/YiaEngineRepos/YiaEngine/Engine/Framework/Shader/DeferShader.hlsl", nullptr, nullptr, "PSMain", "ps_5_0", compileFlags, 0, &pixelShader, nullptr));*/
@@ -485,25 +512,32 @@ void App::LoadAsset()
 			false, 0, 0, 0, true, false, true, 0,
 			D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF);
 		CD3DX12_RASTERIZER_DESC defalut_rasterized_desc(D3D12_DEFAULT);
-		D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc = {};
-		psoDesc.InputLayout = inputLayoutDesc;
-		psoDesc.pRootSignature = rootSignature.root_signature();
-		psoDesc.VS = { reinterpret_cast<UINT8*>(vertexShader->GetBufferPointer()), vertexShader->GetBufferSize() };
-		psoDesc.PS = { reinterpret_cast<UINT8*>(pixelShader->GetBufferPointer()), pixelShader->GetBufferSize() };
-		psoDesc.RasterizerState = defalut_rasterized_desc;
-		psoDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
-		psoDesc.DepthStencilState.DepthEnable = FALSE;
-		psoDesc.DepthStencilState.StencilEnable = FALSE;
-		psoDesc.SampleMask = UINT_MAX;
-		psoDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
-		psoDesc.NumRenderTargets = 1; 
-		psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
-		psoDesc.SampleDesc.Count = 1;
+	
+		
+		pso.SetRasterizerState(defalut_rasterized_desc);
+		pso.SetBlendState(CD3DX12_BLEND_DESC(D3D12_DEFAULT));
+		pso.SetPrimitiveTopologyType(D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE);                
+		pso.SetDepthStencilState(CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT));
+		pso.SetInputLayout(_countof(inputElementDescs), inputElementDescs);
+		pso.SetPixelShader(reinterpret_cast<UINT8*>(pixelShader->GetBufferPointer()), pixelShader->GetBufferSize());
+		pso.SetVertexShader(reinterpret_cast<UINT8*>(vertexShader->GetBufferPointer()), vertexShader->GetBufferSize());
+		pso.SetRenderTarget(DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_FORMAT_D32_FLOAT);
+		pso.SetSampleDesc(1, 0);
+		pso.SetSampleMask(UINT_MAX);
+		pso.SetRootSignature(rootSignature);
+		pso.Finalize();
 
-		ThrowIfFailed( Graphic::g_device->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&g_pipelineState)));
-			
+		lightpso = pso;
+		lightpso.SetVertexShader(light_vertexShader->GetBufferPointer(), light_vertexShader->GetBufferSize());
+		lightpso.SetPixelShader(light_pixelShader->GetBufferPointer(), light_pixelShader->GetBufferSize());
+		lightpso.SetInputLayout(_countof(inputElementDescs_normal), inputElementDescs_normal);
+
 	}
-	ThrowIfFailed( Graphic::g_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, g_commandAllocator.Get(), g_pipelineState.Get(), IID_PPV_ARGS(&g_commandList)));
+
+	{
+
+	}
+	ThrowIfFailed( Graphic::g_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, g_commandAllocator.Get(), pso.pipeline_state_object(), IID_PPV_ARGS(&g_commandList)));
 	g_commandList->SetName(L"G_CommandList");
 	//ThrowIfFailed(g_commandList->Close());
 
@@ -564,9 +598,10 @@ void App::LoadAsset()
 		g_VertexBufferView.SizeInBytes = vertexBufferSize;*/
 		auto positiones = mesh->GetPosition();
 		auto uvs = mesh->GetUVs();
+		auto normals = mesh->GetNormal();
 		BindVertexAttribute(positiones.data(), positiones.data_size(), positiones.stride(), 0);
 		BindVertexAttribute(uvs.data(), uvs.data_size(), uvs.stride(), 1);
-
+		BindVertexAttribute(normals.data(), normals.data_size(), normals.stride(), 2);
 		auto indexarray = mesh->GetIndexArray(0);
 		BindIndexBuffer(indexarray.data(), indexarray.data_size());
 		
@@ -705,7 +740,7 @@ void App::LoadAsset()
 	}
 	{
 	ThrowIfFailed( Graphic::g_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_BUNDLE, IID_PPV_ARGS(&g_BundleAllocator)));
-	 Graphic::g_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_BUNDLE, g_BundleAllocator.Get(), g_pipelineState.Get(), IID_PPV_ARGS(&g_BundleList));
+	 Graphic::g_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_BUNDLE, g_BundleAllocator.Get(), pso.pipeline_state_object(), IID_PPV_ARGS(&g_BundleList));
 	
 	//g_BundleList->SetPipelineState(g_pipelineState.Get());
 	g_BundleList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -793,7 +828,7 @@ void App::PopulateSceneCommandList()
 
 	//ThrowIfFailed(current_cmd_alloc->Reset());
 	ThrowIfFailed(current_cmd_alloc->Reset());
-	ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), g_pipelineState.Get()));
+	ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), pso.pipeline_state_object()));
 	
 	//g_commandList->SetGraphicsRootSignature(g_rootSignature.Get());
 
