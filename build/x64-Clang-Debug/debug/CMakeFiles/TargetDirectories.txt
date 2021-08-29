@@ -35,9 +35,14 @@ E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/CMakeFiles/edit_cache.di
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External/CMakeFiles/rebuild_cache.dir
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External/CMakeFiles/test.dir
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External/CMakeFiles/edit_cache.dir
-E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External/assimp/CMakeFiles/rebuild_cache.dir
-E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External/assimp/CMakeFiles/test.dir
-E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External/assimp/CMakeFiles/edit_cache.dir
+E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External/ImGui/CMakeFiles/IMGUI.dir
+E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External/ImGui/CMakeFiles/rebuild_cache.dir
+E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External/ImGui/CMakeFiles/test.dir
+E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External/ImGui/CMakeFiles/edit_cache.dir
+E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External/ImGui/backend/CMakeFiles/ImGuiTest.dir
+E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External/ImGui/backend/CMakeFiles/rebuild_cache.dir
+E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External/ImGui/backend/CMakeFiles/test.dir
+E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External/ImGui/backend/CMakeFiles/edit_cache.dir
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/CMakeFiles/rebuild_cache.dir
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/CMakeFiles/test.dir
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/CMakeFiles/edit_cache.dir
@@ -52,6 +57,9 @@ E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Common/
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Common/Test/CMakeFiles/rebuild_cache.dir
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Common/Test/CMakeFiles/test.dir
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Common/Test/CMakeFiles/edit_cache.dir
+E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/Combine.dir
+E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/CommonMath.dir
+E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/GeomMathEx.dir
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/rebuild_cache.dir
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/test.dir
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/edit_cache.dir
@@ -63,6 +71,7 @@ E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math/te
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math/test/CMakeFiles/rebuild_cache.dir
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math/test/CMakeFiles/test.dir
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math/test/CMakeFiles/edit_cache.dir
+E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Scene/CMakeFiles/YiaScene.dir
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Scene/CMakeFiles/rebuild_cache.dir
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Scene/CMakeFiles/test.dir
 E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Scene/CMakeFiles/edit_cache.dir

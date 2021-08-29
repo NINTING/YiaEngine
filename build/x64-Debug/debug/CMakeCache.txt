@@ -226,9 +226,6 @@ MEMORYCHECK_SUPPRESSIONS_FILE:FILEPATH=
 //Path to a program.
 MSVC_LIB_TOOL:FILEPATH=C:/D/VS2019/IDE/VC/Tools/MSVC/14.29.30037/bin/Hostx64/x64/lib.exe
 
-//Dependencies for the target
-Math_LIB_DEPENDS:STATIC=general;GeomMath;general;CommonMath;
-
 //Name of the computer/site where compile is being run
 SITE:STRING=LAPTOP-M038D0QH
 
@@ -401,6 +398,4 @@ MEMORYCHECK_SUPPRESSIONS_FILE-ADVANCED:INTERNAL=1
 SITE-ADVANCED:INTERNAL=1
 //Test _cpp_latest_flag_supported
 _cpp_latest_flag_supported:INTERNAL=1
-//assimpLib
-assimpLib:INTERNAL=assimp-vc142-mt.lib
 

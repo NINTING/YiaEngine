@@ -1,3 +1,4 @@
+#include "ResourceAllocator.h"
 #pragma once
 #include<d3d12.h>
 #include <wrl/client.h>
@@ -13,20 +14,20 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
-       ResourceAllocatorPageManager 
+       ResourceAllocatePageManager 
            ResourceAllocator::s_pageManager[AllocateType::kTypeNum] =
-            { ResourceAllocatorPageManager(AllocateType::kDefault), ResourceAllocatorPageManager(AllocateType::kUpload))};
+            { ResourceAllocatePageManager(AllocateType::kDefault), ResourceAllocatePageManager(AllocateType::kUpload)};
 
-        ResourceAllocatorPageManager::ResourceAllocatorPageManager(AllocateType type):type_(type)
+        ResourceAllocatePageManager::ResourceAllocatePageManager(AllocateType type):type_(type)
         {
         }
-        ResourceAllocatorPage*  ResourceAllocatorPageManager::RequestPage()
+        ResourceAllocatePage*  ResourceAllocatePageManager::RequestPage()
         {
-            ResourceAllocatorPage* page = CreateNewPage();
+            ResourceAllocatePage* page = CreateNewPage();
             page_pool_.emplace_back(page);
             return page;
         }
-        ResourceAllocatorPage* ResourceAllocatorPageManager::CreateNewPage(size_t page_size)
+        ResourceAllocatePage* ResourceAllocatePageManager::CreateNewPage(size_t page_size)
 		{
             D3D12_HEAP_PROPERTIES HeapProps;
             HeapProps.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
@@ -67,14 +68,46 @@ namespace YiaEngine
                 nullptr,
                 IID_PPV_ARGS(&resource)));
 
-			return new ResourceAllocatorPage(resource,default_state);
+			return new ResourceAllocatePage(resource,default_state);
 		}
-        void ResourceAllocator::Allocate(size_t alloc_size, int aligment)
+        void ResourceAllocatePageManager::FreeLargePage(UINT64 fence, std::vector<ResourceAllocatePage*> list)
+        {
+        }
+        AllocateBuffer ResourceAllocator::Allocate(size_t alloc_size, int aligment)
         {
             size_t align_size = AlignUp(alloc_size, aligment - 1);
 
-            s_pageManager[type_].RequestPage();
-
+            if (align_size > page_size_)
+            {
+                //TODO: {Yia} 分配空间过大
+              
+            }
+            cur_offset_ = AlignUp(cur_offset_, aligment - 1);
+            if (cur_offset_ + align_size > page_size_)
+            {
+                ResourceAllocatePage* large_page = s_pageManager[type_].CreateNewPage(align_size);
+                large_page_list_.push_back(large_page);
+                return AllocateBuffer(*large_page, 0, alloc_size,
+                    (UINT8*)large_page->Cpu_address_,
+                    large_page->Gpu_address_);
+                //TODO: {Yia} 分配空间不足
+            }
+            if (cur_page_ == nullptr)
+            {
+                cur_page_ = s_pageManager[type_].RequestPage();
+                cur_offset_ = 0;
+            }
+           
+         
+            
+            
+            AllocateBuffer ret(*cur_page_,cur_offset_,alloc_size,
+                (UINT8*)cur_page_->Cpu_address_ + cur_offset_,
+                cur_page_->Gpu_address_);
+            cur_offset_ += alloc_size;
+            return ret;
         }
     }
 }
+
+

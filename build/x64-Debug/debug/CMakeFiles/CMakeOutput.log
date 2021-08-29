@@ -50,24 +50,24 @@ The CXX compiler identification is MSVC, found in "E:/YiaEngineRepos/build/x64-D
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: E:/YiaEngineRepos/build/x64-Debug/debug/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_639e4 && [1/2] Building C object CMakeFiles\cmTC_639e4.dir\CMakeCCompilerABI.c.obj
-[2/2] Linking C executable cmTC_639e4.exe
+Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_92d5d && [1/2] Building C object CMakeFiles\cmTC_92d5d.dir\CMakeCCompilerABI.c.obj
+[2/2] Linking C executable cmTC_92d5d.exe
 
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: E:/YiaEngineRepos/build/x64-Debug/debug/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_e343b && [1/2] Building CXX object CMakeFiles\cmTC_e343b.dir\CMakeCXXCompilerABI.cpp.obj
-[2/2] Linking CXX executable cmTC_e343b.exe
+Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_32e08 && [1/2] Building CXX object CMakeFiles\cmTC_32e08.dir\CMakeCXXCompilerABI.cpp.obj
+[2/2] Linking CXX executable cmTC_32e08.exe
 
 
 
 Performing C++ SOURCE FILE Test _cpp_latest_flag_supported succeeded with the following output:
 Change Dir: E:/YiaEngineRepos/build/x64-Debug/debug/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_5e45d && [1/2] Building CXX object CMakeFiles\cmTC_5e45d.dir\src.cxx.obj
-[2/2] Linking CXX executable cmTC_5e45d.exe
+Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_90f51 && [1/2] Building CXX object CMakeFiles\cmTC_90f51.dir\src.cxx.obj
+[2/2] Linking CXX executable cmTC_90f51.exe
 
 
 Source file was:

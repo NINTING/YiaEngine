@@ -238,6 +238,9 @@ MEMORYCHECK_COMMAND:FILEPATH=MEMORYCHECK_COMMAND-NOTFOUND
 //File that contains suppressions for the memory checker
 MEMORYCHECK_SUPPRESSIONS_FILE:FILEPATH=
 
+//Path to a program.
+MSVC_LIB_TOOL:FILEPATH=C:/D/VS2019/IDE/VC/Tools/MSVC/14.29.30037/bin/Hostx64/x64/lib.exe
+
 //Name of the computer/site where compile is being run
 SITE:STRING=LAPTOP-M038D0QH
 
@@ -350,7 +353,7 @@ CMAKE_MT-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=13
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=14
 //Platform information initialized
 CMAKE_PLATFORM_INFO_INITIALIZED:INTERNAL=1
 //noop for ranlib

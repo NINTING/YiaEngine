@@ -546,40 +546,208 @@ build YiaEngine\External\edit_cache: phony YiaEngine\External\CMakeFiles\edit_ca
 # E:/YiaEngineRepos/YiaEngine/External/CMakeLists.txt
 # =============================================================================
 
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target IMGUI
+
+
+#############################################
+# Order-only phony target for IMGUI
+
+build cmake_object_order_depends_target_IMGUI: phony || YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir
+
+build YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir\imgui.cpp.obj: CXX_COMPILER__IMGUI_Debug ..\..\..\YiaEngine\External\ImGui\imgui.cpp || cmake_object_order_depends_target_IMGUI
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui
+  OBJECT_DIR = YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir
+  OBJECT_FILE_DIR = YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir
+  TARGET_COMPILE_PDB = YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir\IMGUI.pdb
+  TARGET_PDB = YiaEngine\External\ImGui\IMGUI.pdb
+
+build YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir\imgui_demo.cpp.obj: CXX_COMPILER__IMGUI_Debug ..\..\..\YiaEngine\External\ImGui\imgui_demo.cpp || cmake_object_order_depends_target_IMGUI
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui
+  OBJECT_DIR = YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir
+  OBJECT_FILE_DIR = YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir
+  TARGET_COMPILE_PDB = YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir\IMGUI.pdb
+  TARGET_PDB = YiaEngine\External\ImGui\IMGUI.pdb
+
+build YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir\imgui_draw.cpp.obj: CXX_COMPILER__IMGUI_Debug ..\..\..\YiaEngine\External\ImGui\imgui_draw.cpp || cmake_object_order_depends_target_IMGUI
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui
+  OBJECT_DIR = YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir
+  OBJECT_FILE_DIR = YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir
+  TARGET_COMPILE_PDB = YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir\IMGUI.pdb
+  TARGET_PDB = YiaEngine\External\ImGui\IMGUI.pdb
+
+build YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir\imgui_tables.cpp.obj: CXX_COMPILER__IMGUI_Debug ..\..\..\YiaEngine\External\ImGui\imgui_tables.cpp || cmake_object_order_depends_target_IMGUI
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui
+  OBJECT_DIR = YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir
+  OBJECT_FILE_DIR = YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir
+  TARGET_COMPILE_PDB = YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir\IMGUI.pdb
+  TARGET_PDB = YiaEngine\External\ImGui\IMGUI.pdb
+
+build YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir\imgui_widgets.cpp.obj: CXX_COMPILER__IMGUI_Debug ..\..\..\YiaEngine\External\ImGui\imgui_widgets.cpp || cmake_object_order_depends_target_IMGUI
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui
+  OBJECT_DIR = YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir
+  OBJECT_FILE_DIR = YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir
+  TARGET_COMPILE_PDB = YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir\IMGUI.pdb
+  TARGET_PDB = YiaEngine\External\ImGui\IMGUI.pdb
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target IMGUI
+
+
+#############################################
+# Link the static library YiaEngine\External\ImGui\IMGUI.lib
+
+build YiaEngine\External\ImGui\IMGUI.lib: CXX_STATIC_LIBRARY_LINKER__IMGUI_Debug YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir\imgui.cpp.obj YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir\imgui_demo.cpp.obj YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir\imgui_draw.cpp.obj YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir\imgui_tables.cpp.obj YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir\imgui_widgets.cpp.obj
+  LANGUAGE_COMPILE_FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  LINK_FLAGS = /machine:x64
+  OBJECT_DIR = YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = YiaEngine\External\ImGui\CMakeFiles\IMGUI.dir\IMGUI.pdb
+  TARGET_FILE = YiaEngine\External\ImGui\IMGUI.lib
+  TARGET_PDB = YiaEngine\External\ImGui\IMGUI.pdb
+
 
 #############################################
 # Utility command for rebuild_cache
 
-build YiaEngine\External\assimp\CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\External\assimp && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe --regenerate-during-build -SE:\YiaEngineRepos -BE:\YiaEngineRepos\build\x64-Clang-Debug\debug"
+build YiaEngine\External\ImGui\CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\External\ImGui && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe --regenerate-during-build -SE:\YiaEngineRepos -BE:\YiaEngineRepos\build\x64-Clang-Debug\debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
 
-build YiaEngine\External\assimp\rebuild_cache: phony YiaEngine\External\assimp\CMakeFiles\rebuild_cache.util
+build YiaEngine\External\ImGui\rebuild_cache: phony YiaEngine\External\ImGui\CMakeFiles\rebuild_cache.util
 
 
 #############################################
 # Utility command for test
 
-build YiaEngine\External\assimp\CMakeFiles\test.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\External\assimp && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe --force-new-ctest-process "
+build YiaEngine\External\ImGui\CMakeFiles\test.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\External\ImGui && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe --force-new-ctest-process "
   DESC = Running tests...
   pool = console
   restat = 1
 
-build YiaEngine\External\assimp\test: phony YiaEngine\External\assimp\CMakeFiles\test.util
+build YiaEngine\External\ImGui\test: phony YiaEngine\External\ImGui\CMakeFiles\test.util
 
 
 #############################################
 # Utility command for edit_cache
 
-build YiaEngine\External\assimp\CMakeFiles\edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\External\assimp && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+build YiaEngine\External\ImGui\CMakeFiles\edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\External\ImGui && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
-build YiaEngine\External\assimp\edit_cache: phony YiaEngine\External\assimp\CMakeFiles\edit_cache.util
+build YiaEngine\External\ImGui\edit_cache: phony YiaEngine\External\ImGui\CMakeFiles\edit_cache.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# E:/YiaEngineRepos/YiaEngine/External/ImGui/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for EXECUTABLE target ImGuiTest
+
+
+#############################################
+# Order-only phony target for ImGuiTest
+
+build cmake_object_order_depends_target_ImGuiTest: phony || cmake_object_order_depends_target_IMGUI
+
+build YiaEngine\External\ImGui\backend\CMakeFiles\ImGuiTest.dir\imgui_impl_dx12.cpp.obj: CXX_COMPILER__ImGuiTest_Debug ..\..\..\YiaEngine\External\ImGui\backend\imgui_impl_dx12.cpp || cmake_object_order_depends_target_ImGuiTest
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui
+  OBJECT_DIR = YiaEngine\External\ImGui\backend\CMakeFiles\ImGuiTest.dir
+  OBJECT_FILE_DIR = YiaEngine\External\ImGui\backend\CMakeFiles\ImGuiTest.dir
+  TARGET_COMPILE_PDB = YiaEngine\External\ImGui\backend\CMakeFiles\ImGuiTest.dir\
+  TARGET_PDB = YiaEngine\External\ImGui\backend\ImGuiTest.pdb
+
+build YiaEngine\External\ImGui\backend\CMakeFiles\ImGuiTest.dir\imgui_impl_win32.cpp.obj: CXX_COMPILER__ImGuiTest_Debug ..\..\..\YiaEngine\External\ImGui\backend\imgui_impl_win32.cpp || cmake_object_order_depends_target_ImGuiTest
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui
+  OBJECT_DIR = YiaEngine\External\ImGui\backend\CMakeFiles\ImGuiTest.dir
+  OBJECT_FILE_DIR = YiaEngine\External\ImGui\backend\CMakeFiles\ImGuiTest.dir
+  TARGET_COMPILE_PDB = YiaEngine\External\ImGui\backend\CMakeFiles\ImGuiTest.dir\
+  TARGET_PDB = YiaEngine\External\ImGui\backend\ImGuiTest.pdb
+
+build YiaEngine\External\ImGui\backend\CMakeFiles\ImGuiTest.dir\main.cpp.obj: CXX_COMPILER__ImGuiTest_Debug ..\..\..\YiaEngine\External\ImGui\backend\main.cpp || cmake_object_order_depends_target_ImGuiTest
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui
+  OBJECT_DIR = YiaEngine\External\ImGui\backend\CMakeFiles\ImGuiTest.dir
+  OBJECT_FILE_DIR = YiaEngine\External\ImGui\backend\CMakeFiles\ImGuiTest.dir
+  TARGET_COMPILE_PDB = YiaEngine\External\ImGui\backend\CMakeFiles\ImGuiTest.dir\
+  TARGET_PDB = YiaEngine\External\ImGui\backend\ImGuiTest.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target ImGuiTest
+
+
+#############################################
+# Link the executable YiaEngine\External\ImGui\backend\ImGuiTest.exe
+
+build YiaEngine\External\ImGui\backend\ImGuiTest.exe: CXX_EXECUTABLE_LINKER__ImGuiTest_Debug YiaEngine\External\ImGui\backend\CMakeFiles\ImGuiTest.dir\imgui_impl_dx12.cpp.obj YiaEngine\External\ImGui\backend\CMakeFiles\ImGuiTest.dir\imgui_impl_win32.cpp.obj YiaEngine\External\ImGui\backend\CMakeFiles\ImGuiTest.dir\main.cpp.obj | YiaEngine\External\ImGui\IMGUI.lib || YiaEngine\External\ImGui\IMGUI.lib
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
+  LINK_LIBRARIES = YiaEngine\External\ImGui\IMGUI.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = YiaEngine\External\ImGui\backend\CMakeFiles\ImGuiTest.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = YiaEngine\External\ImGui\backend\CMakeFiles\ImGuiTest.dir\
+  TARGET_FILE = YiaEngine\External\ImGui\backend\ImGuiTest.exe
+  TARGET_IMPLIB = YiaEngine\External\ImGui\backend\ImGuiTest.lib
+  TARGET_PDB = YiaEngine\External\ImGui\backend\ImGuiTest.pdb
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build YiaEngine\External\ImGui\backend\CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\External\ImGui\backend && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe --regenerate-during-build -SE:\YiaEngineRepos -BE:\YiaEngineRepos\build\x64-Clang-Debug\debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build YiaEngine\External\ImGui\backend\rebuild_cache: phony YiaEngine\External\ImGui\backend\CMakeFiles\rebuild_cache.util
+
+
+#############################################
+# Utility command for test
+
+build YiaEngine\External\ImGui\backend\CMakeFiles\test.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\External\ImGui\backend && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\ctest.exe --force-new-ctest-process "
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build YiaEngine\External\ImGui\backend\test: phony YiaEngine\External\ImGui\backend\CMakeFiles\test.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build YiaEngine\External\ImGui\backend\CMakeFiles\edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\External\ImGui\backend && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build YiaEngine\External\ImGui\backend\edit_cache: phony YiaEngine\External\ImGui\backend\CMakeFiles\edit_cache.util
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
@@ -684,69 +852,185 @@ build YiaEngine\Engine\Framework\Common\edit_cache: phony YiaEngine\Engine\Frame
 #############################################
 # Order-only phony target for YiaEngine
 
-build cmake_object_order_depends_target_YiaEngine: phony || YiaEngine\Engine\Framework\Math\ispc\GeomMathLib
+build cmake_object_order_depends_target_YiaEngine: phony || YiaEngine\Engine\Framework\Math\Combine YiaEngine\Engine\Framework\Math\ispc\GeomMathLib cmake_object_order_depends_target_CommonMath cmake_object_order_depends_target_GeomMathEx cmake_object_order_depends_target_IMGUI cmake_object_order_depends_target_YiaScene
 
 build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\Allocator.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Common\Allocator.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\Engine\Framework\Common\IO -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
   OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
   TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
 
 build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\Common.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Common\Common.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\Engine\Framework\Common\IO -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
+  OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
+  TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
+
+build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\Input.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Common\Input.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
   OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
   TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
 
 build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\MemoryManager.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Common\MemoryManager.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\Engine\Framework\Common\IO -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
   OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
   TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
 
 build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\YiaEngine.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Common\YiaEngine.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\Engine\Framework\Common\IO -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
+  OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
+  TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
+
+build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\YiaTime.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Common\YiaTime.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
   OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
   TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
 
 build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Sample\Dx12Sample.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Sample\Dx12Sample.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\Engine\Framework\Common\IO -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
   OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Sample
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
   TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
 
 build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\AssetLoder\AssetLoder.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder\AssetLoder.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\Engine\Framework\Common\IO -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
   OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\AssetLoder
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
   TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
 
-build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Windows\WindowBase.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Windows\WindowBase.cpp || cmake_object_order_depends_target_YiaEngine
+build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core\CommandContext.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Core\CommandContext.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\Engine\Framework\Common\IO -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
+  OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
+  TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
+
+build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core\CommandQueue.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Core\CommandQueue.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
+  OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
+  TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
+
+build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core\DescriptorHeap.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Core\DescriptorHeap.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
+  OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
+  TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
+
+build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core\GpuBuffer.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Core\GpuBuffer.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
+  OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
+  TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
+
+build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core\Graphic.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Core\Graphic.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
+  OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
+  TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
+
+build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core\PipelineStateObject.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Core\PipelineStateObject.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
+  OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
+  TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
+
+build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core\ResourceAllocator.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Core\ResourceAllocator.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
+  OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
+  TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
+
+build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core\RootSignature.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Core\RootSignature.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
+  OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
+  TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
+
+build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Windows\WindowBase.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\Engine\Framework\Windows\WindowBase.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
   OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Windows
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
   TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
 
 build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\__\__\External\crossguid\guid.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\External\crossguid\guid.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\Engine\Framework\Common\IO -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
   OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\__\__\External\crossguid
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
+  TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
+
+build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\__\__\External\ImGui\backend\imgui_impl_dx12.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\External\ImGui\backend\imgui_impl_dx12.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
+  OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\__\__\External\ImGui\backend
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
+  TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
+
+build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\__\__\External\ImGui\backend\imgui_impl_win32.cpp.obj: CXX_COMPILER__YiaEngine_Debug ..\..\..\YiaEngine\External\ImGui\backend\imgui_impl_win32.cpp || cmake_object_order_depends_target_YiaEngine
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO
+  OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\__\__\External\ImGui\backend
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\
   TARGET_PDB = YiaEngine\Engine\Framework\Common\YiaEngine.pdb
 
@@ -758,10 +1042,10 @@ build YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\__\__\Extern
 #############################################
 # Link the executable YiaEngine\Engine\Framework\Common\YiaEngine.exe
 
-build YiaEngine\Engine\Framework\Common\YiaEngine.exe: CXX_EXECUTABLE_LINKER__YiaEngine_Debug YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\Allocator.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\Common.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\MemoryManager.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\YiaEngine.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Sample\Dx12Sample.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\AssetLoder\AssetLoder.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Windows\WindowBase.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\__\__\External\crossguid\guid.cpp.obj | YiaEngine\Engine\Framework\Math\GeomMath.lib || YiaEngine\Engine\Framework\Math\ispc\GeomMathLib
+build YiaEngine\Engine\Framework\Common\YiaEngine.exe: CXX_EXECUTABLE_LINKER__YiaEngine_Debug YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\Allocator.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\Common.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\Input.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\MemoryManager.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\YiaEngine.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\YiaTime.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Sample\Dx12Sample.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\AssetLoder\AssetLoder.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core\CommandContext.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core\CommandQueue.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core\DescriptorHeap.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core\GpuBuffer.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core\Graphic.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core\PipelineStateObject.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core\ResourceAllocator.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Core\RootSignature.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\Windows\WindowBase.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\__\__\External\crossguid\guid.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\__\__\External\ImGui\backend\imgui_impl_dx12.cpp.obj YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir\__\__\__\External\ImGui\backend\imgui_impl_win32.cpp.obj | YiaEngine\Engine\Framework\Math\math.lib YiaEngine\Engine\Framework\Scene\YiaScene.lib YiaEngine\External\ImGui\IMGUI.lib ..\..\..\YiaEngine\External\assimp\assimp-vc142-mtd.lib ..\..\..\YiaEngine\External\freeImage\FreeImage.lib || YiaEngine\Engine\Framework\Math\Combine YiaEngine\Engine\Framework\Math\CommonMath.lib YiaEngine\Engine\Framework\Math\GeomMathEx.lib YiaEngine\Engine\Framework\Math\ispc\GeomMathLib YiaEngine\Engine\Framework\Scene\YiaScene.lib YiaEngine\External\ImGui\IMGUI.lib
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:windows
-  LINK_LIBRARIES = YiaEngine\Engine\Framework\Math\GeomMath.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  LINK_LIBRARIES = YiaEngine\Engine\Framework\Math\math.lib  YiaEngine\Engine\Framework\Scene\YiaScene.lib  YiaEngine\External\ImGui\IMGUI.lib  ..\..\..\YiaEngine\External\assimp\assimp-vc142-mtd.lib  ..\..\..\YiaEngine\External\freeImage\FreeImage.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = YiaEngine\Engine\Framework\Common\CMakeFiles\YiaEngine.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -809,32 +1093,45 @@ build YiaEngine\Engine\Framework\Common\test: phony YiaEngine\Engine\Framework\C
 build cmake_object_order_depends_target_allocTest: phony || YiaEngine\Engine\Framework\Math\ispc\GeomMathLib
 
 build YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\test.cpp.obj: CXX_COMPILER__allocTest_Debug ..\..\..\YiaEngine\Engine\Framework\Common\Test\test.cpp || cmake_object_order_depends_target_allocTest
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\Engine\Framework\Common\IO -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
   OBJECT_DIR = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\
   TARGET_PDB = YiaEngine\Engine\Framework\Common\Test\allocTest.pdb
 
 build YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\Allocator.cpp.obj: CXX_COMPILER__allocTest_Debug ..\..\..\YiaEngine\Engine\Framework\Common\Allocator.cpp || cmake_object_order_depends_target_allocTest
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\Engine\Framework\Common\IO -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
   OBJECT_DIR = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\
   TARGET_PDB = YiaEngine\Engine\Framework\Common\Test\allocTest.pdb
 
 build YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\MemoryManager.cpp.obj: CXX_COMPILER__allocTest_Debug ..\..\..\YiaEngine\Engine\Framework\Common\MemoryManager.cpp || cmake_object_order_depends_target_allocTest
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\Engine\Framework\Common\IO -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
   OBJECT_DIR = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\
   TARGET_PDB = YiaEngine\Engine\Framework\Common\Test\allocTest.pdb
 
-build YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\AssetLoder\AssetLoder.cpp.obj: CXX_COMPILER__allocTest_Debug ..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder\AssetLoder.cpp || cmake_object_order_depends_target_allocTest
+build YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\__\__\__\External\crossguid\guid.cpp.obj: CXX_COMPILER__allocTest_Debug ..\..\..\YiaEngine\External\crossguid\guid.cpp || cmake_object_order_depends_target_allocTest
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\Engine\Framework\Common\IO -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
+  OBJECT_DIR = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\__\__\__\External\crossguid
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\
+  TARGET_PDB = YiaEngine\Engine\Framework\Common\Test\allocTest.pdb
+
+build YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\AssetLoder\AssetLoder.cpp.obj: CXX_COMPILER__allocTest_Debug ..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder\AssetLoder.cpp || cmake_object_order_depends_target_allocTest
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\Engine\Framework\Common\IO -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
   OBJECT_DIR = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\AssetLoder
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\
@@ -848,10 +1145,10 @@ build YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\AssetLo
 #############################################
 # Link the executable YiaEngine\Engine\Framework\Common\Test\allocTest.exe
 
-build YiaEngine\Engine\Framework\Common\Test\allocTest.exe: CXX_EXECUTABLE_LINKER__allocTest_Debug YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\test.cpp.obj YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\Allocator.cpp.obj YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\MemoryManager.cpp.obj YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\AssetLoder\AssetLoder.cpp.obj | YiaEngine\Engine\Framework\Math\GeomMath.lib || YiaEngine\Engine\Framework\Math\ispc\GeomMathLib
+build YiaEngine\Engine\Framework\Common\Test\allocTest.exe: CXX_EXECUTABLE_LINKER__allocTest_Debug YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\test.cpp.obj YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\Allocator.cpp.obj YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\MemoryManager.cpp.obj YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\__\__\__\External\crossguid\guid.cpp.obj YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir\__\AssetLoder\AssetLoder.cpp.obj | YiaEngine\Engine\Framework\Math\GeomMath.lib ..\..\..\YiaEngine\External\assimp\assimp-vc142-mtd.lib ..\..\..\YiaEngine\External\freeImage\FreeImage.lib || YiaEngine\Engine\Framework\Math\ispc\GeomMathLib
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
-  LINK_LIBRARIES = YiaEngine\Engine\Framework\Math\GeomMath.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  LINK_LIBRARIES = YiaEngine\Engine\Framework\Math\GeomMath.lib  ..\..\..\YiaEngine\External\assimp\assimp-vc142-mtd.lib  ..\..\..\YiaEngine\External\freeImage\FreeImage.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = YiaEngine\Engine\Framework\Common\Test\CMakeFiles\allocTest.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -902,6 +1199,84 @@ build YiaEngine\Engine\Framework\Common\Test\edit_cache: phony YiaEngine\Engine\
 
 
 #############################################
+# Utility command for Combine
+
+build YiaEngine\Engine\Framework\Math\Combine: phony YiaEngine\Engine\Framework\Math\CMakeFiles\Combine YiaEngine\Engine\Framework\Math\CommonMath.lib YiaEngine\Engine\Framework\Math\GeomMathEx.lib YiaEngine\Engine\Framework\Math\ispc\GeomMathLib
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target CommonMath
+
+
+#############################################
+# Order-only phony target for CommonMath
+
+build cmake_object_order_depends_target_CommonMath: phony || YiaEngine\Engine\Framework\Math\CMakeFiles\CommonMath.dir
+
+build YiaEngine\Engine\Framework\Math\CMakeFiles\CommonMath.dir\CommonMath.cpp.obj: CXX_COMPILER__CommonMath_Debug ..\..\..\YiaEngine\Engine\Framework\Math\CommonMath.cpp || cmake_object_order_depends_target_CommonMath
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene
+  OBJECT_DIR = YiaEngine\Engine\Framework\Math\CMakeFiles\CommonMath.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Math\CMakeFiles\CommonMath.dir
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Math\CMakeFiles\CommonMath.dir\CommonMath.pdb
+  TARGET_PDB = YiaEngine\Engine\Framework\Math\CommonMath.pdb
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target CommonMath
+
+
+#############################################
+# Link the static library YiaEngine\Engine\Framework\Math\CommonMath.lib
+
+build YiaEngine\Engine\Framework\Math\CommonMath.lib: CXX_STATIC_LIBRARY_LINKER__CommonMath_Debug YiaEngine\Engine\Framework\Math\CMakeFiles\CommonMath.dir\CommonMath.cpp.obj
+  LANGUAGE_COMPILE_FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  LINK_FLAGS = /machine:x64
+  OBJECT_DIR = YiaEngine\Engine\Framework\Math\CMakeFiles\CommonMath.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Math\CMakeFiles\CommonMath.dir\CommonMath.pdb
+  TARGET_FILE = YiaEngine\Engine\Framework\Math\CommonMath.lib
+  TARGET_PDB = YiaEngine\Engine\Framework\Math\CommonMath.pdb
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target GeomMathEx
+
+
+#############################################
+# Order-only phony target for GeomMathEx
+
+build cmake_object_order_depends_target_GeomMathEx: phony || YiaEngine\Engine\Framework\Math\CMakeFiles\GeomMathEx.dir
+
+build YiaEngine\Engine\Framework\Math\CMakeFiles\GeomMathEx.dir\GeomMathEx.cpp.obj: CXX_COMPILER__GeomMathEx_Debug ..\..\..\YiaEngine\Engine\Framework\Math\GeomMathEx.cpp || cmake_object_order_depends_target_GeomMathEx
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene
+  OBJECT_DIR = YiaEngine\Engine\Framework\Math\CMakeFiles\GeomMathEx.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Math\CMakeFiles\GeomMathEx.dir
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Math\CMakeFiles\GeomMathEx.dir\GeomMathEx.pdb
+  TARGET_PDB = YiaEngine\Engine\Framework\Math\GeomMathEx.pdb
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target GeomMathEx
+
+
+#############################################
+# Link the static library YiaEngine\Engine\Framework\Math\GeomMathEx.lib
+
+build YiaEngine\Engine\Framework\Math\GeomMathEx.lib: CXX_STATIC_LIBRARY_LINKER__GeomMathEx_Debug YiaEngine\Engine\Framework\Math\CMakeFiles\GeomMathEx.dir\GeomMathEx.cpp.obj
+  LANGUAGE_COMPILE_FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  LINK_FLAGS = /machine:x64
+  OBJECT_DIR = YiaEngine\Engine\Framework\Math\CMakeFiles\GeomMathEx.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Math\CMakeFiles\GeomMathEx.dir\GeomMathEx.pdb
+  TARGET_FILE = YiaEngine\Engine\Framework\Math\GeomMathEx.lib
+  TARGET_PDB = YiaEngine\Engine\Framework\Math\GeomMathEx.pdb
+
+
+#############################################
 # Utility command for rebuild_cache
 
 build YiaEngine\Engine\Framework\Math\CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
@@ -935,6 +1310,13 @@ build YiaEngine\Engine\Framework\Math\CMakeFiles\edit_cache.util: CUSTOM_COMMAND
 
 build YiaEngine\Engine\Framework\Math\edit_cache: phony YiaEngine\Engine\Framework\Math\CMakeFiles\edit_cache.util
 
+
+#############################################
+# Custom command for YiaEngine\Engine\Framework\Math\CMakeFiles\Combine
+
+build YiaEngine\Engine\Framework\Math\CMakeFiles\Combine: CUSTOM_COMMAND || YiaEngine\Engine\Framework\Math\CommonMath.lib YiaEngine\Engine\Framework\Math\GeomMathEx.lib YiaEngine\Engine\Framework\Math\ispc\GeomMathLib
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\Engine\Framework\Math && C:\D\VS2019\IDE\VC\Tools\MSVC\14.29.30037\bin\Hostx64\x64\lib.exe /OUT:E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math/math.lib E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math/GeomMath.lib E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math/CommonMath.lib E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math/GeomMathEx.lib"
+
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
 # E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/CMakeLists.txt
@@ -944,7 +1326,7 @@ build YiaEngine\Engine\Framework\Math\edit_cache: phony YiaEngine\Engine\Framewo
 #############################################
 # Utility command for GeomMathLib
 
-build YiaEngine\Engine\Framework\Math\ispc\GeomMathLib: phony YiaEngine\Engine\Framework\Math\ispc\CMakeFiles\GeomMathLib YiaEngine\Engine\Framework\Math\GeomMath.lib YiaEngine\Engine\Framework\Math\ispc\AddByElement.o YiaEngine\Engine\Framework\Math\ispc\simple.o
+build YiaEngine\Engine\Framework\Math\ispc\GeomMathLib: phony YiaEngine\Engine\Framework\Math\ispc\CMakeFiles\GeomMathLib YiaEngine\Engine\Framework\Math\GeomMath.lib YiaEngine\Engine\Framework\Math\ispc\AddByElement.o YiaEngine\Engine\Framework\Math\ispc\Cross.o YiaEngine\Engine\Framework\Math\ispc\DCT8X8.o YiaEngine\Engine\Framework\Math\ispc\Dot.o YiaEngine\Engine\Framework\Math\ispc\MatrixOperation.o YiaEngine\Engine\Framework\Math\ispc\SubtractByElement.o YiaEngine\Engine\Framework\Math\ispc\TestFunc.o YiaEngine\Engine\Framework\Math\ispc\VectorFunc.o YiaEngine\Engine\Framework\Math\ispc\simple.o
 
 
 #############################################
@@ -991,8 +1373,8 @@ build YiaEngine\Engine\Framework\Math\ispc\CMakeFiles\GeomMathLib: phony YiaEngi
 #############################################
 # Custom command for YiaEngine\Engine\Framework\Math\GeomMath.lib
 
-build YiaEngine\Engine\Framework\Math\GeomMath.lib: CUSTOM_COMMAND YiaEngine\Engine\Framework\Math\ispc\simple.o YiaEngine\Engine\Framework\Math\ispc\AddByElement.o
-  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && lib /MACHINE:X64 /OUT:E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math/GeomMath.lib simple.o AddByElement.o && del simple.o AddByElement.o"
+build YiaEngine\Engine\Framework\Math\GeomMath.lib: CUSTOM_COMMAND YiaEngine\Engine\Framework\Math\ispc\simple.o YiaEngine\Engine\Framework\Math\ispc\AddByElement.o YiaEngine\Engine\Framework\Math\ispc\DCT8X8.o YiaEngine\Engine\Framework\Math\ispc\MatrixOperation.o YiaEngine\Engine\Framework\Math\ispc\SubtractByElement.o YiaEngine\Engine\Framework\Math\ispc\TestFunc.o YiaEngine\Engine\Framework\Math\ispc\Dot.o YiaEngine\Engine\Framework\Math\ispc\Cross.o YiaEngine\Engine\Framework\Math\ispc\VectorFunc.o
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && lib /MACHINE:X64 /OUT:E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math/GeomMath.lib simple.o AddByElement.o DCT8X8.o MatrixOperation.o SubtractByElement.o TestFunc.o Dot.o Cross.o VectorFunc.o && del simple.o AddByElement.o DCT8X8.o MatrixOperation.o SubtractByElement.o TestFunc.o Dot.o Cross.o VectorFunc.o"
   DESC = Generating ../GeomMath.lib
   restat = 1
 
@@ -1003,6 +1385,69 @@ build YiaEngine\Engine\Framework\Math\GeomMath.lib: CUSTOM_COMMAND YiaEngine\Eng
 build YiaEngine\Engine\Framework\Math\ispc\AddByElement.o: CUSTOM_COMMAND ..\..\..\YiaEngine\Engine\Framework\Math\ispc\AddByElement.ispc
   COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E env PATH=E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ispc.exe E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/ispc/AddByElement.ispc -h E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/operation/AddByElement.h -o AddByElement.o"
   DESC = BUILDING AddByElement
+  restat = 1
+
+
+#############################################
+# Custom command for YiaEngine\Engine\Framework\Math\ispc\Cross.o
+
+build YiaEngine\Engine\Framework\Math\ispc\Cross.o: CUSTOM_COMMAND ..\..\..\YiaEngine\Engine\Framework\Math\ispc\Cross.ispc
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E env PATH=E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ispc.exe E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/ispc/Cross.ispc -h E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/operation/Cross.h -o Cross.o"
+  DESC = BUILDING Cross
+  restat = 1
+
+
+#############################################
+# Custom command for YiaEngine\Engine\Framework\Math\ispc\DCT8X8.o
+
+build YiaEngine\Engine\Framework\Math\ispc\DCT8X8.o: CUSTOM_COMMAND ..\..\..\YiaEngine\Engine\Framework\Math\ispc\DCT8X8.ispc
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E env PATH=E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ispc.exe E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/ispc/DCT8X8.ispc -h E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/operation/DCT8X8.h -o DCT8X8.o"
+  DESC = BUILDING DCT8X8
+  restat = 1
+
+
+#############################################
+# Custom command for YiaEngine\Engine\Framework\Math\ispc\Dot.o
+
+build YiaEngine\Engine\Framework\Math\ispc\Dot.o: CUSTOM_COMMAND ..\..\..\YiaEngine\Engine\Framework\Math\ispc\Dot.ispc
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E env PATH=E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ispc.exe E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/ispc/Dot.ispc -h E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/operation/Dot.h -o Dot.o"
+  DESC = BUILDING Dot
+  restat = 1
+
+
+#############################################
+# Custom command for YiaEngine\Engine\Framework\Math\ispc\MatrixOperation.o
+
+build YiaEngine\Engine\Framework\Math\ispc\MatrixOperation.o: CUSTOM_COMMAND ..\..\..\YiaEngine\Engine\Framework\Math\ispc\MatrixOperation.ispc
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E env PATH=E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ispc.exe E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/ispc/MatrixOperation.ispc -h E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/operation/MatrixOperation.h -o MatrixOperation.o"
+  DESC = BUILDING MatrixOperation
+  restat = 1
+
+
+#############################################
+# Custom command for YiaEngine\Engine\Framework\Math\ispc\SubtractByElement.o
+
+build YiaEngine\Engine\Framework\Math\ispc\SubtractByElement.o: CUSTOM_COMMAND ..\..\..\YiaEngine\Engine\Framework\Math\ispc\SubtractByElement.ispc
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E env PATH=E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ispc.exe E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/ispc/SubtractByElement.ispc -h E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/operation/SubtractByElement.h -o SubtractByElement.o"
+  DESC = BUILDING SubtractByElement
+  restat = 1
+
+
+#############################################
+# Custom command for YiaEngine\Engine\Framework\Math\ispc\TestFunc.o
+
+build YiaEngine\Engine\Framework\Math\ispc\TestFunc.o: CUSTOM_COMMAND ..\..\..\YiaEngine\Engine\Framework\Math\ispc\TestFunc.ispc
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E env PATH=E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ispc.exe E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/ispc/TestFunc.ispc -h E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/operation/TestFunc.h -o TestFunc.o"
+  DESC = BUILDING TestFunc
+  restat = 1
+
+
+#############################################
+# Custom command for YiaEngine\Engine\Framework\Math\ispc\VectorFunc.o
+
+build YiaEngine\Engine\Framework\Math\ispc\VectorFunc.o: CUSTOM_COMMAND ..\..\..\YiaEngine\Engine\Framework\Math\ispc\VectorFunc.ispc
+  COMMAND = cmd.exe /C "cd /D E:\YiaEngineRepos\build\x64-Clang-Debug\debug\YiaEngine\Engine\Framework\Math\ispc && C:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E env PATH=E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ E:/YiaEngineRepos/YiaEngine/External/ispc/bin/ispc.exe E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/ispc/VectorFunc.ispc -h E:/YiaEngineRepos/YiaEngine/Engine/Framework/Math/operation/VectorFunc.h -o VectorFunc.o"
+  DESC = BUILDING VectorFunc
   restat = 1
 
 
@@ -1026,11 +1471,12 @@ build YiaEngine\Engine\Framework\Math\ispc\simple.o: CUSTOM_COMMAND ..\..\..\Yia
 #############################################
 # Order-only phony target for GeomMathTest
 
-build cmake_object_order_depends_target_GeomMathTest: phony || YiaEngine\Engine\Framework\Math\ispc\GeomMathLib
+build cmake_object_order_depends_target_GeomMathTest: phony || YiaEngine\Engine\Framework\Math\Combine YiaEngine\Engine\Framework\Math\ispc\GeomMathLib cmake_object_order_depends_target_CommonMath cmake_object_order_depends_target_GeomMathEx
 
 build YiaEngine\Engine\Framework\Math\test\CMakeFiles\GeomMathTest.dir\test.cpp.obj: CXX_COMPILER__GeomMathTest_Debug ..\..\..\YiaEngine\Engine\Framework\Math\test\test.cpp || cmake_object_order_depends_target_GeomMathTest
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -imsvc ..\..\..\YiaEngine\Engine\Framework\Math\operation
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene
   OBJECT_DIR = YiaEngine\Engine\Framework\Math\test\CMakeFiles\GeomMathTest.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Math\test\CMakeFiles\GeomMathTest.dir
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Math\test\CMakeFiles\GeomMathTest.dir\
@@ -1044,10 +1490,10 @@ build YiaEngine\Engine\Framework\Math\test\CMakeFiles\GeomMathTest.dir\test.cpp.
 #############################################
 # Link the executable YiaEngine\Engine\Framework\Math\test\GeomMathTest.exe
 
-build YiaEngine\Engine\Framework\Math\test\GeomMathTest.exe: CXX_EXECUTABLE_LINKER__GeomMathTest_Debug YiaEngine\Engine\Framework\Math\test\CMakeFiles\GeomMathTest.dir\test.cpp.obj | YiaEngine\Engine\Framework\Math\GeomMath.lib || YiaEngine\Engine\Framework\Math\ispc\GeomMathLib
+build YiaEngine\Engine\Framework\Math\test\GeomMathTest.exe: CXX_EXECUTABLE_LINKER__GeomMathTest_Debug YiaEngine\Engine\Framework\Math\test\CMakeFiles\GeomMathTest.dir\test.cpp.obj | YiaEngine\Engine\Framework\Math\math.lib || YiaEngine\Engine\Framework\Math\Combine YiaEngine\Engine\Framework\Math\CommonMath.lib YiaEngine\Engine\Framework\Math\GeomMathEx.lib YiaEngine\Engine\Framework\Math\ispc\GeomMathLib
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
-  LINK_LIBRARIES = YiaEngine\Engine\Framework\Math\GeomMath.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  LINK_LIBRARIES = YiaEngine\Engine\Framework\Math\math.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = YiaEngine\Engine\Framework\Math\test\CMakeFiles\GeomMathTest.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -1095,6 +1541,42 @@ build YiaEngine\Engine\Framework\Math\test\edit_cache: phony YiaEngine\Engine\Fr
 # Write statements declared in CMakeLists.txt:
 # E:/YiaEngineRepos/YiaEngine/Engine/Framework/CMakeLists.txt
 # =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target YiaScene
+
+
+#############################################
+# Order-only phony target for YiaScene
+
+build cmake_object_order_depends_target_YiaScene: phony || YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir
+
+build YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir\SceneEnum.cpp.obj: CXX_COMPILER__YiaScene_Debug ..\..\..\YiaEngine\Engine\Framework\Scene\SceneEnum.cpp || cmake_object_order_depends_target_YiaScene
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene
+  OBJECT_DIR = YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir\YiaScene.pdb
+  TARGET_PDB = YiaEngine\Engine\Framework\Scene\YiaScene.pdb
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target YiaScene
+
+
+#############################################
+# Link the static library YiaEngine\Engine\Framework\Scene\YiaScene.lib
+
+build YiaEngine\Engine\Framework\Scene\YiaScene.lib: CXX_STATIC_LIBRARY_LINKER__YiaScene_Debug YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir\SceneEnum.cpp.obj
+  LANGUAGE_COMPILE_FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  LINK_FLAGS = /machine:x64
+  OBJECT_DIR = YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir\YiaScene.pdb
+  TARGET_FILE = YiaEngine\Engine\Framework\Scene\YiaScene.lib
+  TARGET_PDB = YiaEngine\Engine\Framework\Scene\YiaScene.pdb
 
 
 #############################################
@@ -1145,49 +1627,73 @@ build YiaEngine\Engine\Framework\Scene\edit_cache: phony YiaEngine\Engine\Framew
 
 build cmake_object_order_depends_target_SceneTest: phony || YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir
 
-build YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\test.cpp.obj: CXX_COMPILER__SceneTest_Debug ..\..\..\YiaEngine\Engine\Framework\Scene\Test\test.cpp || cmake_object_order_depends_target_SceneTest
+build YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\__\__\External\crossguid\guid.cpp.obj: CXX_COMPILER__SceneTest_Debug ..\..\..\YiaEngine\External\crossguid\guid.cpp || cmake_object_order_depends_target_SceneTest
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene
+  OBJECT_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\__\__\External\crossguid
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\
+  TARGET_PDB = YiaEngine\Engine\Framework\Scene\Test\SceneTest.pdb
+
+build YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\test.cpp.obj: CXX_COMPILER__SceneTest_Debug ..\..\..\YiaEngine\Engine\Framework\Scene\Test\test.cpp || cmake_object_order_depends_target_SceneTest
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene
   OBJECT_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\
   TARGET_PDB = YiaEngine\Engine\Framework\Scene\Test\SceneTest.pdb
 
-build YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\SceneManager.cpp.obj: CXX_COMPILER__SceneTest_Debug ..\..\..\YiaEngine\Engine\Framework\Scene\SceneManager.cpp || cmake_object_order_depends_target_SceneTest
+build YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\SceneEnum.cpp.obj: CXX_COMPILER__SceneTest_Debug ..\..\..\YiaEngine\Engine\Framework\Scene\SceneEnum.cpp || cmake_object_order_depends_target_SceneTest
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene
+  OBJECT_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\
+  TARGET_PDB = YiaEngine\Engine\Framework\Scene\Test\SceneTest.pdb
+
+build YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\SceneManager.cpp.obj: CXX_COMPILER__SceneTest_Debug ..\..\..\YiaEngine\Engine\Framework\Scene\SceneManager.cpp || cmake_object_order_depends_target_SceneTest
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene
   OBJECT_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\
   TARGET_PDB = YiaEngine\Engine\Framework\Scene\Test\SceneTest.pdb
 
 build YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\SceneNode.cpp.obj: CXX_COMPILER__SceneTest_Debug ..\..\..\YiaEngine\Engine\Framework\Scene\SceneNode.cpp || cmake_object_order_depends_target_SceneTest
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene
   OBJECT_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\
   TARGET_PDB = YiaEngine\Engine\Framework\Scene\Test\SceneTest.pdb
 
 build YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common\AssetLoder\AssetLoder.cpp.obj: CXX_COMPILER__SceneTest_Debug ..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder\AssetLoder.cpp || cmake_object_order_depends_target_SceneTest
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene
   OBJECT_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common\AssetLoder
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\
   TARGET_PDB = YiaEngine\Engine\Framework\Scene\Test\SceneTest.pdb
 
 build YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common\MemoryManager.cpp.obj: CXX_COMPILER__SceneTest_Debug ..\..\..\YiaEngine\Engine\Framework\Common\MemoryManager.cpp || cmake_object_order_depends_target_SceneTest
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene
   OBJECT_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\
   TARGET_PDB = YiaEngine\Engine\Framework\Scene\Test\SceneTest.pdb
 
 build YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common\Allocator.cpp.obj: CXX_COMPILER__SceneTest_Debug ..\..\..\YiaEngine\Engine\Framework\Common\Allocator.cpp || cmake_object_order_depends_target_SceneTest
+  DEFINES = -DUNICODE -D_UNICODE
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
-  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene
   OBJECT_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir
   OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\
@@ -1201,10 +1707,10 @@ build YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Commo
 #############################################
 # Link the executable YiaEngine\Engine\Framework\Scene\Test\SceneTest.exe
 
-build YiaEngine\Engine\Framework\Scene\Test\SceneTest.exe: CXX_EXECUTABLE_LINKER__SceneTest_Debug YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\test.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\SceneManager.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\SceneNode.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common\AssetLoder\AssetLoder.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common\MemoryManager.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common\Allocator.cpp.obj | ..\..\..\YiaEngine\External\assimp\assimp-vc142-mt.lib
+build YiaEngine\Engine\Framework\Scene\Test\SceneTest.exe: CXX_EXECUTABLE_LINKER__SceneTest_Debug YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\__\__\External\crossguid\guid.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\test.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\SceneEnum.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\SceneManager.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\SceneNode.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common\AssetLoder\AssetLoder.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common\MemoryManager.cpp.obj YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir\__\__\Common\Allocator.cpp.obj | ..\..\..\YiaEngine\External\assimp\assimp-vc142-mtd.lib
   FLAGS = -m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
-  LINK_LIBRARIES = ..\..\..\YiaEngine\External\assimp\assimp-vc142-mt.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  LINK_LIBRARIES = ..\..\..\YiaEngine\External\assimp\assimp-vc142-mtd.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   LINK_PATH = -LIBPATH:E:\YiaEngineRepos\YiaEngine\External\assimp
   OBJECT_DIR = YiaEngine\Engine\Framework\Scene\Test\CMakeFiles\SceneTest.dir
   POST_BUILD = cd .
@@ -1252,11 +1758,29 @@ build YiaEngine\Engine\Framework\Scene\Test\edit_cache: phony YiaEngine\Engine\F
 # =============================================================================
 # Target aliases.
 
+build Combine: phony YiaEngine\Engine\Framework\Math\Combine
+
+build CommonMath: phony YiaEngine\Engine\Framework\Math\CommonMath.lib
+
+build CommonMath.lib: phony YiaEngine\Engine\Framework\Math\CommonMath.lib
+
+build GeomMathEx: phony YiaEngine\Engine\Framework\Math\GeomMathEx.lib
+
+build GeomMathEx.lib: phony YiaEngine\Engine\Framework\Math\GeomMathEx.lib
+
 build GeomMathLib: phony YiaEngine\Engine\Framework\Math\ispc\GeomMathLib
 
 build GeomMathTest: phony YiaEngine\Engine\Framework\Math\test\GeomMathTest.exe
 
 build GeomMathTest.exe: phony YiaEngine\Engine\Framework\Math\test\GeomMathTest.exe
+
+build IMGUI: phony YiaEngine\External\ImGui\IMGUI.lib
+
+build IMGUI.lib: phony YiaEngine\External\ImGui\IMGUI.lib
+
+build ImGuiTest: phony YiaEngine\External\ImGui\backend\ImGuiTest.exe
+
+build ImGuiTest.exe: phony YiaEngine\External\ImGui\backend\ImGuiTest.exe
 
 build SceneTest: phony YiaEngine\Engine\Framework\Scene\Test\SceneTest.exe
 
@@ -1265,6 +1789,10 @@ build SceneTest.exe: phony YiaEngine\Engine\Framework\Scene\Test\SceneTest.exe
 build YiaEngine: phony YiaEngine\Engine\Framework\Common\YiaEngine.exe
 
 build YiaEngine.exe: phony YiaEngine\Engine\Framework\Common\YiaEngine.exe
+
+build YiaScene: phony YiaEngine\Engine\Framework\Scene\YiaScene.lib
+
+build YiaScene.lib: phony YiaEngine\Engine\Framework\Scene\YiaScene.lib
 
 build allocTest: phony YiaEngine\Engine\Framework\Common\Test\allocTest.exe
 
@@ -1320,7 +1848,7 @@ build YiaEngine\Engine\Framework\Common\Test\all: phony YiaEngine\Engine\Framewo
 #############################################
 # Folder: E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math
 
-build YiaEngine\Engine\Framework\Math\all: phony YiaEngine\Engine\Framework\Math\ispc\all YiaEngine\Engine\Framework\Math\test\all
+build YiaEngine\Engine\Framework\Math\all: phony YiaEngine\Engine\Framework\Math\CommonMath.lib YiaEngine\Engine\Framework\Math\GeomMathEx.lib YiaEngine\Engine\Framework\Math\ispc\all YiaEngine\Engine\Framework\Math\test\all
 
 # =============================================================================
 
@@ -1341,7 +1869,7 @@ build YiaEngine\Engine\Framework\Math\test\all: phony YiaEngine\Engine\Framework
 #############################################
 # Folder: E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Scene
 
-build YiaEngine\Engine\Framework\Scene\all: phony YiaEngine\Engine\Framework\Scene\Test\all
+build YiaEngine\Engine\Framework\Scene\all: phony YiaEngine\Engine\Framework\Scene\YiaScene.lib YiaEngine\Engine\Framework\Scene\Test\all
 
 # =============================================================================
 
@@ -1355,14 +1883,21 @@ build YiaEngine\Engine\Framework\Scene\Test\all: phony YiaEngine\Engine\Framewor
 #############################################
 # Folder: E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External
 
-build YiaEngine\External\all: phony YiaEngine\External\assimp\all
+build YiaEngine\External\all: phony YiaEngine\External\ImGui\all
 
 # =============================================================================
 
 #############################################
-# Folder: E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External/assimp
+# Folder: E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External/ImGui
 
-build YiaEngine\External\assimp\all: phony
+build YiaEngine\External\ImGui\all: phony YiaEngine\External\ImGui\IMGUI.lib YiaEngine\External\ImGui\backend\all
+
+# =============================================================================
+
+#############################################
+# Folder: E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/External/ImGui/backend
+
+build YiaEngine\External\ImGui\backend\all: phony YiaEngine\External\ImGui\backend\ImGuiTest.exe
 
 # =============================================================================
 # Built-in targets
@@ -1371,14 +1906,14 @@ build YiaEngine\External\assimp\all: phony
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ..\..\..\CMakeLists.txt ..\..\..\YiaEngine\CMakeLists.txt ..\..\..\YiaEngine\Engine\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Common\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Common\Test\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Math\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Math\ispc\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Math\test\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Scene\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Scene\Test\CMakeLists.txt ..\..\..\YiaEngine\External\CMakeLists.txt ..\..\..\YiaEngine\External\assimp\CMakeLists.txt C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCXXInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeGenericSystem.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeRCInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CTest.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CTestTargets.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CTestUseLaunchers.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CheckCXXCompilerFlag.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CheckCXXSourceCompiles.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Clang-C.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Clang-CXX.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Clang.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\DartConfiguration.tcl.in C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Internal\CheckCompilerFlag.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Internal\CheckSourceCompiles.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-Clang-C.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-Clang-CXX.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-Clang.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake CMakeCache.txt CMakeFiles\3.20.21032501-MSVC_2\CMakeCCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeCXXCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeRCCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ..\..\..\CMakeLists.txt ..\..\..\YiaEngine\CMakeLists.txt ..\..\..\YiaEngine\Engine\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Common\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Common\Test\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Math\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Math\ispc\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Math\test\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Scene\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Scene\Test\CMakeLists.txt ..\..\..\YiaEngine\External\CMakeLists.txt ..\..\..\YiaEngine\External\ImGui\CMakeLists.txt ..\..\..\YiaEngine\External\ImGui\backend\CMakeLists.txt C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCXXInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeGenericSystem.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeRCInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CTest.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CTestTargets.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CTestUseLaunchers.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CheckCXXCompilerFlag.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CheckCXXSourceCompiles.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Clang-C.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Clang-CXX.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Clang.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\DartConfiguration.tcl.in C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Internal\CheckCompilerFlag.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Internal\CheckSourceCompiles.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-Clang-C.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-Clang-CXX.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-Clang.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake CMakeCache.txt CMakeFiles\3.20.21032501-MSVC_2\CMakeCCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeCXXCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeRCCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ..\..\..\CMakeLists.txt ..\..\..\YiaEngine\CMakeLists.txt ..\..\..\YiaEngine\Engine\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Common\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Common\Test\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Math\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Math\ispc\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Math\test\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Scene\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Scene\Test\CMakeLists.txt ..\..\..\YiaEngine\External\CMakeLists.txt ..\..\..\YiaEngine\External\assimp\CMakeLists.txt C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCXXInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeGenericSystem.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeRCInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CTest.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CTestTargets.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CTestUseLaunchers.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CheckCXXCompilerFlag.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CheckCXXSourceCompiles.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Clang-C.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Clang-CXX.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Clang.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\DartConfiguration.tcl.in C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Internal\CheckCompilerFlag.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Internal\CheckSourceCompiles.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-Clang-C.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-Clang-CXX.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-Clang.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake CMakeCache.txt CMakeFiles\3.20.21032501-MSVC_2\CMakeCCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeCXXCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeRCCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeSystem.cmake: phony
+build ..\..\..\CMakeLists.txt ..\..\..\YiaEngine\CMakeLists.txt ..\..\..\YiaEngine\Engine\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Common\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Common\Test\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Math\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Math\ispc\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Math\test\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Scene\CMakeLists.txt ..\..\..\YiaEngine\Engine\Framework\Scene\Test\CMakeLists.txt ..\..\..\YiaEngine\External\CMakeLists.txt ..\..\..\YiaEngine\External\ImGui\CMakeLists.txt ..\..\..\YiaEngine\External\ImGui\backend\CMakeLists.txt C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCXXInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeCommonLanguageInclude.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeGenericSystem.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeInitializeConfigs.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeLanguageInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeRCInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInformation.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CMakeSystemSpecificInitialize.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CTest.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CTestTargets.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CTestUseLaunchers.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CheckCXXCompilerFlag.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\CheckCXXSourceCompiles.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Clang-C.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Clang-CXX.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Compiler\Clang.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\DartConfiguration.tcl.in C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Internal\CheckCompilerFlag.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Internal\CheckSourceCompiles.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-Clang-C.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-Clang-CXX.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-Clang.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows-MSVC.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\Windows.cmake C$:\D\VS2019\IDE\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.20\Modules\Platform\WindowsPaths.cmake CMakeCache.txt CMakeFiles\3.20.21032501-MSVC_2\CMakeCCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeCXXCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeRCCompiler.cmake CMakeFiles\3.20.21032501-MSVC_2\CMakeSystem.cmake: phony
 
 
 #############################################

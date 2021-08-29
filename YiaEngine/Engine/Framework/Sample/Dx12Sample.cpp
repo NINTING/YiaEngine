@@ -17,6 +17,9 @@
 
 #include"Core/Graphic.h"
 #include"Core/RootSignature.h"
+
+#include"Core/CommandContext.h"
+#include"Core/CommandManager.h"
 inline std::string  HrToString(HRESULT hr)
 {
 	char s_str[64] = {};
@@ -216,8 +219,8 @@ void App::LoadPipeline(HWND hwnd)
 		hardwareAdapter.Get(),
 		D3D_FEATURE_LEVEL_11_0,
 		IID_PPV_ARGS(& Graphic::g_device)
-	));
-	
+	)); 
+	Graphic::g_commandManager.Create(Graphic::g_device.Get());
 	D3D12_COMMAND_QUEUE_DESC queueDesc = {};
 	queueDesc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
 	queueDesc.Type = D3D12_COMMAND_LIST_TYPE_DIRECT;
@@ -539,7 +542,7 @@ void App::LoadAsset()
 	}
 	ThrowIfFailed( Graphic::g_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, g_commandAllocator.Get(), pso.pipeline_state_object(), IID_PPV_ARGS(&g_commandList)));
 	g_commandList->SetName(L"G_CommandList");
-	//ThrowIfFailed(g_commandList->Close());
+	ThrowIfFailed(g_commandList->Close());
 
 	{
 		
@@ -601,7 +604,7 @@ void App::LoadAsset()
 		auto normals = mesh->GetNormal();
 		BindVertexAttribute(positiones.data(), positiones.data_size(), positiones.stride(), 0);
 		BindVertexAttribute(uvs.data(), uvs.data_size(), uvs.stride(), 1);
-		BindVertexAttribute(normals.data(), normals.data_size(), normals.stride(), 2);
+		//BindVertexAttribute(normals.data(), normals.data_size(), normals.stride(), 2);
 		auto indexarray = mesh->GetIndexArray(0);
 		BindIndexBuffer(indexarray.data(), indexarray.data_size());
 		
@@ -865,7 +868,7 @@ void App::PopulateSceneCommandList()
 
 	
 	//g_commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);		
-	////g_commandList->IASetIndexBuffer();
+	////g_commandList->IASetIndexBuffer();		
 	//g_commandList->IASetVertexBuffers(0, 2, &g_VertexBufferView[0]);
 	//g_commandList->IASetIndexBuffer(&g_IndexBufferView);
 	//auto mesh = g_mode->Object()->GetMeshObject(0);
@@ -903,10 +906,18 @@ void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Grap
 		D3D12_RESOURCE_STATE_COPY_DEST,
 		nullptr,
 		IID_PPV_ARGS(texture_buffer)));
+
+
+	auto copy_command = Graphic::CommandContext::Begin();
+
+
 	ComPtr<ID3D12Resource> tempraryUpload = nullptr;
 
 	UINT64 textureUploadBufferSize, textureUploadBufferSize2;
 	 Graphic::g_device->GetCopyableFootprints(&desc, 0, 1, 0, nullptr, nullptr, nullptr, &textureUploadBufferSize);
+	 
+	auto uplaod_buffer = copy_command->GetTemraryUploadBuffer(textureUploadBufferSize);
+
 
 	textureUploadBufferSize2 = GetRequiredIntermediateSize(*texture_buffer, 0, 1);
 	auto heap_properties1 = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
@@ -920,15 +931,19 @@ void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Grap
 		nullptr,
 		IID_PPV_ARGS(&tempraryUpload)));
 
+
+	//loadTextureContext->Begin();
 	//D3D12_SUBRESOURCE_DATA initData = { &texture[0], TextureWidth * 4,TextureWidth * 4 * TextureHeight };
 	D3D12_SUBRESOURCE_DATA initData = { image->pData, image->pitch,image->data_size };
-	UpdateSubresources<1>(g_commandList.Get(), *texture_buffer, tempraryUpload.Get(), 0, 0, 1, &initData);
+	//UpdateSubresources<1>(copy_command->command_list(), *texture_buffer, tempraryUpload.Get(), 0, 0, 1, &initData);
+	ASSERT_SUCCEEDED( UpdateSubresources<1>(copy_command->command_list(), *texture_buffer, uplaod_buffer.Buffer.resource(), 0, 0, 1, &initData));
+	//UpdateSubresources<1>(copy_command->command_list(), *texture_buffer, tempraryUpload.Get(), 0, 0, 1, &initData);
 
 	auto barrise = CD3DX12_RESOURCE_BARRIER::Transition(
 		*texture_buffer,
 		D3D12_RESOURCE_STATE_COPY_DEST,  
 		D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
-	g_commandList->ResourceBarrier(1, &barrise);
+	copy_command->command_list()->ResourceBarrier(1, &barrise);
 
 	
 
@@ -942,12 +957,16 @@ void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Grap
 	//CD3DX12_CPU_DESCRIPTOR_HANDLE desc_handle(descriptor_heap.Alloc(1), 1, srv_desc_size);
 	 Graphic::g_device->CreateShaderResourceView(*texture_buffer, &srvDesc, descriptor_heap.Alloc(1));
 
-	ThrowIfFailed(g_commandList->Close());
+	 copy_command->End();
+	 delete copy_command;
+	/*ThrowIfFailed(g_commandList->Close());
 	ID3D12CommandList* ppCommandLists[] = { g_commandList.Get() };
 
 	g_CommandQueue->ExecuteCommandLists(1, ppCommandLists);
 
-	WaitForPreviousFrame();
+	WaitForPreviousFrame();*/
+
+	//loadTextureContext->End();
 }
 
 void App::Destroy()

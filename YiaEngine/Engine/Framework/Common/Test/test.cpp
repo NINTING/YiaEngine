@@ -16,12 +16,12 @@ namespace YiaEngine
 	//MemoryManager* g_pMemoryManager = new MemoryManager();
 
 }
-YiaEngine::Buffer AllocateBuffer()
-{
-	YiaEngine::Buffer* buf = new YiaEngine::Buffer(100);
-	printf("%p\n", buf->m_pdata);
-	return std::move(*buf);
-}
+//YiaEngine::Buffer AllocateBuffer()
+//{
+//	YiaEngine::Buffer* buf = new YiaEngine::Buffer(100);
+//	printf("%p\n", buf->m_pdata);
+//	return std::move(*buf);
+//}
 
 int main()
 {

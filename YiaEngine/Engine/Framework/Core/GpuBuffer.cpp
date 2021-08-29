@@ -23,6 +23,7 @@ namespace YiaEngine:: Graphic
             IID_PPV_ARGS(&resource_)));
         if (data != nullptr)
         {
+            //TODO: {Yia} Gpu初始化数据
             /*
             * 分配一个upload buffer 
             * commandlist -> copybuffer (initdata->uploadbuffer->resource)
