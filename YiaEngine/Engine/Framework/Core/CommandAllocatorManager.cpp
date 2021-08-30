@@ -30,6 +30,8 @@ namespace YiaEngine
 				{
 					ret = ready_list.front().second;
 					ready_list.pop();
+					ASSERT_SUCCEEDED(ret->Reset());
+
 				}
 			}
 			if (ret == nullptr)

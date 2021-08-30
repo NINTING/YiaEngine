@@ -4,8 +4,10 @@
 
 #include<vector>
 #include<memory>
+#include<queue>
 
 #include"GpuResource.h"
+
 
 namespace YiaEngine
 {
@@ -57,7 +59,14 @@ namespace YiaEngine
 					Cpu_address_ = nullptr;
 				}
 			}
-	
+			void Unmap()
+			{
+				if (Cpu_address_)
+				{
+					resource_->Unmap(0,nullptr);
+					Cpu_address_ = nullptr;
+				}
+			}
 			void* Cpu_address_;
 			D3D12_GPU_VIRTUAL_ADDRESS Gpu_address_;
 			
@@ -68,12 +77,17 @@ namespace YiaEngine
 			ResourceAllocatePageManager(AllocateType type);
 			ResourceAllocatePage* RequestPage();
 			ResourceAllocatePage* RequestResource();
+			void DiscradPages(UINT64 fence,const std::vector<ResourceAllocatePage*>&lists);
+			void DeleteLargePages(UINT64 fence, const std::vector<ResourceAllocatePage*>& lists);
+	
 			ResourceAllocatePage* CreateNewPage(size_t page_size = 0);
 			void FreeLargePage(UINT64 fence,std::vector<ResourceAllocatePage*>list);
 		private:
 			AllocateType type_;
 			std::vector<std::unique_ptr<ResourceAllocatePage>> page_pool_;
-				
+			std::queue <ResourceAllocatePage*>ready_queue_;
+			std::queue <std::pair<UINT64,ResourceAllocatePage*>>retired_queue_;
+			std::queue <std::pair<UINT64, ResourceAllocatePage*>>delete_queue;
 		};
 		class ResourceAllocator
 		{
@@ -85,6 +99,7 @@ namespace YiaEngine
 				cur_offset_ = 0;
 			}
 			AllocateBuffer Allocate(size_t alloc_size,int aligment = DEFAULT_ALIGMENT);
+			void FreeResource(UINT64 fence);
 		private:
 			
 			AllocateType type_;
@@ -92,6 +107,8 @@ namespace YiaEngine
 			size_t cur_offset_;
 			ResourceAllocatePage* cur_page_;
 			std::vector<ResourceAllocatePage*>large_page_list_;
+			std::vector<ResourceAllocatePage*>page_list_;
+
 			static ResourceAllocatePageManager s_pageManager[(int)AllocateType::kTypeNum];
 		};
 	}

@@ -898,7 +898,7 @@ void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Grap
 	//auto desc = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_R8G8B8A8_UNORM, TextureWidth, TextureHeight);
 
 	auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
-
+	Graphic::GpuResource target;
 	ThrowIfFailed( Graphic::g_device->CreateCommittedResource(
 		&heap_properties,
 		D3D12_HEAP_FLAG_NONE,
@@ -907,29 +907,22 @@ void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Grap
 		nullptr,
 		IID_PPV_ARGS(texture_buffer)));
 
-
+	Graphic::GpuResource texture;
 	auto copy_command = Graphic::CommandContext::Begin();
 
 
 	ComPtr<ID3D12Resource> tempraryUpload = nullptr;
 
 	UINT64 textureUploadBufferSize, textureUploadBufferSize2;
-	 Graphic::g_device->GetCopyableFootprints(&desc, 0, 1, 0, nullptr, nullptr, nullptr, &textureUploadBufferSize);
 	 
 	auto uplaod_buffer = copy_command->GetTemraryUploadBuffer(textureUploadBufferSize);
 
 
 	textureUploadBufferSize2 = GetRequiredIntermediateSize(*texture_buffer, 0, 1);
-	auto heap_properties1 = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
-	auto resource_desc = CD3DX12_RESOURCE_DESC::Buffer(textureUploadBufferSize);
 
-	ThrowIfFailed( Graphic::g_device->CreateCommittedResource(
-		&heap_properties1,
-		D3D12_HEAP_FLAG_NONE,
-		&resource_desc,
-		D3D12_RESOURCE_STATE_GENERIC_READ,
-		nullptr,
-		IID_PPV_ARGS(&tempraryUpload)));
+	auto resource_desc = CD3DX12_RESOURCE_DESC::Buffer(textureUploadBufferSize2);
+
+	
 
 
 	//loadTextureContext->Begin();
@@ -958,7 +951,7 @@ void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Grap
 	 Graphic::g_device->CreateShaderResourceView(*texture_buffer, &srvDesc, descriptor_heap.Alloc(1));
 
 	 copy_command->End();
-	 delete copy_command;
+
 	/*ThrowIfFailed(g_commandList->Close());
 	ID3D12CommandList* ppCommandLists[] = { g_commandList.Get() };
 

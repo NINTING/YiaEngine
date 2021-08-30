@@ -62,9 +62,8 @@ namespace YiaEngine
 		{
 			if (fence_value > complete_fence_value_)
 			{
-			
-				complete_fence_value_ = max(fence_->GetCompletedValue(), complete_fence_value_);
-
+				if (IsFenceComplete(fence_value))
+					return;
 				if (complete_fence_value_ < fence_value)
 				{
 					fence_->SetEventOnCompletion(fence_value, fence_event_);
@@ -81,6 +80,14 @@ namespace YiaEngine
 		void CommandQueue::DiscardCommandAlloctor(UINT64 fence, ID3D12CommandAllocator* allocator)
 		{
 			command_allocator_manager.DiscardAllocator(fence_value_, allocator);
+		}
+		bool CommandQueue::IsFenceComplete(UINT64 fence_value)
+		{
+			
+			if (fence_value > complete_fence_value_)
+				complete_fence_value_ = max(fence_->GetCompletedValue(), complete_fence_value_);
+			return complete_fence_value_ > fence_value;
+			
 		}
 	}
 		

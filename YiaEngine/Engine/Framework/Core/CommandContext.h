@@ -1,5 +1,7 @@
 #pragma once
 
+#include<string>
+
 #include"Graphic.h"
 #include"GpuResource.h"
 #include"ResourceAllocator.h"
@@ -8,39 +10,58 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
+
 		enum CommandType
 		{
 			kDirect
 		};
+		class CommandContext;
+
 		class CommandContextManager
 		{
-
+		public:
+			CommandContextManager() = default;
+	
+			CommandContext* Allocator(D3D12_COMMAND_LIST_TYPE type);
+			void Free(CommandContext* context);
+		private:
+			std::vector<CommandContext*> context_pool_;
+			std::queue<CommandContext*> ready_queue_[4];
 		};
 
 		//CommandContext是一个最小的GPU任务执行单元
 		class CommandContext
 		{
+			friend CommandContextManager;
 		public:
-	
-			static CommandContext* Begin();
+			static CommandContext* Begin(const wchar_t* name = L"");
 			void End(bool wait_for_complete = true);
 
 			AllocateBuffer GetTemraryUploadBuffer(size_t size_byte) {
 				return upload_allocator_.Allocate(size_byte);
 			}
+			void TransitionBarrier(GpuResource& resource, D3D12_RESOURCE_STATES source, D3D12_RESOURCE_STATES dest);
+		public:
+			static void InitializeTexture(GpuResource&dest,UINT subresource_num, D3D12_SUBRESOURCE_DATA data);
+			
+
+		public:
 
 			ID3D12GraphicsCommandList* command_list() { return command_list_.Get(); };
+			D3D12_COMMAND_LIST_TYPE type() { return type_; };
 		private:
 			CommandContext(D3D12_COMMAND_LIST_TYPE type);
 			void Initialize();
+			void Reset();
 		private:
 			//CommandQueue command_queue_;
 
-
+			static CommandContextManager s_context_manager;
 			ComPtr<ID3D12GraphicsCommandList> command_list_;
-			ComPtr <ID3D12CommandAllocator> command_allocator_;
+			ID3D12CommandAllocator* command_allocator_;
 			ResourceAllocator upload_allocator_;
 			D3D12_COMMAND_LIST_TYPE type_;
+			std::wstring name;
 			//CommandType type_;
 		};
 	}
