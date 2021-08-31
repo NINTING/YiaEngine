@@ -1,3 +1,4 @@
+#include "DescriptorHeap.h"
 #pragma once
 
 
@@ -74,8 +75,9 @@ namespace YiaEngine::Graphic
 		head_free_handle_ = first_handle_;
 	}
 	
-	DescriptorHandle DescriptorAllocator::Alloc(uint32_t count = 1)
+	DescriptorHandle CpuDescriptorAllocator::Alloc(uint32_t count = 1)
 	{
+
 		DescriptorHandle ret;
 		for (auto it = heaps_.begin(); it != heaps_.end(); it++)
 		{
@@ -92,7 +94,7 @@ namespace YiaEngine::Graphic
 		return ret;
 	}
 
-	void DescriptorAllocator::AllocHeap(D3D12_DESCRIPTOR_HEAP_TYPE type)
+	void CpuDescriptorAllocator::AllocHeap(D3D12_DESCRIPTOR_HEAP_TYPE type)
 	{
 		DescriptorHeap heap;
 		wchar_t name[25];
@@ -101,4 +103,17 @@ namespace YiaEngine::Graphic
 		heaps_.push_back(heap);
 	}
 
+	DescriptorHandle CpuDescriptorAllocator::AllocateDescriptorHandle(D3D12_DESCRIPTOR_HEAP_TYPE type, uint32_t count)
+	{
+		static CpuDescriptorAllocator s_descriptor[D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES] = {
+		D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV ,
+		D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER ,
+		D3D12_DESCRIPTOR_HEAP_TYPE_RTV  ,
+		D3D12_DESCRIPTOR_HEAP_TYPE_DSV,
+		};
+		return s_descriptor[type].Alloc(count);
+	}
+
 }
+
+

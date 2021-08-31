@@ -10,6 +10,13 @@
 *	shader-visible 的描述符堆会建立在WRITE_COMBINE memory , GPU local memory.读取速度会非常慢 
 *	如果资源需要在CPU端使用又要绑定到GPU中，需要先存储在non-shader-visible，然后在拷贝至shader-visible heap
 */
+
+/*
+* 描述符堆主要是为了尽可能的包含一整个渲染帧所需要的描述符大小。
+* 比如Texture需要在不同的状态切换(e.g. cpu access,shader visible),则需要为不同的状态都创建相应的描述符
+*/
+
+//https://docs.microsoft.com/en-us/windows/win32/direct3d12/descriptor-heaps-overview
 namespace YiaEngine::Graphic
 {
 	
@@ -77,20 +84,24 @@ namespace YiaEngine::Graphic
 	};
 
 	//无限的no-shader-visible描述符分配器械,描述符需要请求分配者保存。
-//适用于需要在CPU对资源进行读取操作的情况
-	class DescriptorAllocator
+	//适用于需要在CPU对资源进行读取操作的情况,在Cpu进行暂存。
+	// 当需要着色器可见时，需要拷贝至DynamicDescriptorAllocator
+	//https://docs.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-copydescriptors
+	class CpuDescriptorAllocator
 	{
 	public:
-		DescriptorAllocator(D3D12_DESCRIPTOR_HEAP_TYPE type)
+		CpuDescriptorAllocator(D3D12_DESCRIPTOR_HEAP_TYPE type)
 			:type_(type) {}
 		DescriptorHandle Alloc(uint32_t count);
 		void AllocHeap(D3D12_DESCRIPTOR_HEAP_TYPE type);
-
+		static DescriptorHandle AllocateDescriptorHandle(D3D12_DESCRIPTOR_HEAP_TYPE type, uint32_t count = 1);
+	
 		
 	private:
 		static const int descriptor_count_perframe_ = 256;
 		std::vector<DescriptorHeap> heaps_;
 		D3D12_DESCRIPTOR_HEAP_TYPE type_;
+
 	};
 
 	

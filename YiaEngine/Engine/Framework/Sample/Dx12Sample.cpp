@@ -913,14 +913,10 @@ void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Grap
 
 	ComPtr<ID3D12Resource> tempraryUpload = nullptr;
 
-	UINT64 textureUploadBufferSize, textureUploadBufferSize2;
-	 
+	UINT64 textureUploadBufferSize;
+	textureUploadBufferSize = GetRequiredIntermediateSize(*texture_buffer, 0, 1);
 	auto uplaod_buffer = copy_command->GetTemraryUploadBuffer(textureUploadBufferSize);
 
-
-	textureUploadBufferSize2 = GetRequiredIntermediateSize(*texture_buffer, 0, 1);
-
-	auto resource_desc = CD3DX12_RESOURCE_DESC::Buffer(textureUploadBufferSize2);
 
 	
 
@@ -948,7 +944,7 @@ void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Grap
 	srvDesc.Texture2D.MipLevels = 1;
 	//UINT srv_desc_size =   Graphic::g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 	//CD3DX12_CPU_DESCRIPTOR_HANDLE desc_handle(descriptor_heap.Alloc(1), 1, srv_desc_size);
-	 Graphic::g_device->CreateShaderResourceView(*texture_buffer, &srvDesc, descriptor_heap.Alloc(1));
+	 Graphic::g_device->CreateShaderResourceView(*texture_buffer, &srvDesc,Graphic::CpuDescriptorAllocator::AllocateDescriptorHandle(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV));
 
 	 copy_command->End();
 

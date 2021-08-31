@@ -166,7 +166,7 @@ public:
 	Graphic::DescriptorHeap rtv_heap_;
 	Graphic::DescriptorHeap gui_srv_heap;
 	Graphic::DescriptorHeap srv_cbv_heap_;
-	Graphic::DescriptorAllocator descriptor_allcator_[D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES] =
+	Graphic::CpuDescriptorAllocator descriptor_allcator_[D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES] =
 	{
 		D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV,
 		D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER ,

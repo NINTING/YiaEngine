@@ -15,7 +15,7 @@ namespace YiaEngine
 	namespace Graphic
 	{
 		class CommandManager;
-
+		
 		extern CommandManager g_commandManager;
 		extern ComPtr<ID3D12Device> g_device;
 	}

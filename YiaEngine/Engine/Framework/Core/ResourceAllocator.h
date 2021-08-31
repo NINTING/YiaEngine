@@ -34,6 +34,7 @@ namespace YiaEngine
 		{
 			AllocateBuffer(GpuResource& buffer, size_t offset,size_t size,void* cpuAddress = nullptr, D3D12_GPU_VIRTUAL_ADDRESS gpuAddress = -1)
 			:Buffer(buffer),Offset(offset),Size(size),CpuAddress(cpuAddress),GpuAddress(gpuAddress){}
+			ID3D12Resource* GetResource() { return Buffer.resource(); }
 			GpuResource& Buffer;
 			size_t Offset;
 			size_t Size;
@@ -100,6 +101,7 @@ namespace YiaEngine
 			}
 			AllocateBuffer Allocate(size_t alloc_size,int aligment = DEFAULT_ALIGMENT);
 			void FreeResource(UINT64 fence);
+		
 		private:
 			
 			AllocateType type_;
