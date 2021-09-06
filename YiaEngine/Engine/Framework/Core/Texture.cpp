@@ -16,7 +16,7 @@ namespace YiaEngine
 			auto desc = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_R8G8B8A8_UNORM, image->width, image->height);
 			auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
 			Graphic::GpuResource target;
-			ASSERT_SUCCEEDED(Graphic::g_device->CreateCommittedResource(
+			ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(
 				&heap_properties,
 				D3D12_HEAP_FLAG_NONE,
 				&desc,
@@ -45,7 +45,7 @@ namespace YiaEngine
 			srvDesc.Texture2D.MipLevels = 1;
 			//UINT srv_desc_size =   Graphic::g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 			//CD3DX12_CPU_DESCRIPTOR_HANDLE desc_handle(descriptor_heap.Alloc(1), 1, srv_desc_size);
-			Graphic::g_device->CreateShaderResourceView(resource_.Get(), &srvDesc, CpuDescriptorAllocator::AllocateDescriptorHandle(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV));
+			Graphic::g_Device->CreateShaderResourceView(resource_.Get(), &srvDesc, CpuDescriptorAllocator::AllocateDescriptorHandle(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV));
 
 			copy_command->End();
 

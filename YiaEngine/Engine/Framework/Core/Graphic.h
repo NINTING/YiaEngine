@@ -17,6 +17,6 @@ namespace YiaEngine
 		class CommandManager;
 		
 		extern CommandManager g_commandManager;
-		extern ComPtr<ID3D12Device> g_device;
+		extern ComPtr<ID3D12Device> g_Device;
 	}
 }

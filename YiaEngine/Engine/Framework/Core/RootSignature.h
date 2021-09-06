@@ -6,6 +6,9 @@
 #include<memory>
 namespace YiaEngine::Graphic
 {
+
+
+
 	class RootParameter
 	{
 	public:
@@ -30,6 +33,23 @@ namespace YiaEngine::Graphic
 			range_ptr->OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
 			range_ptr->RegisterSpace = space;
 		}
+		bool IsDescriptorTable() const
+		{
+			return parameter_.ParameterType == D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+		}
+		int DescriptorTableSize()
+		{
+			if (!IsDescriptorTable())
+				return 0;
+			int rangeNum = parameter_.DescriptorTable.NumDescriptorRanges;
+			auto ranges = parameter_.DescriptorTable.pDescriptorRanges;
+			size_t ret = 0;
+			for (size_t i = 0; i < rangeNum; i++)
+			{
+				ret += ranges[i].NumDescriptors;
+			}
+			return ret;
+		}
 		~RootParameter()
 		{
 			Clear();
@@ -46,26 +66,33 @@ namespace YiaEngine::Graphic
 	};
 
 
+	/*
+		64 DWORD ¿Õ¼ä
+		Root Constants			= 1 DWORD * numConstant
+		Root Descriptor Table	= 1DWORD
+		Root Descriptor			= 2DWORD
+	*/
 	class RootSignature
 	{
 	public:
-		void Reset(int root_parament_count,int static_sampler_count);
-		void InitStaticSampler(int registerid, D3D12_SAMPLER_DESC desc, D3D12_SHADER_VISIBILITY visibility = D3D12_SHADER_VISIBILITY_ALL);
 		//const ID3D12RootSignature* root_signature() const { return root_signature_.Get(); }const ID3D12RootSignature* root_signature() const { return root_signature_.Get(); }
-		ID3D12RootSignature* root_signature()  { return root_signature_.Get(); }
-		ID3D12RootSignature* root_signature() const { return root_signature_.Get(); }
+		ID3D12RootSignature* root_signature()  { return rootSignature_.Get(); }
+		ID3D12RootSignature* root_signature() const { return rootSignature_.Get(); }
 		void Finalize(const wchar_t* name, D3D12_ROOT_SIGNATURE_FLAGS flag);
+		void InitStaticSampler(int registerid, D3D12_SAMPLER_DESC desc, D3D12_SHADER_VISIBILITY visibility = D3D12_SHADER_VISIBILITY_ALL);
+		void Reset(int root_parament_count,int static_sampler_count);
 	public:
-		RootParameter& operator[](int index) { return paraments_[index]; }
 		const RootParameter& operator[](int index) const { return paraments_[index]; }
-
+		int ParamenterCount()const { return paramenterCount_; }
+		RootParameter& operator[](int index) { return paraments_[index]; }
 	private:
 
-		std::unique_ptr<RootParameter[]>paraments_;
-		std::unique_ptr<D3D12_STATIC_SAMPLER_DESC[]>samplers_;
+		int descriptorTableSizeArray_[16];
+		int paramenterCount_;
 		int static_sampler_count_;
-		int paramenter_count_;
 		int uninit_static_sampler_count_;
-		Microsoft::WRL::ComPtr<ID3D12RootSignature> root_signature_;
+		Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature_;
+		std::unique_ptr<D3D12_STATIC_SAMPLER_DESC[]>samplers_;
+		std::unique_ptr<RootParameter[]>paraments_;
 	};
 }

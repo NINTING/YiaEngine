@@ -117,7 +117,7 @@ public:
 	CD3DX12_RECT g_scissorRect;
 
 
-	ComPtr<ID3D12Device> g_device;
+	ComPtr<ID3D12Device> g_Device;
 	ComPtr<ID3D12CommandQueue>g_CommandQueue;
 	ComPtr< IDXGISwapChain3> g_SwapChain;
 	ComPtr<ID3D12DescriptorHeap>g_RTVHeap;
@@ -180,6 +180,10 @@ public:
 	Graphic::RootSignature rootSignature;
 	Graphic::PipelineStateObject pso;
 	Graphic::PipelineStateObject lightpso;
+
+	Graphic::GpuDescriptorAllocator viewDescriptorAllocator;
+	Graphic::DescriptorHandle gpuTextureHandle_;
+	Graphic::DescriptorHandle gpuCbvHandle_;
 	//GUI
 	std::unique_ptr<SceneWindow> scene_window_;
 };

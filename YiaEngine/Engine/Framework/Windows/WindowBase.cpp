@@ -130,7 +130,7 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
     
     auto font_srv_handle = app->gui_srv_heap.Alloc();
     ImGui_ImplWin32_Init(g_hwnd);
-    ImGui_ImplDX12_Init(Graphic::g_device.Get(), app->frames_count_,
+    ImGui_ImplDX12_Init(Graphic::g_Device.Get(), app->frames_count_,
         DXGI_FORMAT_R8G8B8A8_UNORM, app->gui_srv_heap.heap_ptr(),
         font_srv_handle,
         font_srv_handle);

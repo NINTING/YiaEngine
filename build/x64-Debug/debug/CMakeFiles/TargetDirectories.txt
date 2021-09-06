@@ -49,14 +49,6 @@ E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/CMakeFiles/edit_cache.d
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/CMakeFiles/rebuild_cache.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/CMakeFiles/test.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/CMakeFiles/edit_cache.dir
-E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/CMakeFiles/edit_cache.dir
-E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/CMakeFiles/YiaEngine.dir
-E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/CMakeFiles/rebuild_cache.dir
-E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/CMakeFiles/test.dir
-E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/Test/CMakeFiles/allocTest.dir
-E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/Test/CMakeFiles/rebuild_cache.dir
-E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/Test/CMakeFiles/test.dir
-E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/Test/CMakeFiles/edit_cache.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/Combine.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/CommonMath.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Math/CMakeFiles/GeomMathEx.dir
@@ -79,3 +71,11 @@ E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Scene/Test/CM
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Scene/Test/CMakeFiles/rebuild_cache.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Scene/Test/CMakeFiles/test.dir
 E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Scene/Test/CMakeFiles/edit_cache.dir
+E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/CMakeFiles/edit_cache.dir
+E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/CMakeFiles/YiaEngine.dir
+E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/CMakeFiles/rebuild_cache.dir
+E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/CMakeFiles/test.dir
+E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/Test/CMakeFiles/allocTest.dir
+E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/Test/CMakeFiles/rebuild_cache.dir
+E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/Test/CMakeFiles/test.dir
+E:/YiaEngineRepos/build/x64-Debug/debug/YiaEngine/Engine/Framework/Common/Test/CMakeFiles/edit_cache.dir

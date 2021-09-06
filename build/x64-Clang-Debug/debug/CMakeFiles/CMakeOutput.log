@@ -28,16 +28,16 @@ The CXX compiler identification is Clang, found in "E:/YiaEngineRepos/build/x64-
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: E:/YiaEngineRepos/build/x64-Clang-Debug/debug/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_9e0eb && [1/2] Building C object CMakeFiles\cmTC_9e0eb.dir\CMakeCCompilerABI.c.obj
-[2/2] Linking C executable cmTC_9e0eb.exe
+Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_7c5cc && [1/2] Building C object CMakeFiles\cmTC_7c5cc.dir\CMakeCCompilerABI.c.obj
+[2/2] Linking C executable cmTC_7c5cc.exe
 
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: E:/YiaEngineRepos/build/x64-Clang-Debug/debug/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_28407 && [1/2] Building CXX object CMakeFiles\cmTC_28407.dir\CMakeCXXCompilerABI.cpp.obj
-[2/2] Linking CXX executable cmTC_28407.exe
+Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_a6fdc && [1/2] Building CXX object CMakeFiles\cmTC_a6fdc.dir\CMakeCXXCompilerABI.cpp.obj
+[2/2] Linking CXX executable cmTC_a6fdc.exe
 
 
 
@@ -46,8 +46,8 @@ Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAK
 Detecting CXX [-std:c++14] compiler features compiled with the following output:
 Change Dir: E:/YiaEngineRepos/build/x64-Clang-Debug/debug/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_ac773 && [1/2] Building CXX object CMakeFiles\cmTC_ac773.dir\feature_tests.cxx.obj
-[2/2] Linking CXX executable cmTC_ac773.exe
+Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_1a77b && [1/2] Building CXX object CMakeFiles\cmTC_1a77b.dir\feature_tests.cxx.obj
+[2/2] Linking CXX executable cmTC_1a77b.exe
 
 
 
@@ -112,8 +112,8 @@ Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAK
 Detecting CXX [] compiler features compiled with the following output:
 Change Dir: E:/YiaEngineRepos/build/x64-Clang-Debug/debug/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_1dbfb && [1/2] Building CXX object CMakeFiles\cmTC_1dbfb.dir\feature_tests.cxx.obj
-[2/2] Linking CXX executable cmTC_1dbfb.exe
+Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_e6c7a && [1/2] Building CXX object CMakeFiles\cmTC_e6c7a.dir\feature_tests.cxx.obj
+[2/2] Linking CXX executable cmTC_e6c7a.exe
 
 
 
@@ -176,8 +176,8 @@ Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAK
 Performing C++ SOURCE FILE Test _cpp_latest_flag_supported succeeded with the following output:
 Change Dir: E:/YiaEngineRepos/build/x64-Clang-Debug/debug/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_c1dac && [1/2] Building CXX object CMakeFiles\cmTC_c1dac.dir\src.cxx.obj
-[2/2] Linking CXX executable cmTC_c1dac.exe
+Run Build Command(s):C:\D\VS2019\IDE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe cmTC_6da0e && [1/2] Building CXX object CMakeFiles\cmTC_6da0e.dir\src.cxx.obj
+[2/2] Linking CXX executable cmTC_6da0e.exe
 
 
 Source file was:

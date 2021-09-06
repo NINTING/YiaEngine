@@ -8,14 +8,14 @@
 #include"DescriptorHeap.h"
 
 #include"Core/Graphic.h"
-
+#include"RootSignature.h"
 namespace YiaEngine::Graphic
 {
 	DescriptorHeap::DescriptorHeap(const wchar_t* name,D3D12_DESCRIPTOR_HEAP_DESC desc)
 	{
 		desc_ = desc;
 		
-		auto hr = Graphic::g_device->CreateDescriptorHeap(&desc_, IID_PPV_ARGS(&heap_));
+		auto hr = Graphic::g_Device->CreateDescriptorHeap(&desc_, IID_PPV_ARGS(&heap_));
 		heap_->SetName(name);
 
 		InitHeap();
@@ -23,7 +23,7 @@ namespace YiaEngine::Graphic
 	void DescriptorHeap::Create(const wchar_t* name, D3D12_DESCRIPTOR_HEAP_DESC desc)
 	{
 		desc_ = desc;
-		auto hr = Graphic::g_device->CreateDescriptorHeap(&desc_, IID_PPV_ARGS(&heap_));
+		auto hr = Graphic::g_Device->CreateDescriptorHeap(&desc_, IID_PPV_ARGS(&heap_));
 		heap_->SetName(name);
 		InitHeap();
 	}
@@ -69,7 +69,7 @@ namespace YiaEngine::Graphic
 
 	void DescriptorHeap::InitHeap()
 	{
-		descriptor_size_ = Graphic::g_device->GetDescriptorHandleIncrementSize(desc_.Type);
+		descriptor_size_ = Graphic::g_Device->GetDescriptorHandleIncrementSize(desc_.Type);
 		free_descriptor_num_ = desc_.NumDescriptors;
 		first_handle_ = DescriptorHandle(heap_->GetCPUDescriptorHandleForHeapStart(), heap_->GetGPUDescriptorHandleForHeapStart());
 		head_free_handle_ = first_handle_;
@@ -77,7 +77,6 @@ namespace YiaEngine::Graphic
 	
 	DescriptorHandle CpuDescriptorAllocator::Alloc(uint32_t count = 1)
 	{
-
 		DescriptorHandle ret;
 		for (auto it = heaps_.begin(); it != heaps_.end(); it++)
 		{
@@ -112,6 +111,59 @@ namespace YiaEngine::Graphic
 		D3D12_DESCRIPTOR_HEAP_TYPE_DSV,
 		};
 		return s_descriptor[type].Alloc(count);
+	}
+
+
+	// @param sda
+	void GpuDescriptorAllocator::ParseRootSignature(const RootSignature& rootSignature)
+	{
+		for (size_t i = 0; i < rootSignature.ParamenterCount(); i++)
+		{
+			if (rootSignature[i].IsDescriptorTable())
+			{
+				
+			}
+		}
+	}
+	DescriptorHandle GpuDescriptorAllocator::Alloc(UINT count)
+	{
+		if (currentHeap == nullptr)
+		{
+			DescriptorHeap heap;
+			heap.CreateShaderVisibleType(L"GpuViewHeap",D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 1024);
+			viewHeapPool_.emplace_back(heap);
+			currentHeap = &viewHeapPool_.back();
+		}
+		return currentHeap->Alloc(count);
+	}
+
+	/// <summary>
+	/// 按照DescriptorTable为单位 拷贝至shader visible descriptor heap
+	/// </summary>
+	/// <param name="count"></param>
+	/// <param name="cpuHandle"></param>
+	DescriptorHandle GpuDescriptorAllocator::CopyToGpuDescriptor(int count,const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[])
+	{
+		UINT   NumDestDescriptorRanges = 1;
+		DescriptorHandle pDestDescriptorRangeStarts = Alloc(count);
+		UINT pDestDescriptorRangeSizes[1] = {count};
+		UINT NumSrcDescriptorRanges;
+		const D3D12_CPU_DESCRIPTOR_HANDLE* pSrcDescriptorRangeStarts;
+		UINT pSrcDescriptorRangeSizes[16];
+		for (size_t i = 0; i < count; i++)
+		{
+			pSrcDescriptorRangeSizes[i] = 1;
+		}
+		g_Device->CopyDescriptors(
+		NumDestDescriptorRanges,
+		pDestDescriptorRangeStarts.GetCpuAddress(),
+		pDestDescriptorRangeSizes,
+		count,
+		cpuHandle,
+		pSrcDescriptorRangeSizes,
+		D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
+		);
+		return pDestDescriptorRangeStarts;
 	}
 
 }

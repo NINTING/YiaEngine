@@ -5,6 +5,7 @@
 #include"Graphic.h"
 #include"GpuResource.h"
 #include"ResourceAllocator.h"
+#include"DescriptorHeap.h"
 #include"CommandQueue.h"
 namespace YiaEngine
 {
@@ -41,6 +42,17 @@ namespace YiaEngine
 				return upload_allocator_.Allocate(size_byte);
 			}
 			void TransitionBarrier(GpuResource& resource, D3D12_RESOURCE_STATES source, D3D12_RESOURCE_STATES dest);
+
+			/// <summary>
+			/// At most one CBV/SRV/UAV combined heap and one Sampler heap can be bound at any one time. 
+			/// These heaps are shared between both the graphics and compute pipelines
+			/// (described in their PSOs).
+			/// </summary>
+			/// <param name="type"></param>
+			/// <param name="heap"></param>
+			void SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE type, ID3D12DescriptorHeap* heap);
+
+
 		public:
 			static void InitializeTexture(GpuResource&dest,UINT subresource_num, D3D12_SUBRESOURCE_DATA data);
 			
@@ -62,6 +74,8 @@ namespace YiaEngine
 			ResourceAllocator upload_allocator_;
 			D3D12_COMMAND_LIST_TYPE type_;
 			std::wstring name;
+
+			GpuDescriptorAllocator viewDescriptorAllocator;
 			//CommandType type_;
 		};
 	}

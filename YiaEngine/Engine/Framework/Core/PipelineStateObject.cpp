@@ -95,7 +95,7 @@ namespace YiaEngine::Graphic
 	}
 	void PipelineStateObject::Finalize()
 	{
-		ASSERT_SUCCEEDED(Graphic::g_device->CreateGraphicsPipelineState(&desc_, IID_PPV_ARGS(&pso_)));
+		ASSERT_SUCCEEDED(Graphic::g_Device->CreateGraphicsPipelineState(&desc_, IID_PPV_ARGS(&pso_)));
 		pso_->SetName(name_);
 	}
 }

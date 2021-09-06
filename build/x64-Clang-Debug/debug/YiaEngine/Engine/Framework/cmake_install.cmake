@@ -34,9 +34,9 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Common/cmake_install.cmake")
   include("E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Math/cmake_install.cmake")
   include("E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Scene/cmake_install.cmake")
+  include("E:/YiaEngineRepos/build/x64-Clang-Debug/debug/YiaEngine/Engine/Framework/Common/cmake_install.cmake")
 
 endif()
 

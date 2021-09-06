@@ -36,7 +36,7 @@ namespace YiaEngine
 			}
 			if (ret == nullptr)
 			{
-				ASSERT_SUCCEEDED(Graphic::g_device->CreateCommandAllocator(type_, IID_PPV_ARGS(&ret)));
+				ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommandAllocator(type_, IID_PPV_ARGS(&ret)));
 				pool_.push_back(ret);
 			}
 

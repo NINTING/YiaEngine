@@ -64,7 +64,7 @@ namespace YiaEngine
 				default:
 					break;
 				}
-				g_device->CreateCommandList(1, type, *out_allocator, nullptr, IID_PPV_ARGS(out_list));
+				g_Device->CreateCommandList(1, type, *out_allocator, nullptr, IID_PPV_ARGS(out_list));
 				(*out_list)->SetName(name);
 			
 			}

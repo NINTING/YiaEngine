@@ -58,3 +58,10 @@ https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide
 ### 结构体(struct)
 
 当只有数据成员时，使用struct
+
+
+### 变量名
+
+1. 私有成员变量 memberVar_
+2. 静态成员变量 私有： s_member_ 公有 s_Member
+3. 函数变量 funcVar

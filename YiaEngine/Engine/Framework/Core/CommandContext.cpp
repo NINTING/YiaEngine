@@ -33,11 +33,7 @@ namespace YiaEngine
 		}
 		void CommandContext::Initialize()
 		{
-		//	command_allocator_ = command_queue_.RequireCommandAlloctor();
-		//	ASSERT_SUCCEEDED(Graphic::g_device->CreateCommandList(1, D3D12_COMMAND_LIST_TYPE_DIRECT, command_allocator_.Get(), nullptr, IID_PPV_ARGS(&command_list_)));
 			g_commandManager.CreateNewCommandList(D3D12_COMMAND_LIST_TYPE_DIRECT, &command_list_, &command_allocator_);
-		//	ASSERT_SUCCEEDED(command_list_->Close());
-		
 		}
 
 		void CommandContext::Reset()

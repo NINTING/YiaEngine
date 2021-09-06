@@ -423,6 +423,4 @@ MEMORYCHECK_SUPPRESSIONS_FILE-ADVANCED:INTERNAL=1
 SITE-ADVANCED:INTERNAL=1
 //Test _cpp_latest_flag_supported
 _cpp_latest_flag_supported:INTERNAL=1
-//assimpLib
-assimpLib:INTERNAL=assimp-vc142-mt.lib
 

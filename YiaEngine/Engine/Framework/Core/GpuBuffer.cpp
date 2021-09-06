@@ -14,7 +14,7 @@ namespace YiaEngine:: Graphic
         heap_prop.VisibleNodeMask = 1;
         heap_prop.MemoryPoolPreference = D3D12_MEMORY_POOL_UNKNOWN;
         buffer_size_ = data_size;
-        ASSERT_SUCCEEDED(Graphic::g_device->CreateCommittedResource(
+        ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(
             &heap_prop,
             D3D12_HEAP_FLAG_NONE,
             &desc,

@@ -97,7 +97,7 @@ namespace YiaEngine
                 ResourceDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
             }
             ID3D12Resource* resource;
-            ASSERT_SUCCEEDED(Graphic::g_device->CreateCommittedResource(
+            ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(
                 &HeapProps,
                 D3D12_HEAP_FLAG_NONE,
                 &ResourceDesc,

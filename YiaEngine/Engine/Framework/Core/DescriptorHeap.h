@@ -14,6 +14,7 @@
 /*
 * 描述符堆主要是为了尽可能的包含一整个渲染帧所需要的描述符大小。
 * 比如Texture需要在不同的状态切换(e.g. cpu access,shader visible),则需要为不同的状态都创建相应的描述符
+* 描述符堆可以使用简单的寻址符号使用描述符
 */
 
 //https://docs.microsoft.com/en-us/windows/win32/direct3d12/descriptor-heaps-overview
@@ -70,7 +71,7 @@ namespace YiaEngine::Graphic
 		DescriptorHandle Alloc(uint32_t count = 1);
 		bool HasFreeSpace(int count) { return free_descriptor_num_ >= count; }
 	public:
-		ID3D12DescriptorHeap* heap_ptr() { return heap_.Get(); }
+		 ID3D12DescriptorHeap* heap_ptr() const { return heap_.Get(); }
 		DescriptorHandle operator[](uint32_t index) { return first_handle_ + index * descriptor_size_; }
 	protected:
 		void InitHeap();
@@ -100,9 +101,33 @@ namespace YiaEngine::Graphic
 	private:
 		static const int descriptor_count_perframe_ = 256;
 		std::vector<DescriptorHeap> heaps_;
+	
 		D3D12_DESCRIPTOR_HEAP_TYPE type_;
 
 	};
+	class RootSignature;
 
-	
+	/// <summary>
+	/// ShaderVisible heap 存在内存限制(大约96MB)
+	/// https://docs.microsoft.com/en-us/windows/win32/direct3d12/shader-visible-descriptor-heaps
+	/// GPU handles are not for immediate use—they identify locations from a command list,
+	///  for use at GPU execution time. They must be preserved until any command lists referencing 
+	/// them have executed entirely.
+	/// </summary>
+	class GpuDescriptorAllocator
+	{
+	public:
+		GpuDescriptorAllocator() = default;
+		
+		void ParseRootSignature(const RootSignature& rootSignature);
+		
+		DescriptorHandle Alloc(UINT count = 1);
+		DescriptorHandle CopyToGpuDescriptor(int count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[]);
+		DescriptorHeap& CurrentUseHeap() { return *currentHeap; }
+	private:
+		std::vector<DescriptorHeap> viewHeapPool_;
+		DescriptorHeap* currentHeap = nullptr;
+
+	};
+
 }

@@ -40,6 +40,8 @@ DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY ${CMAKE_SOURCE_DIR}/YiaEngine/External/freeImage/FreeImage.dll
 DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
+add_dependencies(YiaMath  YiaScene IMGUI)
+
 target_link_libraries(${PROJECT_NAME} 
 	YiaMath
 	YiaScene

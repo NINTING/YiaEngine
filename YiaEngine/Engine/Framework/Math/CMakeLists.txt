@@ -53,14 +53,13 @@ if(MSVC_LIB_TOOL)
 #       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 #		DEPENDS ${GEOMMATH_LIB_FILE}
 #    )
-
+	message("运行")
 	add_custom_target(Combine
         COMMAND ${MSVC_LIB_TOOL} /OUT:${CMAKE_CURRENT_BINARY_DIR}/math.lib
 				$<TARGET_FILE:GeomMath> 
 				$<TARGET_FILE:CommonMath> 
 				$<TARGET_FILE:GeomMathEx>
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-		
     )
 	 
           

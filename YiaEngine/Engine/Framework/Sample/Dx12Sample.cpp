@@ -218,14 +218,14 @@ void App::LoadPipeline(HWND hwnd)
 	ThrowIfFailed(D3D12CreateDevice(
 		hardwareAdapter.Get(),
 		D3D_FEATURE_LEVEL_11_0,
-		IID_PPV_ARGS(& Graphic::g_device)
+		IID_PPV_ARGS(& Graphic::g_Device)
 	)); 
-	Graphic::g_commandManager.Create(Graphic::g_device.Get());
+	Graphic::g_commandManager.Create(Graphic::g_Device.Get());
 	D3D12_COMMAND_QUEUE_DESC queueDesc = {};
 	queueDesc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
 	queueDesc.Type = D3D12_COMMAND_LIST_TYPE_DIRECT;
 
-	ThrowIfFailed( Graphic::g_device->CreateCommandQueue(&queueDesc, IID_PPV_ARGS(&g_CommandQueue)));
+	ThrowIfFailed( Graphic::g_Device->CreateCommandQueue(&queueDesc, IID_PPV_ARGS(&g_CommandQueue)));
 
 
 	DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
@@ -254,11 +254,11 @@ void App::LoadPipeline(HWND hwnd)
 		rtvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 		rtvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
 		rtvHeapDesc.NumDescriptors = 3;
-		ThrowIfFailed( Graphic::g_device->CreateDescriptorHeap(&rtvHeapDesc, IID_PPV_ARGS(&g_RTVHeap)));
+		ThrowIfFailed( Graphic::g_Device->CreateDescriptorHeap(&rtvHeapDesc, IID_PPV_ARGS(&g_RTVHeap)));
 		
 		//rtv_heap_.Create(L"RTV_Heap", rtvHeapDesc,  Graphic::g_device.Get());
 		//rtv_heap_.Create(L"RTV_Heap", D3D12_DESCRIPTOR_HEAP_TYPE_RTV,3, Graphic::g_device.Get());
-		g_rtvDescriptorSize =  Graphic::g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+		g_rtvDescriptorSize =  Graphic::g_Device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 	}
 	{
 		//分配交换链的2个rtv
@@ -275,7 +275,7 @@ void App::LoadPipeline(HWND hwnd)
 		for (UINT i = 0; i < 2; i++)
 		{
 			ThrowIfFailed(g_SwapChain->GetBuffer(i, IID_PPV_ARGS(&g_renderTargets[i])));
-			 Graphic::g_device->CreateRenderTargetView(g_renderTargets[i].Get(), nullptr, swap_rtv_handle_[i]);
+			 Graphic::g_Device->CreateRenderTargetView(g_renderTargets[i].Get(), nullptr, swap_rtv_handle_[i]);
 		}
 	}
 	{
@@ -291,7 +291,7 @@ void App::LoadPipeline(HWND hwnd)
 		{		
 			auto desc = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_R8G8B8A8_UNORM, 1024, 1024, 1, 6, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
 			auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
-			ThrowIfFailed( Graphic::g_device->CreateCommittedResource(
+			ThrowIfFailed( Graphic::g_Device->CreateCommittedResource(
 				&heap_properties,
 				D3D12_HEAP_FLAG_NONE,
 				&desc,
@@ -307,12 +307,12 @@ void App::LoadPipeline(HWND hwnd)
 		//	UINT srv_desc_size =  Graphic::g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 		//	UINT rtv_size =  Graphic::g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 		//	CD3DX12_CPU_DESCRIPTOR_HANDLE desc_handle(g_ImGui_SrvCbvHeap->GetCPUDescriptorHandleForHeapStart(), 1, srv_desc_size);
-			 Graphic::g_device->CreateShaderResourceView(g_scene_tex.Get(), &srvDesc, gui_srv_heap.Alloc());
+			 Graphic::g_Device->CreateShaderResourceView(g_scene_tex.Get(), &srvDesc, gui_srv_heap.Alloc());
 
 			//场景RTV视图
 		//	CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(g_RTVHeap->GetCPUDescriptorHandleForHeapStart(), 2, g_rtvDescriptorSize);
 			 scene_rtv_handle =  descriptor_allcator_[D3D12_DESCRIPTOR_HEAP_TYPE_RTV].Alloc(1);
-			 Graphic::g_device->CreateRenderTargetView(g_scene_tex.Get(), nullptr, scene_rtv_handle);
+			 Graphic::g_Device->CreateRenderTargetView(g_scene_tex.Get(), nullptr, scene_rtv_handle);
 			g_scene_tex->SetName(L"SCENE");
 		}
 		/*auto desc = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_R8G8B8A8_UNORM, 300, 300, 1, 6, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
@@ -344,12 +344,12 @@ void App::LoadPipeline(HWND hwnd)
 		c_name = L"frame_command";
 		c_name.append(std::to_wstring(i));
 		
-		frame_resouces_.push_back( std::make_unique<FrameResource>( Graphic::g_device.Get(),c_name.c_str()));
+		frame_resouces_.push_back( std::make_unique<FrameResource>( Graphic::g_Device.Get(),c_name.c_str()));
 	}
 
-	ThrowIfFailed( Graphic::g_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&g_commandAllocator)));
+	ThrowIfFailed( Graphic::g_Device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&g_commandAllocator)));
 
-	ThrowIfFailed( Graphic::g_device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&g_Fence)));
+	ThrowIfFailed( Graphic::g_Device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&g_Fence)));
 	g_fenceValue = 1;
 	g_fenceEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 	if (g_fenceEvent == nullptr)
@@ -372,7 +372,7 @@ void App::LoadAsset()
 		// This is the highest version the sample supports. If CheckFeatureSupport succeeds, the HighestVersion returned will not be greater than this.
 		featureData.HighestVersion = D3D_ROOT_SIGNATURE_VERSION_1_1;
 
-		if (FAILED( Graphic::g_device->CheckFeatureSupport(D3D12_FEATURE_ROOT_SIGNATURE, &featureData, sizeof(featureData))))
+		if (FAILED( Graphic::g_Device->CheckFeatureSupport(D3D12_FEATURE_ROOT_SIGNATURE, &featureData, sizeof(featureData))))
 		{
 			featureData.HighestVersion = D3D_ROOT_SIGNATURE_VERSION_1_0;
 		}
@@ -410,30 +410,30 @@ void App::LoadAsset()
 		//rootParameters[0].InitAsDescriptorTable(1, &rootRange[0], D3D12_SHADER_VISIBILITY_ALL);
 		//rootParameters[1].InitAsDescriptorTable(1, &rootRange[1], D3D12_SHADER_VISIBILITY_ALL);
 		//
-		Graphic::RootParameter rootParameters[2];
+	/*	Graphic::RootParameter rootParameters[2];
 		rootParameters[0].InitAsDescriptorTable(1,D3D12_SHADER_VISIBILITY_ALL);
 		rootParameters[1].InitAsDescriptorTable(1, D3D12_SHADER_VISIBILITY_ALL);
 		rootParameters[0].SetTableRange(0,1,D3D12_DESCRIPTOR_RANGE_TYPE_SRV,0);
-		rootParameters[1].SetTableRange(0,1,D3D12_DESCRIPTOR_RANGE_TYPE_CBV, 0);
+		rootParameters[1].SetTableRange(0,1,D3D12_DESCRIPTOR_RANGE_TYPE_CBV, 0);*/
 
 		//rootSignature.AllocRootParamenter()
 		
 		rootSignature.Reset(2, 1);
 		rootSignature.InitStaticSampler(0, sampler_desc);
 		rootSignature[0].InitAsDescriptorTable(1);
-		rootSignature[0].SetTableRange(0, 1, D3D12_DESCRIPTOR_RANGE_TYPE_SRV,0);
+		rootSignature[0].SetTableRange(0, 10, D3D12_DESCRIPTOR_RANGE_TYPE_SRV,0);
 		rootSignature[1].InitAsDescriptorTable(1);
 		rootSignature[1].SetTableRange(0, 1, D3D12_DESCRIPTOR_RANGE_TYPE_CBV,0);
 		rootSignature.Finalize(L"sampleRootSignature", D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 
-		CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC rootDesc;
+		//CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC rootDesc;
 
-		rootDesc.Init_1_0(_countof(rootParameters), (const D3D12_ROOT_PARAMETER *)rootParameters, 1, &linearClamp, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
-				ComPtr<ID3DBlob> error;
-		ComPtr<ID3DBlob> signature;
+		//rootDesc.Init_1_0(_countof(rootParameters), (const D3D12_ROOT_PARAMETER *)rootParameters, 1, &linearClamp, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+		//		ComPtr<ID3DBlob> error;
+		//ComPtr<ID3DBlob> signature;
 
-		ThrowIfFailed(D3DX12SerializeVersionedRootSignature(&rootDesc, featureData.HighestVersion, &signature, &error));
-		ThrowIfFailed( Graphic::g_device->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&g_rootSignature)));
+		//ThrowIfFailed(D3DX12SerializeVersionedRootSignature(&rootDesc, featureData.HighestVersion, &signature, &error));
+		//ThrowIfFailed( Graphic::g_Device->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&g_rootSignature)));
 
 		/*CD3DX12_ROOT_SIGNATURE_DESC rootDesc;
 		rootDesc.Init(0, nullptr, 0, nullptr, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
@@ -540,7 +540,7 @@ void App::LoadAsset()
 	{
 
 	}
-	ThrowIfFailed( Graphic::g_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, g_commandAllocator.Get(), pso.pipeline_state_object(), IID_PPV_ARGS(&g_commandList)));
+	ThrowIfFailed( Graphic::g_Device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, g_commandAllocator.Get(), pso.pipeline_state_object(), IID_PPV_ARGS(&g_commandList)));
 	g_commandList->SetName(L"G_CommandList");
 	ThrowIfFailed(g_commandList->Close());
 
@@ -632,7 +632,7 @@ void App::LoadAsset()
 		{
 			auto tmp_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 			auto tmp_buffer_desc = CD3DX12_RESOURCE_DESC::Buffer(sizeof(VPConstBuffer));
-			ThrowIfFailed( Graphic::g_device->CreateCommittedResource(&tmp_properties,
+			ThrowIfFailed( Graphic::g_Device->CreateCommittedResource(&tmp_properties,
 				D3D12_HEAP_FLAG_NONE,
 				&tmp_buffer_desc,
 				D3D12_RESOURCE_STATE_GENERIC_READ,
@@ -645,7 +645,13 @@ void App::LoadAsset()
 		//	 Graphic::g_device->CreateConstantBufferView(&cbv_desc, g_SRVCBVHeap->GetCPUDescriptorHandleForHeapStart());
 			
 			Graphic::DescriptorHandle cb_handle = srv_cbv_heap_.Alloc(1);
-			 Graphic::g_device->CreateConstantBufferView(&cbv_desc, cb_handle);
+
+
+			auto cpu_cbv_handle = Graphic::CpuDescriptorAllocator::AllocateDescriptorHandle(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+
+			Graphic::g_Device->CreateConstantBufferView(&cbv_desc, cpu_cbv_handle);
+
+			gpuCbvHandle_ = viewDescriptorAllocator.CopyToGpuDescriptor(1, cpu_cbv_handle.GetCpuAddress());
 
 
 			CD3DX12_RANGE range(0, 0);
@@ -685,7 +691,7 @@ void App::LoadAsset()
 		srvDesc.Format = g_texture->GetDesc().Format;
 		srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
 		srvDesc.Texture2D.MipLevels = g_texture->GetDesc().MipLevels;
-		UINT srv_desc_size =  Graphic::g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+		UINT srv_desc_size =  Graphic::g_Device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 		//CD3DX12_CPU_DESCRIPTOR_HANDLE desc_handle(g_ImGui_SrvCbvHeap->GetCPUDescriptorHandleForHeapStart(), 2, srv_desc_size);
 		// Graphic::g_device->CreateShaderResourceView(g_texture.Get(), &srvDesc, gui_srv_heap.Alloc());
 		//std::vector<UINT8> texture	= GenerateTextureData();
@@ -742,8 +748,8 @@ void App::LoadAsset()
 		
 	}
 	{
-	ThrowIfFailed( Graphic::g_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_BUNDLE, IID_PPV_ARGS(&g_BundleAllocator)));
-	 Graphic::g_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_BUNDLE, g_BundleAllocator.Get(), pso.pipeline_state_object(), IID_PPV_ARGS(&g_BundleList));
+	ThrowIfFailed( Graphic::g_Device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_BUNDLE, IID_PPV_ARGS(&g_BundleAllocator)));
+	 Graphic::g_Device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_BUNDLE, g_BundleAllocator.Get(), pso.pipeline_state_object(), IID_PPV_ARGS(&g_BundleList));
 	
 	//g_BundleList->SetPipelineState(g_pipelineState.Get());
 	g_BundleList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -827,8 +833,9 @@ void App::PopulateUICommandList()
 void App::PopulateSceneCommandList()
 {
 
-	
+	auto drawSceneContext = Graphic::CommandContext::Begin();
 
+	
 	//ThrowIfFailed(current_cmd_alloc->Reset());
 	ThrowIfFailed(current_cmd_alloc->Reset());
 	ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), pso.pipeline_state_object()));
@@ -839,19 +846,29 @@ void App::PopulateSceneCommandList()
 	// set the descriptor heap
 //	ID3D12DescriptorHeap* descriptorHeaps[] = { g_CBVHeap.Get() };/*
 	//ID3D12DescriptorHeap* descriptorHeaps[] = { g_SRVCBVHeap.Get() };
-	ID3D12DescriptorHeap* descriptorHeaps[] = { srv_cbv_heap_.heap_ptr() };
-	g_commandList->SetDescriptorHeaps(1, descriptorHeaps);
+	gpuTextureHandle_;
 	
+//	g_commandList->SetDescriptorHeaps(1, descriptorHeaps);
+
+
+	/*g_commandList->SetDescriptorHeaps(1, g_GpuDescriptorAllocator.GraphicHeap);*/
+	/*g_commandList->SetGraphicsRootDescriptorTable(0, );*/
+	/*g_commandList->SetGraphicsRootDescriptorTable(1, srv_cbv_heap_[0]);*/
+
+
 	//CD3DX12_GPU_DESCRIPTOR_HANDLE tex();
 	//tex.Offset(0, 0);
 	/*UINT srv_desc_size =  Graphic::g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 	CD3DX12_GPU_DESCRIPTOR_HANDLE srv_gpu_handle(g_SRVCBVHeap->GetGPUDescriptorHandleForHeapStart(), 1, srv_desc_size);*/
 	//g_commandList->SetGraphicsRootDescriptorTable(1, g_SRVCBVHeap->GetGPUDescriptorHandleForHeapStart());
 	//g_commandList->SetGraphicsRootDescriptorTable(0, srv_gpu_handle);
-	
-	g_commandList->SetGraphicsRootDescriptorTable(1, srv_cbv_heap_[0]);
-	g_commandList->SetGraphicsRootDescriptorTable(0, srv_cbv_heap_[1]);
+	ID3D12DescriptorHeap* descriptorHeaps[] = { viewDescriptorAllocator.CurrentUseHeap().heap_ptr() };
+	g_commandList->SetDescriptorHeaps(1, descriptorHeaps);
 
+	g_commandList->SetGraphicsRootDescriptorTable(1, gpuCbvHandle_);
+
+	//g_commandList->SetGraphicsRootDescriptorTable(0, srv_cbv_heap_[1]);
+	g_commandList->SetGraphicsRootDescriptorTable(0, gpuTextureHandle_);
 
 	g_commandList->RSSetViewports(1, &g_viewport);
 	g_commandList->RSSetScissorRects(1, &g_scissorRect);
@@ -890,7 +907,7 @@ void App::ClearRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle)
 	const float clearColor[] = { 0.0f, 0.2f, 0.4f, 1.0f };
 	g_commandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
 }
-void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Graphic::DescriptorHeap descriptor_heap,UINT offset, ID3D12Resource** texture_buffer)
+void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Graphic::DescriptorHeap descriptor_heap, UINT offset, ID3D12Resource** texture_buffer)
 {
 
 	//D3D12_RESOURCE_DESC desc;
@@ -899,7 +916,7 @@ void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Grap
 
 	auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
 	Graphic::GpuResource target;
-	ThrowIfFailed( Graphic::g_device->CreateCommittedResource(
+	ThrowIfFailed(Graphic::g_Device->CreateCommittedResource(
 		&heap_properties,
 		D3D12_HEAP_FLAG_NONE,
 		&desc,
@@ -908,6 +925,7 @@ void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Grap
 		IID_PPV_ARGS(texture_buffer)));
 
 	Graphic::GpuResource texture;
+
 	auto copy_command = Graphic::CommandContext::Begin();
 
 
@@ -918,24 +936,24 @@ void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Grap
 	auto uplaod_buffer = copy_command->GetTemraryUploadBuffer(textureUploadBufferSize);
 
 
-	
+
 
 
 	//loadTextureContext->Begin();
 	//D3D12_SUBRESOURCE_DATA initData = { &texture[0], TextureWidth * 4,TextureWidth * 4 * TextureHeight };
 	D3D12_SUBRESOURCE_DATA initData = { image->pData, image->pitch,image->data_size };
 	//UpdateSubresources<1>(copy_command->command_list(), *texture_buffer, tempraryUpload.Get(), 0, 0, 1, &initData);
-	ASSERT_SUCCEEDED( UpdateSubresources<1>(copy_command->command_list(), *texture_buffer, uplaod_buffer.Buffer.resource(), 0, 0, 1, &initData));
+	ASSERT_SUCCEEDED(UpdateSubresources<1>(copy_command->command_list(), *texture_buffer, uplaod_buffer.Buffer.resource(), 0, 0, 1, &initData));
 	//UpdateSubresources<1>(copy_command->command_list(), *texture_buffer, tempraryUpload.Get(), 0, 0, 1, &initData);
 
 	auto barrise = CD3DX12_RESOURCE_BARRIER::Transition(
 		*texture_buffer,
-		D3D12_RESOURCE_STATE_COPY_DEST,  
+		D3D12_RESOURCE_STATE_COPY_DEST,
 		D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 	copy_command->command_list()->ResourceBarrier(1, &barrise);
 
-	
 
+	copy_command->End();
 	// now we create a shader resource view (descriptor that points to the texture and describes it)
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
@@ -944,9 +962,12 @@ void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Grap
 	srvDesc.Texture2D.MipLevels = 1;
 	//UINT srv_desc_size =   Graphic::g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 	//CD3DX12_CPU_DESCRIPTOR_HANDLE desc_handle(descriptor_heap.Alloc(1), 1, srv_desc_size);
-	 Graphic::g_device->CreateShaderResourceView(*texture_buffer, &srvDesc,Graphic::CpuDescriptorAllocator::AllocateDescriptorHandle(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV));
+	auto cpu_texture_handle = Graphic::CpuDescriptorAllocator::AllocateDescriptorHandle(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
-	 copy_command->End();
+	Graphic::g_Device->CreateShaderResourceView(*texture_buffer, &srvDesc, cpu_texture_handle);
+	D3D12_CPU_DESCRIPTOR_HANDLE cpuHandles[] = { cpu_texture_handle };
+	gpuTextureHandle_ = viewDescriptorAllocator.CopyToGpuDescriptor(1, cpuHandles);
+
 
 	/*ThrowIfFailed(g_commandList->Close());
 	ID3D12CommandList* ppCommandLists[] = { g_commandList.Get() };
@@ -1028,7 +1049,7 @@ void App::BindVertexAttribute(void* data, size_t data_size,size_t stride ,int in
 	const UINT vertexBufferSize = data_size;
 	CD3DX12_HEAP_PROPERTIES heapProerties(D3D12_HEAP_TYPE_UPLOAD);
 	auto desc = CD3DX12_RESOURCE_DESC::Buffer(vertexBufferSize);
-	ThrowIfFailed( Graphic::g_device->CreateCommittedResource(
+	ThrowIfFailed( Graphic::g_Device->CreateCommittedResource(
 		&heapProerties,
 		D3D12_HEAP_FLAG_NONE,
 		&desc,
@@ -1051,7 +1072,7 @@ void App::BindIndexBuffer(void* data, size_t data_size)
 	const UINT indexBufferSize = data_size;
 	CD3DX12_HEAP_PROPERTIES heapProerties(D3D12_HEAP_TYPE_UPLOAD);
 	auto desc = CD3DX12_RESOURCE_DESC::Buffer(indexBufferSize);
-	ThrowIfFailed( Graphic::g_device->CreateCommittedResource(
+	ThrowIfFailed( Graphic::g_Device->CreateCommittedResource(
 		&heapProerties,
 		D3D12_HEAP_FLAG_NONE,
 		&desc,

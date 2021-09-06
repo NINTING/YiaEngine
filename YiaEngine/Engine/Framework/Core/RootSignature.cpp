@@ -11,7 +11,7 @@ namespace YiaEngine::Graphic
 			paraments_.reset(new RootParameter[root_parament_count]);
 		else
 			paraments_ = nullptr;
-		paramenter_count_ = root_parament_count;
+		paramenterCount_ = root_parament_count;
 
 		if (static_sampler_count > 0)
 			samplers_.reset(new D3D12_STATIC_SAMPLER_DESC[static_sampler_count]);
@@ -41,21 +41,25 @@ namespace YiaEngine::Graphic
 	}
 	void RootSignature::Finalize(const wchar_t* name, D3D12_ROOT_SIGNATURE_FLAGS flag)
 	{
+		
+		for (size_t i = 0; i < paramenterCount_; i++)
+		{
+			descriptorTableSizeArray_[i] = paraments_[i].DescriptorTableSize();
+		}
+		
 		D3D12_ROOT_SIGNATURE_DESC RootDesc;
-		RootDesc.NumParameters = paramenter_count_;
-		RootDesc.pParameters = (const D3D12_ROOT_PARAMETER*)paraments_.get();
-		RootDesc.NumStaticSamplers = static_sampler_count_;
-		RootDesc.pStaticSamplers = (const D3D12_STATIC_SAMPLER_DESC*)samplers_.get();
 		RootDesc.Flags = flag;
+		RootDesc.NumParameters = paramenterCount_;
+		RootDesc.NumStaticSamplers = static_sampler_count_;
+		RootDesc.pParameters = (const D3D12_ROOT_PARAMETER*)paraments_.get();
+		RootDesc.pStaticSamplers = (const D3D12_STATIC_SAMPLER_DESC*)samplers_.get();
 
 		ComPtr<ID3DBlob> pOutBlob, pErrorBlob;
 
-		ASSERT_SUCCEEDED(D3D12SerializeRootSignature(&RootDesc, D3D_ROOT_SIGNATURE_VERSION_1,
-			pOutBlob.GetAddressOf(), pErrorBlob.GetAddressOf()));
+		ASSERT_SUCCEEDED(D3D12SerializeRootSignature(&RootDesc, D3D_ROOT_SIGNATURE_VERSION_1,pOutBlob.GetAddressOf(), pErrorBlob.GetAddressOf()));
 
-		ASSERT_SUCCEEDED(Graphic::g_device->CreateRootSignature(1, pOutBlob->GetBufferPointer(), pOutBlob->GetBufferSize(),
-			IID_PPV_ARGS(&root_signature_)));
+		ASSERT_SUCCEEDED(Graphic::g_Device->CreateRootSignature(1, pOutBlob->GetBufferPointer(), pOutBlob->GetBufferSize(),IID_PPV_ARGS(&rootSignature_)));
 
-		root_signature_->SetName(name);
+		rootSignature_->SetName(name);
 	}
 }

@@ -29,8 +29,8 @@ namespace YiaEngine
 			queueDesc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
 			queueDesc.Type = type_;
 
-			ASSERT_SUCCEEDED(Graphic::g_device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fence_)));
-			ASSERT_SUCCEEDED(Graphic::g_device->CreateCommandQueue(&queueDesc, IID_PPV_ARGS(&command_queue_)));
+			ASSERT_SUCCEEDED(Graphic::g_Device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fence_)));
+			ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommandQueue(&queueDesc, IID_PPV_ARGS(&command_queue_)));
 			fence_event_ = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 			
 			if (fence_event_ == nullptr)
