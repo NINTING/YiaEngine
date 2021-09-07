@@ -59,17 +59,17 @@ namespace YiaEngine
 
 		public:
 
-			ID3D12GraphicsCommandList* command_list() { return command_list_.Get(); };
+			ID3D12GraphicsCommandList* command_list() { return commandList_.Get(); };
 			D3D12_COMMAND_LIST_TYPE type() { return type_; };
 		private:
 			CommandContext(D3D12_COMMAND_LIST_TYPE type);
 			void Initialize();
 			void Reset();
-		private:
+		protected:
 			//CommandQueue command_queue_;
 
 			static CommandContextManager s_context_manager;
-			ComPtr<ID3D12GraphicsCommandList> command_list_;
+			ComPtr<ID3D12GraphicsCommandList> commandList_;
 			ID3D12CommandAllocator* command_allocator_;
 			ResourceAllocator upload_allocator_;
 			D3D12_COMMAND_LIST_TYPE type_;

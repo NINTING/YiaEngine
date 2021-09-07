@@ -165,6 +165,10 @@ namespace YiaEngine::Graphic
 		);
 		return pDestDescriptorRangeStarts;
 	}
+	DescriptorHandle GpuDescriptorAllocator::CopyToGpuDescriptor(int count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[], D3D12_CPU_DESCRIPTOR_HANDLE destHandle)
+	{
+
+	}
 
 }
 

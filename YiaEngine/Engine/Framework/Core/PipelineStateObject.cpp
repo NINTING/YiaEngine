@@ -39,7 +39,7 @@ namespace YiaEngine::Graphic
 	void PipelineStateObject::SetRootSignature(const RootSignature& signature)
 	{
 		signature_ = &signature;
-		desc_.pRootSignature = signature.root_signature();
+		desc_.pRootSignature = signature.RootSignaturePtr();
 	}
 	void PipelineStateObject::SetVertexShader(void* buffer, size_t size)
 	{

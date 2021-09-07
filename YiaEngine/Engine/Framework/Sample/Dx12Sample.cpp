@@ -420,10 +420,10 @@ void App::LoadAsset()
 		
 		rootSignature.Reset(2, 1);
 		rootSignature.InitStaticSampler(0, sampler_desc);
-		rootSignature[0].InitAsDescriptorTable(1);
-		rootSignature[0].SetTableRange(0, 10, D3D12_DESCRIPTOR_RANGE_TYPE_SRV,0);
-		rootSignature[1].InitAsDescriptorTable(1);
-		rootSignature[1].SetTableRange(0, 1, D3D12_DESCRIPTOR_RANGE_TYPE_CBV,0);
+		rootSignature[Graphic::DescriptorType::SRV].InitAsDescriptorTable(1);
+		rootSignature[Graphic::DescriptorType::SRV].SetTableRange(0, 10, D3D12_DESCRIPTOR_RANGE_TYPE_SRV,0);
+		rootSignature[Graphic::DescriptorType::CBV].InitAsDescriptorTable(1);
+		rootSignature[Graphic::DescriptorType::CBV].SetTableRange(0, 10, D3D12_DESCRIPTOR_RANGE_TYPE_CBV,0);
 		rootSignature.Finalize(L"sampleRootSignature", D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 
 		//CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC rootDesc;
@@ -842,7 +842,7 @@ void App::PopulateSceneCommandList()
 	
 	//g_commandList->SetGraphicsRootSignature(g_rootSignature.Get());
 
-	g_commandList->SetGraphicsRootSignature(rootSignature.root_signature());
+	g_commandList->SetGraphicsRootSignature(rootSignature.RootSignaturePtr());
 	// set the descriptor heap
 //	ID3D12DescriptorHeap* descriptorHeaps[] = { g_CBVHeap.Get() };/*
 	//ID3D12DescriptorHeap* descriptorHeaps[] = { g_SRVCBVHeap.Get() };

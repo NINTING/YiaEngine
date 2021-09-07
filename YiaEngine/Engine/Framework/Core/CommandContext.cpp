@@ -14,7 +14,7 @@ namespace YiaEngine
 			:upload_allocator_(AllocateType::kUpload),type_(type)
 		{
 	
-			command_list_ = nullptr;
+			commandList_ = nullptr;
 			//ThrowIfFailed(Graphic::g_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, g_commandAllocator.Get(), pso.pipeline_state_object(), IID_PPV_ARGS(&g_commandList)));
 			command_allocator_ = nullptr;
 		}
@@ -33,7 +33,7 @@ namespace YiaEngine
 		}
 		void CommandContext::Initialize()
 		{
-			g_commandManager.CreateNewCommandList(D3D12_COMMAND_LIST_TYPE_DIRECT, &command_list_, &command_allocator_);
+			g_commandManager.CreateNewCommandList(D3D12_COMMAND_LIST_TYPE_DIRECT, &commandList_, &command_allocator_);
 		}
 
 		void CommandContext::Reset()
@@ -41,7 +41,7 @@ namespace YiaEngine
 			auto queue = g_commandManager.GetQueue(type_);
 			command_allocator_ =  queue.RequireCommandAlloctor();
 
-			command_list_->Reset(command_allocator_,nullptr);
+			commandList_->Reset(command_allocator_,nullptr);
 
 		}
 
@@ -49,7 +49,7 @@ namespace YiaEngine
 		{
 			auto command_queue = g_commandManager.GetQueue(type_);
 		//	UINT64 fence = command_queue_.Execute(command_list_.Get());
-			UINT64 fence = command_queue.Execute(command_list_.Get());
+			UINT64 fence = command_queue.Execute(commandList_.Get());
 			//ResourceAllocator->clean();
 			command_queue.DiscardCommandAlloctor(fence, command_allocator_);
 			command_allocator_ = nullptr;
@@ -72,7 +72,7 @@ namespace YiaEngine
 			barrier.Transition.StateBefore = before;
 			barrier.Transition.StateAfter = after;
 			barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
-			command_list_->ResourceBarrier(1, &barrier);
+			commandList_->ResourceBarrier(1, &barrier);
 		}
 		
 		CommandContext* CommandContextManager::Allocator(D3D12_COMMAND_LIST_TYPE type)

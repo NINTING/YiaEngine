@@ -123,7 +123,9 @@ namespace YiaEngine::Graphic
 		
 		DescriptorHandle Alloc(UINT count = 1);
 		DescriptorHandle CopyToGpuDescriptor(int count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[]);
+		DescriptorHandle CopyToGpuDescriptor(int count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[], D3D12_CPU_DESCRIPTOR_HANDLE destHandle);
 		DescriptorHeap& CurrentUseHeap() { return *currentHeap; }
+		size_t ViewDescriptorIncrementSize() {return Graphic::g_Device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);};
 	private:
 		std::vector<DescriptorHeap> viewHeapPool_;
 		DescriptorHeap* currentHeap = nullptr;

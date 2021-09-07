@@ -17,8 +17,9 @@ namespace YiaEngine
 		/// </summary>
 		struct GpuDescriptorTable
 		{
-			DescriptorHandle StartHandle;
+			D3D12_CPU_DESCRIPTOR_HANDLE* StartHandle;
 			UINT TableSize;
+			UINT BaseOffset;
 		};
 
 
@@ -26,15 +27,23 @@ namespace YiaEngine
 		{
 		public:
 			void SetRootSignature(const RootSignature& rootSignature);
-			void ParseRootSignature();
+			void ParseRootSignature(const RootSignature& rootSignature);
 			void SetPipelineState(const PipelineStateObject& pso);
 			void SetDescriptorHeaps(D3D12_DESCRIPTOR_HEAP_TYPE type, const DescriptorHeap&);
 			void BindDescriptorTable(int rootIndex,const DescriptorHandle& startHandle);
+			void BindCpuDescriptor(int rootIndex, int offset, int num, const DescriptorHandle descriptorHandles[]);
+			void BindGpuDescriptor();
+			void BindCpuDescriptor(int rootIndex, int registerBase, const DescriptorHandle startHandle[]);
 			void SetVertexBuffer();
 			void SetIndexBuffer();
 			void SetPrimitiveTopology();
 			void DrawInstance();
-		
+		private:
+			static const int kMaxDescriptorNum = 256;
+			static const int kMaxDescriptorTableNum = 16;
+			GpuDescriptorTable tableCache_[kMaxDescriptorTableNum];
+			D3D12_CPU_DESCRIPTOR_HANDLE cpuDescriptorPool_[kMaxDescriptorNum];
+			UINT tableSize_ = 0;
 		};
 	}
 		

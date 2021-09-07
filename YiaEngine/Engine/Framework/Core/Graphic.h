@@ -18,5 +18,11 @@ namespace YiaEngine
 		
 		extern CommandManager g_commandManager;
 		extern ComPtr<ID3D12Device> g_Device;
+
+
+		enum DescriptorType
+		{
+			SRV,CBV,UAV
+		};
 	}
 }
