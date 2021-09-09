@@ -13,6 +13,10 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
+		/*
+		* https://docs.microsoft.com/en-us/windows/win32/direct3d12/memory-management
+		*/
+
 		class ResourceAllocatePageManager;
 		class ResourceAllocatePage;
 		//资源对齐必须是16的倍数
@@ -34,7 +38,9 @@ namespace YiaEngine
 		{
 			AllocateBuffer(GpuResource& buffer, size_t offset,size_t size,void* cpuAddress = nullptr, D3D12_GPU_VIRTUAL_ADDRESS gpuAddress = -1)
 			:Buffer(buffer),Offset(offset),Size(size),CpuAddress(cpuAddress),GpuAddress(gpuAddress){}
+
 			ID3D12Resource* GetResource() { return Buffer.resource(); }
+			
 			GpuResource& Buffer;
 			size_t Offset;
 			size_t Size;
@@ -90,6 +96,9 @@ namespace YiaEngine
 			std::queue <std::pair<UINT64,ResourceAllocatePage*>>retired_queue_;
 			std::queue <std::pair<UINT64, ResourceAllocatePage*>>delete_queue;
 		};
+		/// <summary>
+		/// ResourceAllocator主要是用于在一次执行任务,用于分配生命周期为一次任务的资源。
+		/// </summary>
 		class ResourceAllocator
 		{
 		public:

@@ -5,6 +5,7 @@
 #include"ResourceAllocator.h"
 #include "CommandContext.h"
 #include"CommandManager.h"
+#include"PipelineStateObject.h"
 namespace YiaEngine
 {
 	namespace Graphic
@@ -110,7 +111,14 @@ namespace YiaEngine
 		}
 
 
-
+		void CommandContext::SetPipelineState(const PipelineStateObject& pso)
+		{
+			auto rawPso = pso.RawPipelineStateObject();
+			if (rawPso == pipelineState_)
+				return;
+			commandList_->SetPipelineState(rawPso);
+			pipelineState_ = rawPso;
+		}
 	}
 		
 }

@@ -10,9 +10,14 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
+		GraphicContext& GraphicContext::Begin(const wchar_t* name)
+		{
+			auto commandContext = CommandContext::Begin(name);
+			return reinterpret_cast<GraphicContext&>(commandContext);
+		}
 		void GraphicContext::SetRootSignature(const RootSignature& rootSignature)
 		{
-			commandList_->SetGraphicsRootSignature(rootSignature.RootSignaturePtr());
+			commandList_->SetGraphicsRootSignature(rootSignature.RawRootSignature());
 			ParseRootSignature(rootSignature);
 		}
 		void GraphicContext::ParseRootSignature(const RootSignature& rootSignature)
@@ -26,6 +31,8 @@ namespace YiaEngine
 			}
 		}
 		
+	
+
 		void GraphicContext::BindDescriptorTable(int rootIndex, const DescriptorHandle& startHandle)
 		{
 			commandList_->SetGraphicsRootDescriptorTable(rootIndex, startHandle);
@@ -66,14 +73,57 @@ namespace YiaEngine
 					}
 					if (validCount == kMaxDescriptorNumPerCopy)
 					{
-						viewDescriptorAllocator.CopyToGpuDescriptor(validCount, copySrc, gpuCurrentHandle);
+						viewDescriptorAllocator.CopyToGpuDescriptor(validCount, copySrc, gpuCurrentHandle.GetCpuAddress());
 						gpuCurrentHandle += validCount * handleIncrementSize;
 						validCount = 0;
 					}
 				}
 				if(validCount!=0)
-					viewDescriptorAllocator.CopyToGpuDescriptor(validCount, copySrc, gpuCurrentHandle);
+					viewDescriptorAllocator.CopyToGpuDescriptor(validCount, copySrc, gpuCurrentHandle.GetCpuAddress());
 			}
+		}
+		void GraphicContext::SetViewPortAndScissorRects(const D3D12_VIEWPORT* pViewPort, const D3D12_RECT* pAcissorRect)
+		{
+			commandList_->RSSetViewports(1, pViewPort);
+			commandList_->RSSetScissorRects(1, pAcissorRect);
+
+		}
+		void GraphicContext::SetRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE* renderTarget, D3D12_CPU_DESCRIPTOR_HANDLE* depth)
+		{
+			SetRenderTargets(1, renderTarget, depth);
+		}
+		
+		void GraphicContext::SetRenderTargets(UINT numRT, D3D12_CPU_DESCRIPTOR_HANDLE RTS[], D3D12_CPU_DESCRIPTOR_HANDLE* depth)
+		{
+			commandList_->OMSetRenderTargets(numRT, RTS, false, depth);
+		}
+		void GraphicContext::SetVertexBuffers(UINT slot, UINT bufferCount, const D3D12_VERTEX_BUFFER_VIEW* vertexView)
+		{
+			commandList_->IASetVertexBuffers(slot, bufferCount, vertexView);
+		}
+
+		void GraphicContext::SetIndexBuffer(const D3D12_INDEX_BUFFER_VIEW* indexView)
+		{
+			commandList_->IASetIndexBuffer(indexView);
+		}
+		
+		
+		void GraphicContext::SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY topology)
+		{
+			commandList_->IASetPrimitiveTopology(topology);
+		}
+
+		void GraphicContext::DrawInstance()
+		{
+
+		}
+
+		void GraphicContext::DrawIndexInstance(UINT indexCountPerInstance, UINT instanceCount,
+		UINT startIndexLocation,
+		INT baseVertexLocation,
+		UINT startInstanceLocation)
+		{
+			commandList_->DrawIndexedInstanced(indexCountPerInstance, instanceCount, startIndexLocation, baseVertexLocation, startIndexLocation);
 		}
 	}
 		

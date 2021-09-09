@@ -95,6 +95,8 @@ public:
 
 	void PopulateUICommandList();
 
+	void PopulateScene();
+
 	void SwapPresent();
 	void ClearRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle);
 
@@ -184,6 +186,9 @@ public:
 	Graphic::GpuDescriptorAllocator viewDescriptorAllocator;
 	Graphic::DescriptorHandle gpuTextureHandle_;
 	Graphic::DescriptorHandle gpuCbvHandle_;
+
+	Graphic::DescriptorHandle cpu_texture_handle;
+	Graphic::DescriptorHandle cpu_cbv_handle;
 	//GUI
 	std::unique_ptr<SceneWindow> scene_window_;
 };

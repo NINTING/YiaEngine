@@ -29,7 +29,7 @@ namespace YiaEngine::Graphic
 
 		void SetSampleDesc(UINT count, UINT quality);
 
-		ID3D12PipelineState* pipeline_state_object() { return pso_.Get(); }
+		ID3D12PipelineState* RawPipelineStateObject()const { return pso_.Get(); }
 		void Finalize();
 
 	private:

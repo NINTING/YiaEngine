@@ -7,11 +7,12 @@
 #include"ResourceAllocator.h"
 #include"DescriptorHeap.h"
 #include"CommandQueue.h"
+#include"PipelineStateObject.h"
 namespace YiaEngine
 {
 	namespace Graphic
 	{
-
+		
 		enum CommandType
 		{
 			kDirect
@@ -51,7 +52,7 @@ namespace YiaEngine
 			/// <param name="type"></param>
 			/// <param name="heap"></param>
 			void SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE type, ID3D12DescriptorHeap* heap);
-
+			void SetPipelineState(const PipelineStateObject& pso);
 
 		public:
 			static void InitializeTexture(GpuResource&dest,UINT subresource_num, D3D12_SUBRESOURCE_DATA data);
@@ -76,7 +77,8 @@ namespace YiaEngine
 			std::wstring name;
 
 			GpuDescriptorAllocator viewDescriptorAllocator;
-			//CommandType type_;
+		protected:
+			ID3D12PipelineState* pipelineState_;
 		};
 	}
 		

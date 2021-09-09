@@ -23,21 +23,26 @@ namespace YiaEngine
 		};
 
 
-		class GraphicContext : CommandContext
+		class GraphicContext :public CommandContext
 		{
 		public:
+			static GraphicContext& Begin(const wchar_t* name = L"");
 			void SetRootSignature(const RootSignature& rootSignature);
 			void ParseRootSignature(const RootSignature& rootSignature);
-			void SetPipelineState(const PipelineStateObject& pso);
-			void SetDescriptorHeaps(D3D12_DESCRIPTOR_HEAP_TYPE type, const DescriptorHeap&);
+			
+			
 			void BindDescriptorTable(int rootIndex,const DescriptorHandle& startHandle);
 			void BindCpuDescriptor(int rootIndex, int offset, int num, const DescriptorHandle descriptorHandles[]);
 			void BindGpuDescriptor();
-			void BindCpuDescriptor(int rootIndex, int registerBase, const DescriptorHandle startHandle[]);
-			void SetVertexBuffer();
-			void SetIndexBuffer();
-			void SetPrimitiveTopology();
+			void SetViewPortAndScissorRects(const D3D12_VIEWPORT* pViewPort, const D3D12_RECT* pAcissorRect_);
+			void SetRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE* renderTarget, D3D12_CPU_DESCRIPTOR_HANDLE* depth);
+			void SetRenderTargets(UINT numRT,D3D12_CPU_DESCRIPTOR_HANDLE RTS[], D3D12_CPU_DESCRIPTOR_HANDLE*depth);
+			void SetVertexBuffers(UINT slot, UINT bufferCount, const D3D12_VERTEX_BUFFER_VIEW* vertexView);
+			void SetIndexBuffer(const D3D12_INDEX_BUFFER_VIEW* indexView);
+			void SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY topology);
 			void DrawInstance();
+			void DrawIndexInstance(UINT IndexCountPerInstance, UINT InstanceCount, UINT StartIndexLocation, INT BaseVertexLocation, UINT StartInstanceLocation);
+			void DrawIndexInstance();
 		private:
 			static const int kMaxDescriptorNum = 256;
 			static const int kMaxDescriptorTableNum = 16;

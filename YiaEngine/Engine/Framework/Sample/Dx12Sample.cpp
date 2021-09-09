@@ -20,6 +20,8 @@
 
 #include"Core/CommandContext.h"
 #include"Core/CommandManager.h"
+
+#include"Core/GraphicContext.h"
 inline std::string  HrToString(HRESULT hr)
 {
 	char s_str[64] = {};
@@ -308,7 +310,7 @@ void App::LoadPipeline(HWND hwnd)
 		//	UINT rtv_size =  Graphic::g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 		//	CD3DX12_CPU_DESCRIPTOR_HANDLE desc_handle(g_ImGui_SrvCbvHeap->GetCPUDescriptorHandleForHeapStart(), 1, srv_desc_size);
 			 Graphic::g_Device->CreateShaderResourceView(g_scene_tex.Get(), &srvDesc, gui_srv_heap.Alloc());
-
+			Graphic::ResourceAllocator
 			//³¡¾°RTVÊÓÍ¼
 		//	CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(g_RTVHeap->GetCPUDescriptorHandleForHeapStart(), 2, g_rtvDescriptorSize);
 			 scene_rtv_handle =  descriptor_allcator_[D3D12_DESCRIPTOR_HEAP_TYPE_RTV].Alloc(1);
@@ -540,7 +542,7 @@ void App::LoadAsset()
 	{
 
 	}
-	ThrowIfFailed( Graphic::g_Device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, g_commandAllocator.Get(), pso.pipeline_state_object(), IID_PPV_ARGS(&g_commandList)));
+	ThrowIfFailed( Graphic::g_Device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, g_commandAllocator.Get(), pso.RawPipelineStateObject(), IID_PPV_ARGS(&g_commandList)));
 	g_commandList->SetName(L"G_CommandList");
 	ThrowIfFailed(g_commandList->Close());
 
@@ -647,11 +649,11 @@ void App::LoadAsset()
 			Graphic::DescriptorHandle cb_handle = srv_cbv_heap_.Alloc(1);
 
 
-			auto cpu_cbv_handle = Graphic::CpuDescriptorAllocator::AllocateDescriptorHandle(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+			cpu_cbv_handle = Graphic::CpuDescriptorAllocator::AllocateDescriptorHandle(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 			Graphic::g_Device->CreateConstantBufferView(&cbv_desc, cpu_cbv_handle);
 
-			gpuCbvHandle_ = viewDescriptorAllocator.CopyToGpuDescriptor(1, cpu_cbv_handle.GetCpuAddress());
+		//	gpuCbvHandle_ = viewDescriptorAllocator.CopyToGpuDescriptor(1, cpu_cbv_handle.GetCpuAddress());
 
 
 			CD3DX12_RANGE range(0, 0);
@@ -749,7 +751,7 @@ void App::LoadAsset()
 	}
 	{
 	ThrowIfFailed( Graphic::g_Device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_BUNDLE, IID_PPV_ARGS(&g_BundleAllocator)));
-	 Graphic::g_Device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_BUNDLE, g_BundleAllocator.Get(), pso.pipeline_state_object(), IID_PPV_ARGS(&g_BundleList));
+	 Graphic::g_Device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_BUNDLE, g_BundleAllocator.Get(), pso.RawPipelineStateObject(), IID_PPV_ARGS(&g_BundleList));
 	
 	//g_BundleList->SetPipelineState(g_pipelineState.Get());
 	g_BundleList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -828,21 +830,29 @@ void App::PopulateUICommandList()
 	ThrowIfFailed(g_commandList->Close());
 }
 
+void App::PopulateScene()
+{
+	auto drawSceneContext = Graphic::GraphicContext::Begin();
+	drawSceneContext.SetRootSignature(rootSignature);
+	drawSceneContext.BindCpuDescriptor(0, 0, 1, &cpu_texture_handle);
+	drawSceneContext.BindCpuDescriptor(1, 0, 1,&cpu_cbv_handle);
+	drawSceneContext.SetViewPortAndScissorRects(&g_viewport, &g_scissorRect);
 
+	drawSceneContext.TransitionBarrier()
+}
 
 void App::PopulateSceneCommandList()
 {
 
-	auto drawSceneContext = Graphic::CommandContext::Begin();
-
+	
 	
 	//ThrowIfFailed(current_cmd_alloc->Reset());
 	ThrowIfFailed(current_cmd_alloc->Reset());
-	ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), pso.pipeline_state_object()));
+	ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), pso.RawPipelineStateObject()));
 	
 	//g_commandList->SetGraphicsRootSignature(g_rootSignature.Get());
 
-	g_commandList->SetGraphicsRootSignature(rootSignature.RootSignaturePtr());
+	g_commandList->SetGraphicsRootSignature(rootSignature.RawRootSignature());
 	// set the descriptor heap
 //	ID3D12DescriptorHeap* descriptorHeaps[] = { g_CBVHeap.Get() };/*
 	//ID3D12DescriptorHeap* descriptorHeaps[] = { g_SRVCBVHeap.Get() };
@@ -962,11 +972,11 @@ void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Grap
 	srvDesc.Texture2D.MipLevels = 1;
 	//UINT srv_desc_size =   Graphic::g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 	//CD3DX12_CPU_DESCRIPTOR_HANDLE desc_handle(descriptor_heap.Alloc(1), 1, srv_desc_size);
-	auto cpu_texture_handle = Graphic::CpuDescriptorAllocator::AllocateDescriptorHandle(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	cpu_texture_handle = Graphic::CpuDescriptorAllocator::AllocateDescriptorHandle(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 	Graphic::g_Device->CreateShaderResourceView(*texture_buffer, &srvDesc, cpu_texture_handle);
-	D3D12_CPU_DESCRIPTOR_HANDLE cpuHandles[] = { cpu_texture_handle };
-	gpuTextureHandle_ = viewDescriptorAllocator.CopyToGpuDescriptor(1, cpuHandles);
+	/*D3D12_CPU_DESCRIPTOR_HANDLE cpuHandles[] = { cpu_texture_handle };
+	gpuTextureHandle_ = viewDescriptorAllocator.CopyToGpuDescriptor(1, cpuHandles);*/
 
 
 	/*ThrowIfFailed(g_commandList->Close());

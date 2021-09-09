@@ -146,28 +146,28 @@ namespace YiaEngine::Graphic
 	{
 		UINT   NumDestDescriptorRanges = 1;
 		DescriptorHandle pDestDescriptorRangeStarts = Alloc(count);
-		UINT pDestDescriptorRangeSizes[1] = {count};
-		UINT NumSrcDescriptorRanges;
-		const D3D12_CPU_DESCRIPTOR_HANDLE* pSrcDescriptorRangeStarts;
+		
+
+		CopyToGpuDescriptor(count, cpuHandle, pDestDescriptorRangeStarts.GetCpuAddress());
+		return pDestDescriptorRangeStarts;
+	}
+	void GpuDescriptorAllocator::CopyToGpuDescriptor(int count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[], D3D12_CPU_DESCRIPTOR_HANDLE destHandle[])
+	{
 		UINT pSrcDescriptorRangeSizes[16];
+		UINT pDestDescriptorRangeSizes[1] = { count };
 		for (size_t i = 0; i < count; i++)
 		{
 			pSrcDescriptorRangeSizes[i] = 1;
 		}
 		g_Device->CopyDescriptors(
-		NumDestDescriptorRanges,
-		pDestDescriptorRangeStarts.GetCpuAddress(),
-		pDestDescriptorRangeSizes,
-		count,
-		cpuHandle,
-		pSrcDescriptorRangeSizes,
-		D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
+			1,
+			destHandle,
+			pDestDescriptorRangeSizes,
+			count,
+			cpuHandle,
+			pSrcDescriptorRangeSizes,
+			D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
 		);
-		return pDestDescriptorRangeStarts;
-	}
-	DescriptorHandle GpuDescriptorAllocator::CopyToGpuDescriptor(int count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[], D3D12_CPU_DESCRIPTOR_HANDLE destHandle)
-	{
-
 	}
 
 }
