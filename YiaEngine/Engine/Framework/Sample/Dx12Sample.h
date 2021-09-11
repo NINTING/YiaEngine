@@ -25,7 +25,7 @@
 #include"Core/DescriptorHeap.h"
 #include"Core/RootSignature.h"
 #include"Core/PipelineStateObject.h"
-
+#include"Core/Texture.h"
 using namespace DirectX;
 using namespace Microsoft::WRL;
 using Microsoft::WRL::ComPtr;
@@ -175,6 +175,8 @@ public:
 		D3D12_DESCRIPTOR_HEAP_TYPE_RTV ,
 		D3D12_DESCRIPTOR_HEAP_TYPE_DSV
 	};
+
+	Graphic::Texture AlbedoTex;
 
 	Graphic::DescriptorHandle swap_rtv_handle_[2];
 	Graphic::DescriptorHandle scene_rtv_handle;

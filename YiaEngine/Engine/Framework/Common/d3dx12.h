@@ -1618,14 +1618,14 @@ struct CD3DX12_CPU_DESCRIPTOR_HANDLE : public D3D12_CPU_DESCRIPTOR_HANDLE
 		InitOffsetted(*this, base, offsetInDescriptors, descriptorIncrementSize);
 	}
 
-	static inline void InitOffsetted(_Out_ D3D12_CPU_DESCRIPTOR_HANDLE &handle, _In_ const D3D12_CPU_DESCRIPTOR_HANDLE &base, INT offsetScaledByIncrementSize) noexcept
+	static inline void InitOffsetted(_Out_ D3D12_CPU_DESCRIPTOR_HANDLE &handle_, _In_ const D3D12_CPU_DESCRIPTOR_HANDLE &base, INT offsetScaledByIncrementSize) noexcept
 	{
-		handle.ptr = SIZE_T(INT64(base.ptr) + INT64(offsetScaledByIncrementSize));
+		handle_.ptr = SIZE_T(INT64(base.ptr) + INT64(offsetScaledByIncrementSize));
 	}
 
-	static inline void InitOffsetted(_Out_ D3D12_CPU_DESCRIPTOR_HANDLE &handle, _In_ const D3D12_CPU_DESCRIPTOR_HANDLE &base, INT offsetInDescriptors, UINT descriptorIncrementSize) noexcept
+	static inline void InitOffsetted(_Out_ D3D12_CPU_DESCRIPTOR_HANDLE &handle_, _In_ const D3D12_CPU_DESCRIPTOR_HANDLE &base, INT offsetInDescriptors, UINT descriptorIncrementSize) noexcept
 	{
-		handle.ptr = SIZE_T(INT64(base.ptr) + INT64(offsetInDescriptors) * INT64(descriptorIncrementSize));
+		handle_.ptr = SIZE_T(INT64(base.ptr) + INT64(offsetInDescriptors) * INT64(descriptorIncrementSize));
 	}
 };
 
@@ -1679,14 +1679,14 @@ struct CD3DX12_GPU_DESCRIPTOR_HANDLE : public D3D12_GPU_DESCRIPTOR_HANDLE
 		InitOffsetted(*this, base, offsetInDescriptors, descriptorIncrementSize);
 	}
 
-	static inline void InitOffsetted(_Out_ D3D12_GPU_DESCRIPTOR_HANDLE &handle, _In_ const D3D12_GPU_DESCRIPTOR_HANDLE &base, INT offsetScaledByIncrementSize) noexcept
+	static inline void InitOffsetted(_Out_ D3D12_GPU_DESCRIPTOR_HANDLE &handle_, _In_ const D3D12_GPU_DESCRIPTOR_HANDLE &base, INT offsetScaledByIncrementSize) noexcept
 	{
-		handle.ptr = UINT64(INT64(base.ptr) + INT64(offsetScaledByIncrementSize));
+		handle_.ptr = UINT64(INT64(base.ptr) + INT64(offsetScaledByIncrementSize));
 	}
 
-	static inline void InitOffsetted(_Out_ D3D12_GPU_DESCRIPTOR_HANDLE &handle, _In_ const D3D12_GPU_DESCRIPTOR_HANDLE &base, INT offsetInDescriptors, UINT descriptorIncrementSize) noexcept
+	static inline void InitOffsetted(_Out_ D3D12_GPU_DESCRIPTOR_HANDLE &handle_, _In_ const D3D12_GPU_DESCRIPTOR_HANDLE &base, INT offsetInDescriptors, UINT descriptorIncrementSize) noexcept
 	{
-		handle.ptr = UINT64(INT64(base.ptr) + INT64(offsetInDescriptors) * INT64(descriptorIncrementSize));
+		handle_.ptr = UINT64(INT64(base.ptr) + INT64(offsetInDescriptors) * INT64(descriptorIncrementSize));
 	}
 };
 

@@ -45,7 +45,9 @@ namespace YiaEngine
 			srvDesc.Texture2D.MipLevels = 1;
 			//UINT srv_desc_size =   Graphic::g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 			//CD3DX12_CPU_DESCRIPTOR_HANDLE desc_handle(descriptor_heap.Alloc(1), 1, srv_desc_size);
-			Graphic::g_Device->CreateShaderResourceView(resource_.Get(), &srvDesc, CpuDescriptorAllocator::AllocateDescriptorHandle(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV));
+			handle = CpuDescriptorAllocator::AllocateDescriptorHandle(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+
+			Graphic::g_Device->CreateShaderResourceView(resource_.Get(), &srvDesc, handle);
 
 			copy_command->End();
 

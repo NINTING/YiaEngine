@@ -310,12 +310,14 @@ void App::LoadPipeline(HWND hwnd)
 		//	UINT rtv_size =  Graphic::g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 		//	CD3DX12_CPU_DESCRIPTOR_HANDLE desc_handle(g_ImGui_SrvCbvHeap->GetCPUDescriptorHandleForHeapStart(), 1, srv_desc_size);
 			 Graphic::g_Device->CreateShaderResourceView(g_scene_tex.Get(), &srvDesc, gui_srv_heap.Alloc());
-			Graphic::ResourceAllocator
+			//Graphic::ResourceAllocator
 			//³¡¾°RTVÊÓÍ¼
 		//	CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(g_RTVHeap->GetCPUDescriptorHandleForHeapStart(), 2, g_rtvDescriptorSize);
-			 scene_rtv_handle =  descriptor_allcator_[D3D12_DESCRIPTOR_HEAP_TYPE_RTV].Alloc(1);
+			 
+			scene_rtv_handle =  descriptor_allcator_[D3D12_DESCRIPTOR_HEAP_TYPE_RTV].Alloc(1);
 			 Graphic::g_Device->CreateRenderTargetView(g_scene_tex.Get(), nullptr, scene_rtv_handle);
 			g_scene_tex->SetName(L"SCENE");
+			
 		}
 		/*auto desc = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_R8G8B8A8_UNORM, 300, 300, 1, 6, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
 		auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
@@ -653,7 +655,7 @@ void App::LoadAsset()
 
 			Graphic::g_Device->CreateConstantBufferView(&cbv_desc, cpu_cbv_handle);
 
-		//	gpuCbvHandle_ = viewDescriptorAllocator.CopyToGpuDescriptor(1, cpu_cbv_handle.GetCpuAddress());
+			//gpuCbvHandle_ = viewDescriptorAllocator.CopyToGpuDescriptor(1, cpu_cbv_handle.GetCpuAddress());
 
 
 			CD3DX12_RANGE range(0, 0);
@@ -686,6 +688,7 @@ void App::LoadAsset()
 		
 
 		LoadTextureBuffer(image, srv_cbv_heap_,1,&g_texture);
+		AlbedoTex.InitializeByImage(image.get());
 		//LoadTextureBuffer(image, g_ImGui_SrvCbvHeap.Get(), 2, &g_texture);
 
 		D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
@@ -808,9 +811,9 @@ void App::ExecuteCommand()
 
 void App::PopulateUICommandList()
 {
-//	current_cmd_alloc = frame_resouces_[current_frame_]->cmd_list_alloctor;
-//	ThrowIfFailed(current_cmd_alloc->Reset());
-//	ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), NULL));
+	current_cmd_alloc = frame_resouces_[current_frame_]->cmd_list_alloctor;
+	ThrowIfFailed(current_cmd_alloc->Reset());
+	ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), NULL));
 
 	ID3D12DescriptorHeap* descriptorHeaps[] = { gui_srv_heap.heap_ptr() };
 	g_commandList->SetDescriptorHeaps(1, descriptorHeaps);
@@ -832,13 +835,35 @@ void App::PopulateUICommandList()
 
 void App::PopulateScene()
 {
-	auto drawSceneContext = Graphic::GraphicContext::Begin();
+	Graphic::GraphicContext& drawSceneContext = Graphic::GraphicContext::Begin();
 	drawSceneContext.SetRootSignature(rootSignature);
-	drawSceneContext.BindCpuDescriptor(0, 0, 1, &cpu_texture_handle);
-	drawSceneContext.BindCpuDescriptor(1, 0, 1,&cpu_cbv_handle);
-	drawSceneContext.SetViewPortAndScissorRects(&g_viewport, &g_scissorRect);
+	drawSceneContext.SetPipelineState(pso);
+	auto texHandle = AlbedoTex.CpuHandle();
 
-	drawSceneContext.TransitionBarrier()
+	drawSceneContext.BindCpuDescriptor(0, 0, 1, &texHandle);
+	drawSceneContext.BindCpuDescriptor(1, 0, 1,&cpu_cbv_handle);
+	drawSceneContext.BindGpuDescriptor();
+	drawSceneContext.SetViewPortAndScissorRects(&g_viewport, &g_scissorRect);
+	Graphic::GpuResource scene(g_scene_tex.Get());
+
+	drawSceneContext.TransitionBarrier(scene, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE, D3D12_RESOURCE_STATE_RENDER_TARGET);
+	drawSceneContext.SetRenderTarget(scene_rtv_handle.GetCpuAddress(), nullptr);
+	const float clearColor[] = { 0.0f, 0.2f, 0.4f, 1.0f };
+	drawSceneContext.ClearRenderTarget(scene_rtv_handle, clearColor);
+
+	drawSceneContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	drawSceneContext.SetIndexBuffer(&g_IndexBufferView);
+	drawSceneContext.SetVertexBuffers(0, 2, &g_VertexBufferView[0]);
+
+	auto mesh = g_mode->Object()->GetMeshObject(0);
+	auto indexarray = mesh->GetIndexArray(0);
+
+	drawSceneContext.DrawIndexInstance(indexarray.count(), 1, 0, 0, 0); 
+
+	//drawSceneContext.ExecuteBundle(g_BundleList.Get());
+	drawSceneContext.TransitionBarrier(scene, D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+	drawSceneContext.End();
 }
 
 void App::PopulateSceneCommandList()

@@ -65,3 +65,4 @@ https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide
 1. 私有成员变量 memberVar_
 2. 静态成员变量 私有： s_member_ 公有 s_Member
 3. 函数变量 funcVar
+4. 全局变量 g_Var

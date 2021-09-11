@@ -165,9 +165,9 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
 
       
        
-       app->PopulateSceneCommandList();
+     // app->PopulateSceneCommandList();
        
-
+       app->PopulateScene();
        //===============   UI   ======================
        app->Update();
        app->DrawUI();

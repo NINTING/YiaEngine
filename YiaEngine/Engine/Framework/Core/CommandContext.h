@@ -30,6 +30,13 @@ namespace YiaEngine
 			std::vector<CommandContext*> context_pool_;
 			std::queue<CommandContext*> ready_queue_[4];
 		};
+		
+		struct GpuDescriptorTable
+		{
+			D3D12_CPU_DESCRIPTOR_HANDLE* StartHandle;
+			UINT TableSize;
+			UINT BaseOffset;
+		};
 
 		//CommandContext是一个最小的GPU任务执行单元
 		class CommandContext
@@ -79,6 +86,13 @@ namespace YiaEngine
 			GpuDescriptorAllocator viewDescriptorAllocator;
 		protected:
 			ID3D12PipelineState* pipelineState_;
+		protected:
+			static const int kMaxDescriptorNum = 256;
+			static const int kMaxDescriptorTableNum = 16;
+			GpuDescriptorTable tableCache_[kMaxDescriptorTableNum];
+			D3D12_CPU_DESCRIPTOR_HANDLE cpuDescriptorPool_[kMaxDescriptorNum];
+			UINT tableSize_ = 0;
+			ID3D12DescriptorHeap* currentDesdcriptorHeaps[2];
 		};
 	}
 		

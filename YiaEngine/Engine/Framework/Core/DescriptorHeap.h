@@ -27,8 +27,8 @@ namespace YiaEngine::Graphic
 	{
 	public:
 		DescriptorHandle() { 
-			cpu_handle_.ptr = -1; 
-			gpu_handle_.ptr = -1;
+			cpu_handle_.ptr = ADDRESS_UNKOWN; 
+			gpu_handle_.ptr = ADDRESS_UNKOWN;
 		};
 		DescriptorHandle(D3D12_CPU_DESCRIPTOR_HANDLE cpu_handle, D3D12_GPU_DESCRIPTOR_HANDLE gpu_handle) {
 			cpu_handle_ = cpu_handle;
@@ -73,7 +73,7 @@ namespace YiaEngine::Graphic
 		DescriptorHandle Alloc(uint32_t count = 1);
 		bool HasFreeSpace(int count) { return free_descriptor_num_ >= count; }
 	public:
-		 ID3D12DescriptorHeap* heap_ptr() const { return heap_.Get(); }
+		ID3D12DescriptorHeap* heap_ptr() const { return heap_.Get(); }
 		DescriptorHandle operator[](uint32_t index) { return first_handle_ + index * descriptor_size_; }
 	protected:
 		void InitHeap();

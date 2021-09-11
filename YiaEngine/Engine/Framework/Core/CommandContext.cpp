@@ -35,6 +35,7 @@ namespace YiaEngine
 		void CommandContext::Initialize()
 		{
 			g_commandManager.CreateNewCommandList(D3D12_COMMAND_LIST_TYPE_DIRECT, &commandList_, &command_allocator_);
+			memset(tableCache_, 0, sizeof(GpuDescriptorTable) * kMaxDescriptorTableNum);
 		}
 
 		void CommandContext::Reset()
@@ -43,7 +44,8 @@ namespace YiaEngine
 			command_allocator_ =  queue.RequireCommandAlloctor();
 
 			commandList_->Reset(command_allocator_,nullptr);
-
+			memset(tableCache_, 0, sizeof(GpuDescriptorTable) * kMaxDescriptorTableNum);
+			
 		}
 
 		void CommandContext::End(bool wait_for_complete)
@@ -74,6 +76,7 @@ namespace YiaEngine
 			barrier.Transition.StateAfter = after;
 			barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
 			commandList_->ResourceBarrier(1, &barrier);
+			
 		}
 		
 		CommandContext* CommandContextManager::Allocator(D3D12_COMMAND_LIST_TYPE type)
@@ -91,6 +94,7 @@ namespace YiaEngine
 				ready_queue_[type].pop();
 				ret->Reset();
 			}
+		
 			return ret;
 		}
 
@@ -118,6 +122,16 @@ namespace YiaEngine
 				return;
 			commandList_->SetPipelineState(rawPso);
 			pipelineState_ = rawPso;
+		}
+		void CommandContext::SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE type, ID3D12DescriptorHeap * heap)
+		{
+			assert(type < D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER);
+			if (currentDesdcriptorHeaps[(int)type] != heap)
+			{
+				currentDesdcriptorHeaps[(int)type] = heap;
+				
+				commandList_->SetDescriptorHeaps(1, &heap);
+			}
 		}
 	}
 		

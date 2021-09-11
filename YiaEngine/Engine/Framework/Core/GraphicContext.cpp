@@ -10,10 +10,11 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
-		GraphicContext& GraphicContext::Begin(const wchar_t* name)
+		 GraphicContext& GraphicContext::Begin(const wchar_t* name)
 		{
-			auto commandContext = CommandContext::Begin(name);
-			return reinterpret_cast<GraphicContext&>(commandContext);
+			 CommandContext* commandContext = CommandContext::Begin(name);
+			 
+			return reinterpret_cast<GraphicContext&>(*commandContext);
 		}
 		void GraphicContext::SetRootSignature(const RootSignature& rootSignature)
 		{
@@ -23,9 +24,13 @@ namespace YiaEngine
 		void GraphicContext::ParseRootSignature(const RootSignature& rootSignature)
 		{
 			tableSize_ = 0;
+			memset(cpuDescriptorPool_, 0, sizeof(D3D12_CPU_DESCRIPTOR_HANDLE) * kMaxDescriptorNum);
 			for (int i = 0; i < rootSignature.ParamenterCount(); i++)
 			{
 				tableCache_[i].BaseOffset = tableSize_;
+				
+				
+				tableCache_[i].StartHandle = &cpuDescriptorPool_[tableSize_];
 				tableSize_ += rootSignature[i].DescriptorTableSize();
 				tableCache_[i].TableSize = tableSize_ - tableCache_[i].BaseOffset;
 			}
@@ -40,26 +45,33 @@ namespace YiaEngine
 		
 		void GraphicContext::BindCpuDescriptor(int rootIndex,int offset, int num,const DescriptorHandle descriptorHandles[])
 		{
-			auto cputableCache = tableCache_[rootIndex];
+			
+			auto& cputableCache = tableCache_[rootIndex];
 
-			cputableCache.StartHandle = &cpuDescriptorPool_[cputableCache.BaseOffset + offset];
+			//cputableCache.StartHandle = &cpuDescriptorPool_[cputableCache.BaseOffset + offset];
 			for (size_t i = 0; i < num; i++)
 			{
-				cputableCache.StartHandle[i] = descriptorHandles[i];
+				cputableCache.StartHandle[i+ offset] = descriptorHandles[i];
 			}
 		}
 
 		void  GraphicContext::BindGpuDescriptor()
 		{
+			//ID3D12DescriptorHeap* heaps[] = { viewDescriptorAllocator.CurrentUseHeap().heap_ptr() };
+			//commandList_->SetDescriptorHeaps(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, heaps);
+			
 			static const int kMaxDescriptorNumPerCopy = 16;
 			auto gpuStartHandle = viewDescriptorAllocator.Alloc(tableSize_);
-			
+			SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, viewDescriptorAllocator.CurrentUseHeap().heap_ptr());
+
 			int handleIncrementSize = viewDescriptorAllocator.ViewDescriptorIncrementSize();
 
 			for (size_t i = 0; i < kMaxDescriptorTableNum; i++)
 			{
 				auto gpuCurrentHandle = gpuStartHandle;
+				if (tableCache_[i].TableSize == 0)continue;
 				commandList_->SetGraphicsRootDescriptorTable(i, gpuStartHandle);
+
 				gpuStartHandle += tableCache_[i].TableSize * handleIncrementSize;
 				auto cpuHandles = tableCache_[i].StartHandle;
 				int validCount = 0;
@@ -81,6 +93,8 @@ namespace YiaEngine
 				if(validCount!=0)
 					viewDescriptorAllocator.CopyToGpuDescriptor(validCount, copySrc, gpuCurrentHandle.GetCpuAddress());
 			}
+
+			
 		}
 		void GraphicContext::SetViewPortAndScissorRects(const D3D12_VIEWPORT* pViewPort, const D3D12_RECT* pAcissorRect)
 		{
@@ -91,6 +105,16 @@ namespace YiaEngine
 		void GraphicContext::SetRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE* renderTarget, D3D12_CPU_DESCRIPTOR_HANDLE* depth)
 		{
 			SetRenderTargets(1, renderTarget, depth);
+		}
+		void GraphicContext::ClearRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE renderTarget,const float colors[])
+		{
+			commandList_->ClearRenderTargetView(renderTarget, colors, 0, nullptr);
+		}
+
+		void GraphicContext::ClearRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE renderTarget)
+		{
+			float black[] = { 0,0,0,1.0f };
+			ClearRenderTarget(renderTarget, black);
 		}
 		
 		void GraphicContext::SetRenderTargets(UINT numRT, D3D12_CPU_DESCRIPTOR_HANDLE RTS[], D3D12_CPU_DESCRIPTOR_HANDLE* depth)
@@ -106,7 +130,10 @@ namespace YiaEngine
 		{
 			commandList_->IASetIndexBuffer(indexView);
 		}
-		
+		void GraphicContext::ExecuteBundle(ID3D12GraphicsCommandList* bundle)
+		{
+			commandList_->ExecuteBundle(bundle);
+		}
 		
 		void GraphicContext::SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY topology)
 		{
@@ -115,7 +142,7 @@ namespace YiaEngine
 
 		void GraphicContext::DrawInstance()
 		{
-
+		
 		}
 
 		void GraphicContext::DrawIndexInstance(UINT indexCountPerInstance, UINT instanceCount,
