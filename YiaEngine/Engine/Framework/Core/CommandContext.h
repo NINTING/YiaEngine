@@ -46,6 +46,8 @@ namespace YiaEngine
 			static CommandContext* Begin(const wchar_t* name = L"");
 			void End(bool wait_for_complete = true);
 
+		//	CommandContext();
+
 			AllocateBuffer GetTemraryUploadBuffer(size_t size_byte) {
 				return upload_allocator_.Allocate(size_byte);
 			}
@@ -62,9 +64,9 @@ namespace YiaEngine
 			void SetPipelineState(const PipelineStateObject& pso);
 
 		public:
-			static void InitializeTexture(GpuResource&dest,UINT subresource_num, D3D12_SUBRESOURCE_DATA data);
-			
+			static void InitializeTexture(GpuResource& dest, UINT subresource_num, D3D12_SUBRESOURCE_DATA data);
 
+			
 		public:
 
 			ID3D12GraphicsCommandList* command_list() { return commandList_.Get(); };
@@ -84,6 +86,7 @@ namespace YiaEngine
 			std::wstring name;
 
 			GpuDescriptorAllocator viewDescriptorAllocator;
+			GpuDescriptorAllocator sampleDescriptorAllocator;
 		protected:
 			ID3D12PipelineState* pipelineState_;
 		protected:
@@ -92,7 +95,7 @@ namespace YiaEngine
 			GpuDescriptorTable tableCache_[kMaxDescriptorTableNum];
 			D3D12_CPU_DESCRIPTOR_HANDLE cpuDescriptorPool_[kMaxDescriptorNum];
 			UINT tableSize_ = 0;
-			ID3D12DescriptorHeap* currentDesdcriptorHeaps[2];
+			ID3D12DescriptorHeap* currentDescriptorHeaps[2];
 		};
 	}
 		

@@ -128,10 +128,10 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
     app->InitEngine();
     app->LoadPipeline(g_hwnd);
     
-    auto font_srv_handle = app->gui_srv_heap.Alloc();
+    auto font_srv_handle = Graphic::g_GpuCommonDescriptoHeap.Alloc();
     ImGui_ImplWin32_Init(g_hwnd);
     ImGui_ImplDX12_Init(Graphic::g_Device.Get(), app->frames_count_,
-        DXGI_FORMAT_R8G8B8A8_UNORM, app->gui_srv_heap.heap_ptr(),
+        DXGI_FORMAT_R8G8B8A8_UNORM, Graphic::g_GpuCommonDescriptoHeap.heap_ptr(),
         font_srv_handle,
         font_srv_handle);
 
@@ -164,17 +164,17 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
        //===============   GAMEPLAY   ======================
 
       
-       
-     // app->PopulateSceneCommandList();
-       
+
+  
+
        app->PopulateScene();
-       //===============   UI   ======================
        app->Update();
-       app->DrawUI();
-       
+       //===============   UI   ======================
+ 
+        app->DrawUI();
 
         app->PopulateUICommandList();
-
+  
         app->ExecuteCommand();
 
         app->SwapPresent();

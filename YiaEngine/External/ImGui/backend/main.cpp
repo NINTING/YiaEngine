@@ -294,11 +294,11 @@ bool CreateDeviceD3D(HWND hWnd)
             return false;
 
         SIZE_T rtvDescriptorSize = g_pd3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
-        D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = g_pd3dRtvDescHeap->GetCPUDescriptorHandleForHeapStart();
+        D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle_ = g_pd3dRtvDescHeap->GetCPUDescriptorHandleForHeapStart();
         for (UINT i = 0; i < NUM_BACK_BUFFERS; i++)
         {
-            g_mainRenderTargetDescriptor[i] = rtvHandle;
-            rtvHandle.ptr += rtvDescriptorSize;
+            g_mainRenderTargetDescriptor[i] = rtvHandle_;
+            rtvHandle_.ptr += rtvDescriptorSize;
         }
     }
 

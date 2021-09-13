@@ -26,6 +26,7 @@
 #include"Core/RootSignature.h"
 #include"Core/PipelineStateObject.h"
 #include"Core/Texture.h"
+#include"Core/RenderBuffer.h"
 using namespace DirectX;
 using namespace Microsoft::WRL;
 using Microsoft::WRL::ComPtr;
@@ -96,9 +97,9 @@ public:
 	void PopulateUICommandList();
 
 	void PopulateScene();
-
+	void PopulateUI();
 	void SwapPresent();
-	void ClearRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle);
+	void ClearRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle_);
 
 	void LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Graphic::DescriptorHeap descriptor_heap, UINT offset, ID3D12Resource** texture_buffer);
 	void Destroy();
@@ -185,7 +186,7 @@ public:
 	Graphic::PipelineStateObject pso;
 	Graphic::PipelineStateObject lightpso;
 
-	Graphic::GpuDescriptorAllocator viewDescriptorAllocator;
+	//Graphic::GpuDescriptorAllocator viewDescriptorAllocator;
 	Graphic::DescriptorHandle gpuTextureHandle_;
 	Graphic::DescriptorHandle gpuCbvHandle_;
 
@@ -193,6 +194,8 @@ public:
 	Graphic::DescriptorHandle cpu_cbv_handle;
 	//GUI
 	std::unique_ptr<SceneWindow> scene_window_;
+	Graphic::RenderBuffer sceneTarget;
+	Graphic::DescriptorHandle sceneGpuHandle_;
 };
 
 struct FrameResource

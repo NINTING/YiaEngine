@@ -8,6 +8,7 @@ namespace YiaEngine
 	namespace Graphic
 	{
 		Microsoft::WRL::ComPtr<ID3D12Device> g_Device = nullptr;
+		DescriptorHeap g_GpuCommonDescriptoHeap;
 		CommandManager g_commandManager;
 		CpuDescriptorAllocator g_CpuDescriptorAllocator[D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES] =
 		{

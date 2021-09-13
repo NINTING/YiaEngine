@@ -9,6 +9,7 @@
 
 #include"Core/Graphic.h"
 #include"RootSignature.h"
+#include"CommandManager.h"
 namespace YiaEngine::Graphic
 {
 	DescriptorHeap::DescriptorHeap(const wchar_t* name,D3D12_DESCRIPTOR_HEAP_DESC desc)
@@ -67,6 +68,12 @@ namespace YiaEngine::Graphic
 		return ret;
 	}
 
+	void DescriptorHeap::Reset()
+	{
+		free_descriptor_num_ = desc_.NumDescriptors;
+		head_free_handle_ = first_handle_;
+	}
+
 	void DescriptorHeap::InitHeap()
 	{
 		descriptor_size_ = Graphic::g_Device->GetDescriptorHandleIncrementSize(desc_.Type);
@@ -113,7 +120,9 @@ namespace YiaEngine::Graphic
 		return s_descriptor[type].Alloc(count);
 	}
 
-
+	std::vector<DescriptorHeap> GpuDescriptorAllocator::s_heapPool_[2];
+	std::queue<std::pair<uint64_t, DescriptorHeap*>> GpuDescriptorAllocator::s_retireHeaps[2];
+	std::queue<DescriptorHeap*> GpuDescriptorAllocator::s_avalibleHeaps[2];
 	// @param sda
 	void GpuDescriptorAllocator::ParseRootSignature(const RootSignature& rootSignature)
 	{
@@ -127,14 +136,8 @@ namespace YiaEngine::Graphic
 	}
 	DescriptorHandle GpuDescriptorAllocator::Alloc(UINT count)
 	{
-		if (currentHeap == nullptr)
-		{
-			DescriptorHeap heap;
-			heap.CreateShaderVisibleType(L"GpuViewHeap",D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 1024);
-			viewHeapPool_.emplace_back(heap);
-			currentHeap = &viewHeapPool_.back();
-		}
-		return currentHeap->Alloc(count);
+		assert(currentHeap_ != nullptr);
+		return currentHeap_->Alloc(count);
 	}
 
 	/// <summary>
@@ -170,6 +173,64 @@ namespace YiaEngine::Graphic
 		);
 	}
 
+	void GpuDescriptorAllocator::RetireCurrentHeap()
+	{
+		if (currentHeap_)
+		{
+			useHeaps_.push_back(currentHeap_);
+			currentHeap_->Reset();
+			currentHeap_ = nullptr;
+		}
+	}
+
+	DescriptorHeap& GpuDescriptorAllocator::CurrentUseHeap()
+	{
+		if (currentHeap_ == nullptr)
+		{
+			currentHeap_ = requestNewHeap(heapType_);
+		}
+		return *currentHeap_;
+	}
+
+	void GpuDescriptorAllocator::Clean(UINT fence)
+	{
+		RetireCurrentHeap();
+		DiscardUseHeaps(heapType_,fence,useHeaps_);
+		useHeaps_.clear();
+	}
+	void GpuDescriptorAllocator::DiscardUseHeaps(D3D12_DESCRIPTOR_HEAP_TYPE type, uint64_t fence,const std::vector<DescriptorHeap*>& useHeap)
+	{
+		for (auto it = useHeap.begin(); it != useHeap.end(); it++)
+		{
+			s_retireHeaps[type].push(std::make_pair(fence, *it));
+		}
+	}
+
+	DescriptorHeap* GpuDescriptorAllocator::requestNewHeap(D3D12_DESCRIPTOR_HEAP_TYPE type)
+	{
+		DescriptorHeap* ret;
+	//	DescriptorHeap heap;
+	//	heap.CreateShaderVisibleType(L"GpuViewHeap", D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 1024);
+		while (!s_retireHeaps[type].empty()&&g_commandManager.IsComplete(s_retireHeaps[type].front().first))
+		{
+			s_avalibleHeaps[type].push( s_retireHeaps[type].front().second);
+			s_retireHeaps[type].pop();
+
+		}
+		if (!s_avalibleHeaps[type].empty())
+		{
+			ret = s_avalibleHeaps[type].front();
+			s_avalibleHeaps[type].pop();
+		}
+		else
+		{
+			s_heapPool_[type].emplace_back(DescriptorHeap());
+			s_heapPool_[type].back().CreateShaderVisibleType(L"GpuViewHeap", D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 1024);
+			ret  = &s_heapPool_[type].back();
+		}
+		return ret;
+	}
+	
 }
 
 

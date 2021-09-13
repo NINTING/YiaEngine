@@ -11,14 +11,7 @@ namespace YiaEngine
 	namespace Graphic
 	{
 		CommandContextManager CommandContext::s_context_manager;
-		CommandContext::CommandContext(D3D12_COMMAND_LIST_TYPE type)
-			:upload_allocator_(AllocateType::kUpload),type_(type)
-		{
 	
-			commandList_ = nullptr;
-			//ThrowIfFailed(Graphic::g_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, g_commandAllocator.Get(), pso.pipeline_state_object(), IID_PPV_ARGS(&g_commandList)));
-			command_allocator_ = nullptr;
-		}
 		CommandContext* CommandContext::Begin(const wchar_t* name)
 		{
 
@@ -40,17 +33,19 @@ namespace YiaEngine
 
 		void CommandContext::Reset()
 		{
-			auto queue = g_commandManager.GetQueue(type_);
+			auto& queue = g_commandManager.GetQueue(type_);
 			command_allocator_ =  queue.RequireCommandAlloctor();
 
 			commandList_->Reset(command_allocator_,nullptr);
 			memset(tableCache_, 0, sizeof(GpuDescriptorTable) * kMaxDescriptorTableNum);
-			
+			pipelineState_ = nullptr;
+			currentDescriptorHeaps[0] = nullptr;
+			currentDescriptorHeaps[1] = nullptr;
 		}
 
 		void CommandContext::End(bool wait_for_complete)
 		{
-			auto command_queue = g_commandManager.GetQueue(type_);
+			auto& command_queue = g_commandManager.GetQueue(type_);
 		//	UINT64 fence = command_queue_.Execute(command_list_.Get());
 			UINT64 fence = command_queue.Execute(commandList_.Get());
 			//ResourceAllocator->clean();
@@ -58,13 +53,24 @@ namespace YiaEngine
 			command_allocator_ = nullptr;
 			
 			upload_allocator_.FreeResource(fence);
+			viewDescriptorAllocator.Clean(fence);
+			sampleDescriptorAllocator.Clean(fence);
 
 			if (wait_for_complete)
 			{
 				command_queue.WaitForFence(fence);
 			}
-			
+			s_context_manager.Free(this);
 		}
+		CommandContext::CommandContext(D3D12_COMMAND_LIST_TYPE listType):
+			type_(listType),
+			upload_allocator_(AllocateType::kUpload),
+			viewDescriptorAllocator(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV),
+			sampleDescriptorAllocator(D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER)
+			{
+				command_allocator_ = nullptr;
+				commandList_ = nullptr;
+			}
 		void CommandContext::TransitionBarrier(GpuResource& gpu_resource, D3D12_RESOURCE_STATES before, D3D12_RESOURCE_STATES after)
 		{
 	
@@ -126,9 +132,9 @@ namespace YiaEngine
 		void CommandContext::SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE type, ID3D12DescriptorHeap * heap)
 		{
 			assert(type < D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER);
-			if (currentDesdcriptorHeaps[(int)type] != heap)
+			if (currentDescriptorHeaps[(int)type] != heap)
 			{
-				currentDesdcriptorHeaps[(int)type] = heap;
+				currentDescriptorHeaps[(int)type] = heap;
 				
 				commandList_->SetDescriptorHeaps(1, &heap);
 			}

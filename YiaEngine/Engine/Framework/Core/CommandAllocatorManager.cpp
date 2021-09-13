@@ -26,7 +26,7 @@ namespace YiaEngine
 			ID3D12CommandAllocator* ret = nullptr;
 			if (!ready_list.empty())
 			{
-				if (ready_list.front().first < fence)
+				if (ready_list.front().first <= fence)
 				{
 					ret = ready_list.front().second;
 					ready_list.pop();

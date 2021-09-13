@@ -61,9 +61,13 @@ namespace YiaEngine
 			//commandList_->SetDescriptorHeaps(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, heaps);
 			
 			static const int kMaxDescriptorNumPerCopy = 16;
+			
+			if(! viewDescriptorAllocator.HasSpace(tableSize_))
+			{ 
+				viewDescriptorAllocator.RetireCurrentHeap();
+			}
+ 			SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, viewDescriptorAllocator.CurrentUseHeap().heap_ptr());
 			auto gpuStartHandle = viewDescriptorAllocator.Alloc(tableSize_);
-			SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, viewDescriptorAllocator.CurrentUseHeap().heap_ptr());
-
 			int handleIncrementSize = viewDescriptorAllocator.ViewDescriptorIncrementSize();
 
 			for (size_t i = 0; i < kMaxDescriptorTableNum; i++)

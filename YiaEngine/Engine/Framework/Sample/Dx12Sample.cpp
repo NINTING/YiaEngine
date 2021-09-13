@@ -20,7 +20,7 @@
 
 #include"Core/CommandContext.h"
 #include"Core/CommandManager.h"
-
+#include"Core/DescriptorHeap.h"
 #include"Core/GraphicContext.h"
 inline std::string  HrToString(HRESULT hr)
 {
@@ -289,6 +289,7 @@ void App::LoadPipeline(HWND hwnd)
 		ThrowIfFailed( Graphic::g_device->CreateDescriptorHeap(&srvHeapdesc, IID_PPV_ARGS(&g_ImGui_SrvCbvHeap)));
 		
 		g_ImGui_SrvCbvHeap->SetName(L"UI_SRV");*/
+		Graphic::g_GpuCommonDescriptoHeap.CreateShaderVisibleType(L"Common_SRV_CBV_UAV", D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 1024);
 		gui_srv_heap.CreateShaderVisibleType(L"UI_SRV_CBV_UAV", D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 10);
 		{		
 			auto desc = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_R8G8B8A8_UNORM, 1024, 1024, 1, 6, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
@@ -315,9 +316,12 @@ void App::LoadPipeline(HWND hwnd)
 		//	CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(g_RTVHeap->GetCPUDescriptorHandleForHeapStart(), 2, g_rtvDescriptorSize);
 			 
 			scene_rtv_handle =  descriptor_allcator_[D3D12_DESCRIPTOR_HEAP_TYPE_RTV].Alloc(1);
-			 Graphic::g_Device->CreateRenderTargetView(g_scene_tex.Get(), nullptr, scene_rtv_handle);
+			Graphic::g_Device->CreateRenderTargetView(g_scene_tex.Get(), nullptr, scene_rtv_handle);
 			g_scene_tex->SetName(L"SCENE");
 			
+		}
+		{
+			sceneTarget.Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM);
 		}
 		/*auto desc = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_R8G8B8A8_UNORM, 300, 300, 1, 6, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
 		auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
@@ -769,8 +773,18 @@ void App::LoadAsset()
 	}
 	
 	{
-
-		
+		sceneGpuHandle_ = Graphic::g_GpuCommonDescriptoHeap.Alloc(1);
+		UINT destSize[] = { 1 };
+		UINT srcSize[] = { 1 };
+		Graphic::g_Device->CopyDescriptors(
+			1,
+			sceneGpuHandle_.GetCpuAddress(),
+			destSize,
+			1,
+			sceneTarget.SrvCpuHandle().GetCpuAddress(),
+			srcSize,
+			D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
+		);
 	
 	}
 
@@ -811,11 +825,13 @@ void App::ExecuteCommand()
 
 void App::PopulateUICommandList()
 {
+
+//	ImGui::GetDrawData	
 	current_cmd_alloc = frame_resouces_[current_frame_]->cmd_list_alloctor;
 	ThrowIfFailed(current_cmd_alloc->Reset());
 	ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), NULL));
 
-	ID3D12DescriptorHeap* descriptorHeaps[] = { gui_srv_heap.heap_ptr() };
+	ID3D12DescriptorHeap* descriptorHeaps[] = { Graphic::g_GpuCommonDescriptoHeap.heap_ptr() };
 	g_commandList->SetDescriptorHeaps(1, descriptorHeaps);
 
 	auto  barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
@@ -827,7 +843,7 @@ void App::PopulateUICommandList()
 	ClearRenderTarget(swap_rtv_handle_[g_frameIndex]);
 
 	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), g_commandList.Get());
-
+	 
 	barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
 	g_commandList->ResourceBarrier(1, &barrier);
 	ThrowIfFailed(g_commandList->Close());
@@ -845,12 +861,13 @@ void App::PopulateScene()
 	drawSceneContext.BindGpuDescriptor();
 	drawSceneContext.SetViewPortAndScissorRects(&g_viewport, &g_scissorRect);
 	Graphic::GpuResource scene(g_scene_tex.Get());
-
-	drawSceneContext.TransitionBarrier(scene, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE, D3D12_RESOURCE_STATE_RENDER_TARGET);
-	drawSceneContext.SetRenderTarget(scene_rtv_handle.GetCpuAddress(), nullptr);
+	//drawSceneContext.TransitionBarrier(scene, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE, D3D12_RESOURCE_STATE_RENDER_TARGET);
+	drawSceneContext.TransitionBarrier(sceneTarget, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE, D3D12_RESOURCE_STATE_RENDER_TARGET);
+	drawSceneContext.SetRenderTarget(sceneTarget.RtvCpuHandle().GetCpuAddress(), nullptr);
+	//drawSceneContext.SetRenderTarget(scene_rtv_handle.GetCpuAddress(), nullptr);
 	const float clearColor[] = { 0.0f, 0.2f, 0.4f, 1.0f };
-	drawSceneContext.ClearRenderTarget(scene_rtv_handle, clearColor);
-
+	drawSceneContext.ClearRenderTarget(sceneTarget.RtvCpuHandle(), clearColor);
+	//drawSceneContext.ClearRenderTarget(scene_rtv_handle, clearColor);
 	drawSceneContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	drawSceneContext.SetIndexBuffer(&g_IndexBufferView);
@@ -862,85 +879,93 @@ void App::PopulateScene()
 	drawSceneContext.DrawIndexInstance(indexarray.count(), 1, 0, 0, 0); 
 
 	//drawSceneContext.ExecuteBundle(g_BundleList.Get());
-	drawSceneContext.TransitionBarrier(scene, D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+	drawSceneContext.TransitionBarrier(sceneTarget, D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+	//drawSceneContext.TransitionBarrier(scene, D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 	drawSceneContext.End();
+}
+
+void App::PopulateUI()
+{
+	Graphic::GraphicContext& UiContext = Graphic::GraphicContext::Begin();
+
+
 }
 
 void App::PopulateSceneCommandList()
 {
-
-	
-	
-	//ThrowIfFailed(current_cmd_alloc->Reset());
-	ThrowIfFailed(current_cmd_alloc->Reset());
-	ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), pso.RawPipelineStateObject()));
-	
-	//g_commandList->SetGraphicsRootSignature(g_rootSignature.Get());
-
-	g_commandList->SetGraphicsRootSignature(rootSignature.RawRootSignature());
-	// set the descriptor heap
-//	ID3D12DescriptorHeap* descriptorHeaps[] = { g_CBVHeap.Get() };/*
-	//ID3D12DescriptorHeap* descriptorHeaps[] = { g_SRVCBVHeap.Get() };
-	gpuTextureHandle_;
-	
+//
+//	
+//	
+//	//ThrowIfFailed(current_cmd_alloc->Reset());
+//	ThrowIfFailed(current_cmd_alloc->Reset());
+//	ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), pso.RawPipelineStateObject()));
+//	
+//	//g_commandList->SetGraphicsRootSignature(g_rootSignature.Get());
+//
+//	g_commandList->SetGraphicsRootSignature(rootSignature.RawRootSignature());
+//	// set the descriptor heap
+////	ID3D12DescriptorHeap* descriptorHeaps[] = { g_CBVHeap.Get() };/*
+//	//ID3D12DescriptorHeap* descriptorHeaps[] = { g_SRVCBVHeap.Get() };
+//	gpuTextureHandle_;
+//	
+////	g_commandList->SetDescriptorHeaps(1, descriptorHeaps);
+//
+//
+//	/*g_commandList->SetDescriptorHeaps(1, g_GpuDescriptorAllocator.GraphicHeap);*/
+//	/*g_commandList->SetGraphicsRootDescriptorTable(0, );*/
+//	/*g_commandList->SetGraphicsRootDescriptorTable(1, srv_cbv_heap_[0]);*/
+//
+//
+//	//CD3DX12_GPU_DESCRIPTOR_HANDLE tex();
+//	//tex.Offset(0, 0);
+//	/*UINT srv_desc_size =  Graphic::g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+//	CD3DX12_GPU_DESCRIPTOR_HANDLE srv_gpu_handle(g_SRVCBVHeap->GetGPUDescriptorHandleForHeapStart(), 1, srv_desc_size);*/
+//	//g_commandList->SetGraphicsRootDescriptorTable(1, g_SRVCBVHeap->GetGPUDescriptorHandleForHeapStart());
+//	//g_commandList->SetGraphicsRootDescriptorTable(0, srv_gpu_handle);
+//	ID3D12DescriptorHeap* descriptorHeaps[] = { viewDescriptorAllocator.CurrentUseHeap().heap_ptr() };
 //	g_commandList->SetDescriptorHeaps(1, descriptorHeaps);
-
-
-	/*g_commandList->SetDescriptorHeaps(1, g_GpuDescriptorAllocator.GraphicHeap);*/
-	/*g_commandList->SetGraphicsRootDescriptorTable(0, );*/
-	/*g_commandList->SetGraphicsRootDescriptorTable(1, srv_cbv_heap_[0]);*/
-
-
-	//CD3DX12_GPU_DESCRIPTOR_HANDLE tex();
-	//tex.Offset(0, 0);
-	/*UINT srv_desc_size =  Graphic::g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-	CD3DX12_GPU_DESCRIPTOR_HANDLE srv_gpu_handle(g_SRVCBVHeap->GetGPUDescriptorHandleForHeapStart(), 1, srv_desc_size);*/
-	//g_commandList->SetGraphicsRootDescriptorTable(1, g_SRVCBVHeap->GetGPUDescriptorHandleForHeapStart());
-	//g_commandList->SetGraphicsRootDescriptorTable(0, srv_gpu_handle);
-	ID3D12DescriptorHeap* descriptorHeaps[] = { viewDescriptorAllocator.CurrentUseHeap().heap_ptr() };
-	g_commandList->SetDescriptorHeaps(1, descriptorHeaps);
-
-	g_commandList->SetGraphicsRootDescriptorTable(1, gpuCbvHandle_);
-
-	//g_commandList->SetGraphicsRootDescriptorTable(0, srv_cbv_heap_[1]);
-	g_commandList->SetGraphicsRootDescriptorTable(0, gpuTextureHandle_);
-
-	g_commandList->RSSetViewports(1, &g_viewport);
-	g_commandList->RSSetScissorRects(1, &g_scissorRect);
-
-
-	//auto  barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
-	auto  barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_scene_tex.Get(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE, D3D12_RESOURCE_STATE_RENDER_TARGET);
-	g_commandList->ResourceBarrier(1, &barrier);
-	//ÉèÖÃscene rtv
-	CD3DX12_CPU_DESCRIPTOR_HANDLE scene_cpu_handle(g_RTVHeap->GetCPUDescriptorHandleForHeapStart(), 2, g_rtvDescriptorSize);
-	
-	g_commandList->OMSetRenderTargets(1, scene_rtv_handle.GetCpuAddress(), false, nullptr);
-	ClearRenderTarget(scene_rtv_handle);
-
-	
-	//g_commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);		
-	////g_commandList->IASetIndexBuffer();		
-	//g_commandList->IASetVertexBuffers(0, 2, &g_VertexBufferView[0]);
-	//g_commandList->IASetIndexBuffer(&g_IndexBufferView);
-	//auto mesh = g_mode->Object()->GetMeshObject(0);
-	//auto indexarray = mesh->GetIndexArray(0);
-
-	//g_commandList->DrawIndexedInstanced(indexarray.count(), 1, 0, 0, 0);
-	// 	   
-	//g_commandList->DrawInstanced(6, 1, 0, 0);
-	g_commandList->ExecuteBundle(g_BundleList.Get());
-	//barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
-	barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_scene_tex.Get(), D3D12_RESOURCE_STATE_RENDER_TARGET,D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
-
-	g_commandList->ResourceBarrier(1, &barrier);
-
-//	ThrowIfFailed(g_commandList->Close());
+//
+//	g_commandList->SetGraphicsRootDescriptorTable(1, gpuCbvHandle_);
+//
+//	//g_commandList->SetGraphicsRootDescriptorTable(0, srv_cbv_heap_[1]);
+//	g_commandList->SetGraphicsRootDescriptorTable(0, gpuTextureHandle_);
+//
+//	g_commandList->RSSetViewports(1, &g_viewport);
+//	g_commandList->RSSetScissorRects(1, &g_scissorRect);
+//
+//
+//	//auto  barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
+//	auto  barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_scene_tex.Get(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE, D3D12_RESOURCE_STATE_RENDER_TARGET);
+//	g_commandList->ResourceBarrier(1, &barrier);
+//	//ÉèÖÃscene rtv
+//	CD3DX12_CPU_DESCRIPTOR_HANDLE scene_cpu_handle(g_RTVHeap->GetCPUDescriptorHandleForHeapStart(), 2, g_rtvDescriptorSize);
+//	
+//	g_commandList->OMSetRenderTargets(1, scene_rtv_handle.GetCpuAddress(), false, nullptr);
+//	ClearRenderTarget(scene_rtv_handle);
+//
+//	
+//	//g_commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);		
+//	////g_commandList->IASetIndexBuffer();		
+//	//g_commandList->IASetVertexBuffers(0, 2, &g_VertexBufferView[0]);
+//	//g_commandList->IASetIndexBuffer(&g_IndexBufferView);
+//	//auto mesh = g_mode->Object()->GetMeshObject(0);
+//	//auto indexarray = mesh->GetIndexArray(0);
+//
+//	//g_commandList->DrawIndexedInstanced(indexarray.count(), 1, 0, 0, 0);
+//	// 	   
+//	//g_commandList->DrawInstanced(6, 1, 0, 0);
+//	g_commandList->ExecuteBundle(g_BundleList.Get());
+//	//barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+//	barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_scene_tex.Get(), D3D12_RESOURCE_STATE_RENDER_TARGET,D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+//
+//	g_commandList->ResourceBarrier(1, &barrier);
+//
+////	ThrowIfFailed(g_commandList->Close());
 }
-void App::ClearRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle)
+void App::ClearRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle_)
 {
 	const float clearColor[] = { 0.0f, 0.2f, 0.4f, 1.0f };
-	g_commandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
+	g_commandList->ClearRenderTargetView(rtvHandle_, clearColor, 0, nullptr);
 }
 void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Graphic::DescriptorHeap descriptor_heap, UINT offset, ID3D12Resource** texture_buffer)
 {
@@ -1133,55 +1158,61 @@ void App::BindIndexBuffer(void* data, size_t data_size)
 void App::DrawUI()
 {
 	static bool initUI = true;
-	//const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
-	//if (initUI)
-	//{
-	//	ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x + 600, main_viewport->WorkPos.y + 20), ImGuiCond_Always);
-	//	ImGui::SetNextWindowSize(ImVec2(600, 650), ImGuiCond_Always);
-	//
-	//}
-	//ImGui::Begin("Ispector");
-
-	//if (ImGui::CollapsingHeader("Transform"))
-	//{
-
-	//	Vec3f front = editor_camera->front();
-	//	ImGui::InputFloat3("front", front);
-	//	editor_camera->set_front(front);
-
-	//	Vec3f pos = editor_camera->position();
-	//	ImGui::InputFloat3("position", pos);
-	//	editor_camera->set_position(pos);
-	//}
-	//ImGui::End();
 	
-	/*UINT srv_desc_size =  Graphic::g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-		CD3DX12_GPU_DESCRIPTOR_HANDLE desc_handle(g_ImGui_SrvCbvHeap->GetGPUDescriptorHandleForHeapStart(), 1, srv_desc_size);*/
-		
-		//CD3DX12_GPU_DESCRIPTOR_HANDLE desc_handle2(g_ImGui_SrvCbvHeap->GetGPUDescriptorHandleForHeapStart(), 2, srv_desc_size);
+	
 
-	/*if (initUI)
-	{
-		ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x , main_viewport->WorkPos.y + 20), ImGuiCond_Always);
-		ImGui::SetNextWindowSize(ImVec2(600, 650), ImGuiCond_Always);
-	}
-	auto window_flags = ImGuiWindowFlags_NoMove;
+	const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
+	ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x, main_viewport->WorkPos.y + 20), ImGuiCond_Always);
+	ImGui::SetNextWindowSize(ImVec2(600, 650), ImGuiCond_Always);
+	ImGuiWindowFlags window_flag_ = ImGuiWindowFlags_None;
+	window_flag_ |= ImGuiWindowFlags_NoMove;
 	bool open = true;
-	
-	ImGui::Begin("Scene", &open, window_flags);
-	
-	ImGui::Image((ImTextureID)desc_handle.ptr, Vec2f(600, 600));
+	ImGui::Begin("Scene", &open, window_flag_);
 
-	ImGui::End();*/
-	scene_window_->TEMP_SetShowRT(gui_srv_heap[0]);
-	scene_window_->Show();
+
+	ImGui::Image((ImTextureID)sceneGpuHandle_.GetGpuAddress()->ptr, Vec2f(600, 600));
+	
+	ImGuiWindow * window = ImGui::GetCurrentWindow();
+	/*window->DrawList->AddCallback([](const ImDrawList* parent_list, const ImDrawCmd* cmd) {
+		UINT pSrcDescriptorRangeSizes[1];
+		UINT pDestDescriptorRangeSizes[1] = { 1 };
+		
+		pSrcDescriptorRangeSizes[1] = 1;
+		
+		Graphic::g_Device->CopyDescriptors(
+			1,
+			cmd->TextureId,
+			pDestDescriptorRangeSizes,
+			count,
+			cpuHandle,
+			pSrcDescriptorRangeSizes,
+			D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
+		);
+		}, (ImTextureID)sceneTarget.SrvCpuHandle().GetCpuAddress());*/
+
+	
+	ImGui::End();
+
+
+//	ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x+650, main_viewport->WorkPos.y + 20), ImGuiCond_Always);
+//	ImGui::SetNextWindowSize(ImVec2(300, 350), ImGuiCond_Always);
+//	window_flag_ = ImGuiWindowFlags_None;
+////	window_flag_ |= ImGuiWindowFlags_NoMove;
+//	ImGui::Begin("Scene2", &open, window_flag_);
+//
+//	ImGui::Image((ImTextureID)sceneTarget.SrvCpuHandle().GetCpuAddress()->ptr, Vec2f(600, 600));
+//	
+//	ImGui::End();
+	//scene_window_->TEMP_SetShowRT(sceneTarget.SrvCpuHandle());
+	//scene_window_->Show();
 	//ImGui::Begin("desc_handle2");
 
 	//ImGui::Image((ImTextureID)desc_handle2.ptr, Vec2f(300, 300));
 	//ImGui::End();
 	
 	ImGui::Render();
-	if(initUI)
-		initUI = false;
+	
+	//ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), g_commandList.Get());
+
 }
 
