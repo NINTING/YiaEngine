@@ -21,6 +21,7 @@ namespace YiaEngine
 			ID3D12CommandAllocator* RequireCommandAlloctor();
 			void DiscardCommandAlloctor(UINT64 fence, ID3D12CommandAllocator* allocator);
 			bool IsFenceComplete(UINT64 fence_value);
+			ID3D12CommandQueue* RawCommandQueue() { return command_queue_.Get(); };
 		private:
 			D3D12_COMMAND_QUEUE_DESC desc_;
 		

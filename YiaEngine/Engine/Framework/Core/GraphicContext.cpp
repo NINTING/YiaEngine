@@ -66,7 +66,7 @@ namespace YiaEngine
 			{ 
 				viewDescriptorAllocator.RetireCurrentHeap();
 			}
- 			SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, viewDescriptorAllocator.CurrentUseHeap().heap_ptr());
+ 			SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, viewDescriptorAllocator.CurrentUseHeap().RawHeap());
 			auto gpuStartHandle = viewDescriptorAllocator.Alloc(tableSize_);
 			int handleIncrementSize = viewDescriptorAllocator.ViewDescriptorIncrementSize();
 
@@ -106,24 +106,29 @@ namespace YiaEngine
 			commandList_->RSSetScissorRects(1, pAcissorRect);
 
 		}
-		void GraphicContext::SetRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE* renderTarget, D3D12_CPU_DESCRIPTOR_HANDLE* depth)
+		void GraphicContext::SetRenderTarget(const DescriptorHandle* renderTarget,const DescriptorHandle* depth)
 		{
 			SetRenderTargets(1, renderTarget, depth);
 		}
-		void GraphicContext::ClearRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE renderTarget,const float colors[])
+		void GraphicContext::ClearRenderTarget(DescriptorHandle renderTarget,const float colors[])
 		{
 			commandList_->ClearRenderTargetView(renderTarget, colors, 0, nullptr);
 		}
 
-		void GraphicContext::ClearRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE renderTarget)
+		void GraphicContext::ClearRenderTarget(DescriptorHandle renderTarget)
 		{
 			float black[] = { 0,0,0,1.0f };
 			ClearRenderTarget(renderTarget, black);
 		}
 		
-		void GraphicContext::SetRenderTargets(UINT numRT, D3D12_CPU_DESCRIPTOR_HANDLE RTS[], D3D12_CPU_DESCRIPTOR_HANDLE* depth)
+		void GraphicContext::SetRenderTargets(UINT numRT,const DescriptorHandle RTS[],const DescriptorHandle* depth)
 		{
-			commandList_->OMSetRenderTargets(numRT, RTS, false, depth);
+			D3D12_CPU_DESCRIPTOR_HANDLE renderTargets[D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT];
+			for (int i = 0; i < numRT; i++)
+			{
+				renderTargets[i] = RTS[i];
+			}
+			commandList_->OMSetRenderTargets(numRT, renderTargets, false, depth->GetCpuAddress());
 		}
 		void GraphicContext::SetVertexBuffers(UINT slot, UINT bufferCount, const D3D12_VERTEX_BUFFER_VIEW* vertexView)
 		{

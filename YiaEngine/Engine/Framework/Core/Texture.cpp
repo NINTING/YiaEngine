@@ -31,10 +31,10 @@ namespace YiaEngine
 			UINT64 textureUploadBufferSize;
 		
 			textureUploadBufferSize = GetRequiredIntermediateSize(resource_.Get(), 0, 1);
-			AllocateBuffer uplaod_buffer = copy_command->GetTemraryUploadBuffer(textureUploadBufferSize);
+			AllocateBuffer uplaod_buffer = copy_command->GetAllocateUploadBuffer(textureUploadBufferSize);
 
 			D3D12_SUBRESOURCE_DATA initData = { image->pData, image->pitch,image->data_size };
-			ASSERT_SUCCEEDED(UpdateSubresources<1>(copy_command->command_list(), resource_.Get(), uplaod_buffer.GetResource(), 0, 0, 1, &initData));
+			ASSERT_SUCCEEDED(UpdateSubresources<1>(copy_command->RawCommandList(), resource_.Get(), uplaod_buffer.GetResource(), 0, 0, 1, &initData));
 
 			copy_command->TransitionBarrier(*this, D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 			

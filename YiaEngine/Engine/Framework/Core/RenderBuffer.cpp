@@ -17,7 +17,21 @@ namespace YiaEngine
 			CreateView(format, arraySize, numMip);
 
 		}
+		void RenderBuffer::CreateFromSwapChian(const wchar_t* name, ID3D12Resource* resource)
+		{
+			resource_.Attach(resource);
+			resource_->SetName(name);
+			usage_ = D3D12_RESOURCE_STATE_PRESENT;
+			D3D12_RESOURCE_DESC desc = resource->GetDesc();
 
+			width_ = desc.Width;
+			height_ = desc.Height;
+			arraySize_ = desc.DepthOrArraySize;
+			format_ = desc.Format;
+			rtvHandle_ = g_CpuDescriptorAllocator[D3D12_DESCRIPTOR_HEAP_TYPE_RTV].Alloc(1);
+			Graphic::g_Device->CreateRenderTargetView(resource_.Get(), nullptr, rtvHandle_);
+
+		}
 		void RenderBuffer::CreateView(DXGI_FORMAT format, UINT arraySize, UINT numMips)
 		{
 			D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
@@ -70,7 +84,7 @@ namespace YiaEngine
 			usage_ = D3D12_RESOURCE_STATE_COMMON;
 
 			gpuVirtualAddress_ = ADDRESS_NULL;	//用不到该属性
-
+		
 			width_ = width;
 			height_ = height;
 			format_ = format;

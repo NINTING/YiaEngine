@@ -12,6 +12,7 @@
 #include"IndexArray.h"
 #include"SceneEnum.h"
 #include"Engine/Meta/Meta.h"
+#include"Core/GpuBuffer.h"
 namespace YiaEngine
 {
 	
@@ -94,31 +95,18 @@ namespace YiaEngine
 				assert(i < index_arrays_.size());
 				return index_arrays_[i];
 			}
-			//std::string Serialize()
-			//{
-			//	std::stringstream ss;
-			//	std::string ret;
-			//	ss << "MeshObject\n";
-			//	ss << "primitive:";
-			//	ss << Meta::Serialize(primitive_);
-			//	ss << "\n";
-			//	ss << "Vertex List\n";
-			//	for (int i = 0; i < vertex_arrays_.size(); i++)
-			//	{
-			//		ss << "#" << i << "\n";
-			//		//	ss << vertex_arrays_[i].Serialize();
-			//	}
-			//	ss >> ret;
-			//	return ret;
-			//}
+			void TMP_SetMeshData(const Graphic::GpuBuffer& meshdata);
+		private:
+			void GenerateMeshData();
 		private:
 			int lod_;
 			MeshPrimitive primitive_;
 			std::vector<IndexArray>	index_arrays_;
 			std::vector<VertexArray>vertex_arrays_;
+			Graphic::GpuBuffer meshData_;
 		};
 	}
-	META_ENUM(Scene::MeshPrimitive);
+///	META_ENUM(Scene::MeshPrimitive);
 }
 
 #endif //SCENE_MESH_OBJECT_H

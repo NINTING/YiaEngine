@@ -154,7 +154,7 @@ namespace YiaEngine::Graphic
 		CopyToGpuDescriptor(count, cpuHandle, pDestDescriptorRangeStarts.GetCpuAddress());
 		return pDestDescriptorRangeStarts;
 	}
-	void GpuDescriptorAllocator::CopyToGpuDescriptor(int count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[], D3D12_CPU_DESCRIPTOR_HANDLE destHandle[])
+	void GpuDescriptorAllocator::CopyToGpuDescriptor(int count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[],const D3D12_CPU_DESCRIPTOR_HANDLE destHandle[])
 	{
 		UINT pSrcDescriptorRangeSizes[16];
 		UINT pDestDescriptorRangeSizes[1] = { count };

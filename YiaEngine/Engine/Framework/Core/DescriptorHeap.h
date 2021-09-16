@@ -37,8 +37,8 @@ namespace YiaEngine::Graphic
 		bool IsValide() { return cpu_handle_.ptr != -1; }
 		operator D3D12_CPU_DESCRIPTOR_HANDLE()const { return cpu_handle_; };
 		operator D3D12_GPU_DESCRIPTOR_HANDLE()const { return gpu_handle_; };
-		D3D12_CPU_DESCRIPTOR_HANDLE* GetCpuAddress() { return &cpu_handle_; };
-		D3D12_GPU_DESCRIPTOR_HANDLE* GetGpuAddress() { return &gpu_handle_; };
+		const D3D12_CPU_DESCRIPTOR_HANDLE* GetCpuAddress()const { return &cpu_handle_; };
+		const D3D12_GPU_DESCRIPTOR_HANDLE* GetGpuAddress()const { return &gpu_handle_; };
 		DescriptorHandle operator +(int offset)const
 		{
 			DescriptorHandle ret = *this;
@@ -73,7 +73,7 @@ namespace YiaEngine::Graphic
 		void Reset();
 		bool HasFreeSpace(int count) { return free_descriptor_num_ >= count; }
 	public:
-		ID3D12DescriptorHeap* heap_ptr() const { return heap_.Get(); }
+		ID3D12DescriptorHeap* RawHeap() const { return heap_.Get(); }
 		DescriptorHandle operator[](uint32_t index) { return first_handle_ + index * descriptor_size_; }
 	protected:
 		void InitHeap();
@@ -125,7 +125,7 @@ namespace YiaEngine::Graphic
 		
 		DescriptorHandle Alloc(UINT count = 1);
 		DescriptorHandle CopyToGpuDescriptor(int count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[]);
-		void CopyToGpuDescriptor(int count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[], D3D12_CPU_DESCRIPTOR_HANDLE destHandle[]);
+		void CopyToGpuDescriptor(int count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[], const D3D12_CPU_DESCRIPTOR_HANDLE destHandle[]);
 		void RetireCurrentHeap();
 		
 		bool HasSpace(UINT size) { return currentHeap_&&currentHeap_->HasFreeSpace(size); };

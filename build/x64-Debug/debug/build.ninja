@@ -1197,6 +1197,15 @@ build YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir\SceneEnum.cpp.obj
   TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir\YiaScene.pdb
   TARGET_PDB = YiaEngine\Engine\Framework\Scene\YiaScene.pdb
 
+build YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir\Object\MeshObject.cpp.obj: CXX_COMPILER__YiaScene_Debug ..\..\..\YiaEngine\Engine\Framework\Scene\Object\MeshObject.cpp || cmake_object_order_depends_target_YiaScene
+  DEFINES = -DUNICODE -D_UNICODE
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /std:c++latest
+  INCLUDES = -I..\..\..\YiaEngine -I..\..\..\YiaEngine\External -I..\..\..\YiaEngine\External\crossguid -I..\..\..\YiaEngine\External\ImGui -I..\..\..\YiaEngine\Engine\Framework -I..\..\..\YiaEngine\Engine\Framework\Common -I..\..\..\YiaEngine\Engine\Framework\EditorWindow -I..\..\..\YiaEngine\Engine\Framework\Editor -I..\..\..\YiaEngine\Engine\Framework\Interface -I..\..\..\YiaEngine\Engine\Framework\Sample -I..\..\..\YiaEngine\Engine\Framework\Windows -I..\..\..\YiaEngine\Engine\Framework\Shader -I..\..\..\YiaEngine\Engine\Framework\Math -I..\..\..\YiaEngine\Engine\Framework\Common\AssetLoder -I..\..\..\YiaEngine\Engine\Framework\Common\ImageParser -I..\..\..\YiaEngine\Engine\Framework\Scene
+  OBJECT_DIR = YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir
+  OBJECT_FILE_DIR = YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir\Object
+  TARGET_COMPILE_PDB = YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir\YiaScene.pdb
+  TARGET_PDB = YiaEngine\Engine\Framework\Scene\YiaScene.pdb
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target YiaScene
@@ -1205,7 +1214,7 @@ build YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir\SceneEnum.cpp.obj
 #############################################
 # Link the static library YiaEngine\Engine\Framework\Scene\YiaScene.lib
 
-build YiaEngine\Engine\Framework\Scene\YiaScene.lib: CXX_STATIC_LIBRARY_LINKER__YiaScene_Debug YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir\SceneEnum.cpp.obj
+build YiaEngine\Engine\Framework\Scene\YiaScene.lib: CXX_STATIC_LIBRARY_LINKER__YiaScene_Debug YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir\SceneEnum.cpp.obj YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir\Object\MeshObject.cpp.obj
   LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = YiaEngine\Engine\Framework\Scene\CMakeFiles\YiaScene.dir

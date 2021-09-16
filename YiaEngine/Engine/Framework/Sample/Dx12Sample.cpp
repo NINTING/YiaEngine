@@ -242,8 +242,8 @@ void App::LoadPipeline(HWND hwnd)
 	swapChainDesc.Windowed = true;
 
 	ComPtr<IDXGISwapChain> swapChain;
-	ThrowIfFailed(factory->CreateSwapChain(g_CommandQueue.Get(), &swapChainDesc, &swapChain));
-
+	ThrowIfFailed(factory->CreateSwapChain(Graphic::g_commandManager.GetQueue(D3D12_COMMAND_LIST_TYPE_DIRECT).RawCommandQueue(), &swapChainDesc, &swapChain));
+	
 	ThrowIfFailed(swapChain.As(&g_SwapChain));
 	
 	//控制窗口切换(alt-enter)
@@ -272,13 +272,17 @@ void App::LoadPipeline(HWND hwnd)
 			rtvHandle.Offset(1, g_rtvDescriptorSize);
 		}*/
 		//rtv_heap_.Alloc();
+		
 		swap_rtv_handle_[0] = descriptor_allcator_[D3D12_DESCRIPTOR_HEAP_TYPE_RTV].Alloc(1);
 		swap_rtv_handle_[1] = descriptor_allcator_[D3D12_DESCRIPTOR_HEAP_TYPE_RTV].Alloc(1);
 		for (UINT i = 0; i < 2; i++)
 		{
-			ThrowIfFailed(g_SwapChain->GetBuffer(i, IID_PPV_ARGS(&g_renderTargets[i])));
-			 Graphic::g_Device->CreateRenderTargetView(g_renderTargets[i].Get(), nullptr, swap_rtv_handle_[i]);
+			ID3D12Resource* swapChainResource;
+			ThrowIfFailed(g_SwapChain->GetBuffer(i, IID_PPV_ARGS(&swapChainResource)));
+			
+			Graphic::g_SwapRenderTarget[i].CreateFromSwapChian(L"Screen Render Target", swapChainResource);
 		}
+	
 	}
 	{
 		//ImGui Resource
@@ -610,13 +614,27 @@ void App::LoadAsset()
 		auto positiones = mesh->GetPosition();
 		auto uvs = mesh->GetUVs();
 		auto normals = mesh->GetNormal();
+		Graphic::CommandContext* initContext = Graphic::CommandContext::Begin(L"initMesh");
+
+		
 		BindVertexAttribute(positiones.data(), positiones.data_size(), positiones.stride(), 0);
+
 		BindVertexAttribute(uvs.data(), uvs.data_size(), uvs.stride(), 1);
 		//BindVertexAttribute(normals.data(), normals.data_size(), normals.stride(), 2);
 		auto indexarray = mesh->GetIndexArray(0);
 		BindIndexBuffer(indexarray.data(), indexarray.data_size());
-		
+		UINT dateSize =  positiones.data_size() + uvs.data_size() + indexarray.data_size();
 
+		Graphic::AllocateBuffer uploadBuffer = initContext->GetAllocateUploadBuffer(dateSize);
+		UINT8* dest = (UINT8*)uploadBuffer.CpuAddress;
+		memcpy((UINT8*)uploadBuffer.CpuAddress, (UINT8*)positiones.data(), positiones.data_size());
+		dest += positiones.data_size();
+		memcpy(dest, uvs.data(), uvs.data_size());
+		dest += uvs.data_size();
+		memcpy(dest, (UINT8*)indexarray.data(), indexarray.data_size());
+	
+		
+		initContext->End();
 		//{
 		//	Vec3f d
 		//}
@@ -797,58 +815,89 @@ void App::LoadAsset()
 
 void App::Render()
 {
-	PopulateSceneCommandList();
+	//PopulateSceneCommandList();
 
 	// Execute the command list.
-	ID3D12CommandList* ppCommandLists[] = { g_commandList.Get() };
-	g_CommandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
+	/*ID3D12CommandList* ppCommandLists[] = { g_commandList.Get() };
+	g_CommandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);*/
 
 	// Present the frame.
 	ThrowIfFailed(g_SwapChain->Present(1, 0));
 
-	WaitForPreviousFrame();
+//	WaitForPreviousFrame();
 }
 
 void App::SwapPresent()
 {
 	ThrowIfFailed(g_SwapChain->Present(1, 0));
+	g_frameIndex = g_SwapChain->GetCurrentBackBufferIndex();
 }
 
 void App::ExecuteCommand()
 {
-	ID3D12CommandList* ppCommandLists[] = { g_commandList.Get() };
-	g_CommandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
-
+	
+	
 	// Present the frame.
 	
 }
 
+//void App::PopulateUICommandList()
+//{
+////	PopulateUI();
+//
+//	current_cmd_alloc = frame_resouces_[current_frame_]->cmd_list_alloctor;
+//	ThrowIfFailed(current_cmd_alloc->Reset());
+//	ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), NULL));
+//
+//	ID3D12DescriptorHeap* descriptorHeaps[] = { Graphic::g_GpuCommonDescriptoHeap.RawHeap() };
+//	g_commandList->SetDescriptorHeaps(1, descriptorHeaps);
+//
+//	auto  barrier = CD3DX12_RESOURCE_BARRIER::Transition(Graphic::g_SwapRenderTarget[g_frameIndex].RawResource(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
+//	g_commandList->ResourceBarrier(1, &barrier);
+//
+//	//提交RTV
+//	//CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(g_RTVHeap->GetCPUDescriptorHandleForHeapStart(), g_frameIndex, g_rtvDescriptorSize);
+//	g_commandList->OMSetRenderTargets(1, Graphic::g_SwapRenderTarget[g_frameIndex].RtvCpuHandle().GetCpuAddress(), false, nullptr);
+//	ClearRenderTarget(Graphic::g_SwapRenderTarget[g_frameIndex].RtvCpuHandle());
+//
+//	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), g_commandList.Get());
+//	 
+//	barrier = CD3DX12_RESOURCE_BARRIER::Transition(Graphic::g_SwapRenderTarget[g_frameIndex].RawResource(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+//	g_commandList->ResourceBarrier(1, &barrier);
+//	ThrowIfFailed(g_commandList->Close());
+// ID3D12CommandList* ppCommandLists[] = { g_commandList.Get() };
+//g_CommandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
+//}
 void App::PopulateUICommandList()
 {
+	 PopulateUI();
 
-//	ImGui::GetDrawData	
-	current_cmd_alloc = frame_resouces_[current_frame_]->cmd_list_alloctor;
-	ThrowIfFailed(current_cmd_alloc->Reset());
-	ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), NULL));
+	///*current_cmd_alloc = frame_resouces_[current_frame_]->cmd_list_alloctor;
+	//ThrowIfFailed(current_cmd_alloc->Reset());
+	//ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), NULL));*/
+	//Graphic::GraphicContext& UiContext = Graphic::GraphicContext::Begin();
 
-	ID3D12DescriptorHeap* descriptorHeaps[] = { Graphic::g_GpuCommonDescriptoHeap.heap_ptr() };
-	g_commandList->SetDescriptorHeaps(1, descriptorHeaps);
+	//ID3D12DescriptorHeap* descriptorHeaps[] = { Graphic::g_GpuCommonDescriptoHeap.RawHeap() };
+	//UiContext.RawCommandList()->SetDescriptorHeaps(1, descriptorHeaps);
 
-	auto  barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
-	g_commandList->ResourceBarrier(1, &barrier);
+	//auto  barrier = CD3DX12_RESOURCE_BARRIER::Transition(Graphic::g_SwapRenderTarget[g_frameIndex].RawResource(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
+	//UiContext.RawCommandList()->ResourceBarrier(1, &barrier);
 
-	//提交RTV
-	//CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(g_RTVHeap->GetCPUDescriptorHandleForHeapStart(), g_frameIndex, g_rtvDescriptorSize);
-	g_commandList->OMSetRenderTargets(1, swap_rtv_handle_[g_frameIndex].GetCpuAddress(), false, nullptr);
-	ClearRenderTarget(swap_rtv_handle_[g_frameIndex]);
+	////提交RTV
+	////CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(g_RTVHeap->GetCPUDescriptorHandleForHeapStart(), g_frameIndex, g_rtvDescriptorSize);
+	//UiContext.RawCommandList()->OMSetRenderTargets(1, Graphic::g_SwapRenderTarget[g_frameIndex].RtvCpuHandle().GetCpuAddress(), false, nullptr);
+	////ClearRenderTarget(Graphic::g_SwapRenderTarget[g_frameIndex].RtvCpuHandle());
 
-	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), g_commandList.Get());
-	 
-	barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
-	g_commandList->ResourceBarrier(1, &barrier);
-	ThrowIfFailed(g_commandList->Close());
+	//ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), UiContext.RawCommandList());
+
+	//barrier = CD3DX12_RESOURCE_BARRIER::Transition(Graphic::g_SwapRenderTarget[g_frameIndex].RawResource(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+	//UiContext.RawCommandList()->ResourceBarrier(1, &barrier);
+	//UiContext.End();
+	//ThrowIfFailed(g_commandList->Close());
+	
+	//ID3D12CommandList* ppCommandLists[] = { g_commandList.Get() };
+	//g_CommandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
 }
-
 void App::PopulateScene()
 {
 	Graphic::GraphicContext& drawSceneContext = Graphic::GraphicContext::Begin();
@@ -862,8 +911,8 @@ void App::PopulateScene()
 	drawSceneContext.SetViewPortAndScissorRects(&g_viewport, &g_scissorRect);
 	Graphic::GpuResource scene(g_scene_tex.Get());
 	//drawSceneContext.TransitionBarrier(scene, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE, D3D12_RESOURCE_STATE_RENDER_TARGET);
-	drawSceneContext.TransitionBarrier(sceneTarget, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE, D3D12_RESOURCE_STATE_RENDER_TARGET);
-	drawSceneContext.SetRenderTarget(sceneTarget.RtvCpuHandle().GetCpuAddress(), nullptr);
+	drawSceneContext.TransitionBarrier(sceneTarget, D3D12_RESOURCE_STATE_RENDER_TARGET);
+	drawSceneContext.SetRenderTarget(sceneTarget.RtvCpuHandlePtr(), nullptr);
 	//drawSceneContext.SetRenderTarget(scene_rtv_handle.GetCpuAddress(), nullptr);
 	const float clearColor[] = { 0.0f, 0.2f, 0.4f, 1.0f };
 	drawSceneContext.ClearRenderTarget(sceneTarget.RtvCpuHandle(), clearColor);
@@ -879,7 +928,7 @@ void App::PopulateScene()
 	drawSceneContext.DrawIndexInstance(indexarray.count(), 1, 0, 0, 0); 
 
 	//drawSceneContext.ExecuteBundle(g_BundleList.Get());
-	drawSceneContext.TransitionBarrier(sceneTarget, D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+	drawSceneContext.TransitionBarrier(sceneTarget,  D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 	//drawSceneContext.TransitionBarrier(scene, D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 	drawSceneContext.End();
 }
@@ -887,80 +936,22 @@ void App::PopulateScene()
 void App::PopulateUI()
 {
 	Graphic::GraphicContext& UiContext = Graphic::GraphicContext::Begin();
+	UiContext.SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV,Graphic::g_GpuCommonDescriptoHeap.RawHeap());
+	////
+	UiContext.TransitionBarrier(Graphic::g_SwapRenderTarget[g_frameIndex], D3D12_RESOURCE_STATE_RENDER_TARGET);
+	UiContext.SetRenderTarget(Graphic::g_SwapRenderTarget[g_frameIndex].RtvCpuHandlePtr(), nullptr);
+	UiContext.ClearRenderTarget(Graphic::g_SwapRenderTarget[g_frameIndex].RtvCpuHandle());
+	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), UiContext.RawCommandList());
 
-
+	UiContext.TransitionBarrier(Graphic::g_SwapRenderTarget[g_frameIndex], D3D12_RESOURCE_STATE_PRESENT);
+	//barrier = CD3DX12_RESOURCE_BARRIER::Transition(Graphic::g_SwapRenderTarget[g_frameIndex].RawResource(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+	//UiContext.RawCommandList()->ResourceBarrier(1, &barrier);
+	UiContext.End();
 }
 
 void App::PopulateSceneCommandList()
 {
-//
-//	
-//	
-//	//ThrowIfFailed(current_cmd_alloc->Reset());
-//	ThrowIfFailed(current_cmd_alloc->Reset());
-//	ThrowIfFailed(g_commandList->Reset(current_cmd_alloc.Get(), pso.RawPipelineStateObject()));
-//	
-//	//g_commandList->SetGraphicsRootSignature(g_rootSignature.Get());
-//
-//	g_commandList->SetGraphicsRootSignature(rootSignature.RawRootSignature());
-//	// set the descriptor heap
-////	ID3D12DescriptorHeap* descriptorHeaps[] = { g_CBVHeap.Get() };/*
-//	//ID3D12DescriptorHeap* descriptorHeaps[] = { g_SRVCBVHeap.Get() };
-//	gpuTextureHandle_;
-//	
-////	g_commandList->SetDescriptorHeaps(1, descriptorHeaps);
-//
-//
-//	/*g_commandList->SetDescriptorHeaps(1, g_GpuDescriptorAllocator.GraphicHeap);*/
-//	/*g_commandList->SetGraphicsRootDescriptorTable(0, );*/
-//	/*g_commandList->SetGraphicsRootDescriptorTable(1, srv_cbv_heap_[0]);*/
-//
-//
-//	//CD3DX12_GPU_DESCRIPTOR_HANDLE tex();
-//	//tex.Offset(0, 0);
-//	/*UINT srv_desc_size =  Graphic::g_device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-//	CD3DX12_GPU_DESCRIPTOR_HANDLE srv_gpu_handle(g_SRVCBVHeap->GetGPUDescriptorHandleForHeapStart(), 1, srv_desc_size);*/
-//	//g_commandList->SetGraphicsRootDescriptorTable(1, g_SRVCBVHeap->GetGPUDescriptorHandleForHeapStart());
-//	//g_commandList->SetGraphicsRootDescriptorTable(0, srv_gpu_handle);
-//	ID3D12DescriptorHeap* descriptorHeaps[] = { viewDescriptorAllocator.CurrentUseHeap().heap_ptr() };
-//	g_commandList->SetDescriptorHeaps(1, descriptorHeaps);
-//
-//	g_commandList->SetGraphicsRootDescriptorTable(1, gpuCbvHandle_);
-//
-//	//g_commandList->SetGraphicsRootDescriptorTable(0, srv_cbv_heap_[1]);
-//	g_commandList->SetGraphicsRootDescriptorTable(0, gpuTextureHandle_);
-//
-//	g_commandList->RSSetViewports(1, &g_viewport);
-//	g_commandList->RSSetScissorRects(1, &g_scissorRect);
-//
-//
-//	//auto  barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
-//	auto  barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_scene_tex.Get(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE, D3D12_RESOURCE_STATE_RENDER_TARGET);
-//	g_commandList->ResourceBarrier(1, &barrier);
-//	//设置scene rtv
-//	CD3DX12_CPU_DESCRIPTOR_HANDLE scene_cpu_handle(g_RTVHeap->GetCPUDescriptorHandleForHeapStart(), 2, g_rtvDescriptorSize);
-//	
-//	g_commandList->OMSetRenderTargets(1, scene_rtv_handle.GetCpuAddress(), false, nullptr);
-//	ClearRenderTarget(scene_rtv_handle);
-//
-//	
-//	//g_commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);		
-//	////g_commandList->IASetIndexBuffer();		
-//	//g_commandList->IASetVertexBuffers(0, 2, &g_VertexBufferView[0]);
-//	//g_commandList->IASetIndexBuffer(&g_IndexBufferView);
-//	//auto mesh = g_mode->Object()->GetMeshObject(0);
-//	//auto indexarray = mesh->GetIndexArray(0);
-//
-//	//g_commandList->DrawIndexedInstanced(indexarray.count(), 1, 0, 0, 0);
-//	// 	   
-//	//g_commandList->DrawInstanced(6, 1, 0, 0);
-//	g_commandList->ExecuteBundle(g_BundleList.Get());
-//	//barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_renderTargets[g_frameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
-//	barrier = CD3DX12_RESOURCE_BARRIER::Transition(g_scene_tex.Get(), D3D12_RESOURCE_STATE_RENDER_TARGET,D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
-//
-//	g_commandList->ResourceBarrier(1, &barrier);
-//
-////	ThrowIfFailed(g_commandList->Close());
+
 }
 void App::ClearRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle_)
 {
@@ -993,7 +984,7 @@ void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Grap
 
 	UINT64 textureUploadBufferSize;
 	textureUploadBufferSize = GetRequiredIntermediateSize(*texture_buffer, 0, 1);
-	auto uplaod_buffer = copy_command->GetTemraryUploadBuffer(textureUploadBufferSize);
+	auto uplaod_buffer = copy_command->GetAllocateUploadBuffer(textureUploadBufferSize);
 
 
 
@@ -1003,14 +994,14 @@ void App::LoadTextureBuffer(const std::shared_ptr<YiaEngine::Image>& image, Grap
 	//D3D12_SUBRESOURCE_DATA initData = { &texture[0], TextureWidth * 4,TextureWidth * 4 * TextureHeight };
 	D3D12_SUBRESOURCE_DATA initData = { image->pData, image->pitch,image->data_size };
 	//UpdateSubresources<1>(copy_command->command_list(), *texture_buffer, tempraryUpload.Get(), 0, 0, 1, &initData);
-	ASSERT_SUCCEEDED(UpdateSubresources<1>(copy_command->command_list(), *texture_buffer, uplaod_buffer.Buffer.resource(), 0, 0, 1, &initData));
+	ASSERT_SUCCEEDED(UpdateSubresources<1>(copy_command->RawCommandList(), *texture_buffer, uplaod_buffer.Buffer.RawResource(), 0, 0, 1, &initData));
 	//UpdateSubresources<1>(copy_command->command_list(), *texture_buffer, tempraryUpload.Get(), 0, 0, 1, &initData);
 
 	auto barrise = CD3DX12_RESOURCE_BARRIER::Transition(
 		*texture_buffer,
 		D3D12_RESOURCE_STATE_COPY_DEST,
 		D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
-	copy_command->command_list()->ResourceBarrier(1, &barrise);
+	copy_command->RawCommandList()->ResourceBarrier(1, &barrise);
 
 
 	copy_command->End();
@@ -1124,6 +1115,8 @@ void App::BindVertexAttribute(void* data, size_t data_size,size_t stride ,int in
 	g_VertexBufferView[index].BufferLocation = g_vertexBuffer[index]->GetGPUVirtualAddress();
 	g_VertexBufferView[index].StrideInBytes = stride;
 	g_VertexBufferView[index].SizeInBytes = vertexBufferSize;
+
+
 }
 
 void App::BindIndexBuffer(void* data, size_t data_size)

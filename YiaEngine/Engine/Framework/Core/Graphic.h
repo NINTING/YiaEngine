@@ -18,11 +18,15 @@ namespace YiaEngine
 		class CommandManager;
 		class CpuDescriptorAllocator;
 		class DescriptorHeap;
+		class RenderBuffer;
 
 		extern CommandManager g_commandManager;
 		extern ComPtr<ID3D12Device> g_Device;
 		extern DescriptorHeap g_GpuCommonDescriptoHeap;
+	
 		extern CpuDescriptorAllocator g_CpuDescriptorAllocator[D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES] ;
+		
+		extern RenderBuffer g_SwapRenderTarget[2]; 
 		enum DescriptorType
 		{
 			SRV,CBV,UAV

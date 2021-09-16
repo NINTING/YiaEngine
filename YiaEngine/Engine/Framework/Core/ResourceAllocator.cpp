@@ -96,16 +96,16 @@ namespace YiaEngine
                 HeapProps.Type = D3D12_HEAP_TYPE_UPLOAD;
                 ResourceDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
             }
-            ID3D12Resource* resource;
+            ID3D12Resource* RawResource;
             ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(
                 &HeapProps,
                 D3D12_HEAP_FLAG_NONE,
                 &ResourceDesc,
                 D3D12_RESOURCE_STATE_GENERIC_READ,
                 nullptr,
-                IID_PPV_ARGS(&resource)));
+                IID_PPV_ARGS(&RawResource)));
 
-			return new ResourceAllocatePage(resource,default_state);
+			return new ResourceAllocatePage(RawResource,default_state);
 		}
         void ResourceAllocatePageManager::FreeLargePage(UINT64 fence, std::vector<ResourceAllocatePage*> list)
         {

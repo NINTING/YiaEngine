@@ -131,7 +131,7 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
     auto font_srv_handle = Graphic::g_GpuCommonDescriptoHeap.Alloc();
     ImGui_ImplWin32_Init(g_hwnd);
     ImGui_ImplDX12_Init(Graphic::g_Device.Get(), app->frames_count_,
-        DXGI_FORMAT_R8G8B8A8_UNORM, Graphic::g_GpuCommonDescriptoHeap.heap_ptr(),
+        DXGI_FORMAT_R8G8B8A8_UNORM, Graphic::g_GpuCommonDescriptoHeap.RawHeap(),
         font_srv_handle,
         font_srv_handle);
 
@@ -155,7 +155,7 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
        ImGui_ImplDX12_NewFrame();
        ImGui_ImplWin32_NewFrame();
        ImGui::NewFrame();
-       app->WaitForPreviousFrame();
+     //  app->WaitForPreviousFrame();
 
        //app->PopulateSceneCommandList();
        //app->Render();
@@ -175,7 +175,8 @@ int WinMainApp( HINSTANCE hInstance, int nCmdShow, App* app)
 
         app->PopulateUICommandList();
   
-        app->ExecuteCommand();
+        //app->ExecuteCommand();
+        //app->WaitForPreviousFrame();
 
         app->SwapPresent();
 

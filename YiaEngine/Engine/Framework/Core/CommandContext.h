@@ -8,6 +8,7 @@
 #include"DescriptorHeap.h"
 #include"CommandQueue.h"
 #include"PipelineStateObject.h"
+#include"UploadBuffer.h"
 namespace YiaEngine
 {
 	namespace Graphic
@@ -48,10 +49,17 @@ namespace YiaEngine
 
 		//	CommandContext();
 
-			AllocateBuffer GetTemraryUploadBuffer(size_t size_byte) {
+			AllocateBuffer GetAllocateUploadBuffer(size_t size_byte) {
+				
 				return upload_allocator_.Allocate(size_byte);
 			}
-			void TransitionBarrier(GpuResource& resource, D3D12_RESOURCE_STATES source, D3D12_RESOURCE_STATES dest);
+			AllocateBuffer GetTemplateUploadBuffer(size_t size_byte) {
+
+				return upload_allocator_.Allocate(size_byte);
+			}
+			void TransitionBarrier(GpuResource& RawResource, D3D12_RESOURCE_STATES source, D3D12_RESOURCE_STATES dest);
+
+			void TransitionBarrier(GpuResource& gpu_resource, D3D12_RESOURCE_STATES destStates);
 
 			/// <summary>
 			/// At most one CBV/SRV/UAV combined heap and one Sampler heap can be bound at any one time. 
@@ -65,11 +73,11 @@ namespace YiaEngine
 
 		public:
 			static void InitializeTexture(GpuResource& dest, UINT subresource_num, D3D12_SUBRESOURCE_DATA data);
-
+			static void InitializeBuffer(GpuResource& dest,UINT bufferSize,void* initData);
 			
 		public:
 
-			ID3D12GraphicsCommandList* command_list() { return commandList_.Get(); };
+			ID3D12GraphicsCommandList* RawCommandList() { return commandList_.Get(); };
 			D3D12_COMMAND_LIST_TYPE type() { return type_; };
 		private:
 			CommandContext(D3D12_COMMAND_LIST_TYPE type);

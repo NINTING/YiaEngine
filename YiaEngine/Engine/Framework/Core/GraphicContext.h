@@ -30,10 +30,11 @@ namespace YiaEngine
 			void BindCpuDescriptor(int rootIndex, int offset, int num, const DescriptorHandle descriptorHandles[]);
 			void BindGpuDescriptor();
 			void SetViewPortAndScissorRects(const D3D12_VIEWPORT* pViewPort, const D3D12_RECT* pAcissorRect_);
-			void SetRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE* renderTarget, D3D12_CPU_DESCRIPTOR_HANDLE* depth);
-			void ClearRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE renderTarget,const float colors[]);
-			void ClearRenderTarget(D3D12_CPU_DESCRIPTOR_HANDLE renderTarget);
-			void SetRenderTargets(UINT numRT,D3D12_CPU_DESCRIPTOR_HANDLE RTS[], D3D12_CPU_DESCRIPTOR_HANDLE*depth);
+			void SetRenderTarget(const DescriptorHandle* renderTarget,const DescriptorHandle* depth);
+			void ClearRenderTarget(DescriptorHandle renderTarget,const float colors[]);
+			void ClearRenderTarget(DescriptorHandle renderTarget);
+		
+			void SetRenderTargets(UINT numRT,const DescriptorHandle RTS[],const DescriptorHandle* depth);
 			void SetVertexBuffers(UINT slot, UINT bufferCount, const D3D12_VERTEX_BUFFER_VIEW* vertexView);
 			void SetIndexBuffer(const D3D12_INDEX_BUFFER_VIEW* indexView);
 			void ExecuteBundle(ID3D12GraphicsCommandList* bundle);

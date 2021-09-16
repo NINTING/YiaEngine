@@ -77,14 +77,19 @@ namespace YiaEngine
 			D3D12_RESOURCE_BARRIER barrier;
 			barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
 			barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
-			barrier.Transition.pResource = gpu_resource.resource();
+			barrier.Transition.pResource = gpu_resource.RawResource();
 			barrier.Transition.StateBefore = before;
 			barrier.Transition.StateAfter = after;
 			barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
 			commandList_->ResourceBarrier(1, &barrier);
 			
 		}
-		
+		void CommandContext::TransitionBarrier(GpuResource& gpu_resource, D3D12_RESOURCE_STATES destStates)
+		{
+
+			TransitionBarrier(gpu_resource, gpu_resource.Usage(), destStates);
+			gpu_resource.Usage(destStates);
+		}
 		CommandContext* CommandContextManager::Allocator(D3D12_COMMAND_LIST_TYPE type)
 		{
 			CommandContext* ret = nullptr;
@@ -106,13 +111,29 @@ namespace YiaEngine
 
 		void CommandContext::InitializeTexture(GpuResource& dest, UINT subresource_num, D3D12_SUBRESOURCE_DATA data)
 		{
-			UINT textureUploadBufferSize = GetRequiredIntermediateSize(dest.resource(), 0, 1);
+			UINT textureUploadBufferSize = GetRequiredIntermediateSize(dest.RawResource(), 0, 1);
 
 			CommandContext* initContext = CommandContext::Begin();
-			AllocateBuffer upload_buffer = initContext->GetTemraryUploadBuffer(textureUploadBufferSize);
-			ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->command_list(), dest.resource(), upload_buffer.Buffer.resource(), 0, 0, subresource_num, &data));
+			AllocateBuffer upload_buffer = initContext->GetAllocateUploadBuffer(textureUploadBufferSize);
+			ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->RawCommandList(), dest.RawResource(), upload_buffer.Buffer.RawResource(), 0, 0, subresource_num, &data));
 			initContext->TransitionBarrier(dest, D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 			initContext->End();
+		}
+
+		void CommandContext::InitializeBuffer(GpuResource& dest, UINT bufferSize, void* initData)
+		{
+
+			CommandContext* initContext = CommandContext::Begin();
+			AllocateBuffer upload_buffer = initContext->GetAllocateUploadBuffer(bufferSize);
+			D3D12_SUBRESOURCE_DATA data;
+			data.pData = initData;
+			data.RowPitch = bufferSize;
+			
+			initContext->TransitionBarrier(dest, D3D12_RESOURCE_STATE_COPY_DEST);
+			ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->RawCommandList(), dest.RawResource(), upload_buffer.Buffer.RawResource(), 0, 0, 1, &data));
+			initContext->TransitionBarrier(dest,D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+			initContext->End();
+
 		}
 
 		void CommandContextManager::Free(CommandContext* context)

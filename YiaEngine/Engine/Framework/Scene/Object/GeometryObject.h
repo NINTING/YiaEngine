@@ -8,7 +8,7 @@
 #include"BaseSceneObject.h"
 #include"MeshObject.h"
 #include"SceneEnum.h"
-
+#include"Core/GpuBuffer.h"
 namespace YiaEngine
 {
 	namespace Scene
@@ -58,6 +58,7 @@ namespace YiaEngine
 
 			//每个Lod 对应一个mesh
 			std::vector<std::shared_ptr<MeshObject>> meshes_;
+			
 		};
 	}
 }

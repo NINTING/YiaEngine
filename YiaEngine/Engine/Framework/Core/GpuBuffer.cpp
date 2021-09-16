@@ -2,9 +2,13 @@
 #include"Utility.h"
 #include"Graphic.h"
 #include"GpuBuffer.h"
+#include"CommandContext.h"
 namespace YiaEngine:: Graphic
 {
-	void GpuBuffer::Create(size_t data_size, size_t stride, void* data)
+    void GpuBuffer::Create(void* data, size_t data_size, size_t stride, int index)
+    {
+    }
+    void GpuBuffer::Create(size_t data_size, size_t stride, void* data)
 	{
         D3D12_RESOURCE_DESC desc = DescriptBuffer();
         D3D12_HEAP_PROPERTIES heap_prop;
@@ -23,12 +27,8 @@ namespace YiaEngine:: Graphic
             IID_PPV_ARGS(&resource_)));
         if (data != nullptr)
         {
-            //TODO: {Yia} Gpu初始化数据
-            /*
-            * 分配一个upload buffer 
-            * commandlist -> copybuffer (initdata->uploadbuffer->resource)
-            * 
-            */
+            CommandContext* initContext = CommandContext::Begin(L"InitBuffer");
+            initContext->GetAllocateUploadBuffer(data_size);
         }
             
 	}
