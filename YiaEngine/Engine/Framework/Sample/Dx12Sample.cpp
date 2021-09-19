@@ -593,28 +593,11 @@ void App::LoadAsset()
 		
 	//	meshe->Vertices
 
-		/*const UINT vertexBufferSize = sizeof(triangleVertices);
-		CD3DX12_HEAP_PROPERTIES heapProerties(D3D12_HEAP_TYPE_UPLOAD);
-		auto desc = CD3DX12_RESOURCE_DESC::Buffer(vertexBufferSize);
-		ThrowIfFailed( Graphic::g_device->CreateCommittedResource(
-			&heapProerties,
-			D3D12_HEAP_FLAG_NONE,
-			&desc,
-			D3D12_RESOURCE_STATE_GENERIC_READ,
-			nullptr,
-			IID_PPV_ARGS(&g_vertexBuffer)));
-		UINT8* pVertexBegin;
-		CD3DX12_RANGE readRange(0, 0);
-		ThrowIfFailed(g_vertexBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pVertexBegin)));
-		memcpy(pVertexBegin, triangleVertices, sizeof(triangleVertices));
-		g_vertexBuffer->Unmap(0, nullptr);
-		g_VertexBufferView.BufferLocation = g_vertexBuffer->GetGPUVirtualAddress();
-		g_VertexBufferView.StrideInBytes = sizeof(Vertex_Pos_Uv);
-		g_VertexBufferView.SizeInBytes = vertexBufferSize;*/
+	
 		auto positiones = mesh->GetPosition();
 		auto uvs = mesh->GetUVs();
 		auto normals = mesh->GetNormal();
-		Graphic::CommandContext* initContext = Graphic::CommandContext::Begin(L"initMesh");
+	
 
 		
 		BindVertexAttribute(positiones.data(), positiones.data_size(), positiones.stride(), 0);
@@ -625,16 +608,37 @@ void App::LoadAsset()
 		BindIndexBuffer(indexarray.data(), indexarray.data_size());
 		UINT dateSize =  positiones.data_size() + uvs.data_size() + indexarray.data_size();
 
+	/*	Graphic::CommandContext* initContext = Graphic::CommandContext::Begin(L"initMesh");
 		Graphic::AllocateBuffer uploadBuffer = initContext->GetAllocateUploadBuffer(dateSize);
-		UINT8* dest = (UINT8*)uploadBuffer.CpuAddress;
-		memcpy((UINT8*)uploadBuffer.CpuAddress, (UINT8*)positiones.data(), positiones.data_size());
+		UINT8* begin;
+		UINT8* dest = begin = (UINT8*)uploadBuffer.CpuAddress;
+		dest = AlignUp(dest, sizeof(float));
+		size_t posOffset = dest - begin;
+		memcpy(dest, (UINT8*)positiones.data(), positiones.data_size());
 		dest += positiones.data_size();
+
+		dest = AlignUp(dest, sizeof(float));
+		size_t uvsOffset = dest - begin;
 		memcpy(dest, uvs.data(), uvs.data_size());
 		dest += uvs.data_size();
+		
+		dest = AlignUp(dest, sizeof(float));
+		size_t indexOffset = dest - begin;
 		memcpy(dest, (UINT8*)indexarray.data(), indexarray.data_size());
-	
+		
+		Graphic::GpuBuffer meshBuffer;
+		meshBuffer.Create(dateSize,1);
+		initContext->TransitionBarrier(meshBuffer, D3D12_RESOURCE_STATE_COPY_DEST);
+		ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->RawCommandList(), meshBuffer.RawResource(), uploadBuffer.Buffer.RawResource(), 0, 0, 1, nullptr));
+		initContext->TransitionBarrier(meshBuffer, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 		
 		initContext->End();
+
+		mesh->TMP_SetMeshData(meshBuffer);
+		mesh->TMP_SetVertexBufferView(0, meshBuffer.VertexBufferView(posOffset,positiones.stride(),positiones.data_size()));
+		mesh->TMP_SetVertexBufferView(1, meshBuffer.VertexBufferView(uvsOffset, uvs.stride(), uvs.data_size()));
+		mesh->TMP_SetIndexBufferView(meshBuffer.IndexBufferView(indexOffset, sizeof(int), indexarray.data_size()));*/
+		
 		//{
 		//	Vec3f d
 		//}
@@ -919,10 +923,13 @@ void App::PopulateScene()
 	//drawSceneContext.ClearRenderTarget(scene_rtv_handle, clearColor);
 	drawSceneContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	drawSceneContext.SetIndexBuffer(&g_IndexBufferView);
-	drawSceneContext.SetVertexBuffers(0, 2, &g_VertexBufferView[0]);
-
 	auto mesh = g_mode->Object()->GetMeshObject(0);
+	drawSceneContext.SetIndexBuffer(&g_IndexBufferView);
+	//drawSceneContext.SetIndexBuffer(mesh->IndexView());
+	drawSceneContext.SetVertexBuffers(0, 2,&g_VertexBufferView[0]);
+	//drawSceneContext.SetVertexBuffers(0, 2, mesh->VertexView(0));
+
+	
 	auto indexarray = mesh->GetIndexArray(0);
 
 	drawSceneContext.DrawIndexInstance(indexarray.count(), 1, 0, 0, 0); 

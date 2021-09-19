@@ -7,12 +7,16 @@
 #include<sstream>
 #include<string>
 
+
+
+
+
 #include"BaseSceneObject.h"
 #include"VertexArray.h"
 #include"IndexArray.h"
 #include"SceneEnum.h"
 #include"Engine/Meta/Meta.h"
-#include"Core/GpuBuffer.h"
+
 namespace YiaEngine
 {
 	
@@ -95,7 +99,21 @@ namespace YiaEngine
 				assert(i < index_arrays_.size());
 				return index_arrays_[i];
 			}
-			void TMP_SetMeshData(const Graphic::GpuBuffer& meshdata);
+			/*void TMP_SetMeshData(const Graphic::GpuBuffer& meshdata)
+			{
+				meshData_ = meshdata;
+			}
+			void TMP_SetVertexBufferView(int index,const D3D12_VERTEX_BUFFER_VIEW& vbo)
+			{
+				vbo_[index] = vbo;
+			}
+			void TMP_SetIndexBufferView(const D3D12_INDEX_BUFFER_VIEW& vbo)
+			{
+				ibo_ = vbo;
+			}
+			*/
+	/*		D3D12_VERTEX_BUFFER_VIEW* VertexView(size_t index) { return &vbo_[index]; };
+			D3D12_INDEX_BUFFER_VIEW* IndexView() { return &ibo_; };*/
 		private:
 			void GenerateMeshData();
 		private:
@@ -103,7 +121,9 @@ namespace YiaEngine
 			MeshPrimitive primitive_;
 			std::vector<IndexArray>	index_arrays_;
 			std::vector<VertexArray>vertex_arrays_;
-			Graphic::GpuBuffer meshData_;
+		//	Graphic::GpuBuffer meshData_;
+			/*D3D12_VERTEX_BUFFER_VIEW vbo_[10];
+			D3D12_INDEX_BUFFER_VIEW ibo_;*/
 		};
 	}
 ///	META_ENUM(Scene::MeshPrimitive);

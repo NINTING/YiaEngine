@@ -5,9 +5,7 @@
 #include"CommandContext.h"
 namespace YiaEngine:: Graphic
 {
-    void GpuBuffer::Create(void* data, size_t data_size, size_t stride, int index)
-    {
-    }
+ 
     void GpuBuffer::Create(size_t data_size, size_t stride, void* data)
 	{
         D3D12_RESOURCE_DESC desc = DescriptBuffer();
@@ -27,12 +25,28 @@ namespace YiaEngine:: Graphic
             IID_PPV_ARGS(&resource_)));
         if (data != nullptr)
         {
-            CommandContext* initContext = CommandContext::Begin(L"InitBuffer");
-            initContext->GetAllocateUploadBuffer(data_size);
+          /*  CommandContext* initContext = CommandContext::Begin(L"InitBuffer");
+            initContext->GetAllocateUploadBuffer(data_size);*/
         }
             
 	}
 
+    D3D12_VERTEX_BUFFER_VIEW GpuBuffer::VertexBufferView(size_t offset, size_t stride, size_t dataSize)
+    {
+        D3D12_VERTEX_BUFFER_VIEW vbo;
+        vbo.BufferLocation = gpuVirtualAddress_;
+        vbo.StrideInBytes = stride;
+        vbo.SizeInBytes = dataSize;
+        return vbo;
+    }
+    D3D12_INDEX_BUFFER_VIEW GpuBuffer::IndexBufferView(size_t offset, size_t stride, size_t dataSize)
+    {
+        D3D12_INDEX_BUFFER_VIEW ibo;
+       /* ibo.BufferLocation = gpuVirtualAddress_ + offset;
+        ibo.Format = DXGI_FORMAT_R32_UINT;;
+        ibo.SizeInBytes = dataSize;*/
+        return ibo;
+    }
     D3D12_RESOURCE_DESC GpuBuffer::DescriptBuffer()
 	{
         D3D12_RESOURCE_DESC Desc = {};

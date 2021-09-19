@@ -8,7 +8,6 @@
 #include"BaseSceneObject.h"
 #include"MeshObject.h"
 #include"SceneEnum.h"
-#include"Core/GpuBuffer.h"
 namespace YiaEngine
 {
 	namespace Scene

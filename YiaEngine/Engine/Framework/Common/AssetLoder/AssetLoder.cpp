@@ -10,9 +10,11 @@
 #include "freeImage/FreeImage.h"
 
 #include "AssetLoder.h"
+#include"Core/Mesh.h"
 
 namespace YiaEngine
 {
+	using namespace Graphic;
 	std::string AssetLoder::GetFullFilePath(const char*name)
 	{
 		std::string full_path;
@@ -285,33 +287,20 @@ namespace YiaEngine
 
 	//}
 
-	std::shared_ptr<Scene::MaterialObject> CreatePBRMaterial( aiMaterial const* aiMat)
+	//std::shared_ptr<Scene::MaterialObject> CreatePBRMaterial( aiMaterial const* aiMat)
+	//{
+	//	std::shared_ptr<Scene::PBRMaterial> mat_obj = std::make_shared<Scene::PBRMaterial>();
+	//	
+	//	return mat_obj;
+	//}
+	//
+	void AssetLoder::LoadMesh(const char* name, Graphic::Mesh* pMesh)
 	{
-		std::shared_ptr<Scene::PBRMaterial> mat_obj = std::make_shared<Scene::PBRMaterial>();
-		//aiString mat_name;
-		//aiMat->Get(AI_MATKEY_NAME, mat_name);
-		//mat_obj->SetName(mat_name.C_Str());
-		//
-		//Color color;
-		//aiString texture_path;
-		////mat_obj
-		//aiMat->Get(AI_MATKEY_COLOR_DIFFUSE, color);
-		//
-		//aiMat->GetTextureCount(aiTextureType_DIFFUSE);
-		//auto result = aiMat->GetTexture(aiTextureType_AMBIENT,0, &texture_path);
-		//if (result == aiReturn_SUCCESS)
-		//{
-		//	
-		//}
-		//mat_obj->SetParam("Diffuse", color);
 
-		//result = aiMat->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path);
-		return mat_obj;
 	}
-	
-	std::unique_ptr<Scene::GeometryNode> AssetLoder::LoadModel(const char* name)
+	void AssetLoder::LoadModel(const char* name,Graphic::Mesh* pMesh)
 	{
-		using namespace Scene;
+		
 		Assimp::Importer importer;
 
 		// And have it read the given file with some example postprocessing
@@ -329,32 +318,27 @@ namespace YiaEngine
 		// If the import failed, report it
 		if (!scene) {
 			printf("%s", (importer.GetErrorString()));
-			return nullptr;
+			return;
 		}
 		
-		
-	
-		std::unique_ptr<GeometryNode>geo_node = std::unique_ptr<GeometryNode>(new GeometryNode());
-		std::shared_ptr<Scene::GeometryObject>geo_obj = std::shared_ptr<Scene::GeometryObject>(new GeometryObject());
 		for (int i = 0; i < scene->mNumMeshes; i++)
 		{
-			std::shared_ptr<Scene::MeshObject> mesh_object = std::shared_ptr<Scene::MeshObject>(new Scene::MeshObject);
 			auto mesh = scene->mMeshes[i];
 			switch (mesh->mPrimitiveTypes)
 			{
 			case aiPrimitiveType::aiPrimitiveType_POINT:
-				mesh_object->set_primitive(Scene::MeshPrimitive::kPoint);
+				pMesh->SetPrimitive(Graphic::MeshPrimitive::kPoint);
 				break;
 			case aiPrimitiveType::aiPrimitiveType_LINE:
-				mesh_object->set_primitive(Scene::MeshPrimitive::kLine);
+				pMesh->SetPrimitive(Graphic::MeshPrimitive::kLine);
 				break;
 			case aiPrimitiveType::aiPrimitiveType_TRIANGLE:
-				mesh_object->set_primitive(Scene::MeshPrimitive::kTriangle);
+				pMesh->SetPrimitive(Graphic::MeshPrimitive::kTriangle);
 				break;
 			default:
 				break;
 			}
-			auto material  = scene->mMaterials[mesh->mMaterialIndex];
+			/*auto material  = scene->mMaterials[mesh->mMaterialIndex];
 			aiString path;
 			material->GetTexture(aiTextureType_DIFFUSE, 0, &path);
 			aiUVTransform ut,vt;
@@ -364,50 +348,52 @@ namespace YiaEngine
 			aiUVTransform mappingt,axit,flagt;
 			material->Get(AI_MATKEY_MAPPING_DIFFUSE(0), mappingt);
 			material->Get(AI_MATKEY_TEXMAP_AXIS_DIFFUSE(0), axit);
-			material->Get(AI_MATKEY_TEXFLAGS_DIFFUSE(0), flagt);
+			material->Get(AI_MATKEY_TEXFLAGS_DIFFUSE(0), flagt);*/
 			
-			geo_node->AddMatrial(CreatePBRMaterial(material));
+			//geo_node->AddMatrial(CreatePBRMaterial(material));
 			//顶点属性
+		
 			if (scene->mMeshes[i]->HasPositions())
 			{
+				std::vector< Graphic::VertexAttribute> attributes;
 				//顶点坐标
 				uint32_t vertices_num = scene->mMeshes[i]->mNumVertices;
 				Vec3f* vertices = new Vec3f[vertices_num];
+				Graphic::VertexAttribute pos{ VertexAttributeType::kPosition, DataFormat::kFloat_3 };
+				
 				memcpy(vertices, scene->mMeshes[i]->mVertices, vertices_num*sizeof(float)*3);
-				VertexArray positions(VertexAttribute::kPosition, DataType::kFloat_3,
-					vertices, vertices_num);
-				mesh_object->add_vertex_array(positions);
+				pos.Data = vertices;
+				
+				attributes.emplace_back(pos);
 				//法线
 				if (scene->mMeshes[i]->HasNormals())
 				{
-					VertexArray normals(VertexAttribute::kNormal, DataType::kFloat_3,
-						scene->mMeshes[i]->mNormals, vertices_num);
-					mesh_object->add_vertex_array(normals);
-
+					Graphic::VertexAttribute normal{ VertexAttributeType::kNormal, DataFormat::kFloat_3,scene->mMeshes[i]->mNormals,vertices_num };
+					attributes.emplace_back(normal);
 				}
 				//切线
 				if (scene->mMeshes[i]->HasTangentsAndBitangents())
 				{
-					VertexArray tangent(VertexAttribute::kTangent, DataType::kFloat_3,
-						scene->mMeshes[i]->mTangents, vertices_num);
-					VertexArray bit_tangent(VertexAttribute::kBitangent, DataType::kFloat_3,
-						scene->mMeshes[i]->mBitangents, vertices_num);
-					mesh_object->add_vertex_array(tangent);
-
-					mesh_object->add_vertex_array(bit_tangent);
-					
+					Graphic::VertexAttribute tangent{ VertexAttributeType::kTangent, DataFormat::kFloat_3,scene->mMeshes[i]->mTangents,vertices_num };
+					attributes.emplace_back(tangent);
+					Graphic::VertexAttribute bitTangent{ VertexAttributeType::kBitangent, DataFormat::kFloat_3,scene->mMeshes[i]->mBitangents,vertices_num };
+					attributes.emplace_back(bitTangent);
 				}
 				//纹理坐标
 				for (int j = 0; j < scene->mMeshes[i]->GetNumUVChannels(); j++)
 				{
 					if (scene->mMeshes[i]->HasTextureCoords(j))
 					{
-						Vec3f* uvs = new Vec3f[vertices_num];
+						/*Vec3f* uvs = new Vec3f[vertices_num];
 						memcpy(uvs, scene->mMeshes[i]->mTextureCoords[i], vertices_num * sizeof(float) * 3);
 
 						VertexArray texcoord(VertexAttribute::kTexcoord, DataType::kFloat_3,
 							uvs, vertices_num);
-						mesh_object->add_vertex_array(texcoord);
+						mesh_object->add_vertex_array(texcoord);*/
+						VertexAttributeType type = (VertexAttributeType)((int)VertexAttributeType::kTexcoord0 + j);
+
+						Graphic::VertexAttribute uv{ type , DataFormat::kFloat_3,scene->mMeshes[i]->mTextureCoords[j],vertices_num };
+						attributes.emplace_back(uv);
 					}
 				}
 				//顶点色
@@ -415,33 +401,31 @@ namespace YiaEngine
 				{
 					if (scene->mMeshes[i]->HasTextureCoords(j))
 					{
-						VertexArray color(VertexAttribute::kColor, DataType::kFloat_4,
-							scene->mMeshes[i]->mColors[i], vertices_num);
-						mesh_object->add_vertex_array(color);
-
+						Graphic::VertexAttribute color{ VertexAttributeType::kColor , DataFormat::kFloat_3,scene->mMeshes[i]->mColors[j],vertices_num };
+						attributes.emplace_back(color);
 					}
 				}
+				pMesh->SetVertexAttributes(vertices_num, attributes);
 			}
 			//索引
 			if(scene->mMeshes[i]->HasFaces())
 			{
-				uint32_t* indeces = new uint32_t[scene->mMeshes[i]->mNumFaces * 3];
+				std::vector<uint32_t> indices;
+				indices.resize(scene->mMeshes[i]->mNumFaces * 3);
+		
 				for (uint32_t j = 0; j < scene->mMeshes[i]->mNumFaces; j++)
 				{
-					*(indeces + j * 3 + 0) = scene->mMeshes[i]->mFaces[j].mIndices[0];
-					*(indeces + j * 3 + 1) = scene->mMeshes[i]->mFaces[j].mIndices[1];
-					*(indeces + j * 3 + 2) = scene->mMeshes[i]->mFaces[j].mIndices[2];
+					indices [ j * 3 + 0] = scene->mMeshes[i]->mFaces[j].mIndices[0];
+					indices [ j * 3 + 1] = scene->mMeshes[i]->mFaces[j].mIndices[1];
+					indices [ j * 3 + 2] = scene->mMeshes[i]->mFaces[j].mIndices[2];
 				}
-				IndexArray index_array(indeces,scene->mMeshes[i]->mNumFaces * 3, DataType::kUint32_1);
-				mesh_object->add_index_array(index_array);
+				pMesh->SetIndexData(scene->mMeshes[i]->mNumFaces * 3, indices.data());
+				
 			}
 //			mesh_object->Serialize();
-			geo_obj->AddMesh(mesh_object);
+			
 		}
-		//delete scene;
-		geo_node->set_object_ref(geo_obj);
-		
-		return geo_node;
+
 	}
 	Buffer* YiaEngine::AssetLoder::ReadText(AssetFilePtr fp)
 	{

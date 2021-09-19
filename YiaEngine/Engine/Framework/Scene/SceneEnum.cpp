@@ -4,7 +4,7 @@
 
 #include"SceneEnum.h"
 
-size_t YiaEngine::Scene::DataTypeStride(DataType data_type)
+size_t YiaEngine::Scene::DataFormatStride(DataType data_type)
 {
 
 	int stride_in_bytes = 0;

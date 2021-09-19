@@ -9,10 +9,10 @@ namespace YiaEngine
 	{
 		void UploadBuffer::Create(const GpuResource& gpuResource, size_t dataSize)
 		{
-			resource_.Attach(gpuResource.resource_);
+			/*resource_.Attach(gpuResource.resource_);
 			usage_ = gpuResource.usage_;
 			gpuVirtualAddress_ = gpuResource.gpuVirtualAddress_;
-			bufferSize_ = dataSize;
+			bufferSize_ = dataSize;*/
 		}
 	}
 }

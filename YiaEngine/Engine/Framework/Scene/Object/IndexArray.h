@@ -14,7 +14,7 @@ namespace YiaEngine
 				DataType data_type = DataType::kUint16_1, uint32_t material_id = 0) :
 				data_type_(data_type), count_(size), data_(data) 
 			{
-				data_size_ = count_ * DataTypeStride(data_type);
+				data_size_ = count_ * DataFormatStride(data_type);
 			}
 			IndexArray(const IndexArray& indexarray) = default;
 			IndexArray(IndexArray&& indexarray) = default;

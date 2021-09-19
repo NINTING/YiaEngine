@@ -19,9 +19,8 @@ AssetLoder
 
 #include"MemoryManager.h"
 #include"Buffer.h"
-#include"Scene/SceneObject.h"
-#include"Scene/SceneNode.h"
-
+#include"Image.h"
+#include"Core/Mesh.h"
 namespace YiaEngine
 {
 
@@ -63,8 +62,10 @@ namespace YiaEngine
 
 		std::shared_ptr<Image> LoadImageFile(const char* filename);
 		
-//		std::shared_ptr<Scene::MaterialObject> CreatePBRMaterial(aiMaterial const* aiMat);
-		std::unique_ptr<Scene::GeometryNode> LoadModel(const char* name);
+		void LoadMesh(const char* name, Graphic::Mesh* pMesh);
+
+		//		std::shared_ptr<Scene::MaterialObject> CreatePBRMaterial(aiMaterial const* aiMat);
+		void* LoadModel(const char* name, Graphic::Mesh* pMesh);
 		//void ReadFile(AssetFilePtr fp);
 		Buffer* ReadText(AssetFilePtr fp);
 		

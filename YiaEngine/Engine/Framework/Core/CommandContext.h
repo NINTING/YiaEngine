@@ -53,10 +53,10 @@ namespace YiaEngine
 				
 				return upload_allocator_.Allocate(size_byte);
 			}
-			AllocateBuffer GetTemplateUploadBuffer(size_t size_byte) {
+			/*AllocateBuffer GetTemplateUploadBuffer(size_t size_byte) {
 
 				return upload_allocator_.Allocate(size_byte);
-			}
+			}*/
 			void TransitionBarrier(GpuResource& RawResource, D3D12_RESOURCE_STATES source, D3D12_RESOURCE_STATES dest);
 
 			void TransitionBarrier(GpuResource& gpu_resource, D3D12_RESOURCE_STATES destStates);

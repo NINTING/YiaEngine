@@ -7,7 +7,7 @@
 #include "BaseSceneObject.h"
 #include"TextureObject.h"
 #include"SceneEnum.h"
-
+#include"Core/Graphic.h"
 namespace YiaEngine
 {
 	namespace Scene {
