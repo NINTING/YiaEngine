@@ -3,6 +3,8 @@
 #include <Windows.h>
 #include <stdarg.h>
 #include<stdio.h>
+
+#include"Common/Logger.h"
 namespace YiaEngine
 {
 	namespace Utility
@@ -32,23 +34,3 @@ namespace YiaEngine
 
 	}
 }
-#ifdef RELEASE
-
-#else
-
-#define STRINGIFY(x) #x
-#define STRINGIFY_BUILTIN(x) STRINGIFY(x)
-
-#endif // DEBUG
-
-
-
-#define ASSERT_SUCCEEDED(hr,...)\
-		if(FAILED(hr))					\
-		{\
-			YiaEngine::Utility::Print("\nHRESULT failed in " STRINGIFY_BUILTIN(__FILE__) " @ " STRINGIFY_BUILTIN(__LINE__) "\n"); \
-			YiaEngine::Utility::PrintSubMessage("hr = 0x%08X", hr); \
-            YiaEngine::Utility::PrintSubMessage(__VA_ARGS__); \
-            YiaEngine::Utility::Print("\n"); \
-            __debugbreak(); \
-		}

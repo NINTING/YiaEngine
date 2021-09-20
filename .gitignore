@@ -2,3 +2,6 @@
 bin/
 *.vcxproj
 *.vcxproj.*
+
+
+token.txt

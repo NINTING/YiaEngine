@@ -1,7 +1,7 @@
 #include<YiaEngine.h>
- 
-int main()
-{
-	YiaEngine::Print();
-	return 0;
-}
+
+//int main()
+//{
+//	YiaEngine::Print();
+//	return 0;
+//}
