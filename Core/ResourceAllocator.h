@@ -28,7 +28,7 @@ namespace YiaEngine
 			kTypeNum = 2
 
 		};
-		enum
+		enum : UINT64
 		{
 			kGpuAllocatorSize = 0x10000,	//64kb
 			kCpuAllocatorSize = 0x20000,	//2Mb
@@ -36,14 +36,14 @@ namespace YiaEngine
 
 		struct AllocateBuffer
 		{
-			AllocateBuffer(GpuResource& buffer, size_t offset,size_t size,void* cpuAddress = nullptr, D3D12_GPU_VIRTUAL_ADDRESS gpuAddress = -1)
+			AllocateBuffer(GpuResource& buffer, UINT64 offset,UINT64 size,void* cpuAddress = nullptr, D3D12_GPU_VIRTUAL_ADDRESS gpuAddress = -1)
 			:Buffer(buffer),Offset(offset),Size(size),CpuAddress(cpuAddress),GpuAddress(gpuAddress){}
 
 			ID3D12Resource* GetResource() { return Buffer.RawResource(); }
 			
 			GpuResource& Buffer;
-			size_t Offset;
-			size_t Size;
+			UINT64 Offset;
+			UINT64 Size;
 			void* CpuAddress;
 			D3D12_GPU_VIRTUAL_ADDRESS GpuAddress;
 		};
@@ -87,7 +87,7 @@ namespace YiaEngine
 			void DiscradPages(UINT64 fence,const std::vector<ResourceAllocatePage*>&lists);
 			void DeleteLargePages(UINT64 fence, const std::vector<ResourceAllocatePage*>& lists);
 	
-			ResourceAllocatePage* CreateNewPage(size_t page_size = 0);
+			ResourceAllocatePage* CreateNewPage(UINT64 page_size = 0);
 			void FreeLargePage(UINT64 fence,std::vector<ResourceAllocatePage*>list);
 		private:
 			AllocateType type_;
@@ -108,14 +108,14 @@ namespace YiaEngine
 				cur_page_ = nullptr;
 				cur_offset_ = 0;
 			}
-			AllocateBuffer Allocate(size_t alloc_size,int aligment = DEFAULT_ALIGMENT);
+			AllocateBuffer Allocate(UINT64 alloc_size,int aligment = DEFAULT_ALIGMENT);
 			void FreeResource(UINT64 fence);
 		
 		private:
 			
 			AllocateType type_;
-			size_t page_size_;
-			size_t cur_offset_;
+			UINT64 page_size_;
+			UINT64 cur_offset_;
 			ResourceAllocatePage* cur_page_;
 			std::vector<ResourceAllocatePage*>large_page_list_;
 			std::vector<ResourceAllocatePage*>page_list_;

@@ -1,5 +1,6 @@
 
 #pragma once
+#include"pch.h"
 #include<d3d12.h>
 #include <wrl/client.h>
 
@@ -44,7 +45,7 @@ namespace YiaEngine
         }
         void ResourceAllocatePageManager::DiscradPages(UINT64 fence, const std::vector<ResourceAllocatePage*>& lists)
         {
-            for (int i = 0; i < lists.size(); i++)
+            for (size_t i = 0; i < lists.size(); i++)
             {
                 retired_queue_.push(std::make_pair(fence, lists[i]));
             }
@@ -58,13 +59,13 @@ namespace YiaEngine
                 delete_queue.pop();
             }
 
-            for (int i = 0; i < lists.size(); i++)
+            for (size_t i = 0; i < lists.size(); i++)
             {
                 lists[i]->Unmap();
                 delete_queue.push(std::make_pair(fence, lists[i]));
             }
         }
-        ResourceAllocatePage* ResourceAllocatePageManager::CreateNewPage(size_t page_size)
+        ResourceAllocatePage* ResourceAllocatePageManager::CreateNewPage(UINT64 page_size)
 		{
             D3D12_HEAP_PROPERTIES HeapProps;
             HeapProps.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
@@ -96,23 +97,23 @@ namespace YiaEngine
                 HeapProps.Type = D3D12_HEAP_TYPE_UPLOAD;
                 ResourceDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
             }
-            ID3D12Resource* RawResource;
+            ID3D12Resource* rawResource = nullptr;
             ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(
                 &HeapProps,
                 D3D12_HEAP_FLAG_NONE,
                 &ResourceDesc,
                 D3D12_RESOURCE_STATE_GENERIC_READ,
                 nullptr,
-                IID_PPV_ARGS(&RawResource)));
+                IID_PPV_ARGS(&rawResource)));
 
-			return new ResourceAllocatePage(RawResource,default_state);
+			return new ResourceAllocatePage(rawResource,default_state);
 		}
         void ResourceAllocatePageManager::FreeLargePage(UINT64 fence, std::vector<ResourceAllocatePage*> list)
         {
         }
-        AllocateBuffer ResourceAllocator::Allocate(size_t alloc_size, int aligment)
+        AllocateBuffer ResourceAllocator::Allocate(UINT64 alloc_size, int aligment)
         {
-            size_t align_size = Math::AlignUp(alloc_size, aligment - 1);
+            UINT64 align_size = Math::AlignUp(alloc_size, aligment - 1);
 
             if (align_size > page_size_)
             {

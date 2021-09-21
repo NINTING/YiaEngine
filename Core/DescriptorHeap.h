@@ -74,7 +74,7 @@ namespace YiaEngine
 			//	virtual void Create(const wchar_t* name, D3D12_DESCRIPTOR_HEAP_TYPE type,UINT32 count, ID3D12Device* device); 
 			DescriptorHandle Alloc(uint32_t count = 1);
 			void Reset();
-			bool HasFreeSpace(int count) { return free_descriptor_num_ >= count; }
+			bool HasFreeSpace(size_t count) { return free_descriptor_num_ >= count; }
 		public:
 			ID3D12DescriptorHeap* RawHeap() const { return heap_.Get(); }
 			DescriptorHandle operator[](uint32_t index) { return first_handle_ + index * descriptor_size_; }
@@ -128,13 +128,13 @@ namespace YiaEngine
 
 			DescriptorHandle Alloc(UINT count = 1);
 			DescriptorHandle CopyToGpuDescriptor(int count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[]);
-			void CopyToGpuDescriptor(int count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[], const D3D12_CPU_DESCRIPTOR_HANDLE destHandle[]);
+			void CopyToGpuDescriptor(size_t count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[], const D3D12_CPU_DESCRIPTOR_HANDLE destHandle[]);
 			void RetireCurrentHeap();
 
 			bool HasSpace(UINT size) { return currentHeap_ && currentHeap_->HasFreeSpace(size); };
 			DescriptorHeap& CurrentUseHeap();// { return *currentHeap; }
 			size_t ViewDescriptorIncrementSize() { return Graphic::g_Device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV); };
-			void Clean(UINT fence);
+			void Clean(UINT64 fence);
 		private:
 			static void DiscardUseHeaps(D3D12_DESCRIPTOR_HEAP_TYPE type, uint64_t fence, const std::vector<DescriptorHeap*>& useHeap);
 			static DescriptorHeap* requestNewHeap(D3D12_DESCRIPTOR_HEAP_TYPE type);

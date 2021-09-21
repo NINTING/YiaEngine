@@ -1,5 +1,7 @@
-#include "DescriptorHeap.h"
+
 #pragma once
+#include"pch.h"
+#include "DescriptorHeap.h"
 
 
 #include<string>
@@ -124,7 +126,7 @@ namespace YiaEngine::Graphic
 	std::queue<std::pair<uint64_t, DescriptorHeap*>> GpuDescriptorAllocator::s_retireHeaps[2];
 	std::queue<DescriptorHeap*> GpuDescriptorAllocator::s_avalibleHeaps[2];
 	// @param sda
-	void GpuDescriptorAllocator::ParseRootSignature(const RootSignature& rootSignature)
+	/*void GpuDescriptorAllocator::ParseRootSignature(const RootSignature& rootSignature)
 	{
 		for (size_t i = 0; i < rootSignature.ParamenterCount(); i++)
 		{
@@ -133,7 +135,7 @@ namespace YiaEngine::Graphic
 				
 			}
 		}
-	}
+	}*/
 	DescriptorHandle GpuDescriptorAllocator::Alloc(UINT count)
 	{
 		assert(currentHeap_ != nullptr);
@@ -154,7 +156,7 @@ namespace YiaEngine::Graphic
 		CopyToGpuDescriptor(count, cpuHandle, pDestDescriptorRangeStarts.GetCpuAddress());
 		return pDestDescriptorRangeStarts;
 	}
-	void GpuDescriptorAllocator::CopyToGpuDescriptor(int count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[],const D3D12_CPU_DESCRIPTOR_HANDLE destHandle[])
+	void GpuDescriptorAllocator::CopyToGpuDescriptor(size_t count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[],const D3D12_CPU_DESCRIPTOR_HANDLE destHandle[])
 	{
 		UINT pSrcDescriptorRangeSizes[16];
 		UINT pDestDescriptorRangeSizes[1] = { count };
@@ -192,7 +194,7 @@ namespace YiaEngine::Graphic
 		return *currentHeap_;
 	}
 
-	void GpuDescriptorAllocator::Clean(UINT fence)
+	void GpuDescriptorAllocator::Clean(UINT64 fence)
 	{
 		RetireCurrentHeap();
 		DiscardUseHeaps(heapType_,fence,useHeaps_);

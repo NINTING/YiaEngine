@@ -1,4 +1,4 @@
-
+#include"pch.h"
 #include"Core/Graphic.h"
 #include"Common/DataFormat.h"
 
@@ -33,7 +33,7 @@ namespace YiaEngine
 		void Mesh::SetVertexAttributes(size_t vertexCount, size_t attributeCount, VertexAttribute* layout)
 		{
 			vertexCount_ = vertexCount;
-			for (int i = 0; i < attributeCount; i++)
+			for (size_t i = 0; i < attributeCount; i++)
 				vertexAttributes_.emplace_back(layout[i]);
 		}
 		void Mesh::SetVertexAttributes(size_t vertexCount, const std::vector<VertexAttribute>& layout)
@@ -71,23 +71,24 @@ namespace YiaEngine
 
 		const VertexAttribute& Mesh::Positions()const
 		{
-			return GetVertexAttribute(VertexAttributeType::kPosition);
+			return *GetVertexAttribute(VertexAttributeType::kPosition);
 		}
 		const VertexAttribute& Mesh::Uv0() const
 		{
-			return GetVertexAttribute(VertexAttributeType::kTexcoord0);
+			return *GetVertexAttribute(VertexAttributeType::kTexcoord0);
 		}
 		const VertexAttribute& Mesh::Uv1()const
 		{
-			return GetVertexAttribute(VertexAttributeType::kTexcoord0);
+			return *GetVertexAttribute(VertexAttributeType::kTexcoord1);
 		}
-		const VertexAttribute& Mesh::GetVertexAttribute(VertexAttributeType type) const
+		const VertexAttribute* Mesh::GetVertexAttribute(VertexAttributeType type) const
 		{
 			for (auto it = vertexAttributes_.begin(); it != vertexAttributes_.end(); it++)
 			{
 				if (it->Type == type)
-					return *it;
+					return &(*it);
 			}
+			return nullptr;
 		}
 		void* Mesh::IndexData()const
 		{

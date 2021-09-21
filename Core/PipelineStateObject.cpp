@@ -1,4 +1,5 @@
 #pragma once
+#include"pch.h"
 #include <d3d12.h>
 #include <wrl/client.h>
 #include <vector>
@@ -75,13 +76,13 @@ namespace YiaEngine::Graphic
 	{
 		SetRenderTargets(1, &rtv_format, depth_format);
 	}
-	void PipelineStateObject::SetRenderTargets(int count,DXGI_FORMAT* rtv_format,DXGI_FORMAT depth_format)
+	void PipelineStateObject::SetRenderTargets(size_t count,DXGI_FORMAT* rtv_format,DXGI_FORMAT depth_format)
 	{
-		for (UINT i = 0; i < count; i++)
+		for (size_t i = 0; i < count; i++)
 		{
 			desc_.RTVFormats[i] = rtv_format[i];
 		}
-		for (UINT i = count; i < desc_.NumRenderTargets; i++)
+		for (size_t i = count; i < desc_.NumRenderTargets; i++)
 		{
 			desc_.RTVFormats[i] = DXGI_FORMAT_UNKNOWN;
 		}

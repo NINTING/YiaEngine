@@ -1,3 +1,4 @@
+#include"pch.h"
 #include "SampleDll.h"
 
 #include"Common/YiaMath.h"

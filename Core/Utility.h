@@ -1,5 +1,5 @@
 #pragma once
-
+#include"pch.h"
 #include <Windows.h>
 #include <stdarg.h>
 #include<stdio.h>

@@ -1,5 +1,5 @@
 #pragma once
-
+#include"pch.h"
 #include"Graphic.h"
 #include"GpuResource.h"
 #include"ResourceAllocator.h"
@@ -18,34 +18,43 @@ namespace YiaEngine
 		
 		public:
 			CommandManager():
-				graphic_command_queue_(D3D12_COMMAND_LIST_TYPE_DIRECT) {};
+				graphicCommandQueue_(D3D12_COMMAND_LIST_TYPE_DIRECT), bundleCommandQueue_(D3D12_COMMAND_LIST_TYPE_BUNDLE), 
+				computerCommandQueue_(D3D12_COMMAND_LIST_TYPE_COMPUTE),copyCommandQueue_(D3D12_COMMAND_LIST_TYPE_COPY) {};
 			void Create(ID3D12Device* device) 
 			{
-				graphic_command_queue_.Create(device);
+				graphicCommandQueue_.Create(device);
 
 			}
 			CommandQueue& graphic_command_queue() {
-				return graphic_command_queue_;
+				return graphicCommandQueue_;
 			};
 			UINT64 ExecuteGraphicCommandList(ID3D12CommandList* list)
 			{
-				return graphic_command_queue_.Execute(list);
+				return graphicCommandQueue_.Execute(list);
 					}
 			CommandQueue& GetQueue(D3D12_COMMAND_LIST_TYPE type)
 			{
+
 				switch (type)
 				{
 				case D3D12_COMMAND_LIST_TYPE_DIRECT:
-					return graphic_command_queue_;
+					return graphicCommandQueue_;
 				case D3D12_COMMAND_LIST_TYPE_BUNDLE:
-					break;
+					YIA_GRAPHIC_ERR("Not Impelemnt Bundle Queue");
+					return bundleCommandQueue_;
 				case D3D12_COMMAND_LIST_TYPE_COMPUTE:
-					break;
+					YIA_GRAPHIC_ERR("Not Impelemnt Computer Queue");
+					return computerCommandQueue_;
 				case D3D12_COMMAND_LIST_TYPE_COPY:
+					YIA_GRAPHIC_ERR("Not Impelemnt Copy Queue");
+					return copyCommandQueue_;
 					break;
 				default:
+					YIA_GRAPHIC_ERR("Use Unkown Queue");
+					return graphicCommandQueue_;
 					break;
 				}
+				
 			}
 			void CreateNewCommandList(D3D12_COMMAND_LIST_TYPE type, ID3D12GraphicsCommandList** out_list, ID3D12CommandAllocator** out_allocator,const wchar_t*name = L"")
 			{
@@ -53,7 +62,7 @@ namespace YiaEngine
 				switch (type)
 				{
 				case D3D12_COMMAND_LIST_TYPE_DIRECT:
-					*out_allocator = graphic_command_queue_.RequireCommandAlloctor();
+					*out_allocator = graphicCommandQueue_.RequireCommandAlloctor();
 					break;
 				case D3D12_COMMAND_LIST_TYPE_BUNDLE:
 					break;
@@ -73,7 +82,10 @@ namespace YiaEngine
 				return GetQueue((D3D12_COMMAND_LIST_TYPE)(fence_value >> 56)).IsFenceComplete(fence_value);
 			}
 		private:
-			CommandQueue graphic_command_queue_;
+			CommandQueue graphicCommandQueue_;
+			CommandQueue bundleCommandQueue_;
+			CommandQueue computerCommandQueue_;
+			CommandQueue copyCommandQueue_;
 		};
 	}
 		

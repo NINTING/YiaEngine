@@ -49,7 +49,7 @@ namespace YiaEngine
 
 		//	CommandContext();
 
-			AllocateBuffer GetAllocateUploadBuffer(size_t size_byte) {
+			AllocateBuffer GetAllocateUploadBuffer(UINT64 size_byte) {
 				
 				return upload_allocator_.Allocate(size_byte);
 			}

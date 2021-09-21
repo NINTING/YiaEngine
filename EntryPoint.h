@@ -1,13 +1,14 @@
 #include"pch.h"
-#include<stdio.h>
 
-#include"Common/Logger.h"
+
+#include"App.h"
 
 #ifdef YIA_WINDOW
+extern App* CreateApplication();
 int main()
 {
 	LOG_INIT();
-	YIA_GRAPHIC_ERR("hr = 0x{:08X}", 3124542);
+	
 	
 	return 0;
 }

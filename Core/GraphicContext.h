@@ -27,7 +27,7 @@ namespace YiaEngine
 			
 			
 			void BindDescriptorTable(int rootIndex,const DescriptorHandle& startHandle);
-			void BindCpuDescriptor(int rootIndex, int offset, int num, const DescriptorHandle descriptorHandles[]);
+			void BindCpuDescriptor(int rootIndex, int offset, size_t num, const DescriptorHandle descriptorHandles[]);
 			void BindGpuDescriptor();
 			void SetViewPortAndScissorRects(const D3D12_VIEWPORT* pViewPort, const D3D12_RECT* pAcissorRect_);
 			void SetRenderTarget(const DescriptorHandle* renderTarget,const DescriptorHandle* depth);

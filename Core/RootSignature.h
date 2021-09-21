@@ -41,7 +41,7 @@ namespace YiaEngine::Graphic
 		{
 			if (!IsDescriptorTable())
 				return 0;
-			int rangeNum = parameter_.DescriptorTable.NumDescriptorRanges;
+			size_t rangeNum = parameter_.DescriptorTable.NumDescriptorRanges;
 			auto ranges = parameter_.DescriptorTable.pDescriptorRanges;
 			size_t ret = 0;
 			for (size_t i = 0; i < rangeNum; i++)
@@ -83,14 +83,14 @@ namespace YiaEngine::Graphic
 		void Reset(int root_parament_count,int static_sampler_count);
 	public:
 		const RootParameter& operator[](int index) const { return paraments_[index]; }
-		int ParamenterCount()const { return paramenterCount_; }
+		size_t ParamenterCount()const { return paramenterCount_; }
 		RootParameter& operator[](int index) { return paraments_[index]; }
 	private:
 
-		int descriptorTableSizeArray_[16];
-		int paramenterCount_;
-		int static_sampler_count_;
-		int uninit_static_sampler_count_;
+		size_t descriptorTableSizeArray_[16];
+		size_t paramenterCount_;
+		size_t static_sampler_count_;
+		size_t uninit_static_sampler_count_;
 		Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature_;
 		std::unique_ptr<D3D12_STATIC_SAMPLER_DESC[]>samplers_;
 		std::unique_ptr<RootParameter[]>paraments_;

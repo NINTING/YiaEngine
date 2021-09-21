@@ -1,5 +1,5 @@
 #pragma once
-
+#include"pch.h"
 #include"Graphic.h"
 #include"CommandManager.h"
 #include"DescriptorHeap.h"

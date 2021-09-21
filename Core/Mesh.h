@@ -73,8 +73,8 @@ namespace YiaEngine
 			void* IndexData()const;
 			size_t IndexCount()const;
 			size_t VertexCount()const {return vertexCount_;};
-		private:
-			const VertexAttribute& GetVertexAttribute(VertexAttributeType type)const;
+
+			const VertexAttribute* GetVertexAttribute(VertexAttributeType type)const;
 		private:
 			int lod_;
 	

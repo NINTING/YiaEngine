@@ -1,5 +1,5 @@
 #pragma once
-
+#include"pch.h"
 #include<vector>
 #include<queue>
 
@@ -14,7 +14,7 @@ namespace YiaEngine
 	{
 		void CommandAllocatorManager::Distroy()
 		{
-			for (int i = 0; i < pool_.size(); i++)
+			for (size_t i = 0; i < pool_.size(); i++)
 				pool_[i]->Release();
 		}
 		void CommandAllocatorManager::DiscardAllocator(UINT64 fence, ID3D12CommandAllocator*allocator)

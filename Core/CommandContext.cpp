@@ -1,5 +1,5 @@
 #pragma once
-
+#include"pch.h"
 #include"Graphic.h"
 #include"GpuResource.h"
 #include"ResourceAllocator.h"
@@ -111,7 +111,7 @@ namespace YiaEngine
 
 		void CommandContext::InitializeTexture(GpuResource& dest, UINT subresource_num, D3D12_SUBRESOURCE_DATA data)
 		{
-			UINT textureUploadBufferSize = GetRequiredIntermediateSize(dest.RawResource(), 0, 1);
+			UINT64 textureUploadBufferSize = GetRequiredIntermediateSize(dest.RawResource(), 0, 1);
 
 			CommandContext* initContext = CommandContext::Begin();
 			AllocateBuffer upload_buffer = initContext->GetAllocateUploadBuffer(textureUploadBufferSize);

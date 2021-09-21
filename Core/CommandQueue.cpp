@@ -1,5 +1,5 @@
 #pragma once
-
+#include"pch.h"
 #include<algorithm>
 #include <Windows.h>
 #include <stdarg.h>
@@ -71,7 +71,7 @@ namespace YiaEngine
 					complete_fence_value_ = fence_value;
 				}
 			}	
-			complete_fence_value_ =max(complete_fence_value_, fence_value);
+			complete_fence_value_ =std::max(complete_fence_value_, fence_value);
 		}
 		ID3D12CommandAllocator* CommandQueue::RequireCommandAlloctor()
 		{
@@ -86,7 +86,7 @@ namespace YiaEngine
 		{
 			
 			if (fence_value > complete_fence_value_)
-				complete_fence_value_ = max(fence_->GetCompletedValue(), complete_fence_value_);
+				complete_fence_value_ = std::max(fence_->GetCompletedValue(), complete_fence_value_);
 			return complete_fence_value_ >= fence_value;
 			
 		}

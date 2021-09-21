@@ -1,3 +1,4 @@
+#include"pch.h"
 #include"YiaMath.h"
 
 namespace YiaEngine
@@ -6,7 +7,7 @@ namespace YiaEngine
 	{
 		float Angle2Rad(float angle)
 		{
-			return angle * M_PI / 180.f;
+			return angle * (float)M_PI / 180.f;
 		}
 	}
 }

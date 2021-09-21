@@ -5,7 +5,7 @@
 #include"pch.h"
 
 #include "spdlog/spdlog.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
+#include <spdlog/fmt/ostr.h>
 
 namespace YiaEngine
 {
@@ -28,7 +28,7 @@ namespace YiaEngine
 #define YIA_INFO(...)  YiaEngine::Logger::CoreLog()->info(__VA_ARGS__)
 
 
-#define YIA_GRAPHIC_ERR(...)  YiaEngine::Logger::GraphicLog()->error(__VA_ARGS__)
+#define YIA_GRAPHIC_ERR(...)  ::YiaEngine::Logger::GraphicLog()->error(__VA_ARGS__)
 #define YIA_GRAPHIC_WARN(...)  YiaEngine::Logger::GraphicLog()->warn(__VA_ARGS__)
 
 #define STRINGIFY(x) #x
@@ -39,8 +39,7 @@ namespace YiaEngine
 		if(FAILED(hr))					\
 		{\
 			YIA_GRAPHIC_ERR("\nHRESULT failed in " STRINGIFY_BUILTIN(__FILE__) " @ " STRINGIFY_BUILTIN(__LINE__) "\n"); \
-			YIA_GRAPHIC_ERR("hr = 0x{:08X}", hr); \
-			YIA_GRAPHIC_ERR(__VA_ARGS__); \
-            YIA_GRAPHIC_ERR("\n"); \
-            __debugbreak(); \
+			YIA_GRAPHIC_ERR("desc:"#__VA_ARGS__); \
+			YIA_GRAPHIC_ERR("\n"); \
+			__debugbreak(); \
 		}

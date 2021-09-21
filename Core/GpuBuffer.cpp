@@ -1,4 +1,5 @@
 #pragma once
+#include"pch.h"
 #include"Utility.h"
 #include"Graphic.h"
 #include"GpuBuffer.h"

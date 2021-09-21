@@ -1,5 +1,5 @@
 #pragma once
-
+#include"pch.h"
 #include<queue>
 
 
@@ -25,7 +25,7 @@ namespace YiaEngine
 		{
 			tableSize_ = 0;
 			memset(cpuDescriptorPool_, 0, sizeof(D3D12_CPU_DESCRIPTOR_HANDLE) * kMaxDescriptorNum);
-			for (int i = 0; i < rootSignature.ParamenterCount(); i++)
+			for (size_t  i = 0; i < rootSignature.ParamenterCount(); i++)
 			{
 				tableCache_[i].BaseOffset = tableSize_;
 				
@@ -43,7 +43,7 @@ namespace YiaEngine
 			commandList_->SetGraphicsRootDescriptorTable(rootIndex, startHandle);
 		}
 		
-		void GraphicContext::BindCpuDescriptor(int rootIndex,int offset, int num,const DescriptorHandle descriptorHandles[])
+		void GraphicContext::BindCpuDescriptor(int rootIndex,int offset, size_t num,const DescriptorHandle descriptorHandles[])
 		{
 			
 			auto& cputableCache = tableCache_[rootIndex];
@@ -124,7 +124,7 @@ namespace YiaEngine
 		void GraphicContext::SetRenderTargets(UINT numRT,const DescriptorHandle RTS[],const DescriptorHandle* depth)
 		{
 			D3D12_CPU_DESCRIPTOR_HANDLE renderTargets[D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT];
-			for (int i = 0; i < numRT; i++)
+			for (UINT i = 0; i < numRT; i++)
 			{
 				renderTargets[i] = RTS[i];
 			}

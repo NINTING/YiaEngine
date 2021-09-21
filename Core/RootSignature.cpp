@@ -1,5 +1,5 @@
 #pragma once
-
+#include"pch.h"
 #include"Utility.h"
 #include"Core/Graphic.h"
 #include "RootSignature.h"

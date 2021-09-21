@@ -206,7 +206,7 @@ struct FrameResource
 		ThrowIfFailed(device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&cmd_list_alloctor)));
 		cmd_list_alloctor->SetName(name);
 	}
-	uint32_t fence;
+	UINT64 fence;
 	ComPtr<ID3D12CommandAllocator>cmd_list_alloctor;
 };
 

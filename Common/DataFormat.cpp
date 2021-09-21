@@ -1,3 +1,4 @@
+#include"pch.h"
 #include"DataFormat.h"
 
 namespace YiaEngine

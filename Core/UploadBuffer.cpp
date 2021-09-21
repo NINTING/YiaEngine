@@ -1,5 +1,5 @@
-#pragma onc
-
+#pragma once
+#include"pch.h"
 #include"Graphic.h"
 #include"GpuResource.h"
 #include"UploadBuffer.h"
