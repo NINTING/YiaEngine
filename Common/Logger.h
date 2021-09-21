@@ -25,7 +25,10 @@ namespace YiaEngine
 
 #define LOG_INIT() YiaEngine::Logger::Init()
 
-#define YIA_INFO(...)  YiaEngine::Logger::CoreLog()->info(__VA_ARGS__)
+#define YIA_CORE_INFO(...)  YiaEngine::Logger::CoreLog()->info(__VA_ARGS__)
+
+
+#define YIA_INFO(...)  YiaEngine::Logger::AppLog()->info(__VA_ARGS__)
 
 
 #define YIA_GRAPHIC_ERR(...)  ::YiaEngine::Logger::GraphicLog()->error(__VA_ARGS__)

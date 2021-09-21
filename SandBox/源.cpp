@@ -1,7 +1,16 @@
 #include<YiaEngine.h>
+using namespace YiaEngine;
+class SampleApp :public Application
+{
+public:
+	virtual void Update()
+	{
+	//	YIA_INFO("Update");
+	}
+};
 
-//int main()
-//{
-//	YiaEngine::Print();
-//	return 0;
-//}
+
+Application* CreateApplication()
+{
+	return new SampleApp();
+}

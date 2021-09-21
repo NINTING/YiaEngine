@@ -28,5 +28,10 @@ namespace YiaEngine
 		GraphicLogger->set_level(spdlog::level::trace);
 		GraphicLogger->flush_on(spdlog::level::trace);
 
+		AppLogger = std::make_shared<spdlog::logger>("APP", begin(logSinks), end(logSinks));
+		spdlog::register_logger(AppLogger);
+		AppLogger->set_level(spdlog::level::trace);
+		AppLogger->flush_on(spdlog::level::trace);
+
 	}
 }

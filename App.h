@@ -1,13 +1,19 @@
 #pragma once
 #include"pch.h"  
-
-class YIA_API App
+namespace YiaEngine
 {
-public:
-	App();
-	virtual void Init() = 0;
-	virtual void Run() = 0;
-	virtual void Destroy() = 0;
-};
-
-App* CreateApplication();
+	class YIA_API Application
+	{
+	public:
+		Application();
+		virtual void Init();
+		virtual void Update() = 0;
+		virtual void Destroy() {};
+		void Start();
+		void Run();
+		void End();
+	private:
+		
+	};
+}
+YiaEngine::Application* CreateApplication();
