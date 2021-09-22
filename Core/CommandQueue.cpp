@@ -1,6 +1,6 @@
 #pragma once
 #include"pch.h"
-#include<algorithm>
+
 #include <Windows.h>
 #include <stdarg.h>
 #include<stdio.h>
@@ -71,6 +71,7 @@ namespace YiaEngine
 					complete_fence_value_ = fence_value;
 				}
 			}	
+			
 			complete_fence_value_ =std::max(complete_fence_value_, fence_value);
 		}
 		ID3D12CommandAllocator* CommandQueue::RequireCommandAlloctor()

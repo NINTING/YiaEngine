@@ -175,9 +175,6 @@
 //int main()
 //{
 //    int argc;
-//    LPWSTR* argv = CommandLineToArgvW(GetCommandLineW(), &argc);
-//
-//    LocalFree(argv);
 //
 //    // Initialize the window class.
 //    WNDCLASSEX windowClass = { 0 };

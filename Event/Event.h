@@ -39,13 +39,15 @@ namespace YiaEngine
 	
 
 
-	class EventDispatch
+	
+
+	class EventListener
 	{
 	public:
-		EventDispatch(Event& e) :event_(e) {}
+		EventListener(Event& e) :event_(e) {}
 
-		template<typename T,template<typename T>typename F>
-		bool Dispatch(const F<bool(T&)>& func)
+		template<typename T,typename F>
+		bool Listen(const F& func)
 		{
 			if (event_.GetEventType() == T::GetStaticEventType())
 			{
@@ -60,5 +62,6 @@ namespace YiaEngine
 }
 
 
-
+#include"Event/ApplicationEvent.h"
+#include"Event/InputEvent.h"
 

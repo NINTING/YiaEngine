@@ -6,6 +6,7 @@ namespace YiaEngine
 {
 	class KeyCodeEvent : public Event
 	{
+	public:
 		KeyCodeEvent(int keyCode) :keyCode_(keyCode) {}
 		REGISTER_EVENT_CLASS(EventCategoryKeyBoard, KeyCode);
 	private:

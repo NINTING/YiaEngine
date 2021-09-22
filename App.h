@@ -1,7 +1,9 @@
 #pragma once
-#include"pch.h"  
+#include"pch.h"
+
 namespace YiaEngine
 {
+	class Window;
 	class YIA_API Application
 	{
 	public:
@@ -13,7 +15,7 @@ namespace YiaEngine
 		void Run();
 		void End();
 	private:
-		
+		std::unique_ptr<Window>pWindow;
 	};
 }
 YiaEngine::Application* CreateApplication();

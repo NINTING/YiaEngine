@@ -1,32 +1,28 @@
 #include"pch.h"
 
 #include"App.h"
-#include"Event/ApplicationEvent.h"
+#include"Event/Event.h"
+#include"Platform/WinWindow.h"
+#include"Common/Logger.h"
 namespace YiaEngine
 {
 
-	Application::Application()
+	Application::Application():pWindow(nullptr)
 	{
 		YIA_INFO("App init");
 	}
 	
-	bool func(RenderBeginEvent& e)
-	{
-		YIA_INFO("ÆÕÍ¨º¯Êý");
-		return true;
-	}
+
 	void Application::Init()
 	{
+		WindowData win{ "YiaEngine",512,512 };
+		pWindow = std::unique_ptr<Window>(Window::Create(win));
 		
-		RenderBeginEvent e;
-		EventDispatch dispatch(e);
-		std::function<bool(RenderBeginEvent&)> f =  [](RenderBeginEvent& e) {YIA_INFO(e); return true; };
-		dispatch.Dispatch(f);
-	//	dispatch.Dispatch(func);
 	}
 
 	void Application::Run()
 	{
+		pWindow->OnUpdate();
 	//	YIA_CORE_INFO("App Run");
 		Update();
 	}
