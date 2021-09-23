@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "WinWindow.h"
-
+#include "Common/logger.h"
+#include"Event/Event.h"
 namespace YiaEngine
 {
     Window* Window::s_Window;
@@ -28,6 +29,13 @@ namespace YiaEngine
             return 0;
         }
 
+        case WM_CHAR:
+        {
+            KeyCodeEvent event{ char(wParam) };
+            Window::Dispatch(event);
+
+            return 0;
+        }
         case WM_DESTROY:
             PostQuitMessage(0);
             return 0;

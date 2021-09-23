@@ -17,9 +17,13 @@ namespace YiaEngine
 	{
 		WindowData win{ "YiaEngine",512,512 };
 		pWindow = std::unique_ptr<Window>(Window::Create(win));
-		
+		pWindow->SetEventCallBack([this](Event& e) { this->OnEvent(e); });
 	}
-
+	void  Application::OnEvent(Event& e)
+	{
+		EventListener listener(e);
+		listener.Listen<KeyCodeEvent>([](KeyCodeEvent& e) {YIA_INFO(e.KeyCode); return true; });
+	}
 	void Application::Run()
 	{
 		pWindow->OnUpdate();

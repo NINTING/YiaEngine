@@ -4,6 +4,7 @@
 
 
 #include"YiaWindow.h"
+
 namespace YiaEngine
 {
 	class WinWindow : public Window
@@ -14,12 +15,15 @@ namespace YiaEngine
 		virtual size_t GetWidth() override { return windowData_.Width; }
 		virtual size_t GetHeight() override { return windowData_.Height; }
 		virtual void OnUpdate() override;
-		LRESULT CALLBACK  WinProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+		LRESULT CALLBACK WinProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+		void OnEvent();
+		
 	protected:
 		virtual void Init(const WindowData& data) override;
 	private:
 		WindowData windowData_;
 		HWND hwnd_;
+		
 	};
 }
 

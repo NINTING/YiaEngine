@@ -1,6 +1,8 @@
 #pragma once
 #include"pch.h"
 
+#include"Event/Event.h"
+
 namespace YiaEngine
 {
 	class Window;
@@ -14,6 +16,7 @@ namespace YiaEngine
 		void Start();
 		void Run();
 		void End();
+		void OnEvent(Event& e);
 	private:
 		std::unique_ptr<Window>pWindow;
 	};
