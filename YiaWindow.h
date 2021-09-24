@@ -25,7 +25,7 @@ namespace YiaEngine
 		virtual size_t GetHeight() = 0;
 		static Window* Create(const WindowData& data);
 		virtual void SetEventCallBack(const EventCallBack& callBack) { callBack_ = callBack; };
-		static void Dispatch(Event& e) { s_Window->callBack_(e); };
+		static void Dispatch(Event& e) {if(s_Window!=nullptr) s_Window->callBack_(e); };
 	protected:
 		static Window* s_Window;
 		EventCallBack callBack_;

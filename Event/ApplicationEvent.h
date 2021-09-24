@@ -10,4 +10,20 @@ namespace YiaEngine
 		REGISTER_EVENT_CLASS(EventCategoryGraphic,RenderBegin);
 		virtual std::string Tostring() { return Name(); }
 	};
+
+
+	class WindowCloseEvent : public Event
+	{
+	public:
+		REGISTER_EVENT_CLASS(EventCategoryApplication, WindowClose);
+		virtual std::string Tostring() { return Name(); }
+	};
+	class WindowResizeEvent : public Event
+	{
+	public:
+		WindowResizeEvent(UINT width, UINT height):Width(width),Height(height){}
+		REGISTER_EVENT_CLASS(EventCategoryApplication, WindowResize);
+		virtual std::string Tostring() { return Name(); }
+		UINT Width, Height;
+	};
 }

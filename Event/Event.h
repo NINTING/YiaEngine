@@ -7,15 +7,21 @@ namespace YiaEngine
 	{
 		/*Graphic*/
 		RenderBegin,
-		/*KeyBoard*/
+		/*Input*/
 		KeyCode,
-		
+		MouseMove,
+		MouseButtonDown,
+		MouseButtonRelease,
+		/*App*/
+		WindowClose,
+		WindowResize
 	};
 	enum EventCategory
 	{
 		EventCategoryGraphic	= 1<<1,
 		EventCategoryKeyBoard	= 1<<2,
-		EventCategoryMouse		= 1<<3
+		EventCategoryMouse		= 1<<3,
+		EventCategoryApplication	= 1 << 4,
 	};
 	class Event
 	{

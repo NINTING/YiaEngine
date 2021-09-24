@@ -22,7 +22,10 @@ namespace YiaEngine
 	void  Application::OnEvent(Event& e)
 	{
 		EventListener listener(e);
-		listener.Listen<KeyCodeEvent>([](KeyCodeEvent& e) {YIA_INFO(e.KeyCode); return true; });
+		listener.Listen<KeyCodeEvent>([](KeyCodeEvent& e) {YIA_INFO(e.Key); return true; });
+		listener.Listen<MouseMoveEvent>([](MouseMoveEvent& e) {YIA_INFO("MousePos:{0},{1}",e.X, e.Y); return true; });
+		listener.Listen<MouseButtonDownEvent>([](MouseButtonDownEvent& e) {YIA_INFO("MouseDownPos:{0},{1}", e.X, e.Y); return true; });
+		listener.Listen<MouseButtonRealseEvent>([](MouseButtonRealseEvent& e) {YIA_INFO("MouseRealsePos:{0},{1}", e.X, e.Y); return true; });
 	}
 	void Application::Run()
 	{

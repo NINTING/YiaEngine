@@ -17,10 +17,23 @@ namespace YiaEngine
     {
         switch (msg)
         {
+        
         case WM_SIZE:
+        {
+            if (wParam == SIZE_RESTORED)
+            { 
+                UINT width = LOWORD(lParam);
+                UINT height = HIWORD(lParam);
+                WindowResizeEvent event(width, height);
+                Window::Dispatch(event);
+                
+            }
+          
             return 0;
+        }
+            
         case WM_MOUSEACTIVATE:
-
+            return 0;
         case WM_CREATE:
         {
             // Save the DXSample* passed in to CreateWindow.
@@ -34,13 +47,42 @@ namespace YiaEngine
             KeyCodeEvent event{ char(wParam) };
             Window::Dispatch(event);
 
-            return 0;
+            break;
         }
+        case WM_LBUTTONDOWN:
+        {
+            int xPos = GET_X_LPARAM(lParam);
+            int yPos = GET_Y_LPARAM(lParam);
+            MouseButtonDownEvent event(xPos, yPos);
+            Window::Dispatch(event);
+            break;
+        }
+        case WM_LBUTTONUP:
+        {
+            int xPos = GET_X_LPARAM(lParam);
+            int yPos = GET_Y_LPARAM(lParam);
+            MouseButtonRealseEvent event(xPos, yPos);
+            Window::Dispatch(event);
+            break;
+        }
+        case WM_MOUSEMOVE:
+        {
+            int xPos = GET_X_LPARAM(lParam);
+            int yPos = GET_Y_LPARAM(lParam);
+            MouseMoveEvent event(xPos, yPos);
+            Window::Dispatch(event);
+            break;
+        }
+        
         case WM_DESTROY:
+        {
+            WindowCloseEvent event;
+            Window::Dispatch(event);
             PostQuitMessage(0);
             return 0;
         }
 
+        }
         return DefWindowProc(hWnd, msg, wParam, lParam);
     }
 
