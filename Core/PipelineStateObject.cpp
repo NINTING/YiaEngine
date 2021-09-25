@@ -76,7 +76,7 @@ namespace YiaEngine::Graphic
 	{
 		SetRenderTargets(1, &rtv_format, depth_format);
 	}
-	void PipelineStateObject::SetRenderTargets(size_t count,DXGI_FORMAT* rtv_format,DXGI_FORMAT depth_format)
+	void PipelineStateObject::SetRenderTargets(UINT count,DXGI_FORMAT* rtv_format,DXGI_FORMAT depth_format)
 	{
 		for (size_t i = 0; i < count; i++)
 		{

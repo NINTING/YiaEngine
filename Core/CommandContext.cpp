@@ -115,7 +115,7 @@ namespace YiaEngine
 
 			CommandContext* initContext = CommandContext::Begin();
 			AllocateBuffer upload_buffer = initContext->GetAllocateUploadBuffer(textureUploadBufferSize);
-			ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->RawCommandList(), dest.RawResource(), upload_buffer.Buffer.RawResource(), 0, 0, subresource_num, &data));
+			ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->NativeCommandList(), dest.RawResource(), upload_buffer.Buffer.RawResource(), 0, 0, subresource_num, &data));
 			initContext->TransitionBarrier(dest, D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 			initContext->End();
 		}
@@ -130,7 +130,7 @@ namespace YiaEngine
 			data.RowPitch = bufferSize;
 			
 			initContext->TransitionBarrier(dest, D3D12_RESOURCE_STATE_COPY_DEST);
-			ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->RawCommandList(), dest.RawResource(), upload_buffer.Buffer.RawResource(), 0, 0, 1, &data));
+			ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->NativeCommandList(), dest.RawResource(), upload_buffer.Buffer.RawResource(), 0, 0, 1, &data));
 			initContext->TransitionBarrier(dest,D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 			initContext->End();
 

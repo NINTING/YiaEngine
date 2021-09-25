@@ -4,12 +4,12 @@
 #include"Event/Event.h"
 namespace YiaEngine
 {
-    Window* Window::s_Window;
-    Window* Window::Create(const WindowData& data)
+    std::unique_ptr<Window> Window::s_Window;
+    Window& Window::Create(const WindowData& data)
     {
-        auto ret = new WinWindow(data);
-        s_Window = ret;
-        return ret;
+        s_Window = std::unique_ptr<Window>(new WinWindow(data));
+      
+        return *s_Window;
     }
 
 
@@ -88,6 +88,7 @@ namespace YiaEngine
 
     void YiaEngine::WinWindow::Init(const WindowData& data)
     {
+        name_ = data.Name;
         WNDCLASSEX windowClass = { 0 };
         windowClass.cbSize = sizeof(WNDCLASSEX);
         windowClass.style = CS_HREDRAW | CS_VREDRAW;
@@ -112,24 +113,34 @@ namespace YiaEngine
             GetModuleHandle(0), NULL);
 
         ShowWindow(hwnd_, SW_SHOWDEFAULT);
-      
+        ::UpdateWindow(hwnd_);
+    }
+
+    void* WinWindow::NativeHandle()
+    {
+        return hwnd_;
     }
 
     void YiaEngine::WinWindow::OnUpdate()
     {
         MSG msg = {};
         bool done = true;
-        while (done)
+    
+        msg = {};
+        while (::PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
         {
-            msg = {};
-            while (::PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
-            {
-                ::TranslateMessage(&msg);
-                ::DispatchMessage(&msg);
-                if (msg.message == WM_QUIT)
-                    done = true;
-            }
+            ::TranslateMessage(&msg);
+            ::DispatchMessage(&msg);
+            if (msg.message == WM_QUIT)
+                done = true;
         }
+        
+    }
+
+    void WinWindow::OnDestroy()
+    {
+        ::DestroyWindow(hwnd_);
+        ::UnregisterClass(LPCWSTR(name_.c_str()), GetModuleHandle(0));
     }
 
 

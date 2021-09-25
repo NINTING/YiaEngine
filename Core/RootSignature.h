@@ -37,13 +37,13 @@ namespace YiaEngine::Graphic
 		{
 			return parameter_.ParameterType == D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
 		}
-		int DescriptorTableSize()const
+		UINT DescriptorTableSize()const
 		{
 			if (!IsDescriptorTable())
 				return 0;
 			size_t rangeNum = parameter_.DescriptorTable.NumDescriptorRanges;
 			auto ranges = parameter_.DescriptorTable.pDescriptorRanges;
-			size_t ret = 0;
+			UINT ret = 0;
 			for (size_t i = 0; i < rangeNum; i++)
 			{
 				ret += ranges[i].NumDescriptors;
@@ -88,8 +88,8 @@ namespace YiaEngine::Graphic
 	private:
 
 		size_t descriptorTableSizeArray_[16];
-		size_t paramenterCount_;
-		size_t static_sampler_count_;
+		UINT paramenterCount_;
+		UINT static_sampler_count_;
 		size_t uninit_static_sampler_count_;
 		Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature_;
 		std::unique_ptr<D3D12_STATIC_SAMPLER_DESC[]>samplers_;

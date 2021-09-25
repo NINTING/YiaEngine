@@ -25,7 +25,7 @@ namespace YiaEngine
 		{
 			tableSize_ = 0;
 			memset(cpuDescriptorPool_, 0, sizeof(D3D12_CPU_DESCRIPTOR_HANDLE) * kMaxDescriptorNum);
-			for (size_t  i = 0; i < rootSignature.ParamenterCount(); i++)
+			for (UINT  i = 0; i < rootSignature.ParamenterCount(); i++)
 			{
 				tableCache_[i].BaseOffset = tableSize_;
 				
@@ -66,11 +66,11 @@ namespace YiaEngine
 			{ 
 				viewDescriptorAllocator.RetireCurrentHeap();
 			}
- 			SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, viewDescriptorAllocator.CurrentUseHeap().RawHeap());
+ 			SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, viewDescriptorAllocator.CurrentUseHeap().NativeHeap());
 			auto gpuStartHandle = viewDescriptorAllocator.Alloc(tableSize_);
-			int handleIncrementSize = viewDescriptorAllocator.ViewDescriptorIncrementSize();
+			UINT handleIncrementSize = viewDescriptorAllocator.ViewDescriptorIncrementSize();
 
-			for (size_t i = 0; i < kMaxDescriptorTableNum; i++)
+			for (UINT i = 0; i < kMaxDescriptorTableNum; i++)
 			{
 				auto gpuCurrentHandle = gpuStartHandle;
 				if (tableCache_[i].TableSize == 0)continue;
@@ -117,7 +117,7 @@ namespace YiaEngine
 
 		void GraphicContext::ClearRenderTarget(DescriptorHandle renderTarget)
 		{
-			float black[] = { 0,0,0,1.0f };
+			float black[] = { 0.2f,0.3f,0.4f,1.0f };
 			ClearRenderTarget(renderTarget, black);
 		}
 		

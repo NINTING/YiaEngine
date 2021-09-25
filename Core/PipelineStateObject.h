@@ -25,7 +25,7 @@ namespace YiaEngine::Graphic
 		void SetPrimitiveTopologyType(D3D12_PRIMITIVE_TOPOLOGY_TYPE type);
 		void SetRenderTarget(DXGI_FORMAT rtv_format, DXGI_FORMAT depth_format);
 
-		void SetRenderTargets(size_t count, DXGI_FORMAT* rtv_format, DXGI_FORMAT depth_format);
+		void SetRenderTargets(UINT count, DXGI_FORMAT* rtv_format, DXGI_FORMAT depth_format);
 
 		void SetSampleDesc(UINT count, UINT quality);
 

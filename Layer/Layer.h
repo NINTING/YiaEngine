@@ -11,6 +11,8 @@ namespace YiaEngine
 		Layer(const char* name = "Layer") :debugName_(name) {};
 		virtual void OnEvent(Event& e) {};
 		virtual void OnUpdate() {};
+		virtual void OnAwake() {};
+		virtual void OnDestroy() {};
 	private:
 		std::string debugName_;
 	};

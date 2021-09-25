@@ -30,13 +30,13 @@ namespace YiaEngine
 			
 		}
 
-		void Mesh::SetVertexAttributes(size_t vertexCount, size_t attributeCount, VertexAttribute* layout)
+		void Mesh::SetVertexAttributes(UINT vertexCount, size_t attributeCount, VertexAttribute* layout)
 		{
 			vertexCount_ = vertexCount;
 			for (size_t i = 0; i < attributeCount; i++)
 				vertexAttributes_.emplace_back(layout[i]);
 		}
-		void Mesh::SetVertexAttributes(size_t vertexCount, const std::vector<VertexAttribute>& layout)
+		void Mesh::SetVertexAttributes(UINT vertexCount, const std::vector<VertexAttribute>& layout)
 		{
 			vertexCount_ = vertexCount;
 			vertexAttributes_.assign(layout.begin(), layout.end());
@@ -57,7 +57,7 @@ namespace YiaEngine
 				}
 			}
 		}
-		void Mesh::SetIndexData(size_t count, void* data, DataFormat format)
+		void Mesh::SetIndexData(UINT count, void* data, DataFormat format)
 		{
 			memcpy(indexData_, data, count * DataFormatStride(format));
 			indexCount_ = count;
@@ -94,7 +94,7 @@ namespace YiaEngine
 		{
 			return indexData_;
 		}
-		size_t Mesh::IndexCount()const
+		UINT Mesh::IndexCount()const
 		{
 			return indexCount_;
 		}

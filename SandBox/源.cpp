@@ -28,13 +28,16 @@ public:
 	virtual void Init() 
 	{
 		Application::Init();
+		imGuiLayer.OnAwake();
 		PushLayer(&sampleLayer);
+		PushLayer(&imGuiLayer);
 	};
 	virtual void Update()
 	{
-	//	YIA_INFO("Update");
+		imGuiLayer.OnUpdate();
 	}
 	SampleLayer sampleLayer; 
+	ImguiLayer imGuiLayer;
 };
 
 

@@ -77,7 +77,7 @@ namespace YiaEngine
 			
 		public:
 
-			ID3D12GraphicsCommandList* RawCommandList() { return commandList_.Get(); };
+			ID3D12GraphicsCommandList* NativeCommandList() { return commandList_.Get(); };
 			D3D12_COMMAND_LIST_TYPE type() { return type_; };
 		private:
 			CommandContext(D3D12_COMMAND_LIST_TYPE type);

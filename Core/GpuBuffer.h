@@ -9,9 +9,9 @@ namespace YiaEngine:: Graphic
 	public:
 		
 		void Create(size_t data_size, size_t stride, void* data = nullptr);
-		D3D12_VERTEX_BUFFER_VIEW VertexBufferView(size_t offset, size_t stride, size_t dataSize);
+		D3D12_VERTEX_BUFFER_VIEW VertexBufferView(size_t offset, UINT stride, UINT dataSize);
 
-		D3D12_INDEX_BUFFER_VIEW IndexBufferView(size_t offset, size_t stride, size_t dataSize);
+		D3D12_INDEX_BUFFER_VIEW IndexBufferView(size_t offset, UINT stride, UINT dataSize);
 		
 	protected:
 		//void Create(size_t data_size, size_t stride, void* data);

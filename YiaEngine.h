@@ -2,6 +2,7 @@
 
 #include"pch.h"
 #include"SampleDll.h"
-#include"Common/Layer.h"
+#include"Layer/Layer.h"
+#include"Layer/ImguiLayer.h"
 
 #include"EntryPoint.h"

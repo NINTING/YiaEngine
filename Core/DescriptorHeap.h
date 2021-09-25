@@ -76,7 +76,7 @@ namespace YiaEngine
 			void Reset();
 			bool HasFreeSpace(size_t count) { return free_descriptor_num_ >= count; }
 		public:
-			ID3D12DescriptorHeap* RawHeap() const { return heap_.Get(); }
+			ID3D12DescriptorHeap* NativeHeap() const { return heap_.Get(); }
 			DescriptorHandle operator[](uint32_t index) { return first_handle_ + index * descriptor_size_; }
 		protected:
 			void InitHeap();
@@ -87,6 +87,7 @@ namespace YiaEngine
 			uint32_t free_descriptor_num_;
 			DescriptorHandle first_handle_;
 			DescriptorHandle head_free_handle_;
+			std::wstring name_;
 		};
 
 		//无限的no-shader-visible描述符分配器械,描述符需要请求分配者保存。
@@ -127,13 +128,13 @@ namespace YiaEngine
 			void ParseRootSignature(const RootSignature& rootSignature);
 
 			DescriptorHandle Alloc(UINT count = 1);
-			DescriptorHandle CopyToGpuDescriptor(int count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[]);
-			void CopyToGpuDescriptor(size_t count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[], const D3D12_CPU_DESCRIPTOR_HANDLE destHandle[]);
+			DescriptorHandle CopyToGpuDescriptor(UINT count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[]);
+			void CopyToGpuDescriptor(UINT count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[], const D3D12_CPU_DESCRIPTOR_HANDLE destHandle[]);
 			void RetireCurrentHeap();
 
 			bool HasSpace(UINT size) { return currentHeap_ && currentHeap_->HasFreeSpace(size); };
 			DescriptorHeap& CurrentUseHeap();// { return *currentHeap; }
-			size_t ViewDescriptorIncrementSize() { return Graphic::g_Device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV); };
+			UINT ViewDescriptorIncrementSize() { return Graphic::g_Device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV); };
 			void Clean(UINT64 fence);
 		private:
 			static void DiscardUseHeaps(D3D12_DESCRIPTOR_HEAP_TYPE type, uint64_t fence, const std::vector<DescriptorHeap*>& useHeap);

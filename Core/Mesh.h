@@ -58,11 +58,11 @@ namespace YiaEngine
 		{
 		public:
 			Mesh();
-			void SetVertexAttributes(size_t vertexCount, size_t attributeCount, VertexAttribute* layout);
-			void SetVertexAttributes(size_t vertexCount, const std::vector<VertexAttribute>& layout);
+			void SetVertexAttributes(UINT vertexCount, size_t attributeCount, VertexAttribute* layout);
+			void SetVertexAttributes(UINT vertexCount, const std::vector<VertexAttribute>& layout);
 			void SetPrimitive(MeshPrimitive primitive);
 			void SetVertexData(VertexAttributeType type,void*data);
-			void SetIndexData(size_t count,void* data,DataFormat format = DataFormat::kUint32_1);
+			void SetIndexData(UINT count,void* data,DataFormat format = DataFormat::kUint32_1);
 			//TODO 子网格处理
 			void SetSubMeshCount(size_t count);
 			void SetSubMesh(size_t index, const SubMesh&);
@@ -71,8 +71,8 @@ namespace YiaEngine
 			const VertexAttribute& Uv0()const;
 			const VertexAttribute& Uv1()const;
 			void* IndexData()const;
-			size_t IndexCount()const;
-			size_t VertexCount()const {return vertexCount_;};
+			UINT IndexCount()const;
+			UINT VertexCount()const {return vertexCount_;};
 
 			const VertexAttribute* GetVertexAttribute(VertexAttributeType type)const;
 		private:
@@ -82,9 +82,9 @@ namespace YiaEngine
 			std::vector<SubMesh>subMeshArrays_;
 			std::vector<VertexAttribute>vertexAttributes_;
 			void* indexData_;
-			size_t indexCount_;
+			UINT indexCount_;
 			DataFormat indexFormat_;
-			size_t vertexCount_;
+			UINT vertexCount_;
 		
 		};
 	}

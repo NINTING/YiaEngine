@@ -20,7 +20,7 @@ namespace YiaEngine::Graphic
 		
 		auto hr = Graphic::g_Device->CreateDescriptorHeap(&desc_, IID_PPV_ARGS(&heap_));
 		heap_->SetName(name);
-
+		name_ = name;
 		InitHeap();
 	}
 	void DescriptorHeap::Create(const wchar_t* name, D3D12_DESCRIPTOR_HEAP_DESC desc)
@@ -66,6 +66,11 @@ namespace YiaEngine::Graphic
 			ret = head_free_handle_;
 			head_free_handle_ += count * descriptor_size_;
 			free_descriptor_num_ -= count;
+		}
+		else
+		{
+			
+			YIA_GRAPHIC_WARN("{0} has no free space alloc descriptor!!!", reinterpret_cast<const char*>(name_.c_str()));
 		}
 		return ret;
 	}
@@ -147,7 +152,7 @@ namespace YiaEngine::Graphic
 	/// </summary>
 	/// <param name="count"></param>
 	/// <param name="cpuHandle"></param>
-	DescriptorHandle GpuDescriptorAllocator::CopyToGpuDescriptor(int count,const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[])
+	DescriptorHandle GpuDescriptorAllocator::CopyToGpuDescriptor(UINT count,const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[])
 	{
 		UINT   NumDestDescriptorRanges = 1;
 		DescriptorHandle pDestDescriptorRangeStarts = Alloc(count);
@@ -156,7 +161,7 @@ namespace YiaEngine::Graphic
 		CopyToGpuDescriptor(count, cpuHandle, pDestDescriptorRangeStarts.GetCpuAddress());
 		return pDestDescriptorRangeStarts;
 	}
-	void GpuDescriptorAllocator::CopyToGpuDescriptor(size_t count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[],const D3D12_CPU_DESCRIPTOR_HANDLE destHandle[])
+	void GpuDescriptorAllocator::CopyToGpuDescriptor(UINT count, const D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle[],const D3D12_CPU_DESCRIPTOR_HANDLE destHandle[])
 	{
 		UINT pSrcDescriptorRangeSizes[16];
 		UINT pDestDescriptorRangeSizes[1] = { count };
