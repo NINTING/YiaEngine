@@ -19,7 +19,9 @@
 #include<sstream>
 
 #include<functional>
-
+#include<vector>
+#include<stack>
+#include<queue>
 #include<memory>
 #include<algorithm>
 

@@ -21,11 +21,31 @@ namespace YiaEngine
 	}
 	void  Application::OnEvent(Event& e)
 	{
+
 		EventListener listener(e);
-		listener.Listen<KeyCodeEvent>([](KeyCodeEvent& e) {YIA_INFO(e.Key); return true; });
-		listener.Listen<MouseMoveEvent>([](MouseMoveEvent& e) {YIA_INFO("MousePos:{0},{1}",e.X, e.Y); return true; });
-		listener.Listen<MouseButtonDownEvent>([](MouseButtonDownEvent& e) {YIA_INFO("MouseDownPos:{0},{1}", e.X, e.Y); return true; });
-		listener.Listen<MouseButtonRealseEvent>([](MouseButtonRealseEvent& e) {YIA_INFO("MouseRealsePos:{0},{1}", e.X, e.Y); return true; });
+		for (auto it = layerStack_.End(); it != layerStack_.Begin();)
+		{
+			(*--it)->OnEvent(e);
+			if (e.Handled == true)
+				break;
+		}
+		
+	}
+	void Application::PushLayer(Layer*layer)
+	{
+		layerStack_.PushLayer(layer);
+	}
+	void Application::PushLayerOverlay(Layer* layer)
+	{
+		layerStack_.PushLayerOverlay(layer);
+	}
+	void Application::PopLayer(Layer* layer)
+	{
+		layerStack_.PopLayer(layer);
+	}
+	void Application::PopLayerOverlay(Layer* layer)
+	{
+		layerStack_.PopLayerOverlay(layer);
 	}
 	void Application::Run()
 	{

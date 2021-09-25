@@ -25,6 +25,13 @@ namespace YiaEngine
 	public:
 		MouseButtonDownEvent(int x, int y) :X(x), Y(y) {}
 		REGISTER_EVENT_CLASS(EventCategoryMouse, MouseButtonDown);
+		virtual std::string ToString() const override{
+			std::stringstream ss;
+			ss << "MouseDown:";
+			ss << "CursorPos: ";
+			ss << X <<" , " << Y;
+			return ss.str();
+		}
 		int X, Y;
 	};
 	class MouseButtonRealseEvent :public Event
