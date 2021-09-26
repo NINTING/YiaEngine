@@ -3,5 +3,6 @@ bin/
 *.vcxproj
 *.vcxproj.*
 
-
+*.log
 token.txt
+imgui.ini

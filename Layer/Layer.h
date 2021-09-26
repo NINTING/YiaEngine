@@ -29,7 +29,7 @@ namespace YiaEngine
 		std::vector<Layer*>::iterator End() {return stack_.end(); }
 	private:
 		std::vector<Layer*>stack_;
-		std::vector<Layer*>::iterator insertIterator_ = stack_.begin();;
+		std::vector<Layer*>::iterator insertIterator_ = stack_.end();;
 	};
 
 }

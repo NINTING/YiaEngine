@@ -19,7 +19,7 @@ namespace YiaEngine
 			
 			const DescriptorHandle* RtvCpuHandlePtr()const { return &rtvHandle_; };
 			const DescriptorHandle* SrvCpuHandlePtr()const { return &srvHandle_; };
-
+			void Destroy();
 		private:
 			void CreateResource(UINT width, UINT height, DXGI_FORMAT format, const D3D12_CLEAR_VALUE* clearValue, UINT arraySize, UINT sampleCount, UINT numMip);
 			void CreateView(DXGI_FORMAT format, UINT arraySize, UINT numMips);

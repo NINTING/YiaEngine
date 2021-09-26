@@ -85,6 +85,23 @@ namespace YiaEngine
 			*ppAdapter = adapter.Detach();
 		}
 
+		void ResizeScreen(UINT width, UINT height)
+		{
+			for (UINT i = 0; i < SWAP_CHAIN_COUNT; i++)
+			{
+				Graphic::g_SwapRenderTarget[i].Destroy();
+			}
+			ASSERT_SUCCEEDED( g_SwapChain->ResizeBuffers(SWAP_CHAIN_COUNT, width, height, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
+			for (UINT i = 0; i < SWAP_CHAIN_COUNT; i++)
+			{
+			
+				ComPtr< ID3D12Resource> swapChainResource;
+				ASSERT_SUCCEEDED(Graphic::g_SwapChain->GetBuffer(i, IID_PPV_ARGS(&swapChainResource)));
+				Graphic::g_SwapRenderTarget[i].CreateFromSwapChian(L"Screen Render Target", swapChainResource.Detach());
+			}
+			Graphic::g_FrameIndex = Graphic::g_SwapChain->GetCurrentBackBufferIndex();
+		}
+
 		void GraphicInit()
 		{
 			ComPtr<IDXGIFactory4> factory;

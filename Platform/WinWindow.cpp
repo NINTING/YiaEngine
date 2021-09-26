@@ -12,6 +12,14 @@ namespace YiaEngine
         return *s_Window;
     }
 
+    void Window::ResizeScreen(UINT width, UINT height)
+    {
+        if (s_Window != nullptr)
+        {
+            s_Window->Resize(width, height);
+        }
+    }
+
 
     LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
@@ -24,6 +32,7 @@ namespace YiaEngine
             { 
                 UINT width = LOWORD(lParam);
                 UINT height = HIWORD(lParam);
+                Window::ResizeScreen(width, height);
                 WindowResizeEvent event(width, height);
                 Window::Dispatch(event);
                 
@@ -53,7 +62,8 @@ namespace YiaEngine
         {
             int xPos = GET_X_LPARAM(lParam);
             int yPos = GET_Y_LPARAM(lParam);
-            MouseButtonDownEvent event(xPos, yPos);
+            MouseButtonDownEvent event(xPos, yPos,MouseButton::LButton);
+            YIA_INFO("button event dispatch");
             Window::Dispatch(event);
             break;
         }
@@ -61,7 +71,7 @@ namespace YiaEngine
         {
             int xPos = GET_X_LPARAM(lParam);
             int yPos = GET_Y_LPARAM(lParam);
-            MouseButtonRealseEvent event(xPos, yPos);
+            MouseButtonReleaseEvent event(xPos, yPos, MouseButton::LButton);
             Window::Dispatch(event);
             break;
         }
@@ -119,6 +129,13 @@ namespace YiaEngine
     void* WinWindow::NativeHandle()
     {
         return hwnd_;
+    }
+
+    void WinWindow::Resize(UINT width, UINT height)
+    {
+
+        windowData_.Height = height;
+        windowData_.Width = width;
     }
 
     void YiaEngine::WinWindow::OnUpdate()

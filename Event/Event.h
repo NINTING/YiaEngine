@@ -65,6 +65,7 @@ namespace YiaEngine
 	private:
 		Event& event_;
 	};
+#define BIND_MEMBER_CALLBACK(func) [this](auto&&... args) -> bool { return this->func(std::forward<decltype(args)>(args)...); }
 }
 
 

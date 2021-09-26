@@ -8,6 +8,7 @@
 #include"Core/CommandManager.h"
 #include"Core/RenderBuffer.h"
 #include "YiaWindow.h"
+#include<type_traits>
 namespace YiaEngine
 {
     ImguiLayer::ImguiLayer() : Layer("ImGuiLayer"), time_(0)
@@ -21,45 +22,50 @@ namespace YiaEngine
 
         ImGui::StyleColorsDark();
 
-        //io.BackendPlatformName = "Yia_win32";
-        //io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;         // We can honor GetMouseCursor() values (optional)
-        //io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;          // We can honor io.WantSetMousePos requests (optional, rarely used)
-        //
-        //io.ImeWindowHandle = Window::CurrentWindow().NativeHandle();
+        io.BackendPlatformName = "Yia_win32";
+        io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;         // We can honor GetMouseCursor() values (optional)
+        io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;          // We can honor io.WantSetMousePos requests (optional, rarely used)
+        
+        io.ImeWindowHandle = Window::CurrentWindow().NativeHandle();
 
-        //io.KeyMap[ImGuiKey_Tab] = VK_TAB;
-        //io.KeyMap[ImGuiKey_LeftArrow] = VK_LEFT;
-        //io.KeyMap[ImGuiKey_RightArrow] = VK_RIGHT;
-        //io.KeyMap[ImGuiKey_UpArrow] = VK_UP;
-        //io.KeyMap[ImGuiKey_DownArrow] = VK_DOWN;
-        //io.KeyMap[ImGuiKey_PageUp] = VK_PRIOR;
-        //io.KeyMap[ImGuiKey_PageDown] = VK_NEXT;
-        //io.KeyMap[ImGuiKey_Home] = VK_HOME;
-        //io.KeyMap[ImGuiKey_End] = VK_END;
-        //io.KeyMap[ImGuiKey_Insert] = VK_INSERT;
-        //io.KeyMap[ImGuiKey_Delete] = VK_DELETE;
-        //io.KeyMap[ImGuiKey_Backspace] = VK_BACK;
-        //io.KeyMap[ImGuiKey_Space] = VK_SPACE;
-        //io.KeyMap[ImGuiKey_Enter] = VK_RETURN;
-        //io.KeyMap[ImGuiKey_Escape] = VK_ESCAPE;
-        //io.KeyMap[ImGuiKey_KeyPadEnter] = VK_RETURN;
-        //io.KeyMap[ImGuiKey_A] = 'A';
-        //io.KeyMap[ImGuiKey_C] = 'C';
-        //io.KeyMap[ImGuiKey_V] = 'V';
-        //io.KeyMap[ImGuiKey_X] = 'X';
-        //io.KeyMap[ImGuiKey_Y] = 'Y';
-        //io.KeyMap[ImGuiKey_Z] = 'Z';
+        io.KeyMap[ImGuiKey_Tab] = VK_TAB;
+        io.KeyMap[ImGuiKey_LeftArrow] = VK_LEFT;
+        io.KeyMap[ImGuiKey_RightArrow] = VK_RIGHT;
+        io.KeyMap[ImGuiKey_UpArrow] = VK_UP;
+        io.KeyMap[ImGuiKey_DownArrow] = VK_DOWN;
+        io.KeyMap[ImGuiKey_PageUp] = VK_PRIOR;
+        io.KeyMap[ImGuiKey_PageDown] = VK_NEXT;
+        io.KeyMap[ImGuiKey_Home] = VK_HOME;
+        io.KeyMap[ImGuiKey_End] = VK_END;
+        io.KeyMap[ImGuiKey_Insert] = VK_INSERT;
+        io.KeyMap[ImGuiKey_Delete] = VK_DELETE;
+        io.KeyMap[ImGuiKey_Backspace] = VK_BACK;
+        io.KeyMap[ImGuiKey_Space] = VK_SPACE;
+        io.KeyMap[ImGuiKey_Enter] = VK_RETURN;
+        io.KeyMap[ImGuiKey_Escape] = VK_ESCAPE;
+        io.KeyMap[ImGuiKey_KeyPadEnter] = VK_RETURN;
+        io.KeyMap[ImGuiKey_A] = 'A';
+        io.KeyMap[ImGuiKey_C] = 'C';
+        io.KeyMap[ImGuiKey_V] = 'V';
+        io.KeyMap[ImGuiKey_X] = 'X';
+        io.KeyMap[ImGuiKey_Y] = 'Y';
+        io.KeyMap[ImGuiKey_Z] = 'Z';
 
         
         auto fontSrvHandle = gpuImGuiDescriptoHeap_.Alloc();
-        ImGui_ImplWin32_Init(Window::CurrentWindow().NativeHandle());
-        ImGui_ImplDX12_Init(Graphic::g_Device.Get(), 2,
+      //  ImGui_ImplWin32_Init(Window::CurrentWindow().NativeHandle());
+        ImGui_ImplDX12_Init(Graphic::g_Device.Get(), SWAP_CHAIN_COUNT,
             DXGI_FORMAT_R8G8B8A8_UNORM, gpuImGuiDescriptoHeap_.NativeHeap(),
             fontSrvHandle,fontSrvHandle);
     }
 
     void YiaEngine::ImguiLayer::OnEvent(Event& e)
     {
+        EventListener listener(e);
+        listener.Listen<MouseMoveEvent>(BIND_MEMBER_CALLBACK(OnMouseMoveEvent));
+        listener.Listen<MouseButtonDownEvent>(BIND_MEMBER_CALLBACK(OnMouseDownEvent));
+        listener.Listen<MouseButtonReleaseEvent>(BIND_MEMBER_CALLBACK(OnMouseReleaseEvent));
+        
     }
 
     void YiaEngine::ImguiLayer::OnUpdate()
@@ -67,16 +73,16 @@ namespace YiaEngine
         ImGuiIO& io = ImGui::GetIO();
     
         ImGui_ImplDX12_NewFrame();
-       // RECT rect = { 0, 0, 0, 0 };
-       // ::GetClientRect((HWND)Window::CurrentWindow().NativeHandle(), &rect);
-       //// io.DisplaySize = ImVec2((float)Window::CurrentWindow().GetWidth(),(float)Window::CurrentWindow().GetHeight());
-       // 
-       // io.DisplaySize = ImVec2((float)(rect.right - rect.left), (float)(rect.bottom - rect.top));
-       // INT64 current_time = 0;
-       // ::QueryPerformanceCounter((LARGE_INTEGER*)&current_time);
-       // io.DeltaTime = time_ > 0 ?(float)(current_time - time_) : 1.f/60.f;
-       // time_ = current_time;
-        ImGui_ImplWin32_NewFrame();
+        RECT rect = { 0, 0, 0, 0 };
+        ::GetClientRect((HWND)Window::CurrentWindow().NativeHandle(), &rect);
+  /*      io.DisplaySize = ImVec2((float)Window::CurrentWindow().GetWidth(),(float)Window::CurrentWindow().GetHeight());
+        io.DisplayFramebufferScale = ImVec2(1.f, 1.f);*/
+       io.DisplaySize = ImVec2((float)(rect.right - rect.left), (float)(rect.bottom - rect.top));
+        INT64 current_time = 0;
+        ::QueryPerformanceCounter((LARGE_INTEGER*)&current_time);
+        io.DeltaTime = time_ > 0 ?(float)(current_time - time_) : 1.f/60.f;
+        time_ = current_time;
+        //ImGui_ImplWin32_NewFrame();
 
         ImGui::NewFrame();
 
@@ -118,5 +124,29 @@ namespace YiaEngine
         io.BackendPlatformName = NULL;
         io.BackendPlatformUserData = NULL;
        
+    }
+    bool ImguiLayer::OnMouseMoveEvent(MouseMoveEvent& e)
+    {
+        auto& io = ImGui::GetIO();
+        io.MousePos = ImVec2(e.X, e.Y);
+        return true;
+    }
+    bool ImguiLayer::OnMouseDownEvent(MouseButtonDownEvent& e)
+    {
+        auto& io = ImGui::GetIO();
+        io.MouseDown[e.State] = true;
+
+        YIA_INFO("ImguiLayer  Pos {0} {1}", e.X, e.Y);
+        POINT pos;
+        ::ScreenToClient((HWND)Window::CurrentWindow().NativeHandle(), &pos);
+        YIA_INFO("ImguiLayer  CLIENT Pos {0} {1}", e.X, e.Y);
+        return true;
+        
+    }
+    bool ImguiLayer::OnMouseReleaseEvent(MouseButtonReleaseEvent& e)
+    {
+        auto& io = ImGui::GetIO();
+        io.MouseDown[e.State] = false;
+        return true;
     }
 }

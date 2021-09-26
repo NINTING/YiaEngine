@@ -4,6 +4,13 @@
 
 namespace YiaEngine
 {
+
+	enum MouseButton : int
+	{
+		LButton = 0,
+		RButton = 2,
+		MButton = 1,
+	};
 	class KeyCodeEvent : public Event
 	{
 	public:
@@ -23,7 +30,7 @@ namespace YiaEngine
 	class MouseButtonDownEvent :public Event
 	{
 	public:
-		MouseButtonDownEvent(int x, int y) :X(x), Y(y) {}
+		MouseButtonDownEvent(int x, int y,MouseButton state) :X(x), Y(y),State(state) {}
 		REGISTER_EVENT_CLASS(EventCategoryMouse, MouseButtonDown);
 		virtual std::string ToString() const override{
 			std::stringstream ss;
@@ -33,12 +40,14 @@ namespace YiaEngine
 			return ss.str();
 		}
 		int X, Y;
+		MouseButton State;
 	};
-	class MouseButtonRealseEvent :public Event
+	class MouseButtonReleaseEvent :public Event
 	{
 	public:
-		MouseButtonRealseEvent(int x, int y) :X(x), Y(y) {}
+		MouseButtonReleaseEvent(int x, int y, MouseButton state) :X(x), Y(y), State(state) {}
 		REGISTER_EVENT_CLASS(EventCategoryMouse, MouseButtonRelease);
 		int X, Y;
+		MouseButton State;
 	};
 }

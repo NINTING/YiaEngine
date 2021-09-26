@@ -20,7 +20,7 @@ namespace YiaEngine
 
 	void Application::Init()
 	{
-		WindowData win{ "YiaEngine",1524,1524 };
+		WindowData win{ "YiaEngine",512,512};
 		Window& window = Window::Create(win);
 		window.SetEventCallBack([this](Event& e) { this->OnEvent(e); });
 		InitGraphicEngine();
@@ -44,7 +44,7 @@ namespace YiaEngine
 		Window& window = Window::CurrentWindow();
 
 		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
-		swapChainDesc.BufferCount = 2;
+		swapChainDesc.BufferCount = SWAP_CHAIN_COUNT;
 		swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		swapChainDesc.BufferDesc.Width = window.GetWidth();
 		swapChainDesc.BufferDesc.Height = window.GetHeight();
@@ -76,6 +76,7 @@ namespace YiaEngine
 	{
 
 		EventListener listener(e);
+		listener.Listen<WindowResizeEvent>(BIND_MEMBER_CALLBACK(OnResizeEvent));
 		for (auto it = layerStack_.End(); it != layerStack_.Begin();)
 		{
 			(*--it)->OnEvent(e);
@@ -104,12 +105,21 @@ namespace YiaEngine
 	{
 		layerStack_.PopLayerOverlay(layer);
 	}
+	bool Application::OnResizeEvent(WindowResizeEvent& e)
+	{
+		YIA_CORE_INFO("window resize {0},{1}", e.Width, e.Height);
+		Graphic::ResizeScreen(e.Width, e.Height);
+		return true;
+	}
 	void Application::Run()
 	{
+		YIA_INFO("WIN UPDATE before");
 		Window::CurrentWindow().OnUpdate();
+	
+			YIA_INFO("WIN UPDATE after");
 	//	YIA_CORE_INFO("App Run");
 		Update();
-
+		YIA_INFO("APP after");
 		ASSERT_SUCCEEDED(Graphic::g_SwapChain->Present(1, 0));
 		Graphic::g_FrameIndex = Graphic::g_SwapChain->GetCurrentBackBufferIndex();
 	}

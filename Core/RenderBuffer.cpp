@@ -70,6 +70,12 @@ namespace YiaEngine
 			Graphic::g_Device->CreateRenderTargetView(resource_.Get(), &rtvDesc, rtvHandle_);
 		}
 
+		void RenderBuffer::Destroy()
+		{
+			resource_ = nullptr;
+			gpuVirtualAddress_ = ADDRESS_NULL;
+		}
+
 		void RenderBuffer::CreateResource(UINT width, UINT height, DXGI_FORMAT format, const D3D12_CLEAR_VALUE* clearValue, UINT arraySize, UINT sampleCount, UINT numMip)
 		{
 			auto desc = CD3DX12_RESOURCE_DESC::Tex2D(format, width, height, arraySize, numMip, sampleCount, 0, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);

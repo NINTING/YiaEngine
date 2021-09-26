@@ -25,6 +25,8 @@ namespace YiaEngine
 		void PopLayer(Layer*);
 		void PopLayerOverlay(Layer*);
 	private:
+		bool OnResizeEvent(WindowResizeEvent& e);
+	private:
 		
 		LayerStack layerStack_;
 	};

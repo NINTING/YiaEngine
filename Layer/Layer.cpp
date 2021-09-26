@@ -6,6 +6,7 @@ namespace YiaEngine
 	void YiaEngine::LayerStack::PushLayer(Layer*layer)
 	{
 		insertIterator_ = stack_.emplace(insertIterator_,layer);
+		insertIterator_++;
 	}
 
 	void YiaEngine::LayerStack::PushLayerOverlay(Layer* layer)

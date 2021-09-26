@@ -22,7 +22,8 @@ namespace YiaEngine
 {
 
 	namespace Graphic
-	{
+	{	
+#define SWAP_CHAIN_COUNT 2
 		class CommandManager;
 		class CpuDescriptorAllocator;
 		class DescriptorHeap;
@@ -42,6 +43,7 @@ namespace YiaEngine
 		void GetHardwareAdapter(IDXGIFactory1* pFactory,
 			IDXGIAdapter1** ppAdapter,
 			bool requestHighPerformanceAdapter);
+		void ResizeScreen(UINT width, UINT height);
 		enum DescriptorType
 		{
 			SRV,CBV,UAV

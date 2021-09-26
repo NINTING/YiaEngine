@@ -12,6 +12,10 @@ namespace YiaEngine
 		virtual void OnUpdate();
 		virtual void OnDestroy();
 	private:
+		bool OnMouseMoveEvent(MouseMoveEvent& e);
+		bool OnMouseDownEvent(MouseButtonDownEvent& e);
+		bool OnMouseReleaseEvent(MouseButtonReleaseEvent& e);
+	private:
 		Graphic::DescriptorHeap gpuImGuiDescriptoHeap_;
 		UINT64 time_;
 	};
