@@ -15,6 +15,7 @@ namespace YiaEngine
 		bool OnMouseMoveEvent(MouseMoveEvent& e);
 		bool OnMouseDownEvent(MouseButtonDownEvent& e);
 		bool OnMouseReleaseEvent(MouseButtonReleaseEvent& e);
+		bool OnMouseWheelEvent(MouseWheelEvent& e);
 	private:
 		Graphic::DescriptorHeap gpuImGuiDescriptoHeap_;
 		UINT64 time_;

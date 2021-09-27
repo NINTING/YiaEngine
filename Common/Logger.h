@@ -29,20 +29,28 @@ namespace YiaEngine
 
 
 #define YIA_INFO(...)  YiaEngine::Logger::AppLog()->info(__VA_ARGS__)
-
+#define YIA_ERROR(...)  YiaEngine::Logger::AppLog()->error(__VA_ARGS__)
 
 #define YIA_GRAPHIC_ERR(...)  ::YiaEngine::Logger::GraphicLog()->error(__VA_ARGS__)
 #define YIA_GRAPHIC_WARN(...)  YiaEngine::Logger::GraphicLog()->warn(__VA_ARGS__)
 
 #define STRINGIFY(x) #x
 #define STRINGIFY_BUILTIN(x) STRINGIFY(x)
-
+#define YIA_ASSERT(cond,...) \
+	if(!cond)	\
+	{\
+		YIA_ERROR("\nAssert " STRINGIFY_BUILTIN(__FILE__) " @ " STRINGIFY_BUILTIN(__LINE__) "\n"); \
+		YIA_ERROR("desc: "#__VA_ARGS__);\
+		YIA_GRAPHIC_ERR("\n"); \
+		__debugbreak();\
+	}\
+	
 
 #define ASSERT_SUCCEEDED(hr,...)\
 		if(FAILED(hr))					\
 		{\
 			YIA_GRAPHIC_ERR("\nHRESULT failed in " STRINGIFY_BUILTIN(__FILE__) " @ " STRINGIFY_BUILTIN(__LINE__) "\n"); \
-			YIA_GRAPHIC_ERR("desc:"#__VA_ARGS__); \
+			YIA_GRAPHIC_ERR("desc: "#__VA_ARGS__); \
 			YIA_GRAPHIC_ERR("\n"); \
 			__debugbreak(); \
 		}

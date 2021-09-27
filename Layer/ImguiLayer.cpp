@@ -65,7 +65,8 @@ namespace YiaEngine
         listener.Listen<MouseMoveEvent>(BIND_MEMBER_CALLBACK(OnMouseMoveEvent));
         listener.Listen<MouseButtonDownEvent>(BIND_MEMBER_CALLBACK(OnMouseDownEvent));
         listener.Listen<MouseButtonReleaseEvent>(BIND_MEMBER_CALLBACK(OnMouseReleaseEvent));
-        
+        listener.Listen<MouseWheelEvent>(BIND_MEMBER_CALLBACK(OnMouseWheelEvent));
+
     }
 
     void YiaEngine::ImguiLayer::OnUpdate()
@@ -128,7 +129,7 @@ namespace YiaEngine
     bool ImguiLayer::OnMouseMoveEvent(MouseMoveEvent& e)
     {
         auto& io = ImGui::GetIO();
-        io.MousePos = ImVec2(e.X, e.Y);
+        io.MousePos = ImVec2(float(e.X), float(e.Y));
         return true;
     }
     bool ImguiLayer::OnMouseDownEvent(MouseButtonDownEvent& e)
@@ -147,6 +148,12 @@ namespace YiaEngine
     {
         auto& io = ImGui::GetIO();
         io.MouseDown[e.State] = false;
+        return true;
+    }
+    bool ImguiLayer::OnMouseWheelEvent(MouseWheelEvent& e)
+    {
+        auto& io = ImGui::GetIO();
+        io.MouseWheel = e.Delta / (float)WHEEL_DELTA;
         return true;
     }
 }

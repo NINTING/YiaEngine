@@ -50,4 +50,13 @@ namespace YiaEngine
 		int X, Y;
 		MouseButton State;
 	};
+	class MouseWheelEvent :public Event
+	{
+	public:
+		MouseWheelEvent(float delta) :Delta(delta){}
+		REGISTER_EVENT_CLASS(EventCategoryMouse, MouseWheel);
+		float Delta;
+	};
+
+
 }

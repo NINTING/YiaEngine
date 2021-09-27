@@ -113,13 +113,13 @@ namespace YiaEngine
 	}
 	void Application::Run()
 	{
-		YIA_INFO("WIN UPDATE before");
+
 		Window::CurrentWindow().OnUpdate();
 	
-			YIA_INFO("WIN UPDATE after");
+		
 	//	YIA_CORE_INFO("App Run");
 		Update();
-		YIA_INFO("APP after");
+
 		ASSERT_SUCCEEDED(Graphic::g_SwapChain->Present(1, 0));
 		Graphic::g_FrameIndex = Graphic::g_SwapChain->GetCurrentBackBufferIndex();
 	}

@@ -12,6 +12,7 @@ namespace YiaEngine
 		MouseMove,
 		MouseButtonDown,
 		MouseButtonRelease,
+		MouseWheel,
 		/*App*/
 		WindowClose,
 		WindowResize

@@ -83,7 +83,14 @@ namespace YiaEngine
             Window::Dispatch(event);
             break;
         }
-        
+        case WM_MOUSEWHEEL:
+        {
+ 
+          float  zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+          MouseWheelEvent event(zDelta);
+          Window::Dispatch(event);
+          return 0;
+        }
         case WM_DESTROY:
         {
             WindowCloseEvent event;
@@ -150,8 +157,8 @@ namespace YiaEngine
             ::DispatchMessage(&msg);
             if (msg.message == WM_QUIT)
                 done = true;
-        }
-        
+        } 
+  
     }
 
     void WinWindow::OnDestroy()

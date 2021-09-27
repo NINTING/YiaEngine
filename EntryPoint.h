@@ -12,9 +12,11 @@ int main()
 {
 	// HWND g_hwnd = nullptr;
 	LOG_INIT();
+	YIA_ASSERT(false, "Test");
 	YiaEngine::Graphic::GraphicInit();
 	YiaEngine::Application* app = CreateApplication();
 	app->Init();
+	
 	while (true)
 	{
 		app->Run();
