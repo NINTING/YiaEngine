@@ -1,7 +1,9 @@
 #pragma once
 
-
-class Input
+namespace YiaEngine
 {
+	class Input
+	{
 
-};
+	};
+}

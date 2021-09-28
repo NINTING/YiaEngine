@@ -18,14 +18,24 @@ namespace YiaEngine
     {
         ImGui::CreateContext();
         ImGuiIO& io = ImGui::GetIO();
-
+        io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
+  //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+       
+        io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
         ImGui::StyleColorsDark();
+        ImGuiStyle& style = ImGui::GetStyle();
+        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+        {
+            style.WindowRounding = 0.0f;
+            style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+        }
 
         io.BackendPlatformName = "Yia_win32";
         io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;         // We can honor GetMouseCursor() values (optional)
         io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;          // We can honor io.WantSetMousePos requests (optional, rarely used)
         
-        io.ImeWindowHandle = Window::CurrentWindow().NativeHandle();
+     //   io.BackendFlags |= ImGuiBackendFlags_PlatformHasViewports;
 
         io.KeyMap[ImGuiKey_Tab] = VK_TAB;
         io.KeyMap[ImGuiKey_LeftArrow] = VK_LEFT;
@@ -111,7 +121,12 @@ namespace YiaEngine
         ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), UiContext.NativeCommandList());
 
         UiContext.TransitionBarrier(Graphic::g_SwapRenderTarget[Graphic::g_FrameIndex], D3D12_RESOURCE_STATE_PRESENT);
-   
+        // Update and Render additional Platform Windows
+        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+        {
+            ImGui::UpdatePlatformWindows();
+            ImGui::RenderPlatformWindowsDefault(NULL, Graphic::g_Device.Get());
+        }
         UiContext.End();
 
       
