@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SandBox", "SandBox\SandBox.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "YiaEngine", "YiaEngine.vcxproj", "{A2D826D1-6384-41FD-9482-A3ABA45BAB78}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Imgui", "Imgui\Imgui.vcxproj", "{7E81B4AE-7407-4F12-A910-B2A4D24FC8A1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Imgui", "ThirdParty\imgui\Imgui.vcxproj", "{7E81B4AE-7407-4F12-A910-B2A4D24FC8A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
