@@ -13,6 +13,7 @@
 #ifdef YIA_WINDOW
 #include <windows.h>
 #include <windowsx.h>
+#include<WinUser.h>
 #endif
 #include<iostream>
 #include<string>

@@ -22,8 +22,9 @@ public:
 	SampleApp() :Application(), sampleLayer() {}
 	virtual void OnEvent(Event& e)
 	{
+		EventListener listener(e);
 		Application::OnEvent(e);
-
+		listener.Listen<WindowCloseEvent>(BIND_MEMBER_CALLBACK(OnWindowCloseEvent));
 	}
 	virtual void Init() 
 	{
@@ -34,8 +35,13 @@ public:
 	};
 	virtual void Update()
 	{
+		imGuiLayer.Begin();
 		imGuiLayer.OnUpdate();
+		imGuiLayer.Render();
+		imGuiLayer.End();
 	}
+	
+	bool isDestroy = false;
 	SampleLayer sampleLayer; 
 	ImguiLayer imGuiLayer;
 };

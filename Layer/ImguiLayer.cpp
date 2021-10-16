@@ -6,6 +6,7 @@
 #include"Core/GraphicContext.h"
 #include"Core/CommandManager.h"
 #include"Core/RenderBuffer.h"
+#include"imgui/backends/imgui_impl_win32.h"
 #include "YiaWindow.h"
 #include<type_traits>
 namespace YiaEngine
@@ -35,9 +36,9 @@ namespace YiaEngine
         io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;         // We can honor GetMouseCursor() values (optional)
         io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;          // We can honor io.WantSetMousePos requests (optional, rarely used)
         
-     //   io.BackendFlags |= ImGuiBackendFlags_PlatformHasViewports;
+     //    io.BackendFlags |= ImGuiBackendFlags_PlatformHasViewports;
 
-        io.KeyMap[ImGuiKey_Tab] = VK_TAB;
+      /*  io.KeyMap[ImGuiKey_Tab] = VK_TAB;
         io.KeyMap[ImGuiKey_LeftArrow] = VK_LEFT;
         io.KeyMap[ImGuiKey_RightArrow] = VK_RIGHT;
         io.KeyMap[ImGuiKey_UpArrow] = VK_UP;
@@ -58,8 +59,8 @@ namespace YiaEngine
         io.KeyMap[ImGuiKey_V] = 'V';
         io.KeyMap[ImGuiKey_X] = 'X';
         io.KeyMap[ImGuiKey_Y] = 'Y';
-        io.KeyMap[ImGuiKey_Z] = 'Z';
-
+        io.KeyMap[ImGuiKey_Z] = 'Z';*/
+        ImGui_ImplWin32_Init(Window::CurrentWindow().NativeHandle());
         
         auto fontSrvHandle = gpuImGuiDescriptoHeap_.Alloc();
       //  ImGui_ImplWin32_Init(Window::CurrentWindow().NativeHandle());
@@ -71,55 +72,36 @@ namespace YiaEngine
     void YiaEngine::ImguiLayer::OnEvent(Event& e)
     {
         EventListener listener(e);
+        listener.Listen<WindowCloseEvent>(BIND_MEMBER_CALLBACK(OnWindowCloseEvent));
         listener.Listen<MouseMoveEvent>(BIND_MEMBER_CALLBACK(OnMouseMoveEvent));
         listener.Listen<MouseButtonDownEvent>(BIND_MEMBER_CALLBACK(OnMouseDownEvent));
         listener.Listen<MouseButtonReleaseEvent>(BIND_MEMBER_CALLBACK(OnMouseReleaseEvent));
         listener.Listen<MouseWheelEvent>(BIND_MEMBER_CALLBACK(OnMouseWheelEvent));
-
     }
 
     void YiaEngine::ImguiLayer::OnUpdate()
     {
-        ImGuiIO& io = ImGui::GetIO();
-    
+       
+
+      
+    }
+
+    void ImguiLayer::Begin()
+    {
         ImGui_ImplDX12_NewFrame();
-        RECT rect = { 0, 0, 0, 0 };
-        ::GetClientRect((HWND)Window::CurrentWindow().NativeHandle(), &rect);
-  /*      io.DisplaySize = ImVec2((float)Window::CurrentWindow().GetWidth(),(float)Window::CurrentWindow().GetHeight());
-        io.DisplayFramebufferScale = ImVec2(1.f, 1.f);*/
-       io.DisplaySize = ImVec2((float)(rect.right - rect.left), (float)(rect.bottom - rect.top));
-        INT64 current_time = 0;
-        ::QueryPerformanceCounter((LARGE_INTEGER*)&current_time);
-        io.DeltaTime = time_ > 0 ?(float)(current_time - time_) : 1.f/60.f;
-        time_ = current_time;
-        //ImGui_ImplWin32_NewFrame();
-
+        ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
-
-        static bool show_demo_window = true;
-        static bool show_another_window = true;
-       ImGui::ShowDemoWindow(&show_demo_window);
-        static int counter = 0;
-       //ImGui::SetNextWindowSize(ImVec2(550, 680));
-       // ImGui::Begin("Hello, world!");     // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-       // ////if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-       // ////    counter++;
-       //
-       // ImGui::End();
-
+    }
+    void ImguiLayer::End()
+    {
+        ImGuiIO& io = ImGui::GetIO();
         ImGui::Render();
-
-
         Graphic::GraphicContext& UiContext = Graphic::GraphicContext::Begin();
         UiContext.SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, gpuImGuiDescriptoHeap_.NativeHeap());
         UiContext.TransitionBarrier(Graphic::g_SwapRenderTarget[Graphic::g_FrameIndex], D3D12_RESOURCE_STATE_RENDER_TARGET);
         UiContext.SetRenderTarget(Graphic::g_SwapRenderTarget[Graphic::g_FrameIndex].RtvCpuHandlePtr(), nullptr);
-   
-
         UiContext.ClearRenderTarget(Graphic::g_SwapRenderTarget[Graphic::g_FrameIndex].RtvCpuHandle());
-
         ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), UiContext.NativeCommandList());
-
         UiContext.TransitionBarrier(Graphic::g_SwapRenderTarget[Graphic::g_FrameIndex], D3D12_RESOURCE_STATE_PRESENT);
         // Update and Render additional Platform Windows
         if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
@@ -128,17 +110,27 @@ namespace YiaEngine
             ImGui::RenderPlatformWindowsDefault(NULL, Graphic::g_Device.Get());
         }
         UiContext.End();
-
-      
+    }
+    void ImguiLayer::Render()
+    {
+        static bool show_demo_window = true;
+        static bool show_another_window = true;
+        ImGui::ShowDemoWindow(&show_demo_window);
+        static int counter = 0;
+       
     }
     void ImguiLayer::OnDestroy()
     {
         ImGui_ImplDX12_Shutdown();
+        ImGui_ImplWin32_Shutdown();
         ImGui::DestroyContext();
-        ImGuiIO& io = ImGui::GetIO();
-        io.BackendPlatformName = NULL;
-        io.BackendPlatformUserData = NULL;
+        
        
+    }
+    bool ImguiLayer::OnWindowCloseEvent(WindowCloseEvent& e)
+    {
+        OnDestroy();
+        return true;
     }
     bool ImguiLayer::OnMouseMoveEvent(MouseMoveEvent& e)
     {

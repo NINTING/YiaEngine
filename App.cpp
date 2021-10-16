@@ -15,6 +15,7 @@ namespace YiaEngine
 	Application::Application()
 	{
 		YIA_INFO("App init");
+		isWindowClose_ = false;
 	}
 	
 
@@ -77,6 +78,7 @@ namespace YiaEngine
 
 		EventListener listener(e);
 		listener.Listen<WindowResizeEvent>(BIND_MEMBER_CALLBACK(OnResizeEvent));
+		listener.Listen<WindowCloseEvent>(BIND_MEMBER_CALLBACK(OnWindowCloseEvent));
 		for (auto it = layerStack_.End(); it != layerStack_.Begin();)
 		{
 			(*--it)->OnEvent(e);
@@ -105,6 +107,10 @@ namespace YiaEngine
 	{
 		layerStack_.PopLayerOverlay(layer);
 	}
+	bool Application::IsClose()
+	{
+		return isWindowClose_;
+	}
 	bool Application::OnResizeEvent(WindowResizeEvent& e)
 	{
 		YIA_CORE_INFO("window resize {0},{1}", e.Width, e.Height);
@@ -116,7 +122,8 @@ namespace YiaEngine
 
 		Window::CurrentWindow().OnUpdate();
 	
-		
+		if (IsClose())
+			return;
 	//	YIA_CORE_INFO("App Run");
 		Update();
 
@@ -127,5 +134,10 @@ namespace YiaEngine
 	{
 		YIA_CORE_INFO("App End");
 		Destroy();
+	}
+	bool Application::OnWindowCloseEvent(WindowCloseEvent)
+	{
+		isWindowClose_ = true;
+		return true;
 	}
 }

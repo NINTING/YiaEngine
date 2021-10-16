@@ -1,1 +1,89 @@
-[01:35:42] [info] APP: App init
+[22:20:27] [info] APP: App init
+[22:20:29] [info] APP: button event dispatch
+[22:20:29] [info] APP: ImguiLayer  Pos 983 177
+[22:20:29] [info] APP: ImguiLayer  CLIENT Pos 983 177
+[22:20:30] [info] APP: button event dispatch
+[22:20:30] [info] APP: ImguiLayer  Pos 982 198
+[22:20:30] [info] APP: ImguiLayer  CLIENT Pos 982 198
+[22:20:31] [info] APP: button event dispatch
+[22:20:31] [info] APP: ImguiLayer  Pos 979 183
+[22:20:31] [info] APP: ImguiLayer  CLIENT Pos 979 183
+[22:20:32] [info] APP: button event dispatch
+[22:20:32] [info] APP: ImguiLayer  Pos 973 414
+[22:20:32] [info] APP: ImguiLayer  CLIENT Pos 973 414
+[22:20:33] [info] APP: button event dispatch
+[22:20:33] [info] APP: ImguiLayer  Pos 477 69
+[22:20:33] [info] APP: ImguiLayer  CLIENT Pos 477 69
+[22:20:38] [info] APP: button event dispatch
+[22:20:38] [info] APP: ImguiLayer  Pos 1141 160
+[22:20:38] [info] APP: ImguiLayer  CLIENT Pos 1141 160
+[22:20:41] [info] APP: button event dispatch
+[22:20:41] [info] APP: ImguiLayer  Pos 928 163
+[22:20:41] [info] APP: ImguiLayer  CLIENT Pos 928 163
+[22:20:44] [info] APP: button event dispatch
+[22:20:44] [info] APP: ImguiLayer  Pos 1014 152
+[22:20:44] [info] APP: ImguiLayer  CLIENT Pos 1014 152
+[22:20:44] [info] APP: button event dispatch
+[22:20:44] [info] APP: ImguiLayer  Pos 1019 150
+[22:20:44] [info] APP: ImguiLayer  CLIENT Pos 1019 150
+[22:20:46] [info] APP: button event dispatch
+[22:20:46] [info] APP: ImguiLayer  Pos 605 154
+[22:20:46] [info] APP: ImguiLayer  CLIENT Pos 605 154
+[22:20:51] [info] APP: button event dispatch
+[22:20:51] [info] APP: ImguiLayer  Pos 17 11
+[22:20:51] [info] APP: ImguiLayer  CLIENT Pos 17 11
+[22:20:52] [info] APP: button event dispatch
+[22:20:52] [info] APP: ImguiLayer  Pos 17 11
+[22:20:52] [info] APP: ImguiLayer  CLIENT Pos 17 11
+[22:20:55] [info] APP: button event dispatch
+[22:20:55] [info] APP: ImguiLayer  Pos 620 155
+[22:20:55] [info] APP: ImguiLayer  CLIENT Pos 620 155
+[22:20:55] [info] APP: button event dispatch
+[22:20:55] [info] APP: ImguiLayer  Pos 682 157
+[22:20:55] [info] APP: ImguiLayer  CLIENT Pos 682 157
+[22:20:59] [info] APP: button event dispatch
+[22:20:59] [info] APP: ImguiLayer  Pos 722 333
+[22:20:59] [info] APP: ImguiLayer  CLIENT Pos 722 333
+[22:21:00] [info] APP: button event dispatch
+[22:21:00] [info] APP: ImguiLayer  Pos 192 11
+[22:21:00] [info] APP: ImguiLayer  CLIENT Pos 192 11
+[22:21:01] [info] APP: button event dispatch
+[22:21:01] [info] APP: ImguiLayer  Pos 436 90
+[22:21:01] [info] APP: ImguiLayer  CLIENT Pos 436 90
+[22:21:04] [info] APP: button event dispatch
+[22:21:04] [info] APP: ImguiLayer  Pos 50 175
+[22:21:04] [info] APP: ImguiLayer  CLIENT Pos 50 175
+[22:21:05] [info] APP: button event dispatch
+[22:21:05] [info] APP: ImguiLayer  Pos 627 158
+[22:21:05] [info] APP: ImguiLayer  CLIENT Pos 627 158
+[22:21:08] [info] APP: button event dispatch
+[22:21:08] [info] APP: ImguiLayer  Pos 675 377
+[22:21:08] [info] APP: ImguiLayer  CLIENT Pos 675 377
+[22:21:10] [info] APP: button event dispatch
+[22:21:10] [info] APP: ImguiLayer  Pos 642 134
+[22:21:10] [info] APP: ImguiLayer  CLIENT Pos 642 134
+[22:21:12] [info] APP: button event dispatch
+[22:21:12] [info] APP: ImguiLayer  Pos 1540 267
+[22:21:12] [info] APP: ImguiLayer  CLIENT Pos 1540 267
+[22:21:16] [info] APP: button event dispatch
+[22:21:16] [info] APP: ImguiLayer  Pos 604 134
+[22:21:16] [info] APP: ImguiLayer  CLIENT Pos 604 134
+[22:21:19] [info] APP: button event dispatch
+[22:21:19] [info] APP: ImguiLayer  Pos 679 274
+[22:21:19] [info] APP: ImguiLayer  CLIENT Pos 679 274
+[22:21:23] [info] APP: button event dispatch
+[22:21:23] [info] APP: ImguiLayer  Pos 682 252
+[22:21:23] [info] APP: ImguiLayer  CLIENT Pos 682 252
+[22:21:24] [info] APP: button event dispatch
+[22:21:24] [info] APP: ImguiLayer  Pos 113 47
+[22:21:24] [info] APP: ImguiLayer  CLIENT Pos 113 47
+[22:21:34] [info] APP: button event dispatch
+[22:21:34] [info] APP: ImguiLayer  Pos 708 538
+[22:21:34] [info] APP: ImguiLayer  CLIENT Pos 708 538
+[22:21:40] [info] APP: button event dispatch
+[22:21:40] [info] APP: ImguiLayer  Pos 724 517
+[22:21:40] [info] APP: ImguiLayer  CLIENT Pos 724 517
+[22:22:24] [info] APP: button event dispatch
+[22:22:24] [info] APP: ImguiLayer  Pos 1451 66
+[22:22:24] [info] APP: ImguiLayer  CLIENT Pos 1451 66
+[22:25:08] [info] CORE: App End

@@ -24,10 +24,13 @@ namespace YiaEngine
 		void PushLayerOverlay(Layer*);
 		void PopLayer(Layer*);
 		void PopLayerOverlay(Layer*);
+		bool IsClose();
+	protected:
+		bool OnWindowCloseEvent(WindowCloseEvent);
 	private:
 		bool OnResizeEvent(WindowResizeEvent& e);
 	private:
-		
+		bool isWindowClose_;
 		LayerStack layerStack_;
 	};
 }

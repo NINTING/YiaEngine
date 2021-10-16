@@ -16,7 +16,7 @@ int main()
 	YiaEngine::Application* app = CreateApplication();
 	app->Init();
 	
-	while (true)
+	while (!app->IsClose())
 	{
 		app->Run();
 	}
