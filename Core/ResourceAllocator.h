@@ -39,7 +39,7 @@ namespace YiaEngine
 			AllocateBuffer(GpuResource& buffer, UINT64 offset,UINT64 size,void* cpuAddress = nullptr, D3D12_GPU_VIRTUAL_ADDRESS gpuAddress = -1)
 			:Buffer(buffer),Offset(offset),Size(size),CpuAddress(cpuAddress),GpuAddress(gpuAddress){}
 
-			ID3D12Resource* GetResource() { return Buffer.RawResource(); }
+			ID3D12Resource* GetResource() { return Buffer.NativeResource(); }
 			
 			GpuResource& Buffer;
 			UINT64 Offset;
@@ -51,12 +51,12 @@ namespace YiaEngine
 		{
 		
 		public:
-			ResourceAllocatePage(ID3D12Resource* RawResource, D3D12_RESOURCE_STATES usage)
+			ResourceAllocatePage(ID3D12Resource* NativeResource, D3D12_RESOURCE_STATES usage)
 			{
-				resource_.Attach(RawResource);
+				resource_.Attach(NativeResource);
 				usage_ = usage;
 				resource_->Map(0, nullptr, &Cpu_address_);
-				Gpu_address_ = RawResource->GetGPUVirtualAddress();
+				Gpu_address_ = NativeResource->GetGPUVirtualAddress();
 			}
 			~ResourceAllocatePage()
 			{

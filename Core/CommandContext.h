@@ -9,6 +9,7 @@
 #include"CommandQueue.h"
 #include"PipelineStateObject.h"
 #include"UploadBuffer.h"
+#include"GpuBuffer.h"
 namespace YiaEngine
 {
 	namespace Graphic
@@ -57,7 +58,7 @@ namespace YiaEngine
 
 				return upload_allocator_.Allocate(size_byte);
 			}*/
-			void TransitionBarrier(GpuResource& RawResource, D3D12_RESOURCE_STATES source, D3D12_RESOURCE_STATES dest);
+			void TransitionBarrier(GpuResource& NativeResource, D3D12_RESOURCE_STATES source, D3D12_RESOURCE_STATES dest);
 
 			void TransitionBarrier(GpuResource& gpu_resource, D3D12_RESOURCE_STATES destStates);
 
@@ -70,10 +71,12 @@ namespace YiaEngine
 			/// <param name="heap"></param>
 			void SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE type, ID3D12DescriptorHeap* heap);
 			void SetPipelineState(const PipelineStateObject& pso);
+			void CopyBuffer(GpuResource& dest,size_t destOffset,GpuResource& src,size_t srcOffset,size_t numBytes);
 
 		public:
 			static void InitializeTexture(GpuResource& dest, UINT subresource_num, D3D12_SUBRESOURCE_DATA data);
 			static void InitializeBuffer(GpuResource& dest,UINT bufferSize,void* initData);
+			static void InitializeBuffer(GpuBuffer& dest, const UploadBuffer& uploadBuffer, UINT srcOffset = 0, UINT destOffset = 0, size_t numByte = -1);
 			
 		public:
 

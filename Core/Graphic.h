@@ -38,7 +38,10 @@ namespace YiaEngine
 		extern CpuDescriptorAllocator g_CpuDescriptorAllocator[D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES] ;
 		
 		extern RenderBuffer g_SwapRenderTarget[2]; 
-		
+		extern RenderBuffer g_SceneFinalTarget;
+
+	
+
 		void GraphicInit();
 		void GetHardwareAdapter(IDXGIFactory1* pFactory,
 			IDXGIAdapter1** ppAdapter,

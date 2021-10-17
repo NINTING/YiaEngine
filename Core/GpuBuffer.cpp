@@ -16,7 +16,7 @@ namespace YiaEngine:: Graphic
         heap_prop.CreationNodeMask = 1;
         heap_prop.VisibleNodeMask = 1;
         heap_prop.MemoryPoolPreference = D3D12_MEMORY_POOL_UNKNOWN;
-        buffer_size_ = data_size;
+        bufferSize_ = data_size;
         ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(
             &heap_prop,
             D3D12_HEAP_FLAG_NONE,
@@ -32,10 +32,37 @@ namespace YiaEngine:: Graphic
             
 	}
 
+    void GpuBuffer::Create(const wchar_t* name, int numElement, int elementSize, const UploadBuffer& initData, UINT offset)
+    {
+        elementSize_ = elementSize;
+        elementCount_ = numElement;
+        bufferSize_ = elementSize_ * elementCount_;
+        D3D12_RESOURCE_DESC  resourceDesc = DescriptBuffer();
+
+        usage_ = D3D12_RESOURCE_STATE_COMMON;
+
+        D3D12_HEAP_PROPERTIES heapProps;
+        heapProps.Type = D3D12_HEAP_TYPE_DEFAULT;
+        heapProps.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
+        heapProps.MemoryPoolPreference = D3D12_MEMORY_POOL_UNKNOWN;
+        heapProps.CreationNodeMask = 1;
+        heapProps.VisibleNodeMask = 1;
+        ASSERT_SUCCEEDED(g_Device->CreateCommittedResource(&heapProps, D3D12_HEAP_FLAG_NONE, &resourceDesc, usage_, nullptr, IID_PPV_ARGS(&resource_)));
+
+        gpuVirtualAddress_ = resource_->GetGPUVirtualAddress();
+
+#ifdef _DEBUG
+        resource_->SetName(name);
+#endif // _DEBUG
+
+
+        CommandContext::InitializeBuffer(*this, initData,offset);
+    }
+
     D3D12_VERTEX_BUFFER_VIEW GpuBuffer::VertexBufferView(size_t offset, UINT stride, UINT dataSize)
     {
         D3D12_VERTEX_BUFFER_VIEW vbo;
-        vbo.BufferLocation = gpuVirtualAddress_;
+        vbo.BufferLocation = gpuVirtualAddress_ + offset;
         vbo.StrideInBytes = stride;
         vbo.SizeInBytes = dataSize;
         return vbo;
@@ -48,6 +75,7 @@ namespace YiaEngine:: Graphic
         ibo.SizeInBytes = dataSize;
         return ibo;
     }
+   
     D3D12_RESOURCE_DESC GpuBuffer::DescriptBuffer()
 	{
         D3D12_RESOURCE_DESC Desc = {};
@@ -61,7 +89,7 @@ namespace YiaEngine:: Graphic
         Desc.MipLevels = 1;
         Desc.SampleDesc.Count = 1;
         Desc.SampleDesc.Quality = 0;
-        Desc.Width = (UINT64)buffer_size_;
+        Desc.Width = (UINT64)bufferSize_;
         return Desc;
 	}
 }

@@ -12,6 +12,19 @@
 
 namespace YiaEngine::Graphic
 {
+	PipelineStateObject PipelineStateObject::s_DefaultPSO(L"Default PSO");
+	void PipelineStateObject::StaticPSOInit()
+	{
+		CD3DX12_RASTERIZER_DESC defalutRasterizerDesc(D3D12_DEFAULT);
+		s_DefaultPSO.SetRasterizerState(defalutRasterizerDesc);
+		s_DefaultPSO.SetBlendState(CD3DX12_BLEND_DESC(D3D12_DEFAULT));
+		s_DefaultPSO.SetPrimitiveTopologyType(D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE);
+		s_DefaultPSO.SetDepthStencilState(CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT));
+		s_DefaultPSO.SetRenderTarget(DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_FORMAT_D32_FLOAT);
+		s_DefaultPSO.SetSampleDesc(1, 0);
+		s_DefaultPSO.SetSampleMask(UINT_MAX);
+
+	}
 	PipelineStateObject::PipelineStateObject(const wchar_t* name):name_(name),signature_(nullptr)
 	{
 		ZeroMemory(&desc_, sizeof(desc_));

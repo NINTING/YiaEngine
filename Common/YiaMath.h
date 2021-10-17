@@ -1,8 +1,7 @@
 #pragma once
 #define _USE_MATH_DEFINES 
 #include<math.h>
-
-#include<Eigen/Dense>
+#include<ThirdParty/Eigen/Dense>
 namespace YiaEngine
 {
 	namespace Math

@@ -4,7 +4,7 @@
 #include"CommandManager.h"
 #include"DescriptorHeap.h"
 #include"RenderBuffer.h"
-
+#include"PipelineStateObject.h"
 namespace YiaEngine
 {
 	namespace Graphic
@@ -14,6 +14,7 @@ namespace YiaEngine
 		CommandManager g_commandManager;
 		ComPtr< IDXGISwapChain3> g_SwapChain;
 		UINT g_FrameIndex;
+		RenderBuffer g_SceneFinalTarget;
 		CpuDescriptorAllocator g_CpuDescriptorAllocator[D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES] =
 		{
 			D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV,
@@ -101,7 +102,10 @@ namespace YiaEngine
 			}
 			Graphic::g_FrameIndex = Graphic::g_SwapChain->GetCurrentBackBufferIndex();
 		}
+		void CommonShaderInit()
+		{
 
+		}
 		void GraphicInit()
 		{
 			ComPtr<IDXGIFactory4> factory;
@@ -116,6 +120,8 @@ namespace YiaEngine
 			));
 
 			Graphic::g_commandManager.Create(Graphic::g_Device.Get());
+			PipelineStateObject::StaticPSOInit();
+
 		}
 	}
 }

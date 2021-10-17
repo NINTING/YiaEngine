@@ -2,6 +2,9 @@
 #include "ImguiLayer.h"
 #include "Imgui/imgui.h"
 #include "Imgui/ImguiDx12.h"
+
+
+
 #include"Core/Graphic.h"
 #include"Core/GraphicContext.h"
 #include"Core/CommandManager.h"
@@ -11,10 +14,12 @@
 #include<type_traits>
 namespace YiaEngine
 {
-    ImguiLayer::ImguiLayer() : Layer("ImGuiLayer"), time_(0)
+    ImguiLayer::ImguiLayer() : Layer("ImGuiLayer"), time_(0),imageHandleAllocator_(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV)
     {
+   
         gpuImGuiDescriptoHeap_.CreateShaderVisibleType(L"ImGuiDescriptorHeap", D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 1024);
     }
+    Graphic::DescriptorHandle fontSrvHandle;
     void YiaEngine::ImguiLayer::OnAwake()
     {
         ImGui::CreateContext();
@@ -62,11 +67,14 @@ namespace YiaEngine
         io.KeyMap[ImGuiKey_Z] = 'Z';*/
         ImGui_ImplWin32_Init(Window::CurrentWindow().NativeHandle());
         
-        auto fontSrvHandle = gpuImGuiDescriptoHeap_.Alloc();
+     
       //  ImGui_ImplWin32_Init(Window::CurrentWindow().NativeHandle());
-        ImGui_ImplDX12_Init(Graphic::g_Device.Get(), SWAP_CHAIN_COUNT,
-            DXGI_FORMAT_R8G8B8A8_UNORM, gpuImGuiDescriptoHeap_.NativeHeap(),
-            fontSrvHandle,fontSrvHandle);
+         fontSrvHandle = gpuImGuiDescriptoHeap_.Alloc();
+
+         ImGui_ImplDX12_Init(Graphic::g_Device.Get(), SWAP_CHAIN_COUNT,
+             DXGI_FORMAT_R8G8B8A8_UNORM, gpuImGuiDescriptoHeap_.NativeHeap(),
+             fontSrvHandle, fontSrvHandle);
+      
     }
 
     void YiaEngine::ImguiLayer::OnEvent(Event& e)
@@ -88,6 +96,13 @@ namespace YiaEngine
 
     void ImguiLayer::Begin()
     {
+
+        //ImGuiIO& io = ImGui::GetIO();
+        //io.BackendRendererUserData = NULL;
+        //ImGui_ImplDX12_Init(Graphic::g_Device.Get(), SWAP_CHAIN_COUNT,
+        //    DXGI_FORMAT_R8G8B8A8_UNORM, gpuImGuiDescriptoHeap_.NativeHeap(),
+        //    fontSrvHandle, fontSrvHandle);
+
         ImGui_ImplDX12_NewFrame();
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
@@ -97,6 +112,7 @@ namespace YiaEngine
         ImGuiIO& io = ImGui::GetIO();
         ImGui::Render();
         Graphic::GraphicContext& UiContext = Graphic::GraphicContext::Begin();
+      
         UiContext.SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, gpuImGuiDescriptoHeap_.NativeHeap());
         UiContext.TransitionBarrier(Graphic::g_SwapRenderTarget[Graphic::g_FrameIndex], D3D12_RESOURCE_STATE_RENDER_TARGET);
         UiContext.SetRenderTarget(Graphic::g_SwapRenderTarget[Graphic::g_FrameIndex].RtvCpuHandlePtr(), nullptr);
@@ -109,12 +125,14 @@ namespace YiaEngine
             ImGui::UpdatePlatformWindows();
             ImGui::RenderPlatformWindowsDefault(NULL, Graphic::g_Device.Get());
         }
-        UiContext.End();
+        UiContext.End(true);
     }
     void ImguiLayer::Render()
     {
         static bool show_demo_window = true;
         static bool show_another_window = true;
+        DockSpace();
+        SceneWindow();
         ImGui::ShowDemoWindow(&show_demo_window);
         static int counter = 0;
        
@@ -131,6 +149,82 @@ namespace YiaEngine
     {
         OnDestroy();
         return true;
+    }
+    void ImguiLayer::DockSpace()
+    {
+        static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
+        ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+        const ImGuiViewport* viewport = ImGui::GetMainViewport();
+        ImGui::SetNextWindowPos(viewport->WorkPos);
+        ImGui::SetNextWindowSize(viewport->WorkSize);
+        ImGui::SetNextWindowViewport(viewport->ID);
+        window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+        window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+
+        if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
+            window_flags |= ImGuiWindowFlags_NoBackground;
+
+        bool open = true;
+        ImGui::Begin("DockSpace", &open, window_flags);
+
+
+        ImGuiIO& io = ImGui::GetIO();
+        if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
+        {
+            ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+            ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+        }
+        else
+        {
+            ImGuiIO& io = ImGui::GetIO();
+            ImGui::Text("ERROR: Docking is not enabled! See Demo > Configuration.");
+            ImGui::Text("Set io.ConfigFlags |= ImGuiConfigFlags_DockingEnable in your code, or ");
+            ImGui::SameLine(0.0f, 0.0f);
+            if (ImGui::SmallButton("click here"))
+                io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+        }
+        if (ImGui::BeginMenuBar())
+        {
+            if (ImGui::BeginMenu("Option"))
+            {
+            //if (ImGui::MenuItem("Flag: NoSplit", "", (dockspace_flags & ImGuiDockNodeFlags_NoSplit) != 0)) { dockspace_flags ^= ImGuiDockNodeFlags_NoSplit; }
+
+                ImGui::EndMenu();
+            }
+            ImGui::EndMenuBar();
+        }
+        ImGui::End();
+    }
+
+    
+    void ImguiLayer::SceneWindow()
+    {
+        bool open = true;
+        ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
+        ImGui::Begin("Scene",&open);
+        ImVec2 size =  ImGui::GetWindowSize();
+        YIA_INFO("{0}{1}", size.x, size.y);
+       
+        ImGui::End();
+    }
+    void ImguiLayer::Image(const Graphic::GpuTexture& texture, const ImVec2& size)
+    {
+        //TODO: 通过GpuDescrptorAllocator 分配GpuHandle.不需要手动绑定
+        UINT pSrcDescriptorRangeSizes[1] = { 1 };
+        UINT pDestDescriptorRangeSizes[1] = { 1 };
+       Graphic::DescriptorHandle gpuHandle = gpuImGuiDescriptoHeap_.Alloc();
+   
+       Graphic::g_Device->CopyDescriptors(
+           1,
+           gpuHandle.GetCpuAddress(),
+           pSrcDescriptorRangeSizes,
+           1,
+           texture.SrvHandle().GetCpuAddress(),
+           pSrcDescriptorRangeSizes,
+           D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
+       );
+
+        ImGui::Image((ImTextureID)gpuHandle.GetGpuAddress()->ptr,size);
     }
     bool ImguiLayer::OnMouseMoveEvent(MouseMoveEvent& e)
     {

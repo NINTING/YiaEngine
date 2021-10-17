@@ -6,6 +6,7 @@
 #include "CommandContext.h"
 #include"CommandManager.h"
 #include"PipelineStateObject.h"
+#include"GpuBuffer.h"
 namespace YiaEngine
 {
 	namespace Graphic
@@ -77,7 +78,7 @@ namespace YiaEngine
 			D3D12_RESOURCE_BARRIER barrier;
 			barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
 			barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
-			barrier.Transition.pResource = gpu_resource.RawResource();
+			barrier.Transition.pResource = gpu_resource.NativeResource();
 			barrier.Transition.StateBefore = before;
 			barrier.Transition.StateAfter = after;
 			barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
@@ -111,11 +112,11 @@ namespace YiaEngine
 
 		void CommandContext::InitializeTexture(GpuResource& dest, UINT subresource_num, D3D12_SUBRESOURCE_DATA data)
 		{
-			UINT64 textureUploadBufferSize = GetRequiredIntermediateSize(dest.RawResource(), 0, 1);
+			UINT64 textureUploadBufferSize = GetRequiredIntermediateSize(dest.NativeResource(), 0, 1);
 
 			CommandContext* initContext = CommandContext::Begin();
 			AllocateBuffer upload_buffer = initContext->GetAllocateUploadBuffer(textureUploadBufferSize);
-			ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->NativeCommandList(), dest.RawResource(), upload_buffer.Buffer.RawResource(), 0, 0, subresource_num, &data));
+			ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->NativeCommandList(), dest.NativeResource(), upload_buffer.Buffer.NativeResource(), 0, 0, subresource_num, &data));
 			initContext->TransitionBarrier(dest, D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 			initContext->End();
 		}
@@ -130,10 +131,23 @@ namespace YiaEngine
 			data.RowPitch = bufferSize;
 			
 			initContext->TransitionBarrier(dest, D3D12_RESOURCE_STATE_COPY_DEST);
-			ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->NativeCommandList(), dest.RawResource(), upload_buffer.Buffer.RawResource(), 0, 0, 1, &data));
+			ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->NativeCommandList(), dest.NativeResource(), upload_buffer.Buffer.NativeResource(), 0, 0, 1, &data));
 			initContext->TransitionBarrier(dest,D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 			initContext->End();
 
+		}
+
+		void CommandContext::InitializeBuffer(GpuBuffer& dest, const UploadBuffer& uploadBuffer, UINT srcOffset, UINT destOffset, size_t numByte)
+		{
+
+			CommandContext* initContext = CommandContext::Begin();
+
+			size_t byteSize = std::min(dest.BufferSize() - destOffset, uploadBuffer.BufferSize() - srcOffset);
+			byteSize = std::min(numByte, byteSize);
+			initContext->TransitionBarrier(dest, D3D12_RESOURCE_STATE_COPY_DEST);
+			initContext->CopyBuffer(dest, destOffset, (UploadBuffer&)uploadBuffer, srcOffset, byteSize);
+			initContext->TransitionBarrier(dest, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+			initContext->End();
 		}
 
 		void CommandContextManager::Free(CommandContext* context)
@@ -149,6 +163,10 @@ namespace YiaEngine
 				return;
 			commandList_->SetPipelineState(rawPso);
 			pipelineState_ = rawPso;
+		}
+		void CommandContext::CopyBuffer(GpuResource& dest, size_t destOffset, GpuResource& src, size_t srcOffset, size_t numBytes)
+		{
+			commandList_->CopyBufferRegion(dest.NativeResource(), destOffset, src.NativeResource(), srcOffset, numBytes);
 		}
 		void CommandContext::SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE type, ID3D12DescriptorHeap * heap)
 		{

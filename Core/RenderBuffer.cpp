@@ -70,11 +70,7 @@ namespace YiaEngine
 			Graphic::g_Device->CreateRenderTargetView(resource_.Get(), &rtvDesc, rtvHandle_);
 		}
 
-		void RenderBuffer::Destroy()
-		{
-			resource_ = nullptr;
-			gpuVirtualAddress_ = ADDRESS_NULL;
-		}
+	
 
 		void RenderBuffer::CreateResource(UINT width, UINT height, DXGI_FORMAT format, const D3D12_CLEAR_VALUE* clearValue, UINT arraySize, UINT sampleCount, UINT numMip)
 		{

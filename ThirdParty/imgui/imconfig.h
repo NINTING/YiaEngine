@@ -121,3 +121,10 @@ namespace ImGui
     void MyFunction(const char* name, const MyMatrix44& v);
 }
 */
+//#ifdef YIA_WINDOW
+//    class D3D12_GPU_DESCRIPTOR_HANDLE;
+//
+//    #define ImTextureID D3D12_GPU_DESCRIPTOR_HANDLE*
+//#endif // YIA_WINDOW
+
+

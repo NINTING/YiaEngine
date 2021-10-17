@@ -9,7 +9,10 @@
 namespace YiaEngine::Graphic
 {
 	class PipelineStateObject
-	{					
+	{	
+	public:
+		static void StaticPSOInit();
+		static PipelineStateObject s_DefaultPSO;
 	public:
 		PipelineStateObject(const wchar_t*name = L"unanemed PSO");
 		void SetInputLayout(UINT NumElements, const D3D12_INPUT_ELEMENT_DESC* pInputElementDescs);

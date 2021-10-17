@@ -1,4 +1,5 @@
 #include<YiaEngine.h>
+#include<Core/YiaGraphic.h>
 using namespace YiaEngine;
 
 class SampleLayer :public Layer
@@ -35,6 +36,9 @@ public:
 	};
 	virtual void Update()
 	{
+		RenderScene();
+
+
 		imGuiLayer.Begin();
 		imGuiLayer.OnUpdate();
 		imGuiLayer.Render();
@@ -44,6 +48,52 @@ public:
 	bool isDestroy = false;
 	SampleLayer sampleLayer; 
 	ImguiLayer imGuiLayer;
+
+	void RenderScene()
+	{
+
+		Graphic::PipelineStateObject pso = Graphic::PipelineStateObject::s_DefaultPSO;
+		
+
+		Math::Vec3f pos[] = {
+			{ -1.0f, 1.f , 0.0f },
+			{ 1.0f, 1.f , 0.0f },
+			{ -1.f, -1.f , 0.0f },
+			{ -1.f, -1.f , 0.0f },
+			{ 1.f, 1.f , 0.0f },
+			{ 1.f, -1.f , 0.0f }
+		};
+		Math::Vec2f uv[] =
+		{
+			{0,0},
+			{1,0},
+			{0,1},
+			{0,1},
+			{1,0},
+			{1,1}
+		};
+
+		Graphic::GpuBuffer gemoBuffer;
+		Graphic::UploadBuffer upload;
+		YIA_INFO("{0}", sizeof(uv) + sizeof(pos));
+		size_t gemoSize = sizeof(uv) + sizeof(pos);
+
+		upload.Create(L"UploadGemoBuffer",sizeof(uv)+sizeof(pos));
+		float* memory =(float*) upload.Map();
+		memcpy(memory, pos, sizeof(pos));
+		memcpy(memory + 6, pos, sizeof(uv));
+		upload.UnMap();
+
+		gemoBuffer.Create(L"triangle gemo", gemoSize, 1, upload);
+
+		D3D12_VERTEX_BUFFER_VIEW views[] = { gemoBuffer.VertexBufferView(0, 12, sizeof(pos)) ,gemoBuffer.VertexBufferView(12, 8, sizeof(uv)) };
+
+		Graphic::GraphicContext sceneContext = Graphic::GraphicContext::Begin();
+		
+		sceneContext.SetVertexBuffers(0,2, views);
+		sceneContext.DrawInstance(6, 1);
+		sceneContext.End();
+	}
 };
 
 
