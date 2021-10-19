@@ -6,6 +6,7 @@
 
 #include"Graphic.h"
 #include"RootSignature.h"
+#include"Shader.h"
 namespace YiaEngine::Graphic
 {
 	class PipelineStateObject
@@ -18,8 +19,11 @@ namespace YiaEngine::Graphic
 		void SetInputLayout(UINT NumElements, const D3D12_INPUT_ELEMENT_DESC* pInputElementDescs);
 		void SetInputLayout(const D3D12_INPUT_LAYOUT_DESC& layout_desc);
 		void SetRootSignature(const RootSignature& signature);
-		void SetVertexShader(void* buffer, size_t size);
-		void SetPixelShader(void* buffer, size_t size);
+		void SetVertexShader(const Shader& shader);
+		void SetVertexShader(const void* buffer, size_t size);
+		void SetPixelShader(const void* buffer, size_t size);
+
+		void SetPixelShader(const Shader& shader);
 	
 		void SetRasterizerState(D3D12_RASTERIZER_DESC desc);
 		void SetBlendState(D3D12_BLEND_DESC desc);

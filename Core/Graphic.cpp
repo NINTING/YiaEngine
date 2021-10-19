@@ -5,6 +5,7 @@
 #include"DescriptorHeap.h"
 #include"RenderBuffer.h"
 #include"PipelineStateObject.h"
+#include"Shader.h"
 namespace YiaEngine
 {
 	namespace Graphic
@@ -104,7 +105,7 @@ namespace YiaEngine
 		}
 		void CommonShaderInit()
 		{
-
+			Shader::CompilerShader(L"../Shader/SampleShader.hlsl", Shader::s_DefaultShader);
 		}
 		void GraphicInit()
 		{
@@ -121,7 +122,7 @@ namespace YiaEngine
 
 			Graphic::g_commandManager.Create(Graphic::g_Device.Get());
 			PipelineStateObject::StaticPSOInit();
-
+			CommonShaderInit();
 		}
 	}
 }

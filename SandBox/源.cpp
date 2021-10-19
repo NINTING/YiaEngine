@@ -53,7 +53,9 @@ public:
 	{
 
 		Graphic::PipelineStateObject pso = Graphic::PipelineStateObject::s_DefaultPSO;
-		
+		pso.SetVertexShader(Graphic::Shader::s_DefaultShader);
+		pso.SetPixelShader(Graphic::Shader::s_DefaultShader);
+	
 
 		Math::Vec3f pos[] = {
 			{ -1.0f, 1.f , 0.0f },
@@ -72,7 +74,7 @@ public:
 			{1,0},
 			{1,1}
 		};
-
+		
 		Graphic::GpuBuffer gemoBuffer;
 		Graphic::UploadBuffer upload;
 		YIA_INFO("{0}", sizeof(uv) + sizeof(pos));

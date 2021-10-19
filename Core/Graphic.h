@@ -1,13 +1,16 @@
 #pragma once
 #pragma comment(lib,"d3dcompiler.lib")
+#pragma comment(lib,"dxcompiler.lib")
 #pragma comment(lib,"D3D12.lib")
 #pragma comment(lib,"dxgi.lib")
 #pragma comment(lib,"dxguid.lib")
 
 
 #include<d3d12.h>
+#include<d3dcompiler.h>
 #include <dxgi1_6.h>
-
+#include<d3d12shader.h>
+#include<dxcapi.h>
 #include <wrl/client.h>
 
 #include"d3dx12.h"
@@ -39,9 +42,7 @@ namespace YiaEngine
 		
 		extern RenderBuffer g_SwapRenderTarget[2]; 
 		extern RenderBuffer g_SceneFinalTarget;
-
-	
-
+		
 		void GraphicInit();
 		void GetHardwareAdapter(IDXGIFactory1* pFactory,
 			IDXGIAdapter1** ppAdapter,

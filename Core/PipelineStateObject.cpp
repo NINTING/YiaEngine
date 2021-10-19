@@ -55,15 +55,23 @@ namespace YiaEngine::Graphic
 		signature_ = &signature;
 		desc_.pRootSignature = signature.RawRootSignature();
 	}
-	void PipelineStateObject::SetVertexShader(void* buffer, size_t size)
+	void PipelineStateObject::SetVertexShader(const Shader& shader)
+	{
+		SetVertexShader(shader.VsBufferPointer(), shader.VsBufferSize());
+	}
+	void PipelineStateObject::SetVertexShader(const void* buffer, size_t size)
 	{
 		desc_.VS.pShaderBytecode = (UINT8*)buffer;
 		desc_.VS.BytecodeLength = size;
 	}
-	void PipelineStateObject::SetPixelShader(void* buffer, size_t size)
+	void PipelineStateObject::SetPixelShader(const void* buffer, size_t size)
 	{
 		desc_.PS.pShaderBytecode = (UINT8*)buffer;
 		desc_.PS.BytecodeLength = size;
+	}
+	void PipelineStateObject::SetPixelShader(const Shader& shader)
+	{
+		SetPixelShader(shader.PsBufferPointer(), shader.PsBufferSize());
 	}
 	void PipelineStateObject::SetRasterizerState(D3D12_RASTERIZER_DESC state)
 	{

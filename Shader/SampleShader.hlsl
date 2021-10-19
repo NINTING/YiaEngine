@@ -12,7 +12,8 @@ struct PSInput
 {
     float4 position : SV_POSITION;
 
-    float3 uv   :TEXCOORD;
+    float3 uv   :TEXCOORD0;
+
 };
 
 
@@ -20,6 +21,7 @@ struct  VSInput
 {
     float3 position : POSITION;
     float3 uv:TEXCOORD;
+    float4x4 world   :TEXCOORD1;
 };
 
 PSInput VSMain(VSInput input)
