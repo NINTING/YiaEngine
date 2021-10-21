@@ -14,6 +14,7 @@ namespace YiaEngine
 			break;
 		case DataFormat::kUint32_1:
 		case DataFormat::kFloat_1:
+		case DataFormat::kInt32_1:
 		case DataFormat::kUint16_2:
 			stride_in_bytes = 4;
 			break;
@@ -23,15 +24,18 @@ namespace YiaEngine
 		case DataFormat::kUint16_4:
 		case DataFormat::kDouble_1:
 		case DataFormat::kUint32_2:
+		case DataFormat::kInt32_2:
 		case DataFormat::kFloat_2:
 			stride_in_bytes = 8;
 			break;
 		case DataFormat::kUint32_3:
 		case DataFormat::kFloat_3:
+		case DataFormat::kInt32_3:
 			stride_in_bytes = 12;
 			break;
 		case DataFormat::kDouble_2:
 		case DataFormat::kUint32_4:
+		case DataFormat::kInt32_4:
 		case DataFormat::kFloat_4:
 			stride_in_bytes = 16;
 			break;

@@ -12,8 +12,8 @@ namespace YiaEngine
 			/*CompilerShader(path, "VSMain", "vs_5_0", &Shader.vsBlob_);
 
 			CompilerShader(path, "PSMain", "ps_5_0", &Shader.psBlob_);*/
-			CompilerShaderFromDXC(path, L"VSMain", L"vs_6_2");
-			CompilerShaderFromDXC(path, L"PSMain", L"ps_6_2");
+			CompilerShaderFromDXC(path, L"VSMain", L"vs_6_2",Shader);
+			CompilerShaderFromDXC(path, L"PSMain", L"ps_6_2",  Shader);
 
 		}
 		void Shader::CompilerShader(const wchar_t* path, const char* entry, const char* target, ID3DBlob** Shader)
@@ -35,7 +35,7 @@ namespace YiaEngine
 			ASSERT_SUCCEEDED(hr);
 
 		}
-		bool Shader::CompilerShaderFromDXC(const wchar_t* path, const wchar_t* entry, const wchar_t* target)
+		bool Shader::CompilerShaderFromDXC(const wchar_t* path, const wchar_t* entry, const wchar_t* target, Shader& shader)
 		{
 			
 			ComPtr<IDxcUtils> pUtils;
@@ -120,15 +120,107 @@ namespace YiaEngine
 				// Use reflection interface here.
 
 			}
-
+			/*--------------------------------------------------------------------------*/
 			D3D12_SHADER_DESC shader_desc;
 			pReflection->GetDesc(&shader_desc);
+			shader.reflect_.inputLayout.AttributesCount = shader_desc.InputParameters;
+
 			YIA_INFO("InputParament {0}", shader_desc.InputParameters);
 			for (int i = 0; i < shader_desc.InputParameters; i++)
 			{
+				DataFormat format;
 				D3D12_SIGNATURE_PARAMETER_DESC desc;
-		
-				pReflection->GetInputParameterDesc(i,&desc);
+				pReflection->GetInputParameterDesc(i, &desc);
+				switch ((int)log2(desc.Mask) + 1)
+				{
+				case 1:
+					switch (desc.ComponentType)
+					{
+					case D3D_REGISTER_COMPONENT_UNKNOWN:
+						break;
+					case D3D_REGISTER_COMPONENT_UINT32:
+						format = DataFormat::kUint32_1;
+						break;
+					case D3D_REGISTER_COMPONENT_SINT32:
+						format = DataFormat::kInt32_1;
+						break;
+					case D3D_REGISTER_COMPONENT_FLOAT32:
+						format = DataFormat::kFloat_1;
+						break;
+						break;
+				
+					default:
+						break;
+					}
+					break;
+				case 2:
+					switch (desc.ComponentType)
+					{
+					case D3D_REGISTER_COMPONENT_UNKNOWN:
+						break;
+					case D3D_REGISTER_COMPONENT_UINT32:
+						format = DataFormat::kUint32_2;
+						break;
+					case D3D_REGISTER_COMPONENT_SINT32:
+						format = DataFormat::kInt32_2;
+						break;
+					case D3D_REGISTER_COMPONENT_FLOAT32:
+						format = DataFormat::kFloat_2;
+						break;
+						break;
+
+					default:
+						break;
+					}
+					break;
+				case 3:
+					switch (desc.ComponentType)
+					{
+					case D3D_REGISTER_COMPONENT_UNKNOWN:
+						break;
+					case D3D_REGISTER_COMPONENT_UINT32:
+						format = DataFormat::kUint32_3;
+						break;
+					case D3D_REGISTER_COMPONENT_SINT32:
+						format = DataFormat::kInt32_3;
+						break;
+					case D3D_REGISTER_COMPONENT_FLOAT32:
+						format = DataFormat::kFloat_3;
+						break;
+						break;
+
+					default:
+						break;
+					}
+					break;
+				case 4:
+					switch (desc.ComponentType)
+					{
+					case D3D_REGISTER_COMPONENT_UNKNOWN:
+						break;
+					case D3D_REGISTER_COMPONENT_UINT32:
+						format = DataFormat::kUint32_4;
+						break;
+					case D3D_REGISTER_COMPONENT_SINT32:
+						format = DataFormat::kInt32_4;
+						break;
+					case D3D_REGISTER_COMPONENT_FLOAT32:
+						format = DataFormat::kFloat_4;
+						break;
+
+					default:
+						break;
+					}
+					break;
+				default:
+					break;
+				} 
+
+				shader.reflect_.inputLayout.Attrs[i].format = format;
+				//strcpy shader.reflect_.inputLayout.Attrs[i].name
+
+			
+
 				YIA_INFO("  InputParament {0}", i);
 				YIA_INFO("	name {0}", desc.SemanticName);
 				

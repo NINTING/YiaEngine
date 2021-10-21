@@ -1,46 +1,43 @@
 #pragma once
 #include"Graphic.h"
-
+#include"Common/DataFormat.h"
 namespace YiaEngine
 {
 	namespace Graphic
 	{
 		struct VertextAttribute
 		{
+			char* SemanticName;
+			int SemanticIndex;
+			int NameSize;
+			DataFormat format;
 
+			
 		};
 		struct VertexInputLayout
 		{
 			int AttributesCount;
-			VertextAttribute Attrs[15];
+			VertextAttribute* Attrs;
 		};
 
-
-
-		class ShaderReflect
+		struct ShaderReflect
 		{
-			VertexInput;
+			char* pNamePool;
+			UINT PoolSize;
+			VertexInputLayout VertexInput;
 		};
-		class Shader
+		enum ShaderStage
 		{
-		public:
-			
-			static void CompilerShader(const wchar_t* path,  Shader& Shader);
-			static Shader s_DefaultShader;
-		public:
-			const UINT8* VsBufferPointer() const{ return (UINT8*)vsBlob_->GetBufferPointer(); };
-			UINT VsBufferSize() const { return vsBlob_->GetBufferSize(); };
-			const UINT8* PsBufferPointer()const { return (UINT8*)psBlob_->GetBufferPointer(); };
-			UINT PsBufferSize() const { return psBlob_->GetBufferSize(); };
-		private:
-			static void CompilerShader(const wchar_t* path, const char* entry, const char* target, ID3DBlob** Shader);
-			
-			static bool  CompilerShaderFromDXC(const wchar_t* path, const wchar_t* entry, const wchar_t* target);
-
-
-		private:
-			ComPtr<ID3DBlob> vsBlob_;
-			ComPtr<ID3DBlob> psBlob_;
+			Shader_Stage_None,
+			Shader_Stage_Vertex,
+			Shader_Stage_Pixel,
+			Shader_Stage_Count,
+		};
+		struct Shader
+		{
+			ShaderStage Stage;
+			ComPtr<IDxcBlob> ShaderBlob;
+			ShaderReflect Reflect;
 		};
 	}
 }
