@@ -55,10 +55,32 @@ namespace YiaEngine::Graphic
 		signature_ = &signature;
 		desc_.pRootSignature = signature.RawRootSignature();
 	}
-	void PipelineStateObject::SetVertexShader(const Shader& shader)
+
+	void PipelineStateObject::SetShader(const Shader& shader)
 	{
-		SetVertexShader(shader.VsBufferPointer(), shader.VsBufferSize());
+		for (size_t i = 0; i < Shader_Stage_Count; i++)
+		{
+			ShaderStage stage = (ShaderStage)(1 << i);
+
+			if ((shader.Stages & stage) == stage)
+			{
+				const void* pointer = shader.ShaderBlob[i]->GetBufferPointer();
+				size_t size = shader.ShaderBlob[i]->GetBufferSize();
+				switch (stage)
+				{
+				
+				case YiaEngine::Graphic::Shader_Stage_Vertex:
+					SetVertexShader(pointer, size);
+					break;
+				case YiaEngine::Graphic::Shader_Stage_Pixel:
+					SetPixelShader(pointer, size);
+					break;
+				
+				}
+			}
+		}
 	}
+
 	void PipelineStateObject::SetVertexShader(const void* buffer, size_t size)
 	{
 		desc_.VS.pShaderBytecode = (UINT8*)buffer;
@@ -69,10 +91,7 @@ namespace YiaEngine::Graphic
 		desc_.PS.pShaderBytecode = (UINT8*)buffer;
 		desc_.PS.BytecodeLength = size;
 	}
-	void PipelineStateObject::SetPixelShader(const Shader& shader)
-	{
-		SetPixelShader(shader.PsBufferPointer(), shader.PsBufferSize());
-	}
+	
 	void PipelineStateObject::SetRasterizerState(D3D12_RASTERIZER_DESC state)
 	{
 		desc_.RasterizerState = state;

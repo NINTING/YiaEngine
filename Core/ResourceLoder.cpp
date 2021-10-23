@@ -5,44 +5,71 @@
 
 namespace YiaEngine::Graphic
 {
-	void LoadShader(const ShaderLoadDesc& desc, Shader* shaders)
+	const wchar_t* FillEntryPoint(ShaderStage stage)
 	{
+
+		switch (stage)
+		{
+		case YiaEngine::Graphic::Shader_Stage_Vertex:
+			return L"VsMain";
+			break;
+		case YiaEngine::Graphic::Shader_Stage_Pixel:
+			return L"PsMain";
+			break;
 		
-		
+		}
+		return L"";
+	}
+	void LoadShader(const ShaderLoadDesc& desc, Shader& shader)
+	{
+		shader = {};
+		shader.Stages = Shader_Stage_None;
+		for (size_t i =0; i < Shader_Stage_Count; i++)
+		{
+			shader.Stages |= desc.StageLoadDesc[i].stage;
+
+		}
 		for (size_t i = 0; i < Shader_Stage_Count; i++)
 		{
-			Shader& shader = shaders[i];
-			ComPtr< ID3D12ShaderReflection> pReflection;
-			shaders[i].ShaderBlob = CompilerShaderFromDXC(
-				desc.StageLoadDesc[i].FileName,
-				desc.StageLoadDesc[i].EntryPoint,
-				desc.StageLoadDesc[i].target,
-				pReflection);
+			ShaderStage p = Shader_Stage_Pixel;
 
+			if ((shader.Stages & (ShaderStage)(1 << i)) == 0)continue;
+			ComPtr< ID3D12ShaderReflection> pReflection;
+			const wchar_t* entryPoint = FillEntryPoint(desc.StageLoadDesc[i].stage);
+			shader.ShaderBlob[i] = CompilerShaderFromDXC(
+				desc.StageLoadDesc[i].FileName,
+				(const wchar_t *)entryPoint,
+				desc.StageLoadDesc[i].target,
+				&pReflection);
+			
 			/*--------------------------------------------------------------------------*/
-			D3D12_SHADER_DESC shader_desc;
+			D3D12_SHADER_DESC shader_desc = {};
 			pReflection->GetDesc(&shader_desc);
-			if (shader.Stage == Shader_Stage_Vertex)
+			ShaderReflect& reflect = shader.Reflect[i];
+
+			if ((1<<i)== Shader_Stage_Vertex)
 			{
-				shader.Reflect.VertexInput.AttributesCount = shader_desc.InputParameters;
+				reflect.VertexInput.AttributesCount = shader_desc.InputParameters;
+
+				reflect.VertexInput.Attrs = new VertextAttribute[shader_desc.InputParameters];
 				for (size_t i = 0; i < shader_desc.InputParameters; i++)
 				{
 					D3D12_SIGNATURE_PARAMETER_DESC desc;
 					pReflection->GetInputParameterDesc(i, &desc);
-					shader.Reflect.PoolSize += strlen( desc.SemanticName)+1;
+					shader.Reflect[i].PoolSize += strlen( desc.SemanticName)+1;
 
 				}
 
 				/*TODO:使用自定义内存池分配*/
-				shader.Reflect.pNamePool = new char[shader.Reflect.PoolSize];
+				reflect.pNamePool = new char[shader.Reflect[i].PoolSize];
 
-
+				char* currentName = reflect.pNamePool;
 				YIA_INFO("InputParament {0}", shader_desc.InputParameters);
-				for (int i = 0; i < shader_desc.InputParameters; i++)
+				for (int j = 0; j < shader_desc.InputParameters; j++)
 				{
 					DataFormat format;
 					D3D12_SIGNATURE_PARAMETER_DESC desc;
-					pReflection->GetInputParameterDesc(i, &desc);
+					pReflection->GetInputParameterDesc(j, &desc);
 					switch ((int)log2(desc.Mask) + 1)
 					{
 					case 1:
@@ -90,22 +117,21 @@ namespace YiaEngine::Graphic
 					default:
 						break;
 					}
-
-					VertextAttribute& attr = shader.Reflect.VertexInput.Attrs[i];
+	
+					VertextAttribute& attr = shader.Reflect[i].VertexInput.Attrs[j];
 
 
 					attr.format = format;
-					char* currentName = shader.Reflect.pNamePool;
 					
 					attr.NameSize = strlen(desc.SemanticName) + 1;
 
-					sprintf(currentName, "%s", desc.SemanticName);
+					sprintf_s(currentName, attr.NameSize, "%s", desc.SemanticName);
 
 					attr.SemanticName = currentName;
 
 					attr.SemanticIndex = desc.SemanticIndex;
 
-					YIA_INFO("  InputParament {0}", i);
+					YIA_INFO("  InputParament {0}", j);
 					YIA_INFO("	name {0}", desc.SemanticName);
 					YIA_INFO("	SemanticIndex {0}", desc.SemanticIndex);
 					YIA_INFO("	register {0}", desc.Register);
@@ -114,6 +140,7 @@ namespace YiaEngine::Graphic
 					YIA_INFO("	Stream {0}", desc.Stream);
 					YIA_INFO("	Mask {0}", desc.Mask);
 					YIA_INFO("	ReadWriteMask {0}", desc.ReadWriteMask);
+					currentName += attr.NameSize+1;
 				}
 
 			}
@@ -158,7 +185,7 @@ namespace YiaEngine::Graphic
 
 
 
-	ComPtr<IDxcBlob> CompilerShaderFromDXC(const wchar_t* path, const wchar_t* entry, const wchar_t* target, ComPtr< ID3D12ShaderReflection> outReflect)
+	ComPtr<IDxcBlob> CompilerShaderFromDXC(const wchar_t* path, const wchar_t* entry, const wchar_t* target, ID3D12ShaderReflection** ppOutReflect)
 	{
 		ComPtr<IDxcUtils> pUtils;
 		ComPtr<IDxcCompiler3> pCompiler;
@@ -211,9 +238,9 @@ namespace YiaEngine::Graphic
 		if (FAILED(hrStatus))
 		{
 			wprintf(L"Compilation Failed\n");
-			return false;
+			return nullptr;
 		}
-
+		
 		ComPtr<IDxcBlob> pShader = nullptr;
 		ComPtr<IDxcBlobUtf16> pShaderName = nullptr;
 		pResults->GetOutput(DXC_OUT_OBJECT, IID_PPV_ARGS(&pShader), &pShaderName);
@@ -230,12 +257,10 @@ namespace YiaEngine::Graphic
 			ReflectionData.Ptr = pReflectionData->GetBufferPointer();
 			ReflectionData.Size = pReflectionData->GetBufferSize();
 
-			pUtils->CreateReflection(&ReflectionData, IID_PPV_ARGS(&outReflect));
+			pUtils->CreateReflection(&ReflectionData, IID_PPV_ARGS(ppOutReflect));
 		}
 		
 		return pShader;
 	}
-	void LoadShader(const ShaderLoadDesc& desc, Shader& shader)
-	{
-	}
+	
 }

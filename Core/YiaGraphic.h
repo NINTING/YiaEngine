@@ -9,3 +9,4 @@
 #include"GraphicContext.h"
 #include"PipelineStateObject.h"
 #include"Shader.h"
+#include"ResourceLoder.h"

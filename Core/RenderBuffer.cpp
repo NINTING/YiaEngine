@@ -5,16 +5,18 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
-		void RenderBuffer::Create(UINT width, UINT height, DXGI_FORMAT format, UINT numMip, UINT arraySize, UINT sampleCount)
+		void RenderBuffer::Create(const wchar_t * name,UINT width, UINT height, DXGI_FORMAT format, UINT numMip, UINT arraySize, UINT sampleCount)
 		{
 			D3D12_CLEAR_VALUE clearValue;
 			clearValue.Format = format;
-			clearValue.Color[0] = 0.0f;
-			clearValue.Color[1] = 0.2f;
-			clearValue.Color[2] = 0.4f;
+			clearValue.Color[0] = 1.0f;
+			clearValue.Color[1] = 1.0f;
+			clearValue.Color[2] = 1.0f;
 			clearValue.Color[3] = 1.0f;
 			CreateResource(width, height, format, &clearValue, numMip, arraySize, sampleCount);
 			CreateView(format, arraySize, numMip);
+
+			resource_->SetName(name);
 
 		}
 		void RenderBuffer::CreateFromSwapChian(const wchar_t* name, ID3D12Resource* resource)
@@ -30,6 +32,7 @@ namespace YiaEngine
 			format_ = desc.Format;
 			rtvHandle_ = g_CpuDescriptorAllocator[D3D12_DESCRIPTOR_HEAP_TYPE_RTV].Alloc(1);
 			Graphic::g_Device->CreateRenderTargetView(resource_.Get(), nullptr, rtvHandle_);
+	
 
 		}
 		void RenderBuffer::CreateView(DXGI_FORMAT format, UINT arraySize, UINT numMips)
@@ -84,7 +87,7 @@ namespace YiaEngine
 				clearValue,
 				IID_PPV_ARGS(&resource_)));
 			usage_ = D3D12_RESOURCE_STATE_COMMON;
-
+			
 			gpuVirtualAddress_ = ADDRESS_NULL;	//用不到该属性
 		
 			width_ = width;

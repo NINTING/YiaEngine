@@ -22,7 +22,7 @@ namespace YiaEngine
 			void Usage(D3D12_RESOURCE_STATES state) { usage_ = state; }
 			virtual void Destroy()
 			{
-				resource_ = nullptr;
+				resource_.Reset();
 				gpuVirtualAddress_ = ADDRESS_UNKOWN;
 				++versionID_;
 			}

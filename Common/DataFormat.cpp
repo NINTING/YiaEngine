@@ -51,4 +51,44 @@ namespace YiaEngine
 		}
 		return stride_in_bytes;
 	}
+	DXGI_FORMAT DataFormatToDX12(DataFormat data_type)
+	{
+		switch (data_type)
+		{
+		case YiaEngine::DataFormat::kUnkown:
+			return DXGI_FORMAT_UNKNOWN;
+		case YiaEngine::DataFormat::kUint16_1:
+			return DXGI_FORMAT_R16_UINT;
+		case YiaEngine::DataFormat::kUint32_1:
+			return DXGI_FORMAT_R32_UINT;
+		case YiaEngine::DataFormat::kInt32_1:
+			return DXGI_FORMAT_R32_SINT;
+		case YiaEngine::DataFormat::kFloat_1:
+			return DXGI_FORMAT_R32_FLOAT;
+		case YiaEngine::DataFormat::kUint16_2:
+			return DXGI_FORMAT_R16G16_UINT;
+		case YiaEngine::DataFormat::kUint16_4:
+			return DXGI_FORMAT_R16G16B16A16_UINT;
+		case YiaEngine::DataFormat::kUint32_2:
+			return DXGI_FORMAT_R32G32_UINT;
+		case YiaEngine::DataFormat::kInt32_2:
+			return DXGI_FORMAT_R32G32_SINT;
+		case YiaEngine::DataFormat::kFloat_2:
+			return DXGI_FORMAT_R32G32_FLOAT;
+		case YiaEngine::DataFormat::kUint32_3:
+			return DXGI_FORMAT_R32G32B32_UINT;
+		case YiaEngine::DataFormat::kInt32_3:
+			return DXGI_FORMAT_R32G32B32_FLOAT;
+		case YiaEngine::DataFormat::kFloat_3:
+			return DXGI_FORMAT_R32G32B32_FLOAT;
+		case YiaEngine::DataFormat::kUint32_4:
+			return DXGI_FORMAT_R32G32B32A32_UINT;
+		case YiaEngine::DataFormat::kInt32_4:
+			return DXGI_FORMAT_R32G32B32A32_SINT;
+		case YiaEngine::DataFormat::kFloat_4:
+			return DXGI_FORMAT_R32G32B32A32_FLOAT;
+		default:
+			return DXGI_FORMAT_UNKNOWN;
+		}
+	}
 }

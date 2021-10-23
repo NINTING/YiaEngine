@@ -2,6 +2,7 @@
 #define COMMON_DATAFORMAT_H
 #include<stdint.h>
 #include<assert.h>
+#include<dxgi.h>
 namespace YiaEngine
 {
 	enum class DataFormat : int
@@ -33,6 +34,6 @@ namespace YiaEngine
 
 	size_t DataFormatStride(DataFormat data_type);
 
-	
+	DXGI_FORMAT DataFormatToDX12(DataFormat data_type);
 }
 #endif //  COMMON_DATAFORMAT_H

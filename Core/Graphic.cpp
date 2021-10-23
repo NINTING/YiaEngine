@@ -105,7 +105,7 @@ namespace YiaEngine
 		}
 		void CommonShaderInit()
 		{
-			Shader::CompilerShader(L"../Shader/SampleShader.hlsl", Shader::s_DefaultShader);
+			
 		}
 		void GraphicInit()
 		{

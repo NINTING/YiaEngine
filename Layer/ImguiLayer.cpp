@@ -74,6 +74,8 @@ namespace YiaEngine
          ImGui_ImplDX12_Init(Graphic::g_Device.Get(), SWAP_CHAIN_COUNT,
              DXGI_FORMAT_R8G8B8A8_UNORM, gpuImGuiDescriptoHeap_.NativeHeap(),
              fontSrvHandle, fontSrvHandle);
+
+         sceneHandle = gpuImGuiDescriptoHeap_.Alloc();
       
     }
 
@@ -111,6 +113,15 @@ namespace YiaEngine
     {
         ImGuiIO& io = ImGui::GetIO();
         ImGui::Render();
+
+        //Graphic::GraphicContext& Context = Graphic::GraphicContext::Begin();
+        //Context.TransitionBarrier(sceneColorBuffer, D3D12_RESOURCE_STATE_RENDER_TARGET);
+        //Context.SetRenderTarget(sceneColorBuffer.RtvCpuHandlePtr(), nullptr);
+        //Context.ClearRenderTarget(sceneColorBuffer.RtvCpuHandle());
+        //Context.TransitionBarrier(sceneColorBuffer, D3D12_RESOURCE_STATE_COMMON);
+
+        //Context.End(true);
+
         Graphic::GraphicContext& UiContext = Graphic::GraphicContext::Begin();
       
         UiContext.SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, gpuImGuiDescriptoHeap_.NativeHeap());
@@ -204,7 +215,26 @@ namespace YiaEngine
         ImGui::Begin("Scene",&open);
         ImVec2 size =  ImGui::GetWindowSize();
         YIA_INFO("{0}{1}", size.x, size.y);
-       
+        if (size.x != sceneColorBuffer.Size().x() || size.y != sceneColorBuffer.Size().y())
+        {
+            sceneColorBuffer.Destroy();
+            sceneColorBuffer.Create(L"SceneColorRT",size.x, size.y, DXGI_FORMAT_R8G8B8A8_UNORM);
+            UINT pSrcDescriptorRangeSizes[1] = { 1 };
+            UINT pDestDescriptorRangeSizes[1] = { 1 };
+            Graphic::g_Device->CopyDescriptors(
+                1,
+                sceneHandle.GetCpuAddress(),
+                pSrcDescriptorRangeSizes,
+                1,
+                sceneColorBuffer.SrvHandle().GetCpuAddress(),
+                pSrcDescriptorRangeSizes,
+                D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
+            );
+       //     sceneDepthBuffer.Destroy();
+        //    sceneDepthBuffer.Create(L"SceneDepthRT", size.x, size.y, DXGI_FORMAT_D32_FLOAT);
+        }
+        ImGui::Image((ImTextureID)sceneHandle.GetGpuAddress()->ptr, size);
+    
         ImGui::End();
     }
     void ImguiLayer::Image(const Graphic::GpuTexture& texture, const ImVec2& size)

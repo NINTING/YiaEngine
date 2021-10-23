@@ -12,7 +12,7 @@ namespace YiaEngine
 			int NameSize;
 			DataFormat format;
 
-			
+
 		};
 		struct VertexInputLayout
 		{
@@ -28,16 +28,24 @@ namespace YiaEngine
 		};
 		enum ShaderStage
 		{
-			Shader_Stage_None,
-			Shader_Stage_Vertex,
-			Shader_Stage_Pixel,
-			Shader_Stage_Count,
+			Shader_Stage_None = 0,
+
+			Shader_Stage_Vertex = 1,
+
+			Shader_Stage_Pixel = 2,
+
+			Shader_Stage_Count = 3,
 		};
+		static inline ShaderStage operator | (ShaderStage a, ShaderStage b) { return (ShaderStage)((UINT)(a) | (UINT)(b)); }
+		static inline ShaderStage operator & (ShaderStage a, ShaderStage b) { return (ShaderStage)((UINT)(a) & (UINT)(b)); }
+		static inline ShaderStage operator &= (ShaderStage& a, ShaderStage b) { return a =a&b; }
+		static inline ShaderStage operator |= (ShaderStage& a, ShaderStage b) { return a = a | b; }
+
 		struct Shader
 		{
-			ShaderStage Stage;
-			ComPtr<IDxcBlob> ShaderBlob;
-			ShaderReflect Reflect;
+			ShaderStage Stages;
+			ComPtr<IDxcBlob> ShaderBlob[Shader_Stage_Count];
+			ShaderReflect Reflect[Shader_Stage_Count];
 		};
 	}
 }

@@ -20,8 +20,8 @@ namespace YiaEngine
 		void End();
 		void Render();
 
-
-		void Image(const Graphic::GpuTexture& resouece,const ImVec2 & size);
+		Graphic::RenderBuffer& SceneColorBuffer() {return sceneColorBuffer;};
+		Graphic::RenderBuffer SceneDepthBuffer() { return sceneDepthBuffer; };
 	private:
 		bool OnMouseMoveEvent(MouseMoveEvent& e);
 		bool OnMouseDownEvent(MouseButtonDownEvent& e);
@@ -29,7 +29,7 @@ namespace YiaEngine
 		bool OnMouseWheelEvent(MouseWheelEvent& e);
 		bool OnWindowCloseEvent(WindowCloseEvent& e);
 	private:
-		
+		void Image(const Graphic::GpuTexture& resouece, const ImVec2& size);
 		void DockSpace();
 		void SceneWindow();
 	private:
@@ -38,6 +38,7 @@ namespace YiaEngine
 		Graphic::GpuDescriptorAllocator imageHandleAllocator_;
 
 		Graphic::RenderBuffer sceneColorBuffer;
+		Graphic::RenderBuffer sceneDepthBuffer;
 		Graphic::DescriptorHandle sceneHandle;
 	};
 
