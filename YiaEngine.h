@@ -6,5 +6,7 @@
 #include"Layer/ImguiLayer.h"
 
 #include<Common/YiaMath.h>
-
+#include"Common/DataFormat.h"
+#include"Common/Model/VertexArray.h"
+#include"Common/Model/MeshObject.h"
 #include"EntryPoint.h"

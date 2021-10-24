@@ -5,7 +5,7 @@
 #include<dxgi.h>
 namespace YiaEngine
 {
-	enum class DataFormat : int
+	enum class DataFormate : int
 	{
 		kUnkown = 0,
 		kUint16_1 = kUnkown   + 1,		//2
@@ -32,8 +32,8 @@ namespace YiaEngine
 
 
 
-	size_t DataFormatStride(DataFormat data_type);
+	size_t DataFormatStride(DataFormate data_type);
 
-	DXGI_FORMAT DataFormatToDX12(DataFormat data_type);
+	DXGI_FORMAT DataFormatToDX12(DataFormate data_type);
 }
 #endif //  COMMON_DATAFORMAT_H

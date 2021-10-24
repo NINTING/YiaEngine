@@ -51,7 +51,7 @@ namespace YiaEngine::Graphic
 			{
 				reflect.VertexInput.AttributesCount = shader_desc.InputParameters;
 
-				reflect.VertexInput.Attrs = new VertextAttribute[shader_desc.InputParameters];
+				reflect.VertexInput.Attrs = new VertextInputAttribute[shader_desc.InputParameters];
 				for (size_t i = 0; i < shader_desc.InputParameters; i++)
 				{
 					D3D12_SIGNATURE_PARAMETER_DESC desc;
@@ -67,7 +67,7 @@ namespace YiaEngine::Graphic
 				YIA_INFO("InputParament {0}", shader_desc.InputParameters);
 				for (int j = 0; j < shader_desc.InputParameters; j++)
 				{
-					DataFormat format;
+					DataFormate format;
 					D3D12_SIGNATURE_PARAMETER_DESC desc;
 					pReflection->GetInputParameterDesc(j, &desc);
 					switch ((int)log2(desc.Mask) + 1)
@@ -76,9 +76,9 @@ namespace YiaEngine::Graphic
 						switch (desc.ComponentType)
 						{
 						case D3D_REGISTER_COMPONENT_UNKNOWN:break;
-						case D3D_REGISTER_COMPONENT_UINT32: format = DataFormat::kUint32_1; break;
-						case D3D_REGISTER_COMPONENT_SINT32: format = DataFormat::kInt32_1;break;
-						case D3D_REGISTER_COMPONENT_FLOAT32:format = DataFormat::kFloat_1;break;
+						case D3D_REGISTER_COMPONENT_UINT32: format = DataFormate::kUint32_1; break;
+						case D3D_REGISTER_COMPONENT_SINT32: format = DataFormate::kInt32_1;break;
+						case D3D_REGISTER_COMPONENT_FLOAT32:format = DataFormate::kFloat_1;break;
 							break;
 						}
 						break;
@@ -86,9 +86,9 @@ namespace YiaEngine::Graphic
 						switch (desc.ComponentType)
 						{
 						case D3D_REGISTER_COMPONENT_UNKNOWN:break;
-						case D3D_REGISTER_COMPONENT_UINT32:format = DataFormat::kUint32_2;break;
-						case D3D_REGISTER_COMPONENT_SINT32:format = DataFormat::kInt32_2;break;
-						case D3D_REGISTER_COMPONENT_FLOAT32:format = DataFormat::kFloat_2;break;
+						case D3D_REGISTER_COMPONENT_UINT32:format = DataFormate::kUint32_2;break;
+						case D3D_REGISTER_COMPONENT_SINT32:format = DataFormate::kInt32_2;break;
+						case D3D_REGISTER_COMPONENT_FLOAT32:format = DataFormate::kFloat_2;break;
 						break;
 						}
 						break;
@@ -96,9 +96,9 @@ namespace YiaEngine::Graphic
 						switch (desc.ComponentType)
 						{
 						case D3D_REGISTER_COMPONENT_UNKNOWN:break;
-						case D3D_REGISTER_COMPONENT_UINT32:format = DataFormat::kUint32_3;break;
-						case D3D_REGISTER_COMPONENT_SINT32:format = DataFormat::kInt32_3;break;
-						case D3D_REGISTER_COMPONENT_FLOAT32:format = DataFormat::kFloat_3;break;
+						case D3D_REGISTER_COMPONENT_UINT32:format = DataFormate::kUint32_3;break;
+						case D3D_REGISTER_COMPONENT_SINT32:format = DataFormate::kInt32_3;break;
+						case D3D_REGISTER_COMPONENT_FLOAT32:format = DataFormate::kFloat_3;break;
 							break;
 
 						}
@@ -107,9 +107,9 @@ namespace YiaEngine::Graphic
 						switch (desc.ComponentType)
 						{
 						case D3D_REGISTER_COMPONENT_UNKNOWN:break;
-						case D3D_REGISTER_COMPONENT_UINT32:format = DataFormat::kUint32_4;break;
-						case D3D_REGISTER_COMPONENT_SINT32:format = DataFormat::kInt32_4;break;
-						case D3D_REGISTER_COMPONENT_FLOAT32:format = DataFormat::kFloat_4;break;
+						case D3D_REGISTER_COMPONENT_UINT32:format = DataFormate::kUint32_4;break;
+						case D3D_REGISTER_COMPONENT_SINT32:format = DataFormate::kInt32_4;break;
+						case D3D_REGISTER_COMPONENT_FLOAT32:format = DataFormate::kFloat_4;break;
 
 							break;
 						}
@@ -118,7 +118,7 @@ namespace YiaEngine::Graphic
 						break;
 					}
 	
-					VertextAttribute& attr = shader.Reflect[i].VertexInput.Attrs[j];
+					VertextInputAttribute& attr = shader.Reflect[i].VertexInput.Attrs[j];
 
 
 					attr.format = format;

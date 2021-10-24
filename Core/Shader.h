@@ -5,19 +5,19 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
-		struct VertextAttribute
+		struct VertextInputAttribute
 		{
 			char* SemanticName;
 			int SemanticIndex;
 			int NameSize;
-			DataFormat format;
+			DataFormate format;
 
 
 		};
 		struct VertexInputLayout
 		{
 			int AttributesCount;
-			VertextAttribute* Attrs;
+			VertextInputAttribute* Attrs;
 		};
 
 		struct ShaderReflect

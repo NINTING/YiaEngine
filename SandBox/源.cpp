@@ -65,7 +65,7 @@ public:
 			{1,0},
 			{1,1}
 		};
-		
+		UINT index[] = { 0,1,2,3,4,5 };
 		D3D12_INPUT_LAYOUT_DESC desc;
 		auto& vertexInput = sampleShader.Reflect[0].VertexInput;
 
@@ -89,27 +89,39 @@ public:
 
 		pso.SetInputLayout(desc.NumElements, elements);
 		delete elements;
-		pso.SetRootSignature(signature);
 		pso.SetShader(sampleShader);
 		
 		//pso.SetRenderTarget();
 		pso.Finalize();
-
-
 		 
-		Graphic::UploadBuffer upload;
+		VertexAttributeArray positionAttr = CreateVertexAttribute(VertexAttribute::kPosition,DataFormate::kFloat_3,6,pos);
+		VertexAttributeArray uvAttr = CreateVertexAttribute(VertexAttribute::kTexcoord, DataFormate::kFloat_2, 6, uv);
+		fullScreenRect.SetName("FullScreenRect");
+		fullScreenRect.AddAttribute(positionAttr);
+		fullScreenRect.AddAttribute(uvAttr);
+		fullScreenRect.AddIndices(6, index);
+		fullScreenRect.CreateMeshGpuBuffer();
+		//Graphic::UploadBuffer upload;
 
-		size_t gemoSize = sizeof(uv) + sizeof(pos);
+		//size_t gemoSize =positionAttr.DataSize + uvAttr.DataSize;
 
-		upload.Create(L"UploadGemoBuffer", sizeof(uv) + sizeof(pos));
-		float* memory = (float*)upload.Map();
-		memcpy(memory, pos, sizeof(pos));
-		memcpy(memory + 18, uv, sizeof(uv));
-		upload.UnMap();
+		//upload.Create(L"UploadGemoBuffer", sizeof(uv) + sizeof(pos));
+		//uint8_t* memory = (uint8_t*)upload.Map();
 
-		gemoBuffer.Create(L"triangle gemo", gemoSize, 1, upload);
-		posVbo = gemoBuffer.VertexBufferView(0, 12, sizeof(pos));
-		uvVbo = gemoBuffer.VertexBufferView(sizeof(pos), 8, sizeof(uv));
+		//memcpy(memory, positionAttr.Data.get(), positionAttr.DataSize);
+		//memcpy(memory + positionAttr.DataSize, uvAttr.Data.get(), uvAttr.DataSize);
+		//
+		//upload.UnMap();
+
+		//gemoBuffer.Create(L"triangle gemo", gemoSize, 1, upload);
+
+		/*posVbo = gemoBuffer.VertexBufferView(0, positionAttr.Stride, positionAttr.DataSize);
+		uvVbo = gemoBuffer.VertexBufferView(positionAttr.DataSize, uvAttr.Stride, uvAttr.DataSize);*/
+
+		posVbo = fullScreenRect.MeshBuffer().VertexBufferView(0, positionAttr.Stride, positionAttr.DataSize);
+		uvVbo = fullScreenRect.MeshBuffer().VertexBufferView(positionAttr.DataSize, uvAttr.Stride, uvAttr.DataSize);
+		ibo = fullScreenRect.MeshBuffer().IndexBufferView(positionAttr.DataSize + uvAttr.DataSize,sizeof(UINT),sizeof(index));
+
 		viewport = CD3DX12_VIEWPORT(0.f, 0.f, 0.f, 0.f);
 		scissorRect = CD3DX12_RECT(0.f, 0.f, 0.f, 0.f);
 	}
@@ -134,6 +146,10 @@ public:
 		imGuiLayer.Render();
 
 		RenderScene();
+		/*
+		*	Renderer->bindTexture(TextureBuffer);
+			Renderer->DrawMesh(Mesh,shader);
+		*/
 		imGuiLayer.End();
 	}
 	
@@ -156,7 +172,6 @@ public:
 		
 		D3D12_VERTEX_BUFFER_VIEW views[] = { posVbo,uvVbo };
 	
-
 		viewport.Width = sceneColorBuffer.Size().x();
 		viewport.Height = sceneColorBuffer.Size().y();
 		scissorRect.right = sceneColorBuffer.Size().x();
@@ -166,12 +181,13 @@ public:
 		sceneContext.SetRootSignature(signature);
 		sceneContext.BindGpuDescriptor();
 		sceneContext.SetVertexBuffers(0,2, views);
+		sceneContext.SetIndexBuffer(&ibo);
 		sceneContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		sceneContext.SetViewPortAndScissorRects(&viewport, &scissorRect);
 		sceneContext.TransitionBarrier(sceneColorBuffer, D3D12_RESOURCE_STATE_RENDER_TARGET);
 		sceneContext.SetRenderTarget(sceneColorBuffer.RtvCpuHandlePtr(),nullptr);
 		sceneContext.ClearRenderTarget(sceneColorBuffer.RtvCpuHandle());
-		sceneContext.DrawInstance(6, 1);
+		sceneContext.DrawIndexInstance(6, 1,0,0,0);
 		sceneContext.TransitionBarrier(sceneColorBuffer, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 		sceneContext.End();
 	}
@@ -185,6 +201,7 @@ public:
 	CD3DX12_VIEWPORT viewport;
 	CD3DX12_RECT scissorRect;
 	Graphic::RootSignature signature;
+	Mesh fullScreenRect;
 };
 
 

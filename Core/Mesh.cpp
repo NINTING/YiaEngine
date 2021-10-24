@@ -7,7 +7,7 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
-		VertexAttribute::VertexAttribute(VertexAttributeType attribute, DataFormat format, void* pData,size_t vertexCount)
+		VertexAttributeEnum::VertexAttributeEnum(VertexAttributeType attribute, DataFormate format, void* pData,size_t vertexCount)
 			:Type(attribute), Format(format),Data(nullptr),DataSize(0)
 		{
 			Stride = DataFormatStride(format);
@@ -23,20 +23,20 @@ namespace YiaEngine
 	
 
 		Mesh::Mesh():lod_(0), primitive_(MeshPrimitive::kUnkown), 
-			indexData_(nullptr), indexCount_(0), indexFormat_(DataFormat::kUnkown), vertexCount_(0)
+			indexData_(nullptr), indexCount_(0), indexFormat_(DataFormate::kUnkown), vertexCount_(0)
 		{
 			subMeshArrays_.clear();
 			vertexAttributes_.clear();
 			
 		}
 
-		void Mesh::SetVertexAttributes(UINT vertexCount, size_t attributeCount, VertexAttribute* layout)
+		void Mesh::SetVertexAttributes(UINT vertexCount, size_t attributeCount, VertexAttributeEnum* layout)
 		{
 			vertexCount_ = vertexCount;
 			for (size_t i = 0; i < attributeCount; i++)
 				vertexAttributes_.emplace_back(layout[i]);
 		}
-		void Mesh::SetVertexAttributes(UINT vertexCount, const std::vector<VertexAttribute>& layout)
+		void Mesh::SetVertexAttributes(UINT vertexCount, const std::vector<VertexAttributeEnum>& layout)
 		{
 			vertexCount_ = vertexCount;
 			vertexAttributes_.assign(layout.begin(), layout.end());
@@ -57,7 +57,7 @@ namespace YiaEngine
 				}
 			}
 		}
-		void Mesh::SetIndexData(UINT count, void* data, DataFormat format)
+		void Mesh::SetIndexData(UINT count, void* data, DataFormate format)
 		{
 			memcpy(indexData_, data, count * DataFormatStride(format));
 			indexCount_ = count;
@@ -69,19 +69,19 @@ namespace YiaEngine
 			primitive_ = primitive;
 		}
 
-		const VertexAttribute& Mesh::Positions()const
+		const VertexAttributeEnum& Mesh::Positions()const
 		{
 			return *GetVertexAttribute(VertexAttributeType::kPosition);
 		}
-		const VertexAttribute& Mesh::Uv0() const
+		const VertexAttributeEnum& Mesh::Uv0() const
 		{
 			return *GetVertexAttribute(VertexAttributeType::kTexcoord0);
 		}
-		const VertexAttribute& Mesh::Uv1()const
+		const VertexAttributeEnum& Mesh::Uv1()const
 		{
 			return *GetVertexAttribute(VertexAttributeType::kTexcoord1);
 		}
-		const VertexAttribute* Mesh::GetVertexAttribute(VertexAttributeType type) const
+		const VertexAttributeEnum* Mesh::GetVertexAttribute(VertexAttributeType type) const
 		{
 			for (auto it = vertexAttributes_.begin(); it != vertexAttributes_.end(); it++)
 			{

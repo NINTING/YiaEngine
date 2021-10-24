@@ -2,7 +2,7 @@
 
 #include<queue>
 
-
+#include"Common/YiaMath.h"
 #include"CommandContext.h"
 namespace YiaEngine
 {
@@ -31,7 +31,7 @@ namespace YiaEngine
 			void BindGpuDescriptor();
 			void SetViewPortAndScissorRects(const D3D12_VIEWPORT* pViewPort, const D3D12_RECT* pAcissorRect_);
 			void SetRenderTarget(const DescriptorHandle* renderTarget,const DescriptorHandle* depth);
-			void ClearRenderTarget(DescriptorHandle renderTarget,const float colors[]);
+			void ClearRenderTarget(DescriptorHandle renderTarget, const Math::Vec4f& colors);
 			void ClearRenderTarget(DescriptorHandle renderTarget);
 		
 			void SetRenderTargets(UINT numRT,const DescriptorHandle RTS[],const DescriptorHandle* depth);

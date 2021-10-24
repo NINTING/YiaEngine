@@ -19,7 +19,7 @@ namespace YiaEngine:: Graphic
 	protected:
 		//void Create(size_t data_size, size_t stride, void* data);
 		D3D12_RESOURCE_DESC DescriptBuffer();
-		D3D12_RESOURCE_FLAGS resource_flag_;	
+		D3D12_RESOURCE_FLAGS resource_flag_;
 		size_t bufferSize_;
 		UINT elementSize_;
 		UINT elementCount_;

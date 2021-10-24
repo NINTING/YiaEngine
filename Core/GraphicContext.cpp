@@ -110,14 +110,15 @@ namespace YiaEngine
 		{
 			SetRenderTargets(1, renderTarget, depth);
 		}
-		void GraphicContext::ClearRenderTarget(DescriptorHandle renderTarget,const float colors[])
+		void GraphicContext::ClearRenderTarget(DescriptorHandle renderTarget, const Math::Vec4f& colors)
 		{
-			commandList_->ClearRenderTargetView(renderTarget, colors, 0, nullptr);
+			commandList_->ClearRenderTargetView(renderTarget, (const float*)(&colors), 0, nullptr);
 		}
 
 		void GraphicContext::ClearRenderTarget(DescriptorHandle renderTarget)
 		{
-			float black[] = { 0.2f,0.3f,0.4f,1.0f };
+			Math::Vec4f black = { 0.2f,0.3f,0.4f,1.0f };
+
 			ClearRenderTarget(renderTarget, black);
 		}
 		

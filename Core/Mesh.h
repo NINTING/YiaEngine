@@ -25,14 +25,14 @@ namespace YiaEngine
 			kLine,
 			kTriangle
 		};
-		struct VertexAttribute
+		struct VertexAttributeEnum
 		{
-			VertexAttribute(VertexAttributeType attribute, DataFormat format, void* data = nullptr, size_t vertexCount = 0);
-			~VertexAttribute() { 
+			VertexAttributeEnum(VertexAttributeType attribute, DataFormate format, void* data = nullptr, size_t vertexCount = 0);
+			~VertexAttributeEnum() { 
 				if (Data!=nullptr)
 				delete Data;
 			}
-			DataFormat Format;
+			DataFormate Format;
 			size_t DataSize;
 			size_t Stride;
 			void* Data;
@@ -58,32 +58,32 @@ namespace YiaEngine
 		{
 		public:
 			Mesh();
-			void SetVertexAttributes(UINT vertexCount, size_t attributeCount, VertexAttribute* layout);
-			void SetVertexAttributes(UINT vertexCount, const std::vector<VertexAttribute>& layout);
+			void SetVertexAttributes(UINT vertexCount, size_t attributeCount, VertexAttributeEnum* layout);
+			void SetVertexAttributes(UINT vertexCount, const std::vector<VertexAttributeEnum>& layout);
 			void SetPrimitive(MeshPrimitive primitive);
 			void SetVertexData(VertexAttributeType type,void*data);
-			void SetIndexData(UINT count,void* data,DataFormat format = DataFormat::kUint32_1);
+			void SetIndexData(UINT count,void* data,DataFormate format = DataFormate::kUint32_1);
 			//TODO 子网格处理
 			void SetSubMeshCount(size_t count);
 			void SetSubMesh(size_t index, const SubMesh&);
 		public:
-			const VertexAttribute& Positions()const;
-			const VertexAttribute& Uv0()const;
-			const VertexAttribute& Uv1()const;
+			const VertexAttributeEnum& Positions()const;
+			const VertexAttributeEnum& Uv0()const;
+			const VertexAttributeEnum& Uv1()const;
 			void* IndexData()const;
 			UINT IndexCount()const;
 			UINT VertexCount()const {return vertexCount_;};
 
-			const VertexAttribute* GetVertexAttribute(VertexAttributeType type)const;
+			const VertexAttributeEnum* GetVertexAttribute(VertexAttributeType type)const;
 		private:
 			int lod_;
 	
 			MeshPrimitive primitive_;
 			std::vector<SubMesh>subMeshArrays_;
-			std::vector<VertexAttribute>vertexAttributes_;
+			std::vector<VertexAttributeEnum>vertexAttributes_;
 			void* indexData_;
 			UINT indexCount_;
-			DataFormat indexFormat_;
+			DataFormate indexFormat_;
 			UINT vertexCount_;
 		
 		};
