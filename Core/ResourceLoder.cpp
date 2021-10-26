@@ -20,6 +20,14 @@ namespace YiaEngine::Graphic
 		}
 		return L"";
 	}
+	VertexAttributeEnum SemanticNameToVertexAttribute(const char*semanticName)
+	{
+		if (strcmp(semanticName, "POSITION")==0)
+			return VertexAttributeEnum::kPosition;
+		if (strcmp(semanticName, "TEXCOORD")==0)
+			return VertexAttributeEnum::kTexcoord;
+		
+	}
 	void LoadShader(const ShaderLoadDesc& desc, Shader& shader)
 	{
 		shader = {};
@@ -128,7 +136,7 @@ namespace YiaEngine::Graphic
 					sprintf_s(currentName, attr.NameSize, "%s", desc.SemanticName);
 
 					attr.SemanticName = currentName;
-
+					attr.Attribute = SemanticNameToVertexAttribute(attr.SemanticName);
 					attr.SemanticIndex = desc.SemanticIndex;
 
 					YIA_INFO("  InputParament {0}", j);

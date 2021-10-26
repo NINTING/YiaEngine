@@ -14,6 +14,7 @@ namespace YiaEngine
 			void End();
 			void SetRenderTarget(RenderBuffer* renderTarget);
 			void ClearRenderTarget(const Math::Vec4f& clearColor);
+			void ClearRenderTarget();
 			void SetViewport(const CD3DX12_VIEWPORT& viewport);
 			void SetScissorRect(const CD3DX12_RECT& scissorRect);
 			void SetRootSignature(const RootSignature& signature);

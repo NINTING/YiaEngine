@@ -22,6 +22,10 @@ namespace YiaEngine
 		{
 			graphicContext->ClearRenderTarget(renderTarget_->RtvCpuHandle(),clearColor);
 		}
+		void Renderer::ClearRenderTarget()
+		{
+			graphicContext->ClearRenderTarget(renderTarget_->RtvCpuHandle());
+		}
 		void Renderer::SetViewport(const CD3DX12_VIEWPORT& viewport)
 		{ 
 			viewport_ = viewport; 
@@ -50,20 +54,19 @@ namespace YiaEngine
 				scissorRect_.right = renderTarget_->Size().x();
 				scissorRect_.bottom = renderTarget_->Size().y();
 			}
+
 			D3D12_VERTEX_BUFFER_VIEW vbo[15];
-		/*	for (size_t i = 0; i < mesh.; i++)
+		
+			for (size_t i = 0; i < shader.Reflect->VertexInput.AttributesCount; i++)
 			{
+				vbo[i] = mesh.GetVertexBuffer(shader.Reflect->VertexInput.Attrs[i].Attribute);
+			} 
 
-			}*/
-		/*	posVbo = fullScreenRect.MeshBuffer().VertexBufferView(0, positionAttr.Stride, positionAttr.DataSize);
-			uvVbo = fullScreenRect.MeshBuffer().VertexBufferView(positionAttr.DataSize, uvAttr.Stride, uvAttr.DataSize);
-			ibo = fullScreenRect.MeshBuffer().IndexBufferView(positionAttr.DataSize + uvAttr.DataSize, sizeof(UINT), sizeof(index));*/
-
+			D3D12_INDEX_BUFFER_VIEW ibo = mesh.GetIndexBuffer();
 			graphicContext->SetPipelineState(pso);
-			
 			graphicContext->BindGpuDescriptor();
-		//	graphicContext->SetVertexBuffers(0, 2, views);
-		//	graphicContext->SetIndexBuffer(&ibo);
+			graphicContext->SetVertexBuffers(0, shader.Reflect->VertexInput.AttributesCount, vbo);
+			graphicContext->SetIndexBuffer(&ibo);
 			graphicContext->SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 			graphicContext->SetViewPortAndScissorRects(&viewport_, &scissorRect_);
 			graphicContext->TransitionBarrier(*renderTarget_, D3D12_RESOURCE_STATE_RENDER_TARGET);

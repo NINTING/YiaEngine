@@ -40,11 +40,13 @@ namespace YiaEngine
 		void CreateMeshGpuBuffer();
 		Graphic::GpuBuffer& MeshBuffer() { return gpuBuffer_; };
 		UINT IndicesSizeInByte() { return indices_.size() * sizeof(UINT); }
-		D3D12_VERTEX_BUFFER_VIEW GetVertexBuffer();
+		D3D12_VERTEX_BUFFER_VIEW GetVertexBuffer (VertexAttributeEnum attributeEnum)const;
+		D3D12_INDEX_BUFFER_VIEW GetIndexBuffer()const;
 	private:
 		std::vector<VertexAttributeArray> attributes_;
 		std::vector <UINT>indices_;
 		std::string name_;
+		UINT VertexDataSize;
 		Graphic::GpuBuffer gpuBuffer_;
 	};
 

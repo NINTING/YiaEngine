@@ -1,7 +1,7 @@
 #include<YiaEngine.h>
 #include<Core/YiaGraphic.h>
 #include<ThirdParty/WinPixEventRuntime.1.0.210818001/Include/WinPixEventRuntime/pix3.h>
-
+#include<Renderer/Renderer.h>
 using namespace YiaEngine;
 
 class SampleLayer :public Layer
@@ -45,7 +45,7 @@ public:
 
 		
 
-		Graphic::Shader sampleShader;
+	
 		Graphic::LoadShader(loadDesc, sampleShader);
 
 		Math::Vec3f pos[] = {
@@ -94,8 +94,8 @@ public:
 		//pso.SetRenderTarget();
 		pso.Finalize();
 		 
-		VertexAttributeArray positionAttr = CreateVertexAttribute(VertexAttribute::kPosition,DataFormate::kFloat_3,6,pos);
-		VertexAttributeArray uvAttr = CreateVertexAttribute(VertexAttribute::kTexcoord, DataFormate::kFloat_2, 6, uv);
+		VertexAttributeArray positionAttr = CreateVertexAttribute(VertexAttributeEnum::kPosition,DataFormate::kFloat_3,6,pos);
+		VertexAttributeArray uvAttr = CreateVertexAttribute(VertexAttributeEnum::kTexcoord, DataFormate::kFloat_2, 6, uv);
 		fullScreenRect.SetName("FullScreenRect");
 		fullScreenRect.AddAttribute(positionAttr);
 		fullScreenRect.AddAttribute(uvAttr);
@@ -160,36 +160,15 @@ public:
 	void RenderScene()
 	{
 		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
-		/*Graphic::RenderBuffer sceneColorBuffer;
 
-	
-		auto& editorSceneColorTarget = imGuiLayer.SceneColorBuffer();
-		sceneColorBuffer.Create(L"ColorTarget", editorSceneColorTarget.Size().x(), editorSceneColorTarget.Size().y(), DXGI_FORMAT_R8G8B8A8_UNORM);
-		*/
-		// sceneColorBuffer
-		if (sceneColorBuffer.Size().x() == 0 || sceneColorBuffer.Size().y() == 0)
-			return;
-		
-		D3D12_VERTEX_BUFFER_VIEW views[] = { posVbo,uvVbo };
-	
-		viewport.Width = sceneColorBuffer.Size().x();
-		viewport.Height = sceneColorBuffer.Size().y();
-		scissorRect.right = sceneColorBuffer.Size().x();
-		scissorRect.bottom = sceneColorBuffer.Size().y();
-		Graphic::GraphicContext& sceneContext = Graphic::GraphicContext::Begin();
-		sceneContext.SetPipelineState(pso);
-		sceneContext.SetRootSignature(signature);
-		sceneContext.BindGpuDescriptor();
-		sceneContext.SetVertexBuffers(0,2, views);
-		sceneContext.SetIndexBuffer(&ibo);
-		sceneContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		sceneContext.SetViewPortAndScissorRects(&viewport, &scissorRect);
-		sceneContext.TransitionBarrier(sceneColorBuffer, D3D12_RESOURCE_STATE_RENDER_TARGET);
-		sceneContext.SetRenderTarget(sceneColorBuffer.RtvCpuHandlePtr(),nullptr);
-		sceneContext.ClearRenderTarget(sceneColorBuffer.RtvCpuHandle());
-		sceneContext.DrawIndexInstance(6, 1,0,0,0);
-		sceneContext.TransitionBarrier(sceneColorBuffer, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
-		sceneContext.End();
+		DefaultRenderer.Begin();
+		DefaultRenderer.SetRenderTarget(&sceneColorBuffer);
+		DefaultRenderer.ClearRenderTarget();
+		DefaultRenderer.SetRootSignature(signature);
+		DefaultRenderer.DrawMesh(fullScreenRect, pso, sampleShader);
+		DefaultRenderer.End();
+
+
 	}
 	D3D12_VERTEX_BUFFER_VIEW posVbo;
 	D3D12_VERTEX_BUFFER_VIEW uvVbo;
@@ -202,6 +181,8 @@ public:
 	CD3DX12_RECT scissorRect;
 	Graphic::RootSignature signature;
 	Mesh fullScreenRect;
+	Graphic::Shader sampleShader;
+	Graphic::Renderer DefaultRenderer;
 };
 
 

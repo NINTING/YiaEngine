@@ -59,7 +59,7 @@ namespace YiaEngine:: Graphic
         CommandContext::InitializeBuffer(*this, initData,offset);
     }
 
-    D3D12_VERTEX_BUFFER_VIEW GpuBuffer::VertexBufferView(size_t offset, UINT stride, UINT dataSize)
+    D3D12_VERTEX_BUFFER_VIEW GpuBuffer::VertexBufferView(size_t offset, UINT stride, UINT dataSize)const
     {
         D3D12_VERTEX_BUFFER_VIEW vbo;
         vbo.BufferLocation = gpuVirtualAddress_ + offset;
@@ -67,7 +67,7 @@ namespace YiaEngine:: Graphic
         vbo.SizeInBytes = dataSize;
         return vbo;
     }
-    D3D12_INDEX_BUFFER_VIEW GpuBuffer::IndexBufferView(size_t offset, UINT stride, UINT dataSize)
+    D3D12_INDEX_BUFFER_VIEW GpuBuffer::IndexBufferView(size_t offset, UINT stride, UINT dataSize)const
     {
         D3D12_INDEX_BUFFER_VIEW ibo;
         ibo.BufferLocation = gpuVirtualAddress_ + offset;

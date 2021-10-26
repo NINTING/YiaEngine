@@ -1,6 +1,7 @@
 #pragma once
 #include"Graphic.h"
 #include"Common/DataFormat.h"
+#include"Common/Model/MeshObject.h"
 namespace YiaEngine
 {
 	namespace Graphic
@@ -11,7 +12,7 @@ namespace YiaEngine
 			int SemanticIndex;
 			int NameSize;
 			DataFormate format;
-
+			VertexAttributeEnum Attribute;
 
 		};
 		struct VertexInputLayout

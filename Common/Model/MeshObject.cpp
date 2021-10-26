@@ -14,6 +14,7 @@ namespace YiaEngine
 	void Mesh::AddAttribute(const VertexAttributeArray& attribute)
 	{
 		attributes_.push_back(attribute);
+		
 	}
 
 	void Mesh::AddIndices(UINT count, const UINT* indices)
@@ -31,7 +32,9 @@ namespace YiaEngine
 		{
 			gemoSize += attributes_[i].DataSize;
 		}
+		VertexDataSize = gemoSize;
 		gemoSize += indices_.size() * sizeof(UINT);
+	
 		//	size_t gemoSize = positionAttr.DataSize + uvAttr.DataSize;
 		std::stringstream ss;
 		ss << name_;
@@ -75,5 +78,23 @@ namespace YiaEngine
 		memcpy_s(ret.Data.get(), ret.DataSize, data, ret.DataSize);
 
 		return ret;
+	}
+
+	D3D12_VERTEX_BUFFER_VIEW Mesh::GetVertexBuffer(VertexAttributeEnum attribute)const
+	{
+		size_t offset = 0;
+		for (size_t i = 0; i < attributes_.size(); i++)
+		{
+			if (attributes_[i].Attribute == attribute)
+			{
+				return gpuBuffer_.VertexBufferView(offset, attributes_[i].Stride, attributes_[i].DataSize);
+			}
+			offset += attributes_[i].DataSize;
+		}
+		YIA_ASSERT("尚不支持该属性");
+	}
+	D3D12_INDEX_BUFFER_VIEW Mesh::GetIndexBuffer() const
+	{
+		return gpuBuffer_.IndexBufferView(VertexDataSize, sizeof(UINT), indices_.size() * sizeof(UINT));
 	}
 }

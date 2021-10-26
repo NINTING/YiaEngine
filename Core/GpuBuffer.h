@@ -12,9 +12,9 @@ namespace YiaEngine:: Graphic
 		void Create(size_t data_size, size_t stride, void* data = nullptr);
 		void Create(const wchar_t* name, int numElement,int elementSize,const void* initData);
 		void Create(const wchar_t* name, int numElement, int elementSize, const UploadBuffer& initData,UINT offset = 0);
-		D3D12_VERTEX_BUFFER_VIEW VertexBufferView(size_t offset, UINT stride, UINT dataSize);
+		D3D12_VERTEX_BUFFER_VIEW VertexBufferView(size_t offset, UINT stride, UINT dataSize)const;
 
-		D3D12_INDEX_BUFFER_VIEW IndexBufferView(size_t offset, UINT stride, UINT dataSize);
+		D3D12_INDEX_BUFFER_VIEW IndexBufferView(size_t offset, UINT stride, UINT dataSize)const;
 		size_t BufferSize() { return bufferSize_; }
 	protected:
 		//void Create(size_t data_size, size_t stride, void* data);
