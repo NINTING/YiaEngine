@@ -31,22 +31,29 @@ public:
 	}
 	void Load()
 	{
-	
+
 
 		Graphic::ShaderLoadDesc loadDesc = {};
+		Graphic::ShaderLoadDesc boxLoadDesc = {};
 #ifdef USE_PIX
 		const wchar_t* filename = L"D:/Yia/YiaEngine/Shader/SampleShader.hlsl";
+		const wchar_t* boxFilename = L"D:/Yia/YiaEngine/Shader/DefaultShader.hlsl";
 #else
 		const wchar_t* filename = L"../Shader/SampleShader.hlsl";
+		const wchar_t* boxFilename = L"../Shader/SampleShader.hlsl";
 #endif
 
 		loadDesc.StageLoadDesc[0] = { filename,Graphic::Shader_Stage_Vertex,L"vs_6_2" };
 		loadDesc.StageLoadDesc[1] = { filename,Graphic::Shader_Stage_Pixel,L"ps_6_2" };
-
 		
+		boxLoadDesc.StageLoadDesc[0] = { boxFilename,Graphic::Shader_Stage_Vertex,L"vs_6_2" };
+		boxLoadDesc.StageLoadDesc[1] = { boxFilename,Graphic::Shader_Stage_Pixel,L"ps_6_2" };
 
-	
+
 		Graphic::LoadShader(loadDesc, sampleShader);
+
+
+		Graphic::LoadShader(boxLoadDesc, defaultShader);
 
 		Math::Vec3f pos[] = {
 			{ -1.0f, 1.f , 0.0f },
@@ -56,6 +63,8 @@ public:
 			{ 1.f, 1.f , 0.0f },
 			{ 1.f, -1.f , 0.0f }
 		};
+
+
 		Math::Vec2f uv[] =
 		{
 			{0,0},
@@ -66,6 +75,79 @@ public:
 			{1,1}
 		};
 		UINT index[] = { 0,1,2,3,4,5 };
+
+		Math::Vec3f BoxPos[] = {
+			//上
+			{ -1.0f, 1.f , 1.0f },
+			{ 1.0f, 1.f , 1.0f },
+			{ 1.0f, 1.f , -1.0f },
+			{ -1.0f, 1.f , -1.0f },
+			//下
+			{ -1.0f, -1.f , 1.0f },
+			{ 1.0f, -1.f , 1.0f },
+			{ 1.0f, -1.f , -1.0f },
+			{ -1.0f, -1.f , -1.0f },
+			//左
+			{ -1.0f, 1.f , 1.0f },
+			{ -1.0f, 1.f , -1.0f },
+			{ -1.0f, -1.f , -1.0f },
+			{ -1.0f, -1.f , 1.0f },
+			//右
+			{ 1.0f, 1.f , 1.0f },
+			{ 1.0f, 1.f , -1.0f },
+			{ 1.0f, -1.f , -1.0f },
+			{ 1.0f, -1.f , 1.0f },
+			//前
+			{ -1.0f, 1.f , -1.0f },
+			{ 1.0f, 1.f , -1.0f },
+			{ 1.0f, -1.f , -1.0f },
+			{ -1.0f, -1.f , -1.0f },
+			//前
+			{ -1.0f, 1.f ,	1.0f },
+			{ 1.0f, 1.f ,	1.0f },
+			{ 1.0f, -1.f ,	1.0f },
+			{ -1.0f, -1.f , 1.0f },
+		};
+		Math::Vec2f Boxuv[] =
+		{
+			{0,0},
+			{1,0},
+			{1,1},
+			{0,1},
+
+			{0,0},
+			{1,0},
+			{1,1},
+			{0,1},
+
+			{0,0},
+			{1,0},
+			{1,1},
+			{0,1},
+
+			{0,0},
+			{1,0},
+			{1,1},
+			{0,1},
+
+			{0,0},
+			{1,0},
+			{1,1},
+			{0,1},
+
+			{0,0},
+			{1,0},
+			{1,1},
+			{0,1},
+
+		};
+		UINT boxIndex[] = {
+			0,1,3,1,2,3,
+			4,5,7,4,5,6,
+			8,9,11,8,9,10,
+			12,13,15,12,13,14,
+			16,17,19,16,17,18,
+			20,21,23,20,21,22 };
 		D3D12_INPUT_LAYOUT_DESC desc;
 		auto& vertexInput = sampleShader.Reflect[0].VertexInput;
 
@@ -90,40 +172,22 @@ public:
 		pso.SetInputLayout(desc.NumElements, elements);
 		delete elements;
 		pso.SetShader(sampleShader);
-		
+
 		//pso.SetRenderTarget();
 		pso.Finalize();
-		 
-		VertexAttributeArray positionAttr = CreateVertexAttribute(VertexAttributeEnum::kPosition,DataFormate::kFloat_3,6,pos);
-		VertexAttributeArray uvAttr = CreateVertexAttribute(VertexAttributeEnum::kTexcoord, DataFormate::kFloat_2, 6, uv);
+
 		fullScreenRect.SetName("FullScreenRect");
-		fullScreenRect.AddAttribute(positionAttr);
-		fullScreenRect.AddAttribute(uvAttr);
+		fullScreenRect.AddAttribute(CreateVertexAttribute(VertexAttributeEnum::kPosition, DataFormate::kFloat_3, 6, pos));
+		fullScreenRect.AddAttribute(CreateVertexAttribute(VertexAttributeEnum::kTexcoord, DataFormate::kFloat_2, 6, uv));
 		fullScreenRect.AddIndices(6, index);
 		fullScreenRect.CreateMeshGpuBuffer();
-		//Graphic::UploadBuffer upload;
 
-		//size_t gemoSize =positionAttr.DataSize + uvAttr.DataSize;
+		Box.SetName("Box");
+		Box.AddAttribute(CreateVertexAttribute(VertexAttributeEnum::kPosition, DataFormate::kFloat_3, 24, BoxPos));
+		Box.AddAttribute(CreateVertexAttribute(VertexAttributeEnum::kTexcoord, DataFormate::kFloat_2, 6, Boxuv));
+		Box.AddIndices(sizeof(boxIndex) / sizeof(int), boxIndex);
+		Box.CreateMeshGpuBuffer();
 
-		//upload.Create(L"UploadGemoBuffer", sizeof(uv) + sizeof(pos));
-		//uint8_t* memory = (uint8_t*)upload.Map();
-
-		//memcpy(memory, positionAttr.Data.get(), positionAttr.DataSize);
-		//memcpy(memory + positionAttr.DataSize, uvAttr.Data.get(), uvAttr.DataSize);
-		//
-		//upload.UnMap();
-
-		//gemoBuffer.Create(L"triangle gemo", gemoSize, 1, upload);
-
-		/*posVbo = gemoBuffer.VertexBufferView(0, positionAttr.Stride, positionAttr.DataSize);
-		uvVbo = gemoBuffer.VertexBufferView(positionAttr.DataSize, uvAttr.Stride, uvAttr.DataSize);*/
-
-		posVbo = fullScreenRect.MeshBuffer().VertexBufferView(0, positionAttr.Stride, positionAttr.DataSize);
-		uvVbo = fullScreenRect.MeshBuffer().VertexBufferView(positionAttr.DataSize, uvAttr.Stride, uvAttr.DataSize);
-		ibo = fullScreenRect.MeshBuffer().IndexBufferView(positionAttr.DataSize + uvAttr.DataSize,sizeof(UINT),sizeof(index));
-
-		viewport = CD3DX12_VIEWPORT(0.f, 0.f, 0.f, 0.f);
-		scissorRect = CD3DX12_RECT(0.f, 0.f, 0.f, 0.f);
 	}
 	virtual void Init() 
 	{
@@ -181,7 +245,9 @@ public:
 	CD3DX12_RECT scissorRect;
 	Graphic::RootSignature signature;
 	Mesh fullScreenRect;
+	Mesh Box;
 	Graphic::Shader sampleShader;
+	Graphic::Shader defaultShader;
 	Graphic::Renderer DefaultRenderer;
 };
 

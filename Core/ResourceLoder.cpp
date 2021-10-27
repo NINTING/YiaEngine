@@ -166,10 +166,36 @@ namespace YiaEngine::Graphic
 				YIA_INFO("		Size {0}", desc.Size);
 				YIA_INFO("		Type {0}", desc.Type);
 				YIA_INFO("		Variables {0}", desc.Variables);
+				for (size_t j = 0; j < desc.Variables; j++)
+				{
+					ID3D12ShaderReflectionVariable* var =buffer->GetVariableByIndex(j);
+					D3D12_SHADER_VARIABLE_DESC desc;
+					var->GetDesc(&desc);
+					YIA_INFO("\t\t\tName {0}", desc.Name);
+					YIA_INFO("\t\t\tsize {0}", desc.Size);
+					YIA_INFO("\t\t\tStartOffset {0}", desc.StartOffset);
+					YIA_INFO("\t\t\tStartSampler {0}", desc.StartSampler);
+					YIA_INFO("\t\t\tStartTexture {0}", desc.StartTexture);
+					YIA_INFO("\t\t\tTextureSize {0}", desc.TextureSize);
+					
+					ID3D12ShaderReflectionType* type =var->GetType();
+					D3D12_SHADER_TYPE_DESC typeDesc;
+					type->GetDesc(&typeDesc);
+					//typeDesc
+
+				}
+
 			}
 			YIA_INFO("BoundResources {0}", shader_desc.BoundResources);
-			YIA_INFO("InstructionCount {0}", shader_desc.InstructionCount);
+			
 
+
+			/*for (size_t i = 0; i < length; i++)
+			{
+
+			}*/
+			YIA_INFO("InstructionCount {0}", shader_desc.InstructionCount);
+		
 
 			for (int i = 0; i < shader_desc.BoundResources; i++)
 			{
@@ -186,8 +212,8 @@ namespace YiaEngine::Graphic
 				std::cout << "type name is " << resourceType << std::endl;
 				std::cout << "bind point is " << bindPoint << std::endl;
 				std::cout << "register space is " << registerSpace << std::endl;
-
 			}
+
 		}
 	}
 

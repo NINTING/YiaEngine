@@ -1,224 +1,243 @@
-[22:55:30] [info] APP: App init
-[22:55:30] [info] APP: InputParament 2
-[22:55:30] [info] APP:   InputParament 0
-[22:55:30] [info] APP: 	name POSITION
-[22:55:30] [info] APP: 	SemanticIndex 0
-[22:55:30] [info] APP: 	register 0
-[22:55:30] [info] APP: 	SystemValueType 0
-[22:55:30] [info] APP: 	ComponentType 3
-[22:55:30] [info] APP: 	Stream 0
-[22:55:30] [info] APP: 	Mask 7
-[22:55:30] [info] APP: 	ReadWriteMask 7
-[22:55:30] [info] APP:   InputParament 1
-[22:55:30] [info] APP: 	name TEXCOORD
-[22:55:30] [info] APP: 	SemanticIndex 0
-[22:55:30] [info] APP: 	register 1
-[22:55:30] [info] APP: 	SystemValueType 0
-[22:55:30] [info] APP: 	ComponentType 3
-[22:55:30] [info] APP: 	Stream 0
-[22:55:30] [info] APP: 	Mask 3
-[22:55:30] [info] APP: 	ReadWriteMask 3
-[22:55:30] [info] APP: ConstantBuffers 0
-[22:55:30] [info] APP: BoundResources 0
-[22:55:30] [info] APP: InstructionCount 12
-[22:55:30] [info] APP: ConstantBuffers 0
-[22:55:30] [info] APP: BoundResources 0
-[22:55:30] [info] APP: InstructionCount 7
-[22:55:30] [info] APP: 1691969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:30] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:31] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] APP: 1264969
-[22:55:32] [info] CORE: App End
+[23:35:40] [info] APP: App init
+[23:35:40] [info] APP: InputParament 2
+[23:35:40] [info] APP:   InputParament 0
+[23:35:40] [info] APP: 	name POSITION
+[23:35:40] [info] APP: 	SemanticIndex 0
+[23:35:40] [info] APP: 	register 0
+[23:35:40] [info] APP: 	SystemValueType 0
+[23:35:40] [info] APP: 	ComponentType 3
+[23:35:40] [info] APP: 	Stream 0
+[23:35:40] [info] APP: 	Mask 7
+[23:35:40] [info] APP: 	ReadWriteMask 7
+[23:35:40] [info] APP:   InputParament 1
+[23:35:40] [info] APP: 	name TEXCOORD
+[23:35:40] [info] APP: 	SemanticIndex 0
+[23:35:40] [info] APP: 	register 1
+[23:35:40] [info] APP: 	SystemValueType 0
+[23:35:40] [info] APP: 	ComponentType 3
+[23:35:40] [info] APP: 	Stream 0
+[23:35:40] [info] APP: 	Mask 3
+[23:35:40] [info] APP: 	ReadWriteMask 3
+[23:35:40] [info] APP: ConstantBuffers 0
+[23:35:40] [info] APP: BoundResources 0
+[23:35:40] [info] APP: InstructionCount 12
+[23:35:40] [info] APP: ConstantBuffers 0
+[23:35:40] [info] APP: BoundResources 0
+[23:35:40] [info] APP: InstructionCount 7
+[23:35:40] [info] APP: InputParament 2
+[23:35:40] [info] APP:   InputParament 0
+[23:35:40] [info] APP: 	name POSITION
+[23:35:40] [info] APP: 	SemanticIndex 0
+[23:35:40] [info] APP: 	register 0
+[23:35:40] [info] APP: 	SystemValueType 0
+[23:35:40] [info] APP: 	ComponentType 3
+[23:35:40] [info] APP: 	Stream 0
+[23:35:40] [info] APP: 	Mask 7
+[23:35:40] [info] APP: 	ReadWriteMask 7
+[23:35:40] [info] APP:   InputParament 1
+[23:35:40] [info] APP: 	name TEXCOORD
+[23:35:40] [info] APP: 	SemanticIndex 0
+[23:35:40] [info] APP: 	register 1
+[23:35:40] [info] APP: 	SystemValueType 0
+[23:35:40] [info] APP: 	ComponentType 3
+[23:35:40] [info] APP: 	Stream 0
+[23:35:40] [info] APP: 	Mask 3
+[23:35:40] [info] APP: 	ReadWriteMask 3
+[23:35:40] [info] APP: ConstantBuffers 1
+[23:35:40] [info] APP: 	ConstBuffer 0
+[23:35:40] [info] APP: 		name ConstBufferPerFrame
+[23:35:40] [info] APP: 		Size 256
+[23:35:40] [info] APP: 		Type 0
+[23:35:40] [info] APP: 		Variables 4
+[23:35:40] [info] APP: 			Name ObjectMat
+[23:35:40] [info] APP: 			size 64
+[23:35:40] [info] APP: 			StartOffset 0
+[23:35:40] [info] APP: 			StartSampler 0
+[23:35:40] [info] APP: 			StartTexture 0
+[23:35:40] [info] APP: 			TextureSize 0
+[23:35:40] [info] APP: 			Name WorldMat
+[23:35:40] [info] APP: 			size 64
+[23:35:40] [info] APP: 			StartOffset 64
+[23:35:40] [info] APP: 			StartSampler 0
+[23:35:40] [info] APP: 			StartTexture 0
+[23:35:40] [info] APP: 			TextureSize 0
+[23:35:40] [info] APP: 			Name ViewMat
+[23:35:40] [info] APP: 			size 64
+[23:35:40] [info] APP: 			StartOffset 128
+[23:35:40] [info] APP: 			StartSampler 0
+[23:35:40] [info] APP: 			StartTexture 0
+[23:35:40] [info] APP: 			TextureSize 0
+[23:35:40] [info] APP: 			Name ProjMat
+[23:35:40] [info] APP: 			size 64
+[23:35:40] [info] APP: 			StartOffset 192
+[23:35:40] [info] APP: 			StartSampler 0
+[23:35:40] [info] APP: 			StartTexture 0
+[23:35:40] [info] APP: 			TextureSize 0
+[23:35:40] [info] APP: BoundResources 1
+[23:35:40] [info] APP: InstructionCount 301
+[23:35:40] [info] APP: ConstantBuffers 0
+[23:35:40] [info] APP: BoundResources 0
+[23:35:40] [info] APP: InstructionCount 7
+[23:35:40] [info] APP: 1691969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:40] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] APP: 1264969
+[23:35:41] [info] CORE: App End
