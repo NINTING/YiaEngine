@@ -6,6 +6,8 @@
 #include"GraphicContext.h"
 #include"RootSignature.h"
 #include"DescriptorHeap.h"
+
+#include"Common/Utility.h"
 namespace YiaEngine
 {
 	namespace Graphic
@@ -97,8 +99,25 @@ namespace YiaEngine
 				if(validCount!=0)
 					viewDescriptorAllocator.CopyToGpuDescriptor(validCount, copySrc, gpuCurrentHandle.GetCpuAddress());
 			}
+		}
+		void GraphicContext::BindTestConstBufferView(int rootIndex, D3D12_GPU_VIRTUAL_ADDRESS address)
+		{
+			commandList_->SetGraphicsRootConstantBufferView(rootIndex, address);
+		}
+		void GraphicContext::BindConstBufferView(int rootIndex,UINT size, void* data,const char* name)
+		{
+			AllocateBuffer allcBuffer =  GetAllocateUploadBuffer(size,16);
 
-			
+			wchar_t* wname = new wchar_t[strlen( name )+ 1];
+			Char2Wchar(name,  wname);
+
+
+			allcBuffer.Buffer.SetResourceName(wname);
+			memcpy_s(allcBuffer.CpuAddress,size,data,size);
+
+			commandList_->SetGraphicsRootConstantBufferView(rootIndex, allcBuffer.GpuAddress);
+		
+			delete wname;
 		}
 		void GraphicContext::SetViewPortAndScissorRects(const D3D12_VIEWPORT* pViewPort, const D3D12_RECT* pAcissorRect)
 		{

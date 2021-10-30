@@ -13,7 +13,11 @@ namespace YiaEngine
 			clearValue.Color[1] = 1.0f;
 			clearValue.Color[2] = 1.0f;
 			clearValue.Color[3] = 1.0f;
-			CreateResource(width, height, format, &clearValue, numMip, arraySize, sampleCount);
+			
+
+			auto desc = DescribeTex2D(width, height, arraySize, numMip, format, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
+			CreateTextureResource(name, desc,&clearValue);
+
 			CreateView(format, arraySize, numMip);
 
 			resource_->SetName(name);
@@ -77,7 +81,7 @@ namespace YiaEngine
 
 		void RenderBuffer::CreateResource(UINT width, UINT height, DXGI_FORMAT format, const D3D12_CLEAR_VALUE* clearValue, UINT arraySize, UINT sampleCount, UINT numMip)
 		{
-			auto desc = CD3DX12_RESOURCE_DESC::Tex2D(format, width, height, arraySize, numMip, sampleCount, 0, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
+			auto desc = DescribeTex2D(width,height,arraySize, numMip, format, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);// CD3DX12_RESOURCE_DESC::Tex2D(format, width, height, arraySize, numMip, sampleCount, 0, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
 			auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
 			ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(
 				&heap_properties,
@@ -88,13 +92,11 @@ namespace YiaEngine
 				IID_PPV_ARGS(&resource_)));
 			usage_ = D3D12_RESOURCE_STATE_COMMON;
 			
+			
+
 			gpuVirtualAddress_ = ADDRESS_NULL;	//用不到该属性
 		
-			width_ = width;
-			height_ = height;
-			format_ = format;
-			numMips_ = numMip;
-			arraySize_ = arraySize;
+		
 		}
 	}
 }

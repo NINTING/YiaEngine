@@ -62,4 +62,11 @@ namespace YiaEngine::Graphic
 
 		rootSignature_->SetName(name);
 	}
+	void RootParameter::InitAsConstBufferView(D3D12_SHADER_VISIBILITY visibility,UINT registerSpace,UINT shaderSpace)
+	{
+		parameter_.ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;
+		parameter_.ShaderVisibility = visibility;
+		parameter_.Descriptor.RegisterSpace = registerSpace;
+		parameter_.Descriptor.ShaderRegister = shaderSpace;
+	}
 }

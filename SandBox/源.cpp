@@ -143,16 +143,16 @@ public:
 		};
 		UINT boxIndex[] = {
 			0,1,3,1,2,3,
-			4,5,7,4,5,6,
-			8,9,11,8,9,10,
-			12,13,15,12,13,14,
-			16,17,19,16,17,18,
-			20,21,23,20,21,22 };
+			4,5,7,5,6,7,
+			8,9,11,9,10,11,
+			12,13,15,13,14,15,
+			16,17,19,17,18,19,
+			20,21,23,21,22,23 };
 		D3D12_INPUT_LAYOUT_DESC desc;
 		auto& vertexInput = sampleShader.Reflect[0].VertexInput;
 
 		desc.NumElements = sampleShader.Reflect[0].VertexInput.AttributesCount;
-		D3D12_INPUT_ELEMENT_DESC* elements = new D3D12_INPUT_ELEMENT_DESC[desc.NumElements];
+		D3D12_INPUT_ELEMENT_DESC elements[8];// = new D3D12_INPUT_ELEMENT_DESC[desc.NumElements];
 		for (size_t i = 0; i < desc.NumElements; i++)
 		{
 			elements[i].SemanticName = vertexInput.Attrs[i].SemanticName;
@@ -164,17 +164,21 @@ public:
 			elements[i].InstanceDataStepRate = 0;
 		}
 
-		signature.Reset(0, 0);
+		signature.Reset(1, 0);
+		signature[0].InitAsConstBufferView(D3D12_SHADER_VISIBILITY_PIXEL, 0);
 		signature.Finalize(L"SampleSignature", D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+
 		pso = Graphic::PipelineStateObject::s_DefaultPSO;
-		pso.SetRootSignature(signature);
+		pso.SetRootSignature(signature); 
 
 		pso.SetInputLayout(desc.NumElements, elements);
-		delete elements;
+		//delete elements;
+
 		pso.SetShader(sampleShader);
 
 		//pso.SetRenderTarget();
 		pso.Finalize();
+
 
 		fullScreenRect.SetName("FullScreenRect");
 		fullScreenRect.AddAttribute(CreateVertexAttribute(VertexAttributeEnum::kPosition, DataFormate::kFloat_3, 6, pos));
@@ -184,10 +188,53 @@ public:
 
 		Box.SetName("Box");
 		Box.AddAttribute(CreateVertexAttribute(VertexAttributeEnum::kPosition, DataFormate::kFloat_3, 24, BoxPos));
-		Box.AddAttribute(CreateVertexAttribute(VertexAttributeEnum::kTexcoord, DataFormate::kFloat_2, 6, Boxuv));
+		Box.AddAttribute(CreateVertexAttribute(VertexAttributeEnum::kTexcoord, DataFormate::kFloat_2, 24, Boxuv));
 		Box.AddIndices(sizeof(boxIndex) / sizeof(int), boxIndex);
 		Box.CreateMeshGpuBuffer();
 
+		BoxSignature.Reset(1, 0);
+		BoxSignature[0].InitAsConstBufferView(D3D12_SHADER_VISIBILITY_VERTEX,0);
+		BoxSignature.Finalize(L"BoxSignature", D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT );
+
+		CD3DX12_RASTERIZER_DESC wirframe_rasterized_desc(D3D12_FILL_MODE_WIREFRAME, D3D12_CULL_MODE_NONE,
+			false, 0, 0, 0, true, false, true, 0,
+			D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF);
+
+		default3DPso = Graphic::PipelineStateObject::s_DefaultPSO;
+		default3DPso.SetRootSignature(BoxSignature);
+		default3DPso.SetRasterizerState(wirframe_rasterized_desc);
+		default3DPso.SetInputLayout(desc.NumElements, elements);
+		//delete elements;
+
+		default3DPso.SetShader(defaultShader);
+
+		//pso.SetRenderTarget();
+		default3DPso.Finalize();
+
+		camera.Position(Math::Vec3f(0, 0, -3));
+
+		camera.Front(Math::Vec3f(0, 0, 1));
+		Math::Mat4x4f viewMat = camera.ViewMatrix();
+		Math::Mat4x4f projMat = camera.ProjectionMatrix();
+		Math::Mat4x4f worldMat = Math::Mat4x4f::Identity();
+
+		auto tmp_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+		auto tmp_buffer_desc = CD3DX12_RESOURCE_DESC::Buffer(sizeof(Math::Vec4f));
+		ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(&tmp_properties,
+			D3D12_HEAP_FLAG_NONE,
+			&tmp_buffer_desc,
+			D3D12_RESOURCE_STATE_GENERIC_READ,
+			nullptr, IID_PPV_ARGS(&g_cbv))
+		);
+		finalColor = Math::Vec4f(0.5, 0, 0.5, 1);
+		CD3DX12_RANGE range(0, 0);
+		UINT8* buffer_begin;
+		ASSERT_SUCCEEDED(g_cbv->Map(0, &range, reinterpret_cast<void**>(&buffer_begin)));
+		memcpy(buffer_begin, &finalColor, sizeof(finalColor));
+		g_cbv->Unmap(0, nullptr);
+		//Graphic::UploadBuffer perFrameUpLoadBuffer;
+		//Graphic::GpuBuffer perFrameBuffer;
+		//perFrameBuffer.Create();
 	}
 	virtual void Init() 
 	{
@@ -224,14 +271,25 @@ public:
 	void RenderScene()
 	{
 		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
+		
+		//DefaultRenderer.Begin();
+		//DefaultRenderer.SetRenderTarget(&sceneColorBuffer);
+		//DefaultRenderer.SetRootSignature(signature);
+		//DefaultRenderer.SetTestConstBufferView(0, g_cbv->GetGPUVirtualAddress());
+		////DefaultRenderer.SetConstBufferView(0,sizeof(finalColor), &finalColor);
+		//DefaultRenderer.SetCamera(camera);
+		//DefaultRenderer.ClearRenderTarget();
+
+		//DefaultRenderer.DrawMesh(fullScreenRect, pso, sampleShader);
+		//DefaultRenderer.End();
 
 		DefaultRenderer.Begin();
 		DefaultRenderer.SetRenderTarget(&sceneColorBuffer);
+		DefaultRenderer.SetCamera(camera);
 		DefaultRenderer.ClearRenderTarget();
-		DefaultRenderer.SetRootSignature(signature);
-		DefaultRenderer.DrawMesh(fullScreenRect, pso, sampleShader);
+		DefaultRenderer.SetRootSignature(BoxSignature);
+		DefaultRenderer.DrawMesh(Box, default3DPso, sampleShader);
 		DefaultRenderer.End();
-
 
 	}
 	D3D12_VERTEX_BUFFER_VIEW posVbo;
@@ -239,16 +297,23 @@ public:
 	D3D12_INDEX_BUFFER_VIEW ibo;
 	
 	Graphic::PipelineStateObject pso;
+	
+	Graphic::PipelineStateObject default3DPso;
 
 	Graphic::GpuBuffer gemoBuffer;
 	CD3DX12_VIEWPORT viewport;
 	CD3DX12_RECT scissorRect;
 	Graphic::RootSignature signature;
+	Math::Vec4f finalColor = Math::Vec4f(1, 0, 0.5, 1);
+	Graphic::RootSignature BoxSignature;
+
 	Mesh fullScreenRect;
 	Mesh Box;
 	Graphic::Shader sampleShader;
 	Graphic::Shader defaultShader;
 	Graphic::Renderer DefaultRenderer;
+	ComPtr<ID3D12Resource>g_cbv;
+	Camera camera;
 };
 
 

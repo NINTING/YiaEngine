@@ -1,4 +1,8 @@
 
+#define Renderer_RootSig \
+    "RootFlags(ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT), " \
+    "CBV(b0, visibility = SHADER_VISIBILITY_VERTEX) " \
+
 Texture2D t1 : register(t0);
 SamplerState s1 : register(s0);
 
@@ -29,11 +33,12 @@ struct  VSInput
 
 float4 ObjectToClipProjection(float4 p)
 {
-    float4x4 wvp =  mul(mul(mul(ObjectMat,WorldMat),ViewMat),ProjMat);
-
-    return mul(p,wvp);
+    //float4x4 wvp =  mul(mul(mul(ObjectMat,WorldMat),ViewMat),ProjMat);
+    float4x4 wvp = mul(ProjMat,ViewMat);
+    
+    return mul(wvp,p);
 }
-
+[RootSignature(Renderer_RootSig)]
 PSInput VsMain(VSInput input)
 {
     PSInput result;

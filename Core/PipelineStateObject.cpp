@@ -96,6 +96,14 @@ namespace YiaEngine::Graphic
 	{
 		desc_.RasterizerState = state;
 	}
+	void PipelineStateObject::SetWireframeShowMode()
+	{
+		desc_.RasterizerState.FillMode = D3D12_FILL_MODE_WIREFRAME;
+	}
+	void PipelineStateObject::SetSolideShowMode()
+	{
+		desc_.RasterizerState.FillMode = D3D12_FILL_MODE_SOLID;
+	}
 	void PipelineStateObject::SetBlendState(D3D12_BLEND_DESC desc)
 	{
 		desc_.BlendState = desc;

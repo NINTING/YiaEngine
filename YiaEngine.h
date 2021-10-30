@@ -10,3 +10,5 @@
 #include"Common/Model/VertexArray.h"
 #include"Common/Model/MeshObject.h"
 #include"EntryPoint.h"
+
+#include"Common/Camera.h"

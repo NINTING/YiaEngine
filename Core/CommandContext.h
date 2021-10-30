@@ -50,9 +50,9 @@ namespace YiaEngine
 
 		//	CommandContext();
 
-			AllocateBuffer GetAllocateUploadBuffer(UINT64 size_byte) {
+			AllocateBuffer GetAllocateUploadBuffer(UINT64 size_byte, int aligment = 256) {
 				
-				return upload_allocator_.Allocate(size_byte);
+				return upload_allocator_.Allocate(size_byte,aligment);
 			}
 			/*AllocateBuffer GetTemplateUploadBuffer(size_t size_byte) {
 

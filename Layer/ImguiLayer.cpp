@@ -226,7 +226,7 @@ namespace YiaEngine
                 sceneHandle.GetCpuAddress(),
                 pSrcDescriptorRangeSizes,
                 1,
-                sceneColorBuffer.SrvHandle().GetCpuAddress(),
+                sceneColorBuffer.SrvCpuHandle().GetCpuAddress(),
                 pSrcDescriptorRangeSizes,
                 D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
             );
@@ -240,7 +240,7 @@ namespace YiaEngine
     void ImguiLayer::Image(const Graphic::GpuTexture& texture, const ImVec2& size)
     {
         //TODO: 通过GpuDescrptorAllocator 分配GpuHandle.不需要手动绑定
-        UINT pSrcDescriptorRangeSizes[1] = { 1 };
+       /* UINT pSrcDescriptorRangeSizes[1] = { 1 };
         UINT pDestDescriptorRangeSizes[1] = { 1 };
        Graphic::DescriptorHandle gpuHandle = gpuImGuiDescriptoHeap_.Alloc();
    
@@ -254,7 +254,7 @@ namespace YiaEngine
            D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
        );
 
-        ImGui::Image((ImTextureID)gpuHandle.GetGpuAddress()->ptr,size);
+        ImGui::Image((ImTextureID)gpuHandle.GetGpuAddress()->ptr,size);*/
     }
     bool ImguiLayer::OnMouseMoveEvent(MouseMoveEvent& e)
     {

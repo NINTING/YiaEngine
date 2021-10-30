@@ -19,7 +19,7 @@ namespace YiaEngine
 		
 #pragma region  Ù–‘
 	public:
-		Camera() :near_clip_(0.1f), far_clip_(1000.0f), aspect_(1.f), viewAngle(60.f), fov_type_(FovType::kVertical) {}
+		Camera() :near_clip_(0.1f), far_clip_(1000.0f), aspect_(1.f), viewAngle(60.f), fov_type_(FovType::kVertical),up_(Math::Vec3f(0,1,0)) {}
 		float HorizontalViewAngle();
 		float VerticalViewAngle();
 		float FarClip();

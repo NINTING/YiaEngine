@@ -23,6 +23,8 @@ namespace YiaEngine::Graphic
 			parameter_.DescriptorTable.NumDescriptorRanges = range_count;
 			parameter_.DescriptorTable.pDescriptorRanges = new D3D12_DESCRIPTOR_RANGE[range_count];
 		}
+		void InitAsConstBufferView(D3D12_SHADER_VISIBILITY visibility, UINT registerSpace, UINT shaderSpace = 0);
+		//void InitAsConst()
 		void SetTableRange(UINT index, UINT descriptor_count, D3D12_DESCRIPTOR_RANGE_TYPE type, UINT ragister,UINT space = 0)
 		{
 			auto range_ptr =  const_cast<D3D12_DESCRIPTOR_RANGE*>(&parameter_.DescriptorTable.pDescriptorRanges[index]);

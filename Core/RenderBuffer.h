@@ -27,12 +27,9 @@ namespace YiaEngine
 			void CreateResource(UINT width, UINT height, DXGI_FORMAT format, const D3D12_CLEAR_VALUE* clearValue, UINT arraySize, UINT sampleCount, UINT numMip);
 			void CreateView(DXGI_FORMAT format, UINT arraySize, UINT numMips);
 		protected:
-			UINT64 width_ = 0;
-			UINT64 height_ = 0;
-			DXGI_FORMAT format_;
-			UINT numMips_;
-			UINT arraySize_;
+			
 			DescriptorHandle rtvHandle_;
+			DescriptorHandle srvHandle_;
 		};
 	}
 }

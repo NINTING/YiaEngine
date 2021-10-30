@@ -38,6 +38,8 @@ namespace YiaEngine
 		void AddAttribute(const VertexAttributeArray& attribute);
 		void AddIndices(UINT count,const UINT* indices);
 		void CreateMeshGpuBuffer();
+		//int GetVertexCount();
+		int GetIndexCount() const{ return indices_.size(); };
 		Graphic::GpuBuffer& MeshBuffer() { return gpuBuffer_; };
 		UINT IndicesSizeInByte() { return indices_.size() * sizeof(UINT); }
 		D3D12_VERTEX_BUFFER_VIEW GetVertexBuffer (VertexAttributeEnum attributeEnum)const;

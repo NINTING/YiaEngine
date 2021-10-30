@@ -28,21 +28,26 @@ namespace YiaEngine
 			
 			void BindDescriptorTable(int rootIndex,const DescriptorHandle& startHandle);
 			void BindCpuDescriptor(int rootIndex, int offset, size_t num, const DescriptorHandle descriptorHandles[]);
+			void BindConstBufferView(int rootIndex, UINT size, void* data, const char* name = "");
 			void BindGpuDescriptor();
+
+			void BindTestConstBufferView(int rootIndex, D3D12_GPU_VIRTUAL_ADDRESS address);
+			
 			void SetViewPortAndScissorRects(const D3D12_VIEWPORT* pViewPort, const D3D12_RECT* pAcissorRect_);
 			void SetRenderTarget(const DescriptorHandle* renderTarget,const DescriptorHandle* depth);
 			void ClearRenderTarget(DescriptorHandle renderTarget, const Math::Vec4f& colors);
 			void ClearRenderTarget(DescriptorHandle renderTarget);
-		
+			
 			void SetRenderTargets(UINT numRT,const DescriptorHandle RTS[],const DescriptorHandle* depth);
 			void SetVertexBuffers(UINT slot, UINT bufferCount, const D3D12_VERTEX_BUFFER_VIEW* vertexView);
 			void SetIndexBuffer(const D3D12_INDEX_BUFFER_VIEW* indexView);
 			void ExecuteBundle(ID3D12GraphicsCommandList* bundle);
 			void SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY topology);
+		
 			void DrawInstance(UINT vertexCountPerInstance, UINT instanceCount, UINT startVertexLocation = 0, UINT startInstanceLocation = 0);
-		
+			
 			void DrawIndexInstance(UINT IndexCountPerInstance, UINT InstanceCount, UINT StartIndexLocation, INT BaseVertexLocation, UINT StartInstanceLocation);
-		
+			
 		private:
 			
 		};

@@ -28,8 +28,9 @@ namespace YiaEngine
             ResourceAllocatePage* ret = nullptr;
             while(!retired_queue_.empty()&& g_commandManager.IsComplete(retired_queue_.front().first))
             { 
-                retired_queue_.pop();
                 ready_queue_.push(retired_queue_.front().second);
+                retired_queue_.pop();
+              
             }
             if (!ready_queue_.empty())
             {
@@ -47,6 +48,7 @@ namespace YiaEngine
         {
             for (size_t i = 0; i < lists.size(); i++)
             {
+                
                 retired_queue_.push(std::make_pair(fence, lists[i]));
             }
         }
@@ -84,25 +86,27 @@ namespace YiaEngine
             ResourceDesc.SampleDesc.Quality = 0;
             ResourceDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 
-            D3D12_RESOURCE_STATES default_state = D3D12_RESOURCE_STATE_GENERIC_READ;
+            D3D12_RESOURCE_STATES default_state ;
             if(type_== AllocateType::kDefault)
             { 
                 ResourceDesc.Width = page_size == 0 ? kGpuAllocatorSize : page_size;
                 ResourceDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
                 HeapProps.Type = D3D12_HEAP_TYPE_DEFAULT;
+                default_state = D3D12_RESOURCE_STATE_UNORDERED_ACCESS;
             }
             else if(type_ == AllocateType::kUpload)
             { 
                 ResourceDesc.Width = page_size == 0 ? kCpuAllocatorSize : page_size;
                 HeapProps.Type = D3D12_HEAP_TYPE_UPLOAD;
                 ResourceDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
+                default_state = D3D12_RESOURCE_STATE_GENERIC_READ;
             }
             ID3D12Resource* rawResource = nullptr;
             ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(
                 &HeapProps,
                 D3D12_HEAP_FLAG_NONE,
                 &ResourceDesc,
-                D3D12_RESOURCE_STATE_GENERIC_READ,
+                default_state,
                 nullptr,
                 IID_PPV_ARGS(&rawResource)));
 
@@ -139,7 +143,7 @@ namespace YiaEngine
            
             AllocateBuffer ret(*cur_page_,cur_offset_,alloc_size,
                 (UINT8*)cur_page_->Cpu_address_ + cur_offset_,
-                cur_page_->Gpu_address_);
+                cur_page_->Gpu_address_+ cur_offset_);
             cur_offset_ += alloc_size;
             return ret;
         }
