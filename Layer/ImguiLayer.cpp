@@ -89,7 +89,7 @@ namespace YiaEngine
         listener.Listen<MouseWheelEvent>(BIND_MEMBER_CALLBACK(OnMouseWheelEvent));
     }
 
-    void YiaEngine::ImguiLayer::OnUpdate()
+    void YiaEngine::ImguiLayer::OnUpdate(Timestep timestep)
     {
        
 
@@ -214,11 +214,12 @@ namespace YiaEngine
         ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
         ImGui::Begin("Scene",&open);
         ImVec2 size =  ImGui::GetWindowSize();
-        YIA_INFO("{0}{1}", size.x, size.y);
+        
         if (size.x != sceneColorBuffer.Size().x() || size.y != sceneColorBuffer.Size().y())
         {
             sceneColorBuffer.Destroy();
             sceneColorBuffer.Create(L"SceneColorRT",size.x, size.y, DXGI_FORMAT_R8G8B8A8_UNORM);
+            sceneDepthBuffer.Create(L"SceneDepthRT", size.x, size.y, DXGI_FORMAT_D32_FLOAT);
             UINT pSrcDescriptorRangeSizes[1] = { 1 };
             UINT pDestDescriptorRangeSizes[1] = { 1 };
             Graphic::g_Device->CopyDescriptors(

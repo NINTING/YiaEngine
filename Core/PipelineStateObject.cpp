@@ -104,6 +104,19 @@ namespace YiaEngine::Graphic
 	{
 		desc_.RasterizerState.FillMode = D3D12_FILL_MODE_SOLID;
 	}
+	
+	void PipelineStateObject::SetBackCullMode()
+	{
+		desc_.RasterizerState.CullMode = D3D12_CULL_MODE_BACK;
+	}
+	void PipelineStateObject::SetFrontCullMode()
+	{
+		desc_.RasterizerState.CullMode = D3D12_CULL_MODE_FRONT;
+	}
+	void PipelineStateObject::SetNoneCullMode()
+	{
+		desc_.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;
+	}
 	void PipelineStateObject::SetBlendState(D3D12_BLEND_DESC desc)
 	{
 		desc_.BlendState = desc;

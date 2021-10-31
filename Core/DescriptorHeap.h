@@ -42,6 +42,8 @@ namespace YiaEngine
 			operator D3D12_GPU_DESCRIPTOR_HANDLE()const { return gpu_handle_; };
 			const D3D12_CPU_DESCRIPTOR_HANDLE* GetCpuAddress()const { return &cpu_handle_; };
 			const D3D12_GPU_DESCRIPTOR_HANDLE* GetGpuAddress()const { return &gpu_handle_; };
+			SIZE_T CpuDescriptorValuePtr()const { return cpu_handle_.ptr; };
+			SIZE_T GpuDescriptorValuePtr()const { return gpu_handle_.ptr; };
 			DescriptorHandle operator +(int offset)const
 			{
 				DescriptorHandle ret = *this;
@@ -52,7 +54,7 @@ namespace YiaEngine
 			{
 				assert(cpu_handle_.ptr != -1);
 				cpu_handle_.ptr += offset;
-				if (gpu_handle_.ptr != -1)
+				if (gpu_handle_.ptr != 0)
 					gpu_handle_.ptr += offset;
 			}
 		private:

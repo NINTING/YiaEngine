@@ -132,6 +132,17 @@ namespace YiaEngine
 		void GraphicContext::ClearRenderTarget(DescriptorHandle renderTarget, const Math::Vec4f& colors)
 		{
 			commandList_->ClearRenderTargetView(renderTarget, (const float*)(&colors), 0, nullptr);
+		
+		}
+		void GraphicContext::ClearDepthStencil(DescriptorHandle depth,bool clearDepth,float depthValue,bool clearStencil,UINT8 stencilValue)
+		{
+			D3D12_CLEAR_FLAGS clearFlag = {};
+			if (clearDepth)
+				clearFlag |= D3D12_CLEAR_FLAG_DEPTH;
+			if (clearStencil)
+				clearFlag |= D3D12_CLEAR_FLAG_STENCIL;
+			commandList_->ClearDepthStencilView(depth, clearFlag, depthValue, stencilValue, 0, nullptr);
+
 		}
 
 		void GraphicContext::ClearRenderTarget(DescriptorHandle renderTarget)

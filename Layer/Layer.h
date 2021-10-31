@@ -2,7 +2,7 @@
 
 #include"pch.h"
 #include"Event/Event.h"
-
+#include"Common/TimeStep.h"
 namespace YiaEngine
 {
 	class Layer
@@ -10,7 +10,7 @@ namespace YiaEngine
 	public:
 		Layer(const char* name = "Layer") :debugName_(name) {};
 		virtual void OnEvent(Event& e) {};
-		virtual void OnUpdate() {};
+		virtual void OnUpdate(Timestep timestep) {};
 		virtual void OnAwake() {};
 		virtual void OnDestroy() {};
 	private:

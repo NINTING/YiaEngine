@@ -85,7 +85,13 @@ namespace YiaEngine::Graphic
 	{
 		descriptor_size_ = Graphic::g_Device->GetDescriptorHandleIncrementSize(desc_.Type);
 		free_descriptor_num_ = desc_.NumDescriptors;
-		first_handle_ = DescriptorHandle(heap_->GetCPUDescriptorHandleForHeapStart(), heap_->GetGPUDescriptorHandleForHeapStart());
+		if (heap_->GetDesc().Flags == D3D12_DESCRIPTOR_HEAP_FLAG_NONE) {
+			D3D12_GPU_DESCRIPTOR_HANDLE nullHandle;
+			nullHandle.ptr = 0;
+			first_handle_ = DescriptorHandle(heap_->GetCPUDescriptorHandleForHeapStart(),nullHandle);
+		}
+		else
+			first_handle_ = DescriptorHandle(heap_->GetCPUDescriptorHandleForHeapStart(), heap_->GetGPUDescriptorHandleForHeapStart());
 		head_free_handle_ = first_handle_;
 	}
 	

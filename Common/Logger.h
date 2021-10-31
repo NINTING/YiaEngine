@@ -6,7 +6,7 @@
 
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
-
+#include<Winerror.h>
 namespace YiaEngine
 {
 	class YIA_API Logger
@@ -44,11 +44,12 @@ namespace YiaEngine
 		YIA_GRAPHIC_ERR("\n"); \
 		__debugbreak();\
 	}\
-	
+
 
 #define ASSERT_SUCCEEDED(hr,...)\
 		if(FAILED(hr))					\
 		{\
+			YIA_GRAPHIC_ERR("{0}",hr);\
 			YIA_GRAPHIC_ERR("\nHRESULT failed in " STRINGIFY_BUILTIN(__FILE__) " @ " STRINGIFY_BUILTIN(__LINE__) "\n"); \
 			YIA_GRAPHIC_ERR("desc: "#__VA_ARGS__); \
 			YIA_GRAPHIC_ERR("\n"); \

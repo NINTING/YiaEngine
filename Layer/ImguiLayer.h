@@ -13,7 +13,7 @@ namespace YiaEngine
 		ImguiLayer();// : Layer("ImGuiLayer") {}
 		virtual void OnAwake();
 		virtual void OnEvent(Event& e);
-		virtual void OnUpdate();
+		virtual void OnUpdate(Timestep timestep);
 		virtual void OnDestroy();
 	
 		void Begin();
@@ -21,7 +21,7 @@ namespace YiaEngine
 		void Render();
 
 		Graphic::RenderBuffer& SceneColorBuffer() {return sceneColorBuffer;};
-		Graphic::RenderBuffer SceneDepthBuffer() { return sceneDepthBuffer; };
+		Graphic::DepthBuffer& SceneDepthBuffer() { return sceneDepthBuffer; };
 	private:
 		bool OnMouseMoveEvent(MouseMoveEvent& e);
 		bool OnMouseDownEvent(MouseButtonDownEvent& e);
@@ -38,7 +38,7 @@ namespace YiaEngine
 		Graphic::GpuDescriptorAllocator imageHandleAllocator_;
 
 		Graphic::RenderBuffer sceneColorBuffer;
-		Graphic::RenderBuffer sceneDepthBuffer;
+		Graphic::DepthBuffer sceneDepthBuffer;
 		Graphic::DescriptorHandle sceneHandle;
 	};
 

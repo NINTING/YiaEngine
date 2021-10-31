@@ -37,7 +37,7 @@ namespace YiaEngine
 			void SetRenderTarget(const DescriptorHandle* renderTarget,const DescriptorHandle* depth);
 			void ClearRenderTarget(DescriptorHandle renderTarget, const Math::Vec4f& colors);
 			void ClearRenderTarget(DescriptorHandle renderTarget);
-			
+			void ClearDepthStencil(DescriptorHandle depth, bool clearDepth, float depthValue, bool clearStencil, UINT8 stencilValue = 0);
 			void SetRenderTargets(UINT numRT,const DescriptorHandle RTS[],const DescriptorHandle* depth);
 			void SetVertexBuffers(UINT slot, UINT bufferCount, const D3D12_VERTEX_BUFFER_VIEW* vertexView);
 			void SetIndexBuffer(const D3D12_INDEX_BUFFER_VIEW* indexView);

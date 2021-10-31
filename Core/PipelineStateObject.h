@@ -28,6 +28,9 @@ namespace YiaEngine::Graphic
 		void SetRasterizerState(D3D12_RASTERIZER_DESC desc);
 		void SetWireframeShowMode();
 		void SetSolideShowMode();
+		void SetBackCullMode();
+		void SetFrontCullMode();
+		void SetNoneCullMode();
 		void SetBlendState(D3D12_BLEND_DESC desc);
 		void SetDepthStencilState(D3D12_DEPTH_STENCIL_DESC depth_stencil_desc);
 		void SetSampleMask(UINT mask);

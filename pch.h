@@ -14,6 +14,7 @@
 #include <windows.h>
 #include <windowsx.h>
 #include<WinUser.h>
+#include<time.h>
 #endif
 #include<iostream>
 #include<string>

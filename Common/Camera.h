@@ -40,7 +40,8 @@ namespace YiaEngine
 		void Front(const Math::Vec3f& front) { front_ = front; };
 		Math::Vec3f Position() { return position_; };
 		void Position(const Math::Vec3f& pos) {position_ = pos;}
-
+		void SetFarclip(float farClip) { far_clip_ = farClip; };
+		void SetNearclip(float nearCip) { near_clip_ = nearCip; };
 
 		Math::Mat4x4f ViewMatrix();
 		

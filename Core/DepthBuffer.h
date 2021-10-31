@@ -14,11 +14,13 @@ namespace YiaEngine
 		class DepthBuffer :public GpuTexture
 		{
 		public:
+			DepthBuffer();
 			void Create(const wchar_t* name, UINT width, UINT height, DXGI_FORMAT format);
 			//~DepthBuffe() { Destroy(); }
 			void CreateFromSwapChian(const wchar_t* name, ID3D12Resource* resource);
 
 
+			 DescriptorHandle GetDepthStencilHandle() { return dsvHandle_[0]; };
 			const DescriptorHandle* GetDepthStencilHandlePtr()const { return &dsvHandle_[0]; };
 			const DescriptorHandle* GetDepthReadHandlePtr()const { return &dsvHandle_[1]; };
 			const DescriptorHandle* GetStencilReadHandlePtr()const { return &dsvHandle_[2]; };
@@ -29,6 +31,7 @@ namespace YiaEngine
 		private:
 			
 			void CreateView(DXGI_FORMAT format);
+			DXGI_FORMAT GetDepthFormat(DXGI_FORMAT defaultFormat);
 		protected:
 			
 			DescriptorHandle dsvHandle_[4];

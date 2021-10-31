@@ -3,6 +3,7 @@
 
 #include"Event/Event.h"
 #include"Layer/Layer.h"
+#include"Common/TimeStep.h"
 namespace YiaEngine
 {
 	class Window;
@@ -12,7 +13,7 @@ namespace YiaEngine
 		Application();
 		virtual void Init();
 		void InitGraphicEngine();
-		virtual void Update() = 0;
+		virtual void Update(Timestep  timestep) = 0;
 		virtual void Destroy() {};
 		void Start();
 		void Run();
@@ -32,6 +33,8 @@ namespace YiaEngine
 	private:
 		bool isWindowClose_;
 		LayerStack layerStack_;
+		//Timestep timestep_;
+		float lastFrameTime;
 	};
 }
 YiaEngine::Application* CreateApplication();

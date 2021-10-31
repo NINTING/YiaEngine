@@ -12,11 +12,14 @@ namespace YiaEngine
 		{
 		public:
 			void Begin();
+			void BeginPass();
 			void End();
 			void SetRenderTarget(RenderBuffer* renderTarget);
+			void SetRenderTarget(RenderBuffer* renderTarget, DepthBuffer* depthTarget);
 			void SetCamera(Camera& camera);
 			void ClearRenderTarget(const Math::Vec4f& clearColor);
 			void ClearRenderTarget();
+			void ClearDepthStencil();
 			void SetViewport(const CD3DX12_VIEWPORT& viewport);
 			void SetScissorRect(const CD3DX12_RECT& scissorRect);
 			void SetRootSignature(const RootSignature& signature);
@@ -27,6 +30,8 @@ namespace YiaEngine
 			Camera& GetCurrentCamera();
 		private:
 			RenderBuffer* renderTarget_;
+			DepthBuffer* depthTarget_;
+			PipelineStateObject pso_;
 			bool useDefalutViewport;
 			bool useDefalutScissorRect;
 			CD3DX12_VIEWPORT viewport_;

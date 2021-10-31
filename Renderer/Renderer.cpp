@@ -10,6 +10,12 @@ namespace YiaEngine
 			graphicContext = &Graphic::GraphicContext::Begin();
 			useDefalutViewport = useDefalutScissorRect = true;
 		}
+		void Renderer::BeginPass()
+		{
+			//pso_ = 
+			graphicContext = &Graphic::GraphicContext::Begin();
+			useDefalutViewport = useDefalutScissorRect = true;
+		}
 		void Renderer::End()
 		{
 			graphicContext->End();
@@ -18,6 +24,14 @@ namespace YiaEngine
 		{
 			renderTarget_ = renderTarget; 
 			graphicContext->SetRenderTarget(renderTarget_->RtvCpuHandlePtr(), nullptr);
+
+			
+		}
+		void Renderer::SetRenderTarget(RenderBuffer* renderTarget,DepthBuffer* depthTarget)
+		{
+			renderTarget_ = renderTarget;
+			depthTarget_ = depthTarget;
+			graphicContext->SetRenderTarget(renderTarget_->RtvCpuHandlePtr(), depthTarget_->GetDepthStencilHandlePtr());
 		}
 		void Renderer::SetCamera(Camera& camera)
 		{
@@ -31,6 +45,10 @@ namespace YiaEngine
 		void Renderer::ClearRenderTarget()
 		{
 			graphicContext->ClearRenderTarget(renderTarget_->RtvCpuHandle());
+		}
+		void Renderer::ClearDepthStencil()
+		{
+			graphicContext->ClearDepthStencil(depthTarget_->GetDepthStencilHandle(),true,1,false);
 		}
 		void Renderer::SetViewport(const CD3DX12_VIEWPORT& viewport)
 		{ 

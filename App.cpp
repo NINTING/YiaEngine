@@ -14,6 +14,7 @@ namespace YiaEngine
 
 	Application::Application()
 	{
+		lastFrameTime = clock();
 		YIA_INFO("App init");
 		isWindowClose_ = false;
 	}
@@ -113,19 +114,21 @@ namespace YiaEngine
 	}
 	bool Application::OnResizeEvent(WindowResizeEvent& e)
 	{
-		YIA_CORE_INFO("window resize {0},{1}", e.Width, e.Height);
+		//YIA_CORE_INFO("window resize {0},{1}", e.Width, e.Height);
 		Graphic::ResizeScreen(e.Width, e.Height);
 		return true;
 	}
 	void Application::Run()
 	{
-
+		long currTime = clock();
+		Timestep  timestep = currTime - lastFrameTime;
+		lastFrameTime = currTime;
 		Window::CurrentWindow().OnUpdate();
 	
 		if (IsClose())
 			return;
 	//	YIA_CORE_INFO("App Run");
-		Update();
+		Update(timestep);
 
 		ASSERT_SUCCEEDED(Graphic::g_SwapChain->Present(1, 0));
 		Graphic::g_FrameIndex = Graphic::g_SwapChain->GetCurrentBackBufferIndex();
