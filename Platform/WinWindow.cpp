@@ -3,6 +3,7 @@
 #include "Common/logger.h"
 #include"Event/Event.h"
 #include"Core/Graphic.h"
+#include"WindowInput.h"
 namespace YiaEngine
 {
     std::unique_ptr<Window> Window::s_Window;
@@ -67,13 +68,13 @@ namespace YiaEngine
             return 0;
         }
 
-        case WM_CHAR:
+        /*case WM_CHAR:
         {
             KeyCodeEvent event{ char(wParam) };
             Window::Dispatch(event);
 
             break;
-        }
+        }*/
         case WM_LBUTTONDOWN:
         {
             int xPos = GET_X_LPARAM(lParam);
@@ -219,6 +220,8 @@ namespace YiaEngine
         {
             ::TranslateMessage(&msg);
             ::DispatchMessage(&msg);
+            Input::HandleMessage(&msg);
+                
             if (msg.message == WM_QUIT)
                 done = true;
         } 

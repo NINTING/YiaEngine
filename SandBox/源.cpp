@@ -253,7 +253,7 @@ public:
 	virtual void Update(Timestep  timestep)
 	{
 		
-		YIA_INFO("Delta time {0}", timestep.GetSeconds());
+		//YIA_INFO("Delta time {0}", timestep.GetSeconds());
 
 		imGuiLayer.Begin();
 		imGuiLayer.OnUpdate(timestep);
