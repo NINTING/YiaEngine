@@ -5,10 +5,19 @@
 #include "Common/logger.h"
 namespace YiaEngine
 {
+	void WindowInput::UpdateImpl()
+	{
+		if (textCount_)
+		{
+			YIA_INFO(" ‰»Î{0}", textBuffer_);
+		}
+	
+		textCount_ = 0;
+		memset(textBuffer_, 0, sizeof(textBuffer_));
+	}
 	bool YiaEngine::WindowInput::IsKeyPressedImpl(int keycode)
 	{
-
-		return false;
+		return keyButtonState[keycode];
 	}
 	void WindowInput::HandleMessageImpl(void* pMsg)
 	{
@@ -18,15 +27,31 @@ namespace YiaEngine
 		UINT message = msg->message;
 		WPARAM wParam = msg->wParam;
 		LPARAM lParam = msg->lParam;
+		bool pressed = false;
+		unsigned winKey;
 		switch (message)
 		{
 		case WM_CHAR:
 		{
 			KeyCodeEvent event{ char(wParam) };
 			Window::Dispatch(event);
-			YIA_INFO("keycode {0}", char(wParam));
-			break;
+			textBuffer_[textCount_++] = char(wParam);
+			
 		}
+		
+		case WM_KEYDOWN:
+		case WM_SYSKEYDOWN:
+			pressed = true;
+			winKey = (uint32_t)wParam;
+			keyButtonState[winKey] = true;
+			YIA_INFO(" ‰»Î{0}", winKey);
+			break;
+		case WM_KEYUP:
+		case WM_SYSKEYUP:
+			pressed = false;
+			winKey = (uint32_t)wParam;
+			keyButtonState[winKey] = false;
+			break;
 		}
 
 	}

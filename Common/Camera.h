@@ -1,6 +1,7 @@
 #pragma once
 
 #include"YiaMath.h"
+#include"Common/TimeStep.h"
 namespace YiaEngine
 {
 	enum class FovType
@@ -49,6 +50,11 @@ namespace YiaEngine
 		
 		Math::Mat4x4f ViewProjMatrix();
 
+
+	public:
+		void Update(Timestep timestep);
+		void Strafe(float d);
+		void Walk(float d);
 	private:
 		Math::Vec3f position_;
 		Math::Vec3f front_;

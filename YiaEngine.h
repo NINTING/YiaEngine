@@ -12,3 +12,4 @@
 #include"EntryPoint.h"
 
 #include"Common/Camera.h"
+#include"Platform/WindowInput.h"

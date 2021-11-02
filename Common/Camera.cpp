@@ -2,7 +2,9 @@
 #include<math.h>
 
 #include "Camera.h"
-
+#include <Common/TimeStep.h>
+#include"Common/Input.h"
+#include"Common/Logger.h"
 namespace YiaEngine
 {
 
@@ -79,6 +81,26 @@ namespace YiaEngine
 	{
 		return ViewMatrix() * ProjectionMatrix();
 		
+	}
+	void Camera::Strafe(float d)
+	{
+		position_ += right_ * d;
+	}
+	void Camera::Walk(float d)
+	{
+
+	}
+	void Camera::Update(Timestep timestep)
+	{
+		if (Input::IsKeyPress(VirtualKey::Key_D))
+		{
+			
+			Strafe(timestep.GetSeconds());
+		}
+		if (Input::IsKeyPress(VirtualKey::Key_A))
+		{
+			Strafe(-timestep.GetSeconds());
+		}
 	}
 #pragma endregion
 

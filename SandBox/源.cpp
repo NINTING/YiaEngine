@@ -102,7 +102,7 @@ public:
 			{ 1.0f, 1.f , -1.0f },
 			{ 1.0f, -1.f , -1.0f },
 			{ -1.0f, -1.f , -1.0f },
-			//Ç°
+			//ºó
 			{ -1.0f, 1.f ,	1.0f },
 			{ 1.0f, 1.f ,	1.0f },
 			{ 1.0f, -1.f ,	1.0f },
@@ -145,7 +145,7 @@ public:
 			0,1,3,1,2,3,
 			7,5,4,7,6,5,
 			8,9,11,9,10,11,
-			15,12,13,15,14,13,
+			15,13,12,15,14,13,
 			16,17,19,17,18,19,
 			23,21,20,23,22,21 };
 		D3D12_INPUT_LAYOUT_DESC desc;
@@ -254,11 +254,12 @@ public:
 	{
 		
 		//YIA_INFO("Delta time {0}", timestep.GetSeconds());
+		camera.Update(timestep);
 
 		imGuiLayer.Begin();
 		imGuiLayer.OnUpdate(timestep);
-
-
+		
+		
 		imGuiLayer.Render();
 
 		RenderScene();

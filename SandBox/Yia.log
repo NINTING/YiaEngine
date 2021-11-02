@@ -1,111 +1,974 @@
-[20:36:22] [info] APP: App init
-[20:36:22] [info] APP: InputParament 2
-[20:36:22] [info] APP:   InputParament 0
-[20:36:22] [info] APP: 	name POSITION
-[20:36:22] [info] APP: 	SemanticIndex 0
-[20:36:22] [info] APP: 	register 0
-[20:36:22] [info] APP: 	SystemValueType 0
-[20:36:22] [info] APP: 	ComponentType 3
-[20:36:22] [info] APP: 	Stream 0
-[20:36:22] [info] APP: 	Mask 7
-[20:36:22] [info] APP: 	ReadWriteMask 7
-[20:36:22] [info] APP:   InputParament 1
-[20:36:22] [info] APP: 	name TEXCOORD
-[20:36:22] [info] APP: 	SemanticIndex 0
-[20:36:22] [info] APP: 	register 1
-[20:36:22] [info] APP: 	SystemValueType 0
-[20:36:22] [info] APP: 	ComponentType 3
-[20:36:22] [info] APP: 	Stream 0
-[20:36:22] [info] APP: 	Mask 3
-[20:36:22] [info] APP: 	ReadWriteMask 3
-[20:36:22] [info] APP: ConstantBuffers 0
-[20:36:22] [info] APP: BoundResources 0
-[20:36:22] [info] APP: InstructionCount 12
-[20:36:22] [info] APP: ConstantBuffers 1
-[20:36:22] [info] APP: 	ConstBuffer 0
-[20:36:22] [info] APP: 		name ConstBufferPerFrame
-[20:36:22] [info] APP: 		Size 16
-[20:36:22] [info] APP: 		Type 0
-[20:36:22] [info] APP: 		Variables 1
-[20:36:22] [info] APP: 			Name outColor
-[20:36:22] [info] APP: 			size 16
-[20:36:22] [info] APP: 			StartOffset 0
-[20:36:22] [info] APP: 			StartSampler 0
-[20:36:22] [info] APP: 			StartTexture 0
-[20:36:22] [info] APP: 			TextureSize 0
-[20:36:22] [info] APP: BoundResources 1
-[20:36:22] [info] APP: InstructionCount 11
-[20:36:22] [info] APP: InputParament 2
-[20:36:22] [info] APP:   InputParament 0
-[20:36:22] [info] APP: 	name POSITION
-[20:36:22] [info] APP: 	SemanticIndex 0
-[20:36:22] [info] APP: 	register 0
-[20:36:22] [info] APP: 	SystemValueType 0
-[20:36:22] [info] APP: 	ComponentType 3
-[20:36:22] [info] APP: 	Stream 0
-[20:36:22] [info] APP: 	Mask 7
-[20:36:22] [info] APP: 	ReadWriteMask 7
-[20:36:22] [info] APP:   InputParament 1
-[20:36:22] [info] APP: 	name TEXCOORD
-[20:36:22] [info] APP: 	SemanticIndex 0
-[20:36:22] [info] APP: 	register 1
-[20:36:22] [info] APP: 	SystemValueType 0
-[20:36:22] [info] APP: 	ComponentType 3
-[20:36:22] [info] APP: 	Stream 0
-[20:36:22] [info] APP: 	Mask 3
-[20:36:22] [info] APP: 	ReadWriteMask 3
-[20:36:22] [info] APP: ConstantBuffers 1
-[20:36:22] [info] APP: 	ConstBuffer 0
-[20:36:22] [info] APP: 		name ConstBufferPerFrame
-[20:36:22] [info] APP: 		Size 256
-[20:36:22] [info] APP: 		Type 0
-[20:36:22] [info] APP: 		Variables 4
-[20:36:22] [info] APP: 			Name ObjectMat
-[20:36:22] [info] APP: 			size 64
-[20:36:22] [info] APP: 			StartOffset 0
-[20:36:22] [info] APP: 			StartSampler 0
-[20:36:22] [info] APP: 			StartTexture 0
-[20:36:22] [info] APP: 			TextureSize 0
-[20:36:22] [info] APP: 			Name WorldMat
-[20:36:22] [info] APP: 			size 64
-[20:36:22] [info] APP: 			StartOffset 64
-[20:36:22] [info] APP: 			StartSampler 0
-[20:36:22] [info] APP: 			StartTexture 0
-[20:36:22] [info] APP: 			TextureSize 0
-[20:36:22] [info] APP: 			Name ViewMat
-[20:36:22] [info] APP: 			size 64
-[20:36:22] [info] APP: 			StartOffset 128
-[20:36:22] [info] APP: 			StartSampler 0
-[20:36:22] [info] APP: 			StartTexture 0
-[20:36:22] [info] APP: 			TextureSize 0
-[20:36:22] [info] APP: 			Name ProjMat
-[20:36:22] [info] APP: 			size 64
-[20:36:22] [info] APP: 			StartOffset 192
-[20:36:22] [info] APP: 			StartSampler 0
-[20:36:22] [info] APP: 			StartTexture 0
-[20:36:22] [info] APP: 			TextureSize 0
-[20:36:22] [info] APP: BoundResources 1
-[20:36:22] [info] APP: InstructionCount 133
-[20:36:22] [info] APP: ConstantBuffers 0
-[20:36:22] [info] APP: BoundResources 0
-[20:36:22] [info] APP: InstructionCount 7
-[20:36:24] [info] APP: keycode a
-[20:36:24] [info] APP: keycode a
-[20:36:24] [info] APP: keycode a
-[20:36:24] [info] APP: keycode a
-[20:36:24] [info] APP: keycode a
-[20:36:24] [info] APP: keycode a
-[20:36:24] [info] APP: keycode a
-[20:36:24] [info] APP: keycode a
-[20:36:24] [info] APP: keycode a
-[20:36:24] [info] APP: keycode a
-[20:36:24] [info] APP: keycode a
-[20:36:24] [info] APP: keycode a
-[20:36:25] [info] APP: keycode a
-[20:36:25] [info] APP: keycode a
-[20:36:25] [info] APP: keycode a
-[20:36:25] [info] APP: keycode a
-[20:36:25] [info] APP: keycode a
-[20:36:25] [info] APP: keycode a
-[20:36:25] [info] APP: keycode a
-[20:36:25] [info] APP: keycode a
+[23:14:08] [info] APP: App init
+[23:14:09] [info] APP: InputParament 2
+[23:14:09] [info] APP:   InputParament 0
+[23:14:09] [info] APP: 	name POSITION
+[23:14:09] [info] APP: 	SemanticIndex 0
+[23:14:09] [info] APP: 	register 0
+[23:14:09] [info] APP: 	SystemValueType 0
+[23:14:09] [info] APP: 	ComponentType 3
+[23:14:09] [info] APP: 	Stream 0
+[23:14:09] [info] APP: 	Mask 7
+[23:14:09] [info] APP: 	ReadWriteMask 7
+[23:14:09] [info] APP:   InputParament 1
+[23:14:09] [info] APP: 	name TEXCOORD
+[23:14:09] [info] APP: 	SemanticIndex 0
+[23:14:09] [info] APP: 	register 1
+[23:14:09] [info] APP: 	SystemValueType 0
+[23:14:09] [info] APP: 	ComponentType 3
+[23:14:09] [info] APP: 	Stream 0
+[23:14:09] [info] APP: 	Mask 3
+[23:14:09] [info] APP: 	ReadWriteMask 3
+[23:14:09] [info] APP: ConstantBuffers 0
+[23:14:09] [info] APP: BoundResources 0
+[23:14:09] [info] APP: InstructionCount 12
+[23:14:09] [info] APP: ConstantBuffers 1
+[23:14:09] [info] APP: 	ConstBuffer 0
+[23:14:09] [info] APP: 		name ConstBufferPerFrame
+[23:14:09] [info] APP: 		Size 16
+[23:14:09] [info] APP: 		Type 0
+[23:14:09] [info] APP: 		Variables 1
+[23:14:09] [info] APP: 			Name outColor
+[23:14:09] [info] APP: 			size 16
+[23:14:09] [info] APP: 			StartOffset 0
+[23:14:09] [info] APP: 			StartSampler 0
+[23:14:09] [info] APP: 			StartTexture 0
+[23:14:09] [info] APP: 			TextureSize 0
+[23:14:09] [info] APP: BoundResources 1
+[23:14:09] [info] APP: InstructionCount 11
+[23:14:09] [info] APP: InputParament 2
+[23:14:09] [info] APP:   InputParament 0
+[23:14:09] [info] APP: 	name POSITION
+[23:14:09] [info] APP: 	SemanticIndex 0
+[23:14:09] [info] APP: 	register 0
+[23:14:09] [info] APP: 	SystemValueType 0
+[23:14:09] [info] APP: 	ComponentType 3
+[23:14:09] [info] APP: 	Stream 0
+[23:14:09] [info] APP: 	Mask 7
+[23:14:09] [info] APP: 	ReadWriteMask 7
+[23:14:09] [info] APP:   InputParament 1
+[23:14:09] [info] APP: 	name TEXCOORD
+[23:14:09] [info] APP: 	SemanticIndex 0
+[23:14:09] [info] APP: 	register 1
+[23:14:09] [info] APP: 	SystemValueType 0
+[23:14:09] [info] APP: 	ComponentType 3
+[23:14:09] [info] APP: 	Stream 0
+[23:14:09] [info] APP: 	Mask 3
+[23:14:09] [info] APP: 	ReadWriteMask 3
+[23:14:09] [info] APP: ConstantBuffers 1
+[23:14:09] [info] APP: 	ConstBuffer 0
+[23:14:09] [info] APP: 		name ConstBufferPerFrame
+[23:14:09] [info] APP: 		Size 256
+[23:14:09] [info] APP: 		Type 0
+[23:14:09] [info] APP: 		Variables 4
+[23:14:09] [info] APP: 			Name ObjectMat
+[23:14:09] [info] APP: 			size 64
+[23:14:09] [info] APP: 			StartOffset 0
+[23:14:09] [info] APP: 			StartSampler 0
+[23:14:09] [info] APP: 			StartTexture 0
+[23:14:09] [info] APP: 			TextureSize 0
+[23:14:09] [info] APP: 			Name WorldMat
+[23:14:09] [info] APP: 			size 64
+[23:14:09] [info] APP: 			StartOffset 64
+[23:14:09] [info] APP: 			StartSampler 0
+[23:14:09] [info] APP: 			StartTexture 0
+[23:14:09] [info] APP: 			TextureSize 0
+[23:14:09] [info] APP: 			Name ViewMat
+[23:14:09] [info] APP: 			size 64
+[23:14:09] [info] APP: 			StartOffset 128
+[23:14:09] [info] APP: 			StartSampler 0
+[23:14:09] [info] APP: 			StartTexture 0
+[23:14:09] [info] APP: 			TextureSize 0
+[23:14:09] [info] APP: 			Name ProjMat
+[23:14:09] [info] APP: 			size 64
+[23:14:09] [info] APP: 			StartOffset 192
+[23:14:09] [info] APP: 			StartSampler 0
+[23:14:09] [info] APP: 			StartTexture 0
+[23:14:09] [info] APP: 			TextureSize 0
+[23:14:09] [info] APP: BoundResources 1
+[23:14:09] [info] APP: InstructionCount 133
+[23:14:09] [info] APP: ConstantBuffers 0
+[23:14:09] [info] APP: BoundResources 0
+[23:14:09] [info] APP: InstructionCount 7
+[23:14:09] [info] APP: 输入68
+[23:14:09] [info] APP: 输入100
+[23:14:09] [info] APP: 输入d
+[23:14:09] [info] APP: 输入65
+[23:14:09] [info] APP: 输入97
+[23:14:09] [info] APP: 输入a
+[23:14:10] [info] APP: 输入65
+[23:14:10] [info] APP: 输入97
+[23:14:10] [info] APP: 输入a
+[23:14:10] [info] APP: 输入65
+[23:14:10] [info] APP: 输入97
+[23:14:10] [info] APP: 输入a
+[23:14:10] [info] APP: 输入65
+[23:14:10] [info] APP: 输入97
+[23:14:10] [info] APP: 输入a
+[23:14:10] [info] APP: 输入65
+[23:14:10] [info] APP: 输入97
+[23:14:10] [info] APP: 输入a
+[23:14:10] [info] APP: 输入65
+[23:14:10] [info] APP: 输入97
+[23:14:10] [info] APP: 输入a
+[23:14:10] [info] APP: 输入65
+[23:14:10] [info] APP: 输入97
+[23:14:10] [info] APP: 输入a
+[23:14:10] [info] APP: 输入65
+[23:14:10] [info] APP: 输入97
+[23:14:10] [info] APP: 输入a
+[23:14:10] [info] APP: 输入65
+[23:14:10] [info] APP: 输入97
+[23:14:10] [info] APP: 输入a
+[23:14:10] [info] APP: 输入65
+[23:14:10] [info] APP: 输入97
+[23:14:10] [info] APP: 输入a
+[23:14:10] [info] APP: 输入65
+[23:14:10] [info] APP: 输入97
+[23:14:10] [info] APP: 输入a
+[23:14:10] [info] APP: 输入65
+[23:14:10] [info] APP: 输入97
+[23:14:10] [info] APP: 输入a
+[23:14:10] [info] APP: 输入65
+[23:14:10] [info] APP: 输入97
+[23:14:10] [info] APP: 输入a
+[23:14:10] [info] APP: 输入65
+[23:14:10] [info] APP: 输入97
+[23:14:10] [info] APP: 输入a
+[23:14:10] [info] APP: 输入65
+[23:14:10] [info] APP: 输入97
+[23:14:10] [info] APP: 输入a
+[23:14:10] [info] APP: 输入65
+[23:14:10] [info] APP: 输入97
+[23:14:10] [info] APP: 输入a
+[23:14:10] [info] APP: 输入65
+[23:14:10] [info] APP: 输入97
+[23:14:10] [info] APP: 输入a
+[23:14:10] [info] APP: 输入65
+[23:14:10] [info] APP: 输入97
+[23:14:10] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:11] [info] APP: 输入65
+[23:14:11] [info] APP: 输入97
+[23:14:11] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:12] [info] APP: 输入65
+[23:14:12] [info] APP: 输入97
+[23:14:12] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:13] [info] APP: 输入65
+[23:14:13] [info] APP: 输入97
+[23:14:13] [info] APP: 输入a
+[23:14:14] [info] APP: 输入65
+[23:14:14] [info] APP: 输入97
+[23:14:14] [info] APP: 输入a
+[23:14:14] [info] APP: 输入65
+[23:14:14] [info] APP: 输入97
+[23:14:14] [info] APP: 输入a
+[23:14:14] [info] APP: 输入65
+[23:14:14] [info] APP: 输入97
+[23:14:14] [info] APP: 输入a
+[23:14:14] [info] APP: 输入65
+[23:14:14] [info] APP: 输入97
+[23:14:14] [info] APP: 输入a
+[23:14:14] [info] APP: 输入65
+[23:14:14] [info] APP: 输入97
+[23:14:14] [info] APP: 输入a
+[23:14:14] [info] APP: 输入65
+[23:14:14] [info] APP: 输入97
+[23:14:14] [info] APP: 输入a
+[23:14:14] [info] APP: 输入65
+[23:14:14] [info] APP: 输入97
+[23:14:14] [info] APP: 输入a
+[23:14:14] [info] APP: 输入65
+[23:14:14] [info] APP: 输入97
+[23:14:14] [info] APP: 输入a
+[23:14:14] [info] APP: 输入65
+[23:14:14] [info] APP: 输入97
+[23:14:14] [info] APP: 输入a
+[23:14:14] [info] APP: 输入65
+[23:14:14] [info] APP: 输入97
+[23:14:14] [info] APP: 输入a
+[23:14:14] [info] APP: 输入65
+[23:14:14] [info] APP: 输入97
+[23:14:14] [info] APP: 输入a
+[23:14:14] [info] APP: 输入65
+[23:14:14] [info] APP: 输入97
+[23:14:14] [info] APP: 输入a
+[23:14:14] [info] APP: 输入68
+[23:14:14] [info] APP: 输入100
+[23:14:14] [info] APP: 输入d
+[23:14:14] [info] APP: 输入68
+[23:14:14] [info] APP: 输入100
+[23:14:14] [info] APP: 输入d
+[23:14:14] [info] APP: 输入68
+[23:14:14] [info] APP: 输入100
+[23:14:14] [info] APP: 输入d
+[23:14:14] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:15] [info] APP: 输入68
+[23:14:15] [info] APP: 输入100
+[23:14:15] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:16] [info] APP: 输入68
+[23:14:16] [info] APP: 输入100
+[23:14:16] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:17] [info] APP: 输入68
+[23:14:17] [info] APP: 输入100
+[23:14:17] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:18] [info] APP: 输入68
+[23:14:18] [info] APP: 输入100
+[23:14:18] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:19] [info] APP: 输入68
+[23:14:19] [info] APP: 输入100
+[23:14:19] [info] APP: 输入d
+[23:14:20] [info] APP: 输入68
+[23:14:20] [info] APP: 输入100
+[23:14:20] [info] APP: 输入d
+[23:14:20] [info] APP: 输入68
+[23:14:20] [info] APP: 输入100
+[23:14:20] [info] APP: 输入d
+[23:14:20] [info] APP: 输入68
+[23:14:20] [info] APP: 输入100
+[23:14:20] [info] APP: 输入d
+[23:14:20] [info] APP: 输入68
+[23:14:20] [info] APP: 输入100
+[23:14:20] [info] APP: 输入d
+[23:14:20] [info] APP: 输入87
+[23:14:20] [info] APP: 输入119
+[23:14:20] [info] APP: 输入w
+[23:14:20] [info] APP: 输入65
+[23:14:20] [info] APP: 输入97
+[23:14:20] [info] APP: 输入a
+[23:14:20] [info] APP: 输入65
+[23:14:20] [info] APP: 输入97
+[23:14:20] [info] APP: 输入a
+[23:14:20] [info] APP: 输入65
+[23:14:20] [info] APP: 输入97
+[23:14:20] [info] APP: 输入a
+[23:14:21] [info] APP: 输入65
+[23:14:21] [info] APP: 输入97
+[23:14:21] [info] APP: 输入a
+[23:14:21] [info] APP: 输入65
+[23:14:21] [info] APP: 输入97
+[23:14:21] [info] APP: 输入a
+[23:14:21] [info] APP: 输入65
+[23:14:21] [info] APP: 输入97
+[23:14:21] [info] APP: 输入a
+[23:14:21] [info] APP: 输入65
+[23:14:21] [info] APP: 输入97
+[23:14:21] [info] APP: 输入a
+[23:14:21] [info] APP: 输入65
+[23:14:21] [info] APP: 输入97
+[23:14:21] [info] APP: 输入a
+[23:14:21] [info] APP: 输入65
+[23:14:21] [info] APP: 输入97
+[23:14:21] [info] APP: 输入a
+[23:14:21] [info] APP: 输入65
+[23:14:21] [info] APP: 输入97
+[23:14:21] [info] APP: 输入a
+[23:14:21] [info] APP: 输入65
+[23:14:21] [info] APP: 输入97
+[23:14:21] [info] APP: 输入a
+[23:14:21] [info] APP: 输入65
+[23:14:21] [info] APP: 输入97
+[23:14:21] [info] APP: 输入a
+[23:14:21] [info] CORE: App End

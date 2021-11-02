@@ -4,15 +4,23 @@
 namespace YiaEngine
 {
 	Input* Input::s_Instance;
+	void Input::Update()
+	{
+		s_Instance->UpdateImpl();
+	}
 	void Input::HandleMessage(void* msg)
 	{
-		if (s_Instance == nullptr)
-		{
-#ifdef YIA_WINDOW
-			s_Instance = new WindowInput();
-#endif // YIA_WINDOW
-
-		}
+	
 		s_Instance->HandleMessageImpl(msg);
+	}
+	bool Input::IsKeyPress(int keycode)
+	{
+		return s_Instance->IsKeyPressedImpl(keycode);
+	}
+	void Input::Init()
+	{
+#ifdef YIA_WINDOW
+		s_Instance = new WindowInput();
+#endif // YIA_WINDOW
 	}
 }

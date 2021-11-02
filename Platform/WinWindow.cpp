@@ -149,6 +149,8 @@ namespace YiaEngine
 
         ShowWindow(hwnd_, SW_MAXIMIZE);
         ::UpdateWindow(hwnd_);
+
+        Input::Init();
     }
 
     void* WinWindow::NativeHandle()
@@ -214,12 +216,14 @@ namespace YiaEngine
     {
         MSG msg = {};
         bool done = true;
-    
+        
         msg = {};
+        Input::Update();
         while (::PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
         {
             ::TranslateMessage(&msg);
             ::DispatchMessage(&msg);
+
             Input::HandleMessage(&msg);
                 
             if (msg.message == WM_QUIT)
