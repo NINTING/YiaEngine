@@ -45,7 +45,7 @@ namespace YiaEngine
 		{
 			friend CommandContextManager;
 		public:
-			static CommandContext* Begin(const wchar_t* name = L"");
+			static CommandContext* Begin(const wchar_t* Name = L"");
 			void End(bool wait_for_complete = true);
 
 		//	CommandContext();
@@ -94,7 +94,7 @@ namespace YiaEngine
 			ID3D12CommandAllocator* command_allocator_;
 			ResourceAllocator upload_allocator_;
 			D3D12_COMMAND_LIST_TYPE type_;
-			std::wstring name;
+			std::wstring Name;
 
 			GpuDescriptorAllocator viewDescriptorAllocator;
 			GpuDescriptorAllocator sampleDescriptorAllocator;

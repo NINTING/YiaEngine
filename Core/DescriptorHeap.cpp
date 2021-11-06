@@ -14,37 +14,37 @@
 #include"CommandManager.h"
 namespace YiaEngine::Graphic
 {
-	DescriptorHeap::DescriptorHeap(const wchar_t* name,D3D12_DESCRIPTOR_HEAP_DESC desc)
+	DescriptorHeap::DescriptorHeap(const wchar_t* Name,D3D12_DESCRIPTOR_HEAP_DESC desc)
 	{
 		desc_ = desc;
 		
 		auto hr = Graphic::g_Device->CreateDescriptorHeap(&desc_, IID_PPV_ARGS(&heap_));
-		heap_->SetName(name);
-		name_ = name;
+		heap_->SetName(Name);
+		name_ = Name;
 		InitHeap();
 	}
-	void DescriptorHeap::Create(const wchar_t* name, D3D12_DESCRIPTOR_HEAP_DESC desc)
+	void DescriptorHeap::Create(const wchar_t* Name, D3D12_DESCRIPTOR_HEAP_DESC desc)
 	{
 		desc_ = desc;
 		auto hr = Graphic::g_Device->CreateDescriptorHeap(&desc_, IID_PPV_ARGS(&heap_));
-		heap_->SetName(name);
+		heap_->SetName(Name);
 		InitHeap();
 	}
-	void DescriptorHeap::CreateShaderVisibleType(const wchar_t* name, D3D12_DESCRIPTOR_HEAP_TYPE type, UINT32 count)
+	void DescriptorHeap::CreateShaderVisibleType(const wchar_t* Name, D3D12_DESCRIPTOR_HEAP_TYPE type, UINT32 count)
 	{
 		desc_.Type = type;
 		desc_.NumDescriptors = count;
 		desc_.NodeMask = 0;
 		desc_.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
-		Create(name, desc_);
+		Create(Name, desc_);
 	}
-	void DescriptorHeap::CreateNonShaderVisibleType(const wchar_t* name, D3D12_DESCRIPTOR_HEAP_TYPE type, UINT32 count)
+	void DescriptorHeap::CreateNonShaderVisibleType(const wchar_t* Name, D3D12_DESCRIPTOR_HEAP_TYPE type, UINT32 count)
 	{
 		desc_.Type = type;
 		desc_.NumDescriptors = count;
 		desc_.NodeMask = 0;
 		desc_.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
-		Create(name, desc_);
+		Create(Name, desc_);
 	}
 	//void DescriptorHeap::Create(const wchar_t* name, D3D12_DESCRIPTOR_HEAP_TYPE type, UINT32 count, ID3D12Device* device)
 	//{
@@ -116,9 +116,9 @@ namespace YiaEngine::Graphic
 	void CpuDescriptorAllocator::AllocHeap(D3D12_DESCRIPTOR_HEAP_TYPE type)
 	{
 		DescriptorHeap heap;
-		wchar_t name[25];
-		wsprintf(name, L"Cpu_Alloc_%d", heaps_.size()+1);
-		heap.CreateNonShaderVisibleType(name, type,descriptor_count_perframe_);
+		wchar_t Name[25];
+		wsprintf(Name, L"Cpu_Alloc_%d", heaps_.size()+1);
+		heap.CreateNonShaderVisibleType(Name, type,descriptor_count_perframe_);
 		heaps_.push_back(heap);
 	}
 

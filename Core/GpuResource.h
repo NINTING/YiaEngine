@@ -26,9 +26,9 @@ namespace YiaEngine
 				gpuVirtualAddress_ = ADDRESS_UNKOWN;
 				++versionID_;
 			}
-			void SetResourceName(const wchar_t* name)
+			void SetResourceName(const wchar_t* Name)
 			{
-				resource_->SetName(name);
+				resource_->SetName(Name);
 			}
 		protected:
 			ComPtr<ID3D12Resource>resource_;

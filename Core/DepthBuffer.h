@@ -15,9 +15,9 @@ namespace YiaEngine
 		{
 		public:
 			DepthBuffer();
-			void Create(const wchar_t* name, UINT width, UINT height, DXGI_FORMAT format);
+			void Create(const wchar_t* Name, UINT width, UINT height, DXGI_FORMAT format);
 			//~DepthBuffe() { Destroy(); }
-			void CreateFromSwapChian(const wchar_t* name, ID3D12Resource* resource);
+			void CreateFromSwapChian(const wchar_t* Name, ID3D12Resource* resource);
 
 
 			 DescriptorHandle GetDepthStencilHandle() { return dsvHandle_[0]; };

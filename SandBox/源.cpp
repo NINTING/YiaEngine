@@ -50,10 +50,10 @@ public:
 		boxLoadDesc.StageLoadDesc[1] = { boxFilename,Graphic::Shader_Stage_Pixel,L"ps_6_2" };
 
 
-		Graphic::LoadShader(loadDesc, sampleShader);
+	//	Graphic::LoadShader(loadDesc, sampleShader);
 
 
-		Graphic::LoadShader(boxLoadDesc, defaultShader);
+//		Graphic::LoadShader(boxLoadDesc, defaultShader);
 
 		Math::Vec3f pos[] = {
 			{ -1.0f, 1.f , 0.0f },
@@ -149,35 +149,35 @@ public:
 			16,17,19,17,18,19,
 			23,21,20,23,22,21 };
 		D3D12_INPUT_LAYOUT_DESC desc;
-		auto& vertexInput = sampleShader.Reflect[0].VertexInput;
+		//auto& vertexInput = sampleShader.Reflect[0].VertexInput;
 
-		desc.NumElements = sampleShader.Reflect[0].VertexInput.AttributesCount;
-		D3D12_INPUT_ELEMENT_DESC elements[8];// = new D3D12_INPUT_ELEMENT_DESC[desc.NumElements];
-		for (size_t i = 0; i < desc.NumElements; i++)
-		{
-			elements[i].SemanticName = vertexInput.Attrs[i].SemanticName;
-			elements[i].SemanticIndex = vertexInput.Attrs[i].SemanticIndex;
-			elements[i].Format = DataFormatToDX12(vertexInput.Attrs[i].format);
-			elements[i].AlignedByteOffset = 0;
-			elements[i].InputSlot = i;
-			elements[i].InputSlotClass = D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA;
-			elements[i].InstanceDataStepRate = 0;
-		}
+		//desc.NumElements = sampleShader.Reflect[0].VertexInput.AttributesCount;
+		//D3D12_INPUT_ELEMENT_DESC elements[8];// = new D3D12_INPUT_ELEMENT_DESC[desc.NumElements];
+		//for (size_t i = 0; i < desc.NumElements; i++)
+		//{
+		//	elements[i].SemanticName = vertexInput.Attrs[i].SemanticName;
+		//	elements[i].SemanticIndex = vertexInput.Attrs[i].SemanticIndex;
+		//	elements[i].Format = DataFormatToDX12(vertexInput.Attrs[i].format);
+		//	elements[i].AlignedByteOffset = 0;
+		//	elements[i].InputSlot = i;
+		//	elements[i].InputSlotClass = D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA;
+		//	elements[i].InstanceDataStepRate = 0;
+		//}
 
-		signature.Reset(1, 0);
-		signature[0].InitAsConstBufferView(D3D12_SHADER_VISIBILITY_PIXEL, 0);
-		signature.Finalize(L"SampleSignature", D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+		//signature.Reset(1, 0);
+		//signature[0].InitAsConstBufferView(D3D12_SHADER_VISIBILITY_PIXEL, 0);
+		//signature.Finalize(L"SampleSignature", D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 
-		pso = Graphic::PipelineStateObject::s_DefaultPSO;
-		pso.SetRootSignature(signature); 
+		//pso = Graphic::PipelineStateObject::s_DefaultPSO;
+		//pso.SetRootSignature(signature); 
 
-		pso.SetInputLayout(desc.NumElements, elements);
-		//delete elements;
+		//pso.SetInputLayout(desc.NumElements, elements);
+		////delete elements;
 
-		pso.SetShader(sampleShader);
+		//pso.SetShader(sampleShader);
 
-		//pso.SetRenderTarget();
-		pso.Finalize();
+		////pso.SetRenderTarget();
+		//pso.Finalize();
 
 
 		fullScreenRect.SetName("FullScreenRect");
@@ -206,14 +206,18 @@ public:
 		//default3DPso.SetWireframeShowMode();
 		default3DPso.SetBackCullMode();
 		//default3DPso.SetNoneCullMode();
-		default3DPso.SetInputLayout(desc.NumElements, elements);
+		//default3DPso.SetInputLayout(desc.NumElements, elements);
 		//delete elements;
 
-		default3DPso.SetShader(defaultShader);
+		//default3DPso.SetShader(defaultShader);
+
+		Window& curWindow = Window::CurrentWindow();
 
 		//pso.SetRenderTarget();
-		default3DPso.Finalize();
-
+		//default3DPso.Finalize();
+		
+		
+		camera.SetViewport(1691, 969);
 		camera.Position(Math::Vec3f(1, 0, -5));
 		camera.SetFarclip(10);
 		camera.SetNearclip(0.01);
@@ -239,6 +243,17 @@ public:
 		//Graphic::UploadBuffer perFrameUpLoadBuffer;
 		//Graphic::GpuBuffer perFrameBuffer;
 		//perFrameBuffer.Create();
+
+		/*
+		* 
+		* material.setMat("WorldMat",matWorld);
+		* 
+		* renderer.beginPass()
+		* renderer.setBlendState();
+		* 
+		* renderer.drawMesh(mesh,material);
+		* renderer.endPass()
+		*/
 	}
 	virtual void Init() 
 	{
@@ -262,7 +277,7 @@ public:
 		
 		imGuiLayer.Render();
 
-		RenderScene();
+	//	RenderScene();
 		/*
 		*	Renderer->bindTexture(TextureBuffer);
 			Renderer->DrawMesh(Mesh,shader);
@@ -295,7 +310,7 @@ public:
 		DefaultRenderer.ClearRenderTarget();
 		DefaultRenderer.ClearDepthStencil();
 		DefaultRenderer.SetRootSignature(BoxSignature);
-		DefaultRenderer.DrawMesh(Box, default3DPso, sampleShader);
+		DefaultRenderer.DrawMesh(Box, default3DPso, defaultShader);
 		DefaultRenderer.End();
 		/*
 		*	DefaultRenderer.BeginPass();

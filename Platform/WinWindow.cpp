@@ -92,14 +92,15 @@ namespace YiaEngine
             Window::Dispatch(event);
             break;
         }
-        case WM_MOUSEMOVE:
+        /*case WM_MOUSEMOVE:
         {
             int xPos = GET_X_LPARAM(lParam);
             int yPos = GET_Y_LPARAM(lParam);
+            YIA_INFO("[{0}{1}]",xPos,yPos);
             MouseMoveEvent event(xPos, yPos);
             Window::Dispatch(event);
             break;
-        }
+        }*/
         case WM_MOUSEWHEEL:
         {
 

@@ -8,19 +8,19 @@
 namespace YiaEngine
 {
 
-	float Camera::HorizontalViewAngle()
+	float Camera::HorizontalViewRad()
 	{
 		if (fov_type_ == FovType::kHorizontal)
-			return viewAngle;
+			return Math::Angle2Rad(viewAngle);
 		else
-			return 2.f * atanf((1.f / aspect_) * tanf(viewAngle * 0.5f));
+			return 2.f * atanf((1.f / aspect_) * tanf(Math::Angle2Rad( viewAngle) * 0.5f));
 	}
-	float Camera::VerticalViewAngle()
+	float Camera::VerticalViewRad()
 	{
 		if (fov_type_ == FovType::kVertical)
-			return viewAngle;
+			return Math::Angle2Rad(viewAngle);
 		else
-			return 2.f * atanf(aspect_ * tanf(viewAngle * 0.5f));
+			return 2.f * atanf(aspect_ * tanf(Math::Angle2Rad(viewAngle) * 0.5f));
 	}
 	float Camera::FarClip()
 	{
@@ -33,6 +33,19 @@ namespace YiaEngine
 	float Camera::Aspect()
 	{
 		return aspect_;
+	}
+
+	void Camera::SetViewport(float width, float height, float topLeftX, float topLeftY, float minDepth, float maxDepth)
+	{
+		viewport_.Width = width;
+		viewport_.Height = height;
+		viewport_.TopLeftX= topLeftX;
+		viewport_.TopLeftY = topLeftY;
+		viewport_.MinDepth = minDepth;
+		viewport_.MaxDepth = maxDepth;
+		near_clip_ = minDepth;
+		far_clip_ = maxDepth;
+		aspect_ = width / height;
 	}
 
 #pragma region Transform
@@ -62,7 +75,7 @@ namespace YiaEngine
 	{
 
 
-		float half_rad = 0.5f * Math::Angle2Rad(VerticalViewAngle());
+		float half_rad = 0.5f * VerticalViewRad();
 		float far_clip = FarClip();
 		float near_clip = NearClip();
 		float xScale = 1.f / (aspect_ * tanf(half_rad));
@@ -88,18 +101,68 @@ namespace YiaEngine
 	}
 	void Camera::Walk(float d)
 	{
-
+		position_ += front_ * d;
 	}
+	void Camera::Rotation(Math::Vec3f axis,Math::Vec3f dir,float angle)
+	{
+		
+	}
+	
+	void Camera::EulerRotation(float yaw,float pitch,float roll)
+	{
+		Eigen::Vector3f axis(yaw, pitch, roll);
+		Eigen::AngleAxisf rollAngle(Eigen::AngleAxisf(axis(2), Eigen::Vector3f::UnitZ()));
+		Eigen::AngleAxisf pitchAngle(Eigen::AngleAxisf(axis(1), Eigen::Vector3f::UnitX()));
+		Eigen::AngleAxisf yawAngle(Eigen::AngleAxisf(axis(0), Eigen::Vector3f::UnitY()));
+		Math::Mat3x3f rotation_matrix; rotation_matrix = yawAngle * pitchAngle * rollAngle;
+		front_ = front_ * rotation_matrix;
+		up_ = up_ * rotation_matrix;
+		right_ = right_ * rotation_matrix;
+
+
+	
+	};
 	void Camera::Update(Timestep timestep)
 	{
+		
+		if (Input::IsKeyPress(VirtualKey::RightMouse))
+		{
+			Math::Vec2f moveDir = Input::MouseMove();
+			float xAngle =moveDir.x() / GetCameraWidth() * HorizontalViewRad() * 2;
+			float yAngle =moveDir.y() / GetCameraHeight() * VerticalViewRad();
+			//EulerRotation(xAngle,yAngle,0);
+		
+			YIA_INFO("[{0},{1}]", xAngle, yAngle);
+			if (yAngle != 0)
+			{
+				front_ = Math::RotationByAxis(right_,front_, yAngle);
+				up_ = Math::RotationByAxis(right_, up_, yAngle);
+			}
+			if (xAngle != 0)
+			{
+				front_ = Math::RotationByAxisY(front_, xAngle);
+				right_ = Math::RotationByAxisY(right_, xAngle);
+				up_ = Math::RotationByAxisY(up_, xAngle);
+			}
+		}
+
 		if (Input::IsKeyPress(VirtualKey::Key_D))
 		{
-			
+
 			Strafe(timestep.GetSeconds());
 		}
 		if (Input::IsKeyPress(VirtualKey::Key_A))
 		{
 			Strafe(-timestep.GetSeconds());
+		}
+		if (Input::IsKeyPress(VirtualKey::Key_W))
+		{
+			Walk(timestep.GetSeconds());
+
+		}
+		if (Input::IsKeyPress(VirtualKey::Key_S))
+		{
+			Walk(-timestep.GetSeconds());
 		}
 	}
 #pragma endregion

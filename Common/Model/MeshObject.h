@@ -32,9 +32,9 @@ namespace YiaEngine
 	{
 	public:
 		Mesh() = default;
-		Mesh(const char* name);
-		Mesh(const char* name, UINT count, const VertexAttributeArray* attrs);
-		void SetName(const char* name) { name_ = name; }
+		Mesh(const char* Name);
+		Mesh(const char* Name, UINT count, const VertexAttributeArray* attrs);
+		void SetName(const char* Name) { name_ = Name; }
 		void AddAttribute(const VertexAttributeArray& attribute);
 		void AddIndices(UINT count,const UINT* indices);
 		void CreateMeshGpuBuffer();

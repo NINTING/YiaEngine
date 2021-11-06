@@ -39,7 +39,7 @@ namespace YiaEngine::Graphic
 		StaticSamplerDesc.RegisterSpace = 0;
 		StaticSamplerDesc.ShaderVisibility = visibility;
 	}
-	void RootSignature::Finalize(const wchar_t* name, D3D12_ROOT_SIGNATURE_FLAGS flag)
+	void RootSignature::Finalize(const wchar_t* Name, D3D12_ROOT_SIGNATURE_FLAGS flag)
 	{
 		
 		for (size_t i = 0; i < paramenterCount_; i++)
@@ -60,7 +60,7 @@ namespace YiaEngine::Graphic
 
 		ASSERT_SUCCEEDED(Graphic::g_Device->CreateRootSignature(1, pOutBlob->GetBufferPointer(), pOutBlob->GetBufferSize(),IID_PPV_ARGS(&rootSignature_)));
 
-		rootSignature_->SetName(name);
+		rootSignature_->SetName(Name);
 	}
 	void RootParameter::InitAsConstBufferView(D3D12_SHADER_VISIBILITY visibility,UINT registerSpace,UINT shaderSpace)
 	{

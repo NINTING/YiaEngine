@@ -28,50 +28,104 @@ namespace YiaEngine::Graphic
 			return VertexAttributeEnum::kTexcoord;
 		
 	}
+
+	void CacullateAllocateSize(ShaderReflect& reflect, ID3D12ShaderReflection* pReflection,ShaderStage stage)
+	{
+		D3D12_SHADER_DESC shader_desc = {};
+		pReflection->GetDesc(&shader_desc);
+		if (stage == Shader_Stage_Vertex)
+		{
+			
+			for (size_t i = 0; i < shader_desc.InputParameters; i++)
+			{
+				D3D12_SIGNATURE_PARAMETER_DESC desc;
+				pReflection->GetInputParameterDesc(i, &desc);
+				reflect.PoolSize += strlen(desc.SemanticName) + 1;
+			}
+			
+		}
+
+		for (size_t i = 0; i < shader_desc.BoundResources; i++)
+		{
+			D3D12_SHADER_INPUT_BIND_DESC desc;
+			pReflection->GetResourceBindingDesc(i, &desc);
+			reflect.PoolSize += strlen(desc.Name) + 1;
+		}
+		for (int i = 0; i < shader_desc.ConstantBuffers; i++)
+		{
+			D3D12_SHADER_BUFFER_DESC desc;
+			ID3D12ShaderReflectionConstantBuffer*
+				buffer = pReflection->GetConstantBufferByIndex(i);
+			ASSERT_SUCCEEDED(buffer->GetDesc(&desc));
+			for (size_t j = 0; j < desc.Variables; j++)
+			{
+				ID3D12ShaderReflectionVariable* var = buffer->GetVariableByIndex(j);
+				D3D12_SHADER_VARIABLE_DESC desc;
+				var->GetDesc(&desc);
+				reflect.PoolSize += strlen(desc.Name) + 1;
+				reflect.VariablesSize++;
+			}
+		
+		}
+
+		/*TODO:使用自定义内存池分配*/
+		reflect.pNamePool = new char[reflect.PoolSize];
+	}
 	void LoadShader(const ShaderLoadDesc& desc, Shader& shader)
 	{
+		
+
 		shader = {};
 		shader.Stages = Shader_Stage_None;
 		for (size_t i =0; i < Shader_Stage_Count; i++)
 		{
 			shader.Stages |= desc.StageLoadDesc[i].stage;
-
+			
 		}
-		for (size_t i = 0; i < Shader_Stage_Count; i++)
+
+
+		for (size_t stage = 0; stage < Shader_Stage_Count; stage++)
 		{
 			ShaderStage p = Shader_Stage_Pixel;
 
-			if ((shader.Stages & (ShaderStage)(1 << i)) == 0)continue;
+			if ((shader.Stages & (ShaderStage)(1 << stage)) == 0)continue;
 			ComPtr< ID3D12ShaderReflection> pReflection;
-			const wchar_t* entryPoint = FillEntryPoint(desc.StageLoadDesc[i].stage);
-			shader.ShaderBlob[i] = CompilerShaderFromDXC(
-				desc.StageLoadDesc[i].FileName,
+			const wchar_t* entryPoint = FillEntryPoint(desc.StageLoadDesc[stage].stage);
+			shader.ShaderBlob[stage] = CompilerShaderFromDXC(
+				desc.StageLoadDesc[stage].FileName,
 				(const wchar_t *)entryPoint,
-				desc.StageLoadDesc[i].target,
+				desc.StageLoadDesc[stage].target,
 				&pReflection);
+			CacullateAllocateSize(shader.Reflect[stage], pReflection.Get(), (ShaderStage)(1 << stage));
+
+			ShaderReflect& reflect = shader.Reflect[stage];
 			
+			char* currentName = reflect.pNamePool;
 			/*--------------------------------------------------------------------------*/
+
+
 			D3D12_SHADER_DESC shader_desc = {};
 			pReflection->GetDesc(&shader_desc);
-			ShaderReflect& reflect = shader.Reflect[i];
+		
+			
 
-			if ((1<<i)== Shader_Stage_Vertex)
+			if ((1<<stage)== Shader_Stage_Vertex)
 			{
 				reflect.VertexInput.AttributesCount = shader_desc.InputParameters;
 
 				reflect.VertexInput.Attrs = new VertextInputAttribute[shader_desc.InputParameters];
-				for (size_t i = 0; i < shader_desc.InputParameters; i++)
-				{
-					D3D12_SIGNATURE_PARAMETER_DESC desc;
-					pReflection->GetInputParameterDesc(i, &desc);
-					shader.Reflect[i].PoolSize += strlen( desc.SemanticName)+1;
+				//for (size_t i = 0; i < shader_desc.InputParameters; i++)
+				//{
+				//	D3D12_SIGNATURE_PARAMETER_DESC desc;
+				//	pReflection->GetInputParameterDesc(i, &desc);
+				//	shader.Reflect[i].PoolSize += strlen( desc.SemanticName)+1;
 
-				}
+				//}
 
-				/*TODO:使用自定义内存池分配*/
-				reflect.pNamePool = new char[shader.Reflect[i].PoolSize];
+				///*TODO:使用自定义内存池分配*/
+				//reflect.pNamePool = new char[shader.Reflect[i].PoolSize];
 
-				char* currentName = reflect.pNamePool;
+				
 				YIA_INFO("InputParament {0}", shader_desc.InputParameters);
 				for (int j = 0; j < shader_desc.InputParameters; j++)
 				{
@@ -126,7 +180,7 @@ namespace YiaEngine::Graphic
 						break;
 					}
 	
-					VertextInputAttribute& attr = shader.Reflect[i].VertexInput.Attrs[j];
+					VertextInputAttribute& attr = shader.Reflect[stage].VertexInput.Attrs[j];
 
 
 					attr.format = format;
@@ -152,43 +206,89 @@ namespace YiaEngine::Graphic
 				}
 
 			}
-
+			
+			YIA_INFO("BoundResources {0}", shader_desc.BoundResources);
+			reflect.ResourcesSize = shader_desc.BoundResources;
+			reflect.Resources = new ShaderResource[shader_desc.BoundResources];
+			reflect.Variables = new ShaderVariable[reflect.VariablesSize];
+			
+			for (size_t resIndex = 0; resIndex < shader_desc.BoundResources; resIndex++)
+			{
+				D3D12_SHADER_INPUT_BIND_DESC desc;
+				pReflection->GetResourceBindingDesc(resIndex, &desc);
+				YIA_INFO("\tBoundResources {0}", desc.Name);
+				YIA_INFO("\tBindCount {0}", desc.BindCount);
+				YIA_INFO("\tBindPoint {0}", desc.BindPoint);
+				YIA_INFO("\tDimension {0}", desc.Dimension);
+				YIA_INFO("\tNumSamples {0}", desc.NumSamples);
+				YIA_INFO("\tReturnType {0}", desc.ReturnType);
+				YIA_INFO("\tSpace {0}", desc.Space);
+				YIA_INFO("\tType {0}", desc.Type);
+				YIA_INFO("\tflag {0}", desc.uFlags);
+			}
+			
 			YIA_INFO("ConstantBuffers {0}", shader_desc.ConstantBuffers);
-			for (int i = 0; i < shader_desc.ConstantBuffers; i++)
+			for (int cbIndex = 0; cbIndex < shader_desc.ConstantBuffers; cbIndex++)
 			{
 				ID3D12ShaderReflectionConstantBuffer*
-					buffer = pReflection->GetConstantBufferByIndex(i);
+					buffer = pReflection->GetConstantBufferByIndex(cbIndex);
 
 				D3D12_SHADER_BUFFER_DESC desc;
 				ASSERT_SUCCEEDED(buffer->GetDesc(&desc));
-				YIA_INFO("	ConstBuffer {0}", i);
+
+
+				D3D12_SHADER_INPUT_BIND_DESC bindResDesc;
+				pReflection->GetResourceBindingDescByName(desc.Name,&bindResDesc);
+				
+				int NameSize = strlen(desc.Name) + 1;
+
+				sprintf_s(currentName, NameSize, "%s", desc.Name);
+
+				reflect.Resources[cbIndex].Name = currentName;
+				reflect.Resources[cbIndex].NameSize = NameSize;
+				reflect.Resources[cbIndex].registerSpace = bindResDesc.Space;
+				reflect.Resources[cbIndex].Type =(ResourceType) bindResDesc.Type;
+				reflect.Resources[cbIndex].size = desc.Size;
+				reflect.Resources[cbIndex].Stage = (ShaderStage)(1 << cbIndex);
+				currentName += NameSize+1;
+
+				YIA_INFO("	ConstBuffer {0}", cbIndex);
 				YIA_INFO("		name {0}", desc.Name);
 				YIA_INFO("		Size {0}", desc.Size);
 				YIA_INFO("		Type {0}", desc.Type);
 				YIA_INFO("		Variables {0}", desc.Variables);
-				for (size_t j = 0; j < desc.Variables; j++)
+			
+				for (size_t varIndex = 0; varIndex < desc.Variables; varIndex++)
 				{
-					ID3D12ShaderReflectionVariable* var =buffer->GetVariableByIndex(j);
-					D3D12_SHADER_VARIABLE_DESC desc;
-					var->GetDesc(&desc);
-					YIA_INFO("\t\t\tName {0}", desc.Name);
-					YIA_INFO("\t\t\tsize {0}", desc.Size);
-					YIA_INFO("\t\t\tStartOffset {0}", desc.StartOffset);
-					YIA_INFO("\t\t\tStartSampler {0}", desc.StartSampler);
-					YIA_INFO("\t\t\tStartTexture {0}", desc.StartTexture);
-					YIA_INFO("\t\t\tTextureSize {0}", desc.TextureSize);
+					ID3D12ShaderReflectionVariable* var =buffer->GetVariableByIndex(varIndex);
+					D3D12_SHADER_VARIABLE_DESC varDesc;
+					var->GetDesc(&varDesc);
+					int varNameSize = strlen(varDesc.Name) + 1;
+					sprintf_s(currentName, varNameSize, "%s", varDesc.Name);
+					reflect.Variables[varIndex].Name = currentName;
+					reflect.Variables[varIndex].NameSize = varNameSize;
+					reflect.Variables[varIndex].Size = varDesc.Size;
+					reflect.Variables[varIndex].Offset = varDesc.StartOffset;
+					reflect.Variables[varIndex].ResourceIndex = cbIndex;
+
+					currentName += NameSize + 1;
+
+					YIA_INFO("\t\t\tName {0}", varDesc.Name);
+					YIA_INFO("\t\t\tsize {0}", varDesc.Size);
+					YIA_INFO("\t\t\tStartOffset {0}", varDesc.StartOffset);
+					YIA_INFO("\t\t\tStartSampler {0}", varDesc.StartSampler);
+					YIA_INFO("\t\t\tStartTexture {0}", varDesc.StartTexture);
+					YIA_INFO("\t\t\tTextureSize {0}", varDesc.TextureSize);
 					
 					ID3D12ShaderReflectionType* type =var->GetType();
 					D3D12_SHADER_TYPE_DESC typeDesc;
 					type->GetDesc(&typeDesc);
 					//typeDesc
-
 				}
 
 			}
-			YIA_INFO("BoundResources {0}", shader_desc.BoundResources);
 			
-
+		
 
 			/*for (size_t i = 0; i < length; i++)
 			{
@@ -197,22 +297,7 @@ namespace YiaEngine::Graphic
 			YIA_INFO("InstructionCount {0}", shader_desc.InstructionCount);
 		
 
-			for (int i = 0; i < shader_desc.BoundResources; i++)
-			{
-				D3D12_SHADER_INPUT_BIND_DESC  resource_desc;
-				pReflection->GetResourceBindingDesc(i, &resource_desc);
-
-
-				auto shaderVarName = resource_desc.Name;
-				auto registerSpace = resource_desc.Space;
-				auto resourceType = resource_desc.Type;
-				auto bindPoint = resource_desc.BindPoint;
-
-				std::cout << "var name is " << shaderVarName << std::endl;
-				std::cout << "type name is " << resourceType << std::endl;
-				std::cout << "bind point is " << bindPoint << std::endl;
-				std::cout << "register space is " << registerSpace << std::endl;
-			}
+			
 
 		}
 	}

@@ -1,5 +1,5 @@
 #pragma once
-
+#include"Common/YiaMath.h"
 namespace YiaEngine
 {
     enum VirtualKey
@@ -25,37 +25,43 @@ namespace YiaEngine
         Key_G = 0x47,
         Key_H = 0x48,
         Key_I = 0x49,
-        Key_J = 0x41,
-        Key_K = 0x61,
-        Key_L = 0x62,
-        Key_M = 0x63,
-        Key_N = 0x64,
-        Key_O = 0x65,
-        Key_P = 0x66,
-        Key_Q = 0x67,
-        Key_R = 0x68,
-        Key_S = 0x69,
-        Key_T = 0x71,
-        Key_U = 0x72,
-        Key_V = 0x73,
-        Key_W = 0x74,
-        Key_X = 0x75,
-        Key_Y = 0x76,
-        Key_Z = 0x77,
+        Key_J = 0x4A,
+        Key_K = 0x4B,
+        Key_L = 0x4C,
+        Key_M = 0x4D,
+        Key_N = 0x4E,
+        Key_O = 0x4F,
+        Key_P = 0x50,
+        Key_Q = 0x51,
+        Key_R = 0x52,
+        Key_S = 0x53,
+        Key_T = 0x54,
+        Key_U = 0x55,
+        Key_V = 0x56,
+        Key_W = 0x57,
+        Key_X = 0x58,
+        Key_Y = 0x59,
+        Key_Z = 0x5A,
     };
-	class Input
-	{
+    class Input
+    {
 	public:
 		static void Update();
 		static void HandleMessage(void* msg);
 		static void Init();
+        static Math::Vec2f MouseMove();
 		static bool IsKeyPress(int keycode);
 		virtual ~Input() { delete s_Instance; };
 	protected:
 		virtual void UpdateImpl() = 0;
 		virtual void HandleMessageImpl(void* msg) = 0;
 		virtual bool IsKeyPressedImpl(int keycode) = 0;
-	private:
+    protected:
+        Math::Vec2f mouseMove_;
+        Math::Vec2f mousePos_;
+    private:
 		static Input* s_Instance;
+
+       
 	};
 }

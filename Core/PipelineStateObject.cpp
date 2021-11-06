@@ -5,7 +5,7 @@
 #include <vector>
 #include<cstring>
 #include<memory>
-
+#include"Common/Utility.h"
 
 #include"Utility.h"
 #include"PipelineStateObject.h"
@@ -25,7 +25,7 @@ namespace YiaEngine::Graphic
 		s_DefaultPSO.SetSampleMask(UINT_MAX);
 
 	}
-	PipelineStateObject::PipelineStateObject(const wchar_t* name):name_(name),signature_(nullptr)
+	PipelineStateObject::PipelineStateObject(const wchar_t* Name):name_(Name),signature_(nullptr)
 	{
 		ZeroMemory(&desc_, sizeof(desc_));
 		desc_.SampleDesc.Count = 1;
@@ -49,6 +49,7 @@ namespace YiaEngine::Graphic
 	void PipelineStateObject::SetInputLayout(const D3D12_INPUT_LAYOUT_DESC& layout_desc)
 	{
 		desc_.InputLayout = layout_desc;
+
 	}
 	void PipelineStateObject::SetRootSignature(const RootSignature& signature)
 	{
@@ -157,7 +158,21 @@ namespace YiaEngine::Graphic
 	}
 	void PipelineStateObject::Finalize()
 	{
-		ASSERT_SUCCEEDED(Graphic::g_Device->CreateGraphicsPipelineState(&desc_, IID_PPV_ARGS(&pso_)));
-		pso_->SetName(name_);
+
+		desc_.InputLayout.pInputElementDescs = nullptr;
+		size_t hash = HashState(&desc_);
+		hash = HashState(input_layout_.get(),desc_.InputLayout.NumElements,hash);
+		desc_.InputLayout.pInputElementDescs = input_layout_.get();
+
+		if (s_PipelineStatePool.find(hash) != s_PipelineStatePool.end())
+		{
+			pso_ = s_PipelineStatePool[hash];
+		}
+		else
+		{
+			ASSERT_SUCCEEDED(Graphic::g_Device->CreateGraphicsPipelineState(&desc_, IID_PPV_ARGS(&pso_)));
+			s_PipelineStatePool[hash] = pso_;
+			pso_->SetName(name_);
+		}
 	}
 }

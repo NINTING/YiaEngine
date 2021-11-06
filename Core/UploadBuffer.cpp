@@ -7,7 +7,7 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
-		void UploadBuffer::Create(const wchar_t* name,size_t dataSize)
+		void UploadBuffer::Create(const wchar_t* Name,size_t dataSize)
 		{
 			Destroy();
             bufferSize_ = dataSize;
@@ -36,7 +36,7 @@ namespace YiaEngine
                 D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&resource_)));
 
             gpuVirtualAddress_ = resource_->GetGPUVirtualAddress();
-            resource_->SetName(name);
+            resource_->SetName(Name);
 		}
         void* UploadBuffer::Map()
         {

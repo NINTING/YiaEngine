@@ -80,7 +80,7 @@ namespace YiaEngine::Graphic
 		//const ID3D12RootSignature* root_signature() const { return root_signature_.Get(); }const ID3D12RootSignature* root_signature() const { return root_signature_.Get(); }
 		//ID3D12RootSignature* RootSignaturePtr()  { return rootSignature_.Get(); }
 		ID3D12RootSignature* RawRootSignature() const { return rootSignature_.Get(); }
-		void Finalize(const wchar_t* name, D3D12_ROOT_SIGNATURE_FLAGS flag);
+		void Finalize(const wchar_t* Name, D3D12_ROOT_SIGNATURE_FLAGS flag);
 		void InitStaticSampler(int registerid, D3D12_SAMPLER_DESC desc, D3D12_SHADER_VISIBILITY visibility = D3D12_SHADER_VISIBILITY_ALL);
 		void Reset(int root_parament_count,int static_sampler_count);
 	public:

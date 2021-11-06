@@ -7,8 +7,8 @@ namespace YiaEngine
 	struct WindowData
 	{
 
-		WindowData(const char* name, UINT width, UINT height) 
-			:Name(name), Width(width), Height(height), LTPosX(0), LTPosY(0){}
+		WindowData(const char* Name, UINT width, UINT height) 
+			:Name(Name), Width(width), Height(height), LTPosX(0), LTPosY(0){}
 		std::string Name;
 		UINT Width;
 		UINT Height;

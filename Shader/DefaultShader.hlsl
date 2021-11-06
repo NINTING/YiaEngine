@@ -15,6 +15,11 @@ cbuffer ConstBufferPerFrame : register(b0)
     float4x4 ProjMat;
 }
 
+cbuffer ConstBufferTest: register(b1)
+{
+    float4 test;
+}
+
 struct PSInput
 {
     float4 position : SV_POSITION;

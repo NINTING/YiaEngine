@@ -3,10 +3,10 @@
 #include "Common/Utility.h"
 namespace YiaEngine
 {
-	YiaEngine::Mesh::Mesh(const char* name) :name_(name) {}
+	YiaEngine::Mesh::Mesh(const char* Name) :name_(Name) {}
 
-	Mesh::Mesh(const char* name,UINT count, const VertexAttributeArray* attrs)
-		: name_(name), attributes_(attrs,attrs+count)
+	Mesh::Mesh(const char* Name,UINT count, const VertexAttributeArray* attrs)
+		: name_(Name), attributes_(attrs,attrs+count)
 	{
 
 	}

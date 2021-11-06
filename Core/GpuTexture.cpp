@@ -28,7 +28,7 @@ namespace YiaEngine
 
             return Desc;
         }
-        void GpuTexture::CreateTextureResource(const wchar_t* name, const D3D12_RESOURCE_DESC resourceDesc,const D3D12_CLEAR_VALUE* value)
+        void GpuTexture::CreateTextureResource(const wchar_t* Name, const D3D12_RESOURCE_DESC resourceDesc,const D3D12_CLEAR_VALUE* value)
         {
             auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
             ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(

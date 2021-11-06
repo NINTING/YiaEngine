@@ -14,9 +14,9 @@ namespace YiaEngine
 		class RenderBuffer :public GpuTexture
 		{
 		public:
-			void Create(const wchar_t* name,UINT width, UINT height, DXGI_FORMAT format,  UINT numMip = 1, UINT arraySize = 1, UINT sampleCount = 1);
+			void Create(const wchar_t* Name,UINT width, UINT height, DXGI_FORMAT format,  UINT numMip = 1, UINT arraySize = 1, UINT sampleCount = 1);
 			~RenderBuffer() { Destroy(); }
-			void CreateFromSwapChian(const wchar_t* name,ID3D12Resource* resource);
+			void CreateFromSwapChian(const wchar_t* Name,ID3D12Resource* resource);
 			DescriptorHandle RtvCpuHandle()const { return rtvHandle_; };
 			DescriptorHandle SrvCpuHandle()const { return srvHandle_; };
 			

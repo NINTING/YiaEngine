@@ -12,9 +12,9 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
-		 GraphicContext& GraphicContext::Begin(const wchar_t* name)
+		 GraphicContext& GraphicContext::Begin(const wchar_t* Name)
 		{
-			 CommandContext* commandContext = CommandContext::Begin(name);
+			 CommandContext* commandContext = CommandContext::Begin(Name);
 			 
 			return reinterpret_cast<GraphicContext&>(*commandContext);
 		}
@@ -104,12 +104,12 @@ namespace YiaEngine
 		{
 			commandList_->SetGraphicsRootConstantBufferView(rootIndex, address);
 		}
-		void GraphicContext::BindConstBufferView(int rootIndex,UINT size, void* data,const char* name)
+		void GraphicContext::BindConstBufferView(int rootIndex,UINT size, void* data,const char* Name)
 		{
 			AllocateBuffer allcBuffer =  GetAllocateUploadBuffer(size,16);
 
-			wchar_t* wname = new wchar_t[strlen( name )+ 1];
-			Char2Wchar(name,  wname);
+			wchar_t* wname = new wchar_t[strlen( Name )+ 1];
+			Char2Wchar(Name,  wname);
 
 
 			allcBuffer.Buffer.SetResourceName(wname);

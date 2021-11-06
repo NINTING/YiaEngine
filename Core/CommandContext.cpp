@@ -13,12 +13,12 @@ namespace YiaEngine
 	{
 		CommandContextManager CommandContext::s_context_manager;
 	
-		CommandContext* CommandContext::Begin(const wchar_t* name)
+		CommandContext* CommandContext::Begin(const wchar_t* Name)
 		{
 
 
 			auto ret = s_context_manager.Allocator(D3D12_COMMAND_LIST_TYPE_DIRECT);
-			ret->name = name;
+			ret->Name = Name;
 			/*auto ret = new CommandContext(D3D12_COMMAND_LIST_TYPE_DIRECT);
 			ret->Initialize();*/
 		

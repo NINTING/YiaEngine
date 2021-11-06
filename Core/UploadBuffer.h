@@ -11,7 +11,7 @@ namespace YiaEngine
 		public:
 			UploadBuffer(const GpuResource& resource, size_t dataSize) :GpuResource(resource), bufferSize_(dataSize) {}
 			UploadBuffer() = default;
-			void Create(const wchar_t* name, size_t dataSize);
+			void Create(const wchar_t* Name, size_t dataSize);
 			void* Map();
 			void UnMap(size_t begin = 0, size_t end = -1);
 			size_t BufferSize()const { return bufferSize_; }

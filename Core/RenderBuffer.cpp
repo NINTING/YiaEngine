@@ -5,7 +5,7 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
-		void RenderBuffer::Create(const wchar_t * name,UINT width, UINT height, DXGI_FORMAT format, UINT numMip, UINT arraySize, UINT sampleCount)
+		void RenderBuffer::Create(const wchar_t * Name,UINT width, UINT height, DXGI_FORMAT format, UINT numMip, UINT arraySize, UINT sampleCount)
 		{
 			D3D12_CLEAR_VALUE clearValue;
 			clearValue.Format = format;
@@ -16,17 +16,17 @@ namespace YiaEngine
 			
 
 			auto desc = DescribeTex2D(width, height, arraySize, numMip, format, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
-			CreateTextureResource(name, desc,&clearValue);
+			CreateTextureResource(Name, desc,&clearValue);
 
 			CreateView(format, arraySize, numMip);
 
-			resource_->SetName(name);
+			resource_->SetName(Name);
 
 		}
-		void RenderBuffer::CreateFromSwapChian(const wchar_t* name, ID3D12Resource* resource)
+		void RenderBuffer::CreateFromSwapChian(const wchar_t* Name, ID3D12Resource* resource)
 		{
 			resource_.Attach(resource);
-			resource_->SetName(name);
+			resource_->SetName(Name);
 			usage_ = D3D12_RESOURCE_STATE_PRESENT;
 			D3D12_RESOURCE_DESC desc = resource->GetDesc();
 

@@ -14,6 +14,7 @@ namespace YiaEngine
 	
 		textCount_ = 0;
 		memset(textBuffer_, 0, sizeof(textBuffer_));
+		mouseMove_ = Math::Vec2f::Zero();
 	}
 	bool YiaEngine::WindowInput::IsKeyPressedImpl(int keycode)
 	{
@@ -36,9 +37,9 @@ namespace YiaEngine
 			KeyCodeEvent event{ char(wParam) };
 			Window::Dispatch(event);
 			textBuffer_[textCount_++] = char(wParam);
-			
+
 		}
-		
+
 		case WM_KEYDOWN:
 		case WM_SYSKEYDOWN:
 			pressed = true;
@@ -52,6 +53,45 @@ namespace YiaEngine
 			winKey = (uint32_t)wParam;
 			keyButtonState[winKey] = false;
 			break;
+
+
+		case WM_RBUTTONDOWN:
+		{
+			int xPos = GET_X_LPARAM(lParam);
+			int yPos = GET_Y_LPARAM(lParam);
+			winKey = (uint32_t)wParam;
+			YIA_INFO(" ‰»Î{0}", winKey);
+			MouseButtonDownEvent event(xPos, yPos, MouseButton::RButton);
+			YIA_INFO("button event dispatch");
+			Window::Dispatch(event);
+			
+			keyButtonState[VirtualKey::RightMouse] = true;
+			break;
+		}
+		case WM_RBUTTONUP:
+		{
+			int xPos = GET_X_LPARAM(lParam);
+			int yPos = GET_Y_LPARAM(lParam);
+			winKey = (uint32_t)wParam;
+			MouseButtonReleaseEvent event(xPos, yPos, MouseButton::RButton);
+			YIA_INFO("button event dispatch");
+			Window::Dispatch(event);
+			
+			keyButtonState[VirtualKey::RightMouse] = false;
+			break;
+		}
+		case WM_MOUSEMOVE:
+		{
+			int xPos = GET_X_LPARAM(lParam);
+			int yPos = GET_Y_LPARAM(lParam);
+		
+			MouseMoveEvent event(xPos, yPos);
+			Window::Dispatch(event);
+			mouseMove_ = { xPos - mousePos_.x(),yPos - mousePos_.y()};
+
+			mousePos_ = { xPos ,yPos };
+			break;
+		}
 		}
 
 	}

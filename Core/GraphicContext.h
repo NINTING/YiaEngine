@@ -21,14 +21,14 @@ namespace YiaEngine
 		class GraphicContext :public CommandContext
 		{
 		public:
-			static GraphicContext& Begin(const wchar_t* name = L"");
+			static GraphicContext& Begin(const wchar_t* Name = L"");
 			void SetRootSignature(const RootSignature& rootSignature);
 			void ParseRootSignature(const RootSignature& rootSignature);
 			
 			
 			void BindDescriptorTable(int rootIndex,const DescriptorHandle& startHandle);
 			void BindCpuDescriptor(int rootIndex, int offset, size_t num, const DescriptorHandle descriptorHandles[]);
-			void BindConstBufferView(int rootIndex, UINT size, void* data, const char* name = "");
+			void BindConstBufferView(int rootIndex, UINT size, void* data, const char* Name = "");
 			void BindGpuDescriptor();
 
 			void BindTestConstBufferView(int rootIndex, D3D12_GPU_VIRTUAL_ADDRESS address);

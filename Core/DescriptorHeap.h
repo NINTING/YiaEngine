@@ -67,12 +67,12 @@ namespace YiaEngine
 		class DescriptorHeap
 		{
 		public:
-			DescriptorHeap(const wchar_t* name, D3D12_DESCRIPTOR_HEAP_DESC desc);
+			DescriptorHeap(const wchar_t* Name, D3D12_DESCRIPTOR_HEAP_DESC desc);
 			DescriptorHeap() = default;
 
-			void Create(const wchar_t* name, D3D12_DESCRIPTOR_HEAP_DESC desc);
-			void CreateShaderVisibleType(const wchar_t* name, D3D12_DESCRIPTOR_HEAP_TYPE type, UINT32 count);
-			void CreateNonShaderVisibleType(const wchar_t* name, D3D12_DESCRIPTOR_HEAP_TYPE type, UINT32 count);
+			void Create(const wchar_t* Name, D3D12_DESCRIPTOR_HEAP_DESC desc);
+			void CreateShaderVisibleType(const wchar_t* Name, D3D12_DESCRIPTOR_HEAP_TYPE type, UINT32 count);
+			void CreateNonShaderVisibleType(const wchar_t* Name, D3D12_DESCRIPTOR_HEAP_TYPE type, UINT32 count);
 			//	virtual void Create(const wchar_t* name, D3D12_DESCRIPTOR_HEAP_TYPE type,UINT32 count, ID3D12Device* device); 
 			DescriptorHandle Alloc(uint32_t count = 1);
 			void Reset();

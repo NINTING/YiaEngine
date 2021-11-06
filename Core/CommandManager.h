@@ -56,7 +56,7 @@ namespace YiaEngine
 				}
 				
 			}
-			void CreateNewCommandList(D3D12_COMMAND_LIST_TYPE type, ID3D12GraphicsCommandList** out_list, ID3D12CommandAllocator** out_allocator,const wchar_t*name = L"")
+			void CreateNewCommandList(D3D12_COMMAND_LIST_TYPE type, ID3D12GraphicsCommandList** out_list, ID3D12CommandAllocator** out_allocator,const wchar_t*Name = L"")
 			{
 			
 				switch (type)
@@ -74,7 +74,7 @@ namespace YiaEngine
 					break;
 				}
 				g_Device->CreateCommandList(1, type, *out_allocator, nullptr, IID_PPV_ARGS(out_list));
-				(*out_list)->SetName(name);
+				(*out_list)->SetName(Name);
 			
 			}
 			bool IsComplete(UINT64 fence_value)

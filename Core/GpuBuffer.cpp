@@ -32,7 +32,7 @@ namespace YiaEngine:: Graphic
             
 	}
 
-    void GpuBuffer::Create(const wchar_t* name, int numElement, int elementSize, const UploadBuffer& initData, UINT offset)
+    void GpuBuffer::Create(const wchar_t* Name, int numElement, int elementSize, const UploadBuffer& initData, UINT offset)
     {
         elementSize_ = elementSize;
         elementCount_ = numElement;
@@ -52,7 +52,7 @@ namespace YiaEngine:: Graphic
         gpuVirtualAddress_ = resource_->GetGPUVirtualAddress();
 
 #ifdef _DEBUG
-        resource_->SetName(name);
+        resource_->SetName(Name);
 #endif // _DEBUG
 
 

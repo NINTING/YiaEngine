@@ -1,4 +1,5 @@
 #pragma once
+#include"pch.h"
 #include <d3d12.h>
 #include <wrl/client.h>
 #include <vector>
@@ -15,7 +16,7 @@ namespace YiaEngine::Graphic
 		static void StaticPSOInit();
 		static PipelineStateObject s_DefaultPSO;
 	public:
-		PipelineStateObject(const wchar_t*name = L"unanemed PSO");
+		PipelineStateObject(const wchar_t*Name = L"unanemed PSO");
 		void SetInputLayout(UINT NumElements, const D3D12_INPUT_ELEMENT_DESC* pInputElementDescs);
 		void SetInputLayout(const D3D12_INPUT_LAYOUT_DESC& layout_desc);
 		void SetRootSignature(const RootSignature& signature);
@@ -50,5 +51,6 @@ namespace YiaEngine::Graphic
 		std::shared_ptr <const D3D12_INPUT_ELEMENT_DESC>input_layout_;
 		D3D12_GRAPHICS_PIPELINE_STATE_DESC desc_;
 		Microsoft::WRL::ComPtr <ID3D12PipelineState> pso_;
+		std::map<size_t, ComPtr<ID3D12PipelineState>> s_PipelineStatePool;
 	};                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 }

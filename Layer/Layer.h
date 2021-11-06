@@ -8,7 +8,7 @@ namespace YiaEngine
 	class Layer
 	{
 	public:
-		Layer(const char* name = "Layer") :debugName_(name) {};
+		Layer(const char* Name = "Layer") :debugName_(Name) {};
 		virtual void OnEvent(Event& e) {};
 		virtual void OnUpdate(Timestep timestep) {};
 		virtual void OnAwake() {};
