@@ -20,6 +20,10 @@ namespace YiaEngine::Graphic
 		static_sampler_count_ = static_sampler_count;
 		uninit_static_sampler_count_ = 0;
 	}
+	void RootSignature::CreateRootSignature(Shader& shader)
+	{
+
+	}
 	void RootSignature::InitStaticSampler(int registerid, D3D12_SAMPLER_DESC desc, D3D12_SHADER_VISIBILITY visibility)
 	{
 		//ASSERT(m_NumInitializedStaticSamplers < m_NumSamplers);

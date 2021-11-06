@@ -4,6 +4,7 @@
 #include <vector>
 
 #include<memory>
+#include"Shader.h"
 namespace YiaEngine::Graphic
 {
 
@@ -83,6 +84,7 @@ namespace YiaEngine::Graphic
 		void Finalize(const wchar_t* Name, D3D12_ROOT_SIGNATURE_FLAGS flag);
 		void InitStaticSampler(int registerid, D3D12_SAMPLER_DESC desc, D3D12_SHADER_VISIBILITY visibility = D3D12_SHADER_VISIBILITY_ALL);
 		void Reset(int root_parament_count,int static_sampler_count);
+		void CreateRootSignature(Shader& shader);
 	public:
 		const RootParameter& operator[](int index) const { return paraments_[index]; }
 		size_t ParamenterCount()const { return paramenterCount_; }

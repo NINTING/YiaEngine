@@ -60,9 +60,9 @@ namespace YiaEngine::Graphic
 			for (size_t j = 0; j < desc.Variables; j++)
 			{
 				ID3D12ShaderReflectionVariable* var = buffer->GetVariableByIndex(j);
-				D3D12_SHADER_VARIABLE_DESC desc;
-				var->GetDesc(&desc);
-				reflect.PoolSize += strlen(desc.Name) + 1;
+				D3D12_SHADER_VARIABLE_DESC varDesc;
+				var->GetDesc(&varDesc);
+				reflect.PoolSize += strlen(varDesc.Name) + 1;
 				reflect.VariablesSize++;
 			}
 		
@@ -271,7 +271,7 @@ namespace YiaEngine::Graphic
 					reflect.Variables[varIndex].Offset = varDesc.StartOffset;
 					reflect.Variables[varIndex].ResourceIndex = cbIndex;
 
-					currentName += NameSize + 1;
+					currentName += varNameSize + 1;
 
 					YIA_INFO("\t\t\tName {0}", varDesc.Name);
 					YIA_INFO("\t\t\tsize {0}", varDesc.Size);

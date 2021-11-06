@@ -2974,12 +2974,12 @@ void ImGui::RenderNavHighlight(const ImRect& bb, ImGuiID id, ImGuiNavHighlightFl
 //-----------------------------------------------------------------------------
 
 // ImGuiWindow is mostly a dumb struct. It merely has a constructor and a few helper methods
-ImGuiWindow::ImGuiWindow(ImGuiContext* context, const char* Name) : DrawListInst(NULL)
+ImGuiWindow::ImGuiWindow(ImGuiContext* context, const char* name) : DrawListInst(NULL)
 {
     memset(this, 0, sizeof(*this));
-    Name = ImStrdup(Name);
-    NameBufLen = (int)strlen(Name) + 1;
-    ID = ImHashStr(Name);
+    Name = ImStrdup(name);
+    NameBufLen = (int)strlen(name) + 1;
+    ID = ImHashStr(name);
     IDStack.push_back(ID);
     ViewportAllowPlatformMonitorExtend = -1;
     ViewportPos = ImVec2(FLT_MAX, FLT_MAX);
@@ -2998,7 +2998,7 @@ ImGuiWindow::ImGuiWindow(ImGuiContext* context, const char* Name) : DrawListInst
     DockOrder = -1;
     DrawList = &DrawListInst;
     DrawList->_Data = &context->DrawListSharedData;
-    DrawList->_OwnerName = Name;
+    DrawList->_OwnerName = name;
 }
 
 ImGuiWindow::~ImGuiWindow()

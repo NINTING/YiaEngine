@@ -213,7 +213,7 @@ namespace YiaEngine
         bool open = true;
         ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
         ImGui::Begin("Scene",&open);
-        ImVec2 size = ImVec2(500, 400);
+        ImVec2 size = ImGui::GetWindowSize();
         
         if (size.x != sceneColorBuffer.Size().x() || size.y != sceneColorBuffer.Size().y())
         {
