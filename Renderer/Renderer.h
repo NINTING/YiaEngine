@@ -4,6 +4,7 @@
 
 #include"Common/Model/MeshObject.h"
 #include"Common/Camera.h"
+#include"Material.h"
 namespace YiaEngine
 {
 	namespace Graphic
@@ -26,6 +27,7 @@ namespace YiaEngine
 			void SetConstBufferView(int rootIndex, int size, void* data);
 			void SetConstBufferView(int rootIndex, void* data);
 			void SetTestConstBufferView(int rootIndex, D3D12_GPU_VIRTUAL_ADDRESS address);
+			void DrawMesh(const Mesh& mesh, PipelineStateObject& pso, Material& shader);
 			void DrawMesh(const Mesh& mesh, PipelineStateObject& pso, Shader& shader);
 			Camera& GetCurrentCamera();
 		private:

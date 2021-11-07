@@ -247,7 +247,7 @@ namespace YiaEngine::Graphic
 				reflect.Resources[cbIndex].Name = currentName;
 				reflect.Resources[cbIndex].NameSize = NameSize;
 				reflect.Resources[cbIndex].registerSpace = bindResDesc.Space;
-				reflect.Resources[cbIndex].Type =(ResourceType) bindResDesc.Type;
+				reflect.Resources[cbIndex].Type =(ShaderResourceType) bindResDesc.Type;
 				reflect.Resources[cbIndex].size = desc.Size;
 				reflect.Resources[cbIndex].Stage = (ShaderStage)(1 << cbIndex);
 				currentName += NameSize+1;

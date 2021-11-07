@@ -3,6 +3,7 @@
 #include"Utility.h"
 #include"Core/Graphic.h"
 #include "RootSignature.h"
+#include"Common/Logger.h"
 namespace YiaEngine::Graphic
 {
 	void RootSignature::Reset(int root_parament_count, int static_sampler_count)
@@ -20,9 +21,49 @@ namespace YiaEngine::Graphic
 		static_sampler_count_ = static_sampler_count;
 		uninit_static_sampler_count_ = 0;
 	}
-	void RootSignature::CreateRootSignature(Shader& shader)
+	void RootSignature::CreateRootSignature(const wchar_t*name, Shader& shader,int staticSamplerCount)
 	{
+		std::map<const char*, int> resourceMap;
+		std::vector<ShaderResource>resources;
+		UINT rootParamCount = 0;
+		for (size_t i = 0; i < Shader_Stage_Count; i++)
+		{
+			if (shader.Stages & (1 << i))
+			{
+				ShaderReflect& reflect = shader.Reflect[i];
+				for (size_t j = 0; j < reflect.ResourcesSize; j++)
+				{
+					auto it = resourceMap.find(reflect.Resources[i].Name);
+					if (it == resourceMap.end())
+					{
+						resources.push_back(reflect.Resources[i]);
+						resourceMap[reflect.Resources[i].Name] = resources.size();
+					}
+					else
+					{
+						 resources[it->second].Stage |= reflect.Resources[i].Stage;
+					}
+				}
 
+			}
+
+		}
+
+		Reset(resources.size(),staticSamplerCount);
+		for (size_t i = 0; i < resources.size(); i++)
+		{
+			ShaderResource& res = resources[i];
+			if (res.Type == ShaderResourceType::ConstBuffer)
+			{
+				paraments_[i].InitAsConstBufferView(ToDx12ShaderVisiblity(res.Stage), res.registerSpace);
+			}
+			else
+			{
+				YIA_ERROR("尚未支持创建其他类型的RootParamter {0}",res.Name);
+			}
+		}
+
+		Finalize(name, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 	}
 	void RootSignature::InitStaticSampler(int registerid, D3D12_SAMPLER_DESC desc, D3D12_SHADER_VISIBILITY visibility)
 	{

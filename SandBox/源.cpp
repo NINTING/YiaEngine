@@ -2,6 +2,7 @@
 #include<Core/YiaGraphic.h>
 #include<ThirdParty/WinPixEventRuntime.1.0.210818001/Include/WinPixEventRuntime/pix3.h>
 #include<Renderer/Renderer.h>
+#include<Renderer/Material.h>
 using namespace YiaEngine;
 
 class SampleLayer :public Layer
@@ -50,7 +51,7 @@ public:
 		boxLoadDesc.StageLoadDesc[1] = { boxFilename,Graphic::Shader_Stage_Pixel,L"ps_6_2" };
 
 
-		Graphic::LoadShader(loadDesc, sampleShader);
+ 		Graphic::LoadShader(loadDesc, sampleShader);
 
 
 		Graphic::LoadShader(boxLoadDesc, defaultShader);
@@ -192,9 +193,11 @@ public:
 		Box.AddIndices(sizeof(boxIndex) / sizeof(int), boxIndex);
 		Box.CreateMeshGpuBuffer();
 
-		BoxSignature.Reset(1, 0);
+		/*BoxSignature.Reset(1, 0);
 		BoxSignature[0].InitAsConstBufferView(D3D12_SHADER_VISIBILITY_VERTEX,0);
-		BoxSignature.Finalize(L"BoxSignature", D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT );
+		BoxSignature.Finalize(L"BoxSignature", D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT );*/
+
+		BoxSignature.CreateRootSignature(L"BoxSignature", defaultShader, 0);
 
 		CD3DX12_RASTERIZER_DESC wirframe_rasterized_desc(D3D12_FILL_MODE_WIREFRAME, D3D12_CULL_MODE_NONE,
 			false, 0, 0, 0, true, false, true, 0,
@@ -254,6 +257,8 @@ public:
 		* renderer.drawMesh(mesh,material);
 		* renderer.endPass()
 		*/
+
+		defaultMaterial.InitMaterial("DefaultMaterial",&defaultShader);
 	}
 	virtual void Init() 
 	{
@@ -310,7 +315,8 @@ public:
 		DefaultRenderer.ClearRenderTarget();
 		DefaultRenderer.ClearDepthStencil();
 		DefaultRenderer.SetRootSignature(BoxSignature);
-		DefaultRenderer.DrawMesh(Box, default3DPso, defaultShader);
+		DefaultRenderer.DrawMesh(Box, default3DPso, defaultMaterial);
+
 		DefaultRenderer.End();
 		/*
 		*	DefaultRenderer.BeginPass();
@@ -346,6 +352,8 @@ public:
 	Graphic::Renderer DefaultRenderer;
 	ComPtr<ID3D12Resource>g_cbv;
 	Camera camera;
+
+	Graphic::Material defaultMaterial;
 };
 
 

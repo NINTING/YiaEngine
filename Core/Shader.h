@@ -7,7 +7,7 @@ namespace YiaEngine
 	namespace Graphic
 	{
 
-		enum ResourceType
+		enum ShaderResourceType
 		{
 			ConstBuffer = 0,
 			Texture,
@@ -42,8 +42,8 @@ namespace YiaEngine
 			char* Name;
 			UINT NameSize;
 			int registerSpace;
-			size_t size;
-			ResourceType Type;
+			size_t Size;
+			ShaderResourceType Type;
 			ShaderStage Stage;
 		};
 		struct ShaderVariable
@@ -79,5 +79,7 @@ namespace YiaEngine
 			ComPtr<IDxcBlob> ShaderBlob[Shader_Stage_Count];
 			ShaderReflect Reflect[Shader_Stage_Count];
 		};
+
+		D3D12_SHADER_VISIBILITY ToDx12ShaderVisiblity(ShaderStage stage);
 	}
 }

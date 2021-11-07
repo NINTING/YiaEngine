@@ -28,10 +28,12 @@ namespace YiaEngine
 			
 			void BindDescriptorTable(int rootIndex,const DescriptorHandle& startHandle);
 			void BindCpuDescriptor(int rootIndex, int offset, size_t num, const DescriptorHandle descriptorHandles[]);
-			void BindConstBufferView(int rootIndex, UINT size, void* data, const char* Name = "");
+			void BindConstBufferView(int rootIndex, UINT size, void* data, const char* Name);
 			void BindGpuDescriptor();
 
 			void BindTestConstBufferView(int rootIndex, D3D12_GPU_VIRTUAL_ADDRESS address);
+
+			void BindConstBufferView(int rootIndex, UINT size, void* data);
 			
 			void SetViewPortAndScissorRects(const D3D12_VIEWPORT* pViewPort, const D3D12_RECT* pAcissorRect_);
 			void SetRenderTarget(const DescriptorHandle* renderTarget,const DescriptorHandle* depth);

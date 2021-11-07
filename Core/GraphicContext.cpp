@@ -104,6 +104,13 @@ namespace YiaEngine
 		{
 			commandList_->SetGraphicsRootConstantBufferView(rootIndex, address);
 		}
+		void GraphicContext::BindConstBufferView(int rootIndex, UINT size, void* data)
+		{
+			AllocateBuffer allcBuffer = GetAllocateUploadBuffer(size, 16);
+			memcpy_s(allcBuffer.CpuAddress, size, data, size);
+			commandList_->SetGraphicsRootConstantBufferView(rootIndex, allcBuffer.GpuAddress);
+
+		}
 		void GraphicContext::BindConstBufferView(int rootIndex,UINT size, void* data,const char* Name)
 		{
 			AllocateBuffer allcBuffer =  GetAllocateUploadBuffer(size,16);
