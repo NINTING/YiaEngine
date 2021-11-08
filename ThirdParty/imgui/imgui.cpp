@@ -1558,12 +1558,12 @@ static const ImU32 GCrc32LookupTable[256] =
 // Known size hash
 // It is ok to call ImHashData on a string with known length but the ### operator won't be supported.
 // FIXME-OPT: Replace with e.g. FNV1a hash? CRC32 pretty much randomly access 1KB. Need to do proper measurements.
-ImGuiID ImHashData(const void* data_p, size_t data_size, ImU32 seed)
+ImGuiID ImHashData(const void* data_p, size_t Size, ImU32 seed)
 {
     ImU32 crc = ~seed;
     const unsigned char* data = (const unsigned char*)data_p;
     const ImU32* crc32_lut = GCrc32LookupTable;
-    while (data_size-- != 0)
+    while (Size-- != 0)
         crc = (crc >> 8) ^ crc32_lut[(crc & 0xFF) ^ *data++];
     return ~crc;
 }
@@ -1574,18 +1574,18 @@ ImGuiID ImHashData(const void* data_p, size_t data_size, ImU32 seed)
 // - If we reach ### in the string we discard the hash so far and reset to the seed.
 // - We don't do 'current += 2; continue;' after handling ### to keep the code smaller/faster (measured ~10% diff in Debug build)
 // FIXME-OPT: Replace with e.g. FNV1a hash? CRC32 pretty much randomly access 1KB. Need to do proper measurements.
-ImGuiID ImHashStr(const char* data_p, size_t data_size, ImU32 seed)
+ImGuiID ImHashStr(const char* data_p, size_t Size, ImU32 seed)
 {
     seed = ~seed;
     ImU32 crc = seed;
     const unsigned char* data = (const unsigned char*)data_p;
     const ImU32* crc32_lut = GCrc32LookupTable;
-    if (data_size != 0)
+    if (Size != 0)
     {
-        while (data_size-- != 0)
+        while (Size-- != 0)
         {
             unsigned char c = *data++;
-            if (c == '#' && data_size >= 2 && data[0] == '#' && data[1] == '#')
+            if (c == '#' && Size >= 2 && data[0] == '#' && data[1] == '#')
                 crc = seed;
             crc = (crc >> 8) ^ crc32_lut[(crc & 0xFF) ^ c];
         }
@@ -10822,7 +10822,7 @@ void ImGui::EndDragDropSource()
 }
 
 // Use 'cond' to choose to submit payload on drag start or every frame
-bool ImGui::SetDragDropPayload(const char* type, const void* data, size_t data_size, ImGuiCond cond)
+bool ImGui::SetDragDropPayload(const char* type, const void* data, size_t Size, ImGuiCond cond)
 {
     ImGuiContext& g = *GImGui;
     ImGuiPayload& payload = g.DragDropPayload;
@@ -10831,7 +10831,7 @@ bool ImGui::SetDragDropPayload(const char* type, const void* data, size_t data_s
 
     IM_ASSERT(type != NULL);
     IM_ASSERT(strlen(type) < IM_ARRAYSIZE(payload.DataType) && "Payload type can be at most 32 characters long");
-    IM_ASSERT((data != NULL && data_size > 0) || (data == NULL && data_size == 0));
+    IM_ASSERT((data != NULL && Size > 0) || (data == NULL && Size == 0));
     IM_ASSERT(cond == ImGuiCond_Always || cond == ImGuiCond_Once);
     IM_ASSERT(payload.SourceId != 0);                               // Not called between BeginDragDropSource() and EndDragDropSource()
 
@@ -10840,25 +10840,25 @@ bool ImGui::SetDragDropPayload(const char* type, const void* data, size_t data_s
         // Copy payload
         ImStrncpy(payload.DataType, type, IM_ARRAYSIZE(payload.DataType));
         g.DragDropPayloadBufHeap.resize(0);
-        if (data_size > sizeof(g.DragDropPayloadBufLocal))
+        if (Size > sizeof(g.DragDropPayloadBufLocal))
         {
             // Store in heap
-            g.DragDropPayloadBufHeap.resize((int)data_size);
+            g.DragDropPayloadBufHeap.resize((int)Size);
             payload.Data = g.DragDropPayloadBufHeap.Data;
-            memcpy(payload.Data, data, data_size);
+            memcpy(payload.Data, data, Size);
         }
-        else if (data_size > 0)
+        else if (Size > 0)
         {
             // Store locally
             memset(&g.DragDropPayloadBufLocal, 0, sizeof(g.DragDropPayloadBufLocal));
             payload.Data = g.DragDropPayloadBufLocal;
-            memcpy(payload.Data, data, data_size);
+            memcpy(payload.Data, data, Size);
         }
         else
         {
             payload.Data = NULL;
         }
-        payload.DataSize = (int)data_size;
+        payload.DataSize = (int)Size;
     }
     payload.DataFrameCount = g.FrameCount;
 

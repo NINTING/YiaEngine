@@ -10,7 +10,7 @@ namespace YiaEngine
         public:
          //   const DescriptorHandle& SrvHandle()const;
             ~GpuTexture() { Destroy(); }
-            D3D12_RESOURCE_DESC DescribeTex2D(UINT widht, UINT height, UINT depthOrArraySize, UINT mips, DXGI_FORMAT format, UINT flag);
+            D3D12_RESOURCE_DESC DescribeTex2D(UINT widht, UINT Height, UINT depthOrArraySize, UINT mips, DXGI_FORMAT format, UINT flag);
             void CreateTextureResource(const wchar_t* Name,const D3D12_RESOURCE_DESC resourceDesc, const D3D12_CLEAR_VALUE* value);
         protected:
             DXGI_FORMAT GetStencilFormat(DXGI_FORMAT format);

@@ -2143,8 +2143,8 @@ ImFont* ImFontAtlas::AddFontDefault(const ImFontConfig* font_cfg_template)
 ImFont* ImFontAtlas::AddFontFromFileTTF(const char* filename, float size_pixels, const ImFontConfig* font_cfg_template, const ImWchar* glyph_ranges)
 {
     IM_ASSERT(!Locked && "Cannot modify a locked ImFontAtlas between NewFrame() and EndFrame/Render()!");
-    size_t data_size = 0;
-    void* data = ImFileLoadToMemory(filename, "rb", &data_size, 0);
+    size_t Size = 0;
+    void* data = ImFileLoadToMemory(filename, "rb", &Size, 0);
     if (!data)
     {
         IM_ASSERT_USER_ERROR(0, "Could not load font file!");
@@ -2158,7 +2158,7 @@ ImFont* ImFontAtlas::AddFontFromFileTTF(const char* filename, float size_pixels,
         for (p = filename + strlen(filename); p > filename && p[-1] != '/' && p[-1] != '\\'; p--) {}
         ImFormatString(font_cfg.Name, IM_ARRAYSIZE(font_cfg.Name), "%s, %.0fpx", p, size_pixels);
     }
-    return AddFontFromMemoryTTF(data, (int)data_size, size_pixels, &font_cfg, glyph_ranges);
+    return AddFontFromMemoryTTF(data, (int)Size, size_pixels, &font_cfg, glyph_ranges);
 }
 
 // NB: Transfer ownership of 'ttf_data' to ImFontAtlas, unless font_cfg_template->FontDataOwnedByAtlas == false. Owned TTF buffer will be deleted after Build().
@@ -2197,28 +2197,28 @@ ImFont* ImFontAtlas::AddFontFromMemoryCompressedBase85TTF(const char* compressed
     return font;
 }
 
-int ImFontAtlas::AddCustomRectRegular(int width, int height)
+int ImFontAtlas::AddCustomRectRegular(int width, int Height)
 {
     IM_ASSERT(width > 0 && width <= 0xFFFF);
-    IM_ASSERT(height > 0 && height <= 0xFFFF);
+    IM_ASSERT(Height > 0 && Height <= 0xFFFF);
     ImFontAtlasCustomRect r;
     r.Width = (unsigned short)width;
-    r.Height = (unsigned short)height;
+    r.Height = (unsigned short)Height;
     CustomRects.push_back(r);
     return CustomRects.Size - 1; // Return index
 }
 
-int ImFontAtlas::AddCustomRectFontGlyph(ImFont* font, ImWchar id, int width, int height, float advance_x, const ImVec2& offset)
+int ImFontAtlas::AddCustomRectFontGlyph(ImFont* font, ImWchar id, int width, int Height, float advance_x, const ImVec2& offset)
 {
 #ifdef IMGUI_USE_WCHAR32
     IM_ASSERT(id <= IM_UNICODE_CODEPOINT_MAX);
 #endif
     IM_ASSERT(font != NULL);
     IM_ASSERT(width > 0 && width <= 0xFFFF);
-    IM_ASSERT(height > 0 && height <= 0xFFFF);
+    IM_ASSERT(Height > 0 && Height <= 0xFFFF);
     ImFontAtlasCustomRect r;
     r.Width = (unsigned short)width;
-    r.Height = (unsigned short)height;
+    r.Height = (unsigned short)Height;
     r.GlyphID = id;
     r.GlyphAdvanceX = advance_x;
     r.GlyphOffset = offset;
@@ -2521,7 +2521,7 @@ static bool ImFontAtlasBuildWithStbTruetype(ImFontAtlas* atlas)
     atlas->TexPixelsAlpha8 = (unsigned char*)IM_ALLOC(atlas->TexWidth * atlas->TexHeight);
     memset(atlas->TexPixelsAlpha8, 0, atlas->TexWidth * atlas->TexHeight);
     spc.pixels = atlas->TexPixelsAlpha8;
-    spc.height = atlas->TexHeight;
+    spc.Height = atlas->TexHeight;
 
     // 8. Render/rasterize font characters into the texture
     for (int src_i = 0; src_i < src_tmp_array.Size; src_i++)

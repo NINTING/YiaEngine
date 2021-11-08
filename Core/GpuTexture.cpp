@@ -5,10 +5,10 @@ namespace YiaEngine
 {
     namespace Graphic
     {
-        D3D12_RESOURCE_DESC GpuTexture::DescribeTex2D(UINT width, UINT height, UINT depthOrArraySize, UINT mips, DXGI_FORMAT format, UINT flag)
+        D3D12_RESOURCE_DESC GpuTexture::DescribeTex2D(UINT width, UINT Height, UINT depthOrArraySize, UINT mips, DXGI_FORMAT format, UINT flag)
         {
             width_ = width;
-            height_ = height;
+            height_ = Height;
             format_ = format;
             numMips_ = mips;
             arraySize_  = depthOrArraySize;
@@ -19,7 +19,7 @@ namespace YiaEngine
             Desc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
             Desc.Flags = (D3D12_RESOURCE_FLAGS)flag;
             Desc.Format = format;
-            Desc.Height = (UINT)height;
+            Desc.Height = (UINT)Height;
             Desc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
             Desc.MipLevels = (UINT16)mips;
             Desc.SampleDesc.Count = 1;

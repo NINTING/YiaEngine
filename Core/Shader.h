@@ -9,9 +9,9 @@ namespace YiaEngine
 
 		enum ShaderResourceType
 		{
-			ConstBuffer = 0,
-			Texture,
-			Sample,
+			ShaderResourceType_ConstBuffer = 0,
+			ShaderResourceType_Texture,
+			ShaderResourceType_Sample,
 		};
 		enum ShaderStage
 		{

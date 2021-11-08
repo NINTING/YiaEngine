@@ -64,7 +64,7 @@ namespace YiaEngine
 			for (size_t i = 0; i < resources.size(); i++)
 			{
 				ShaderResource& res = resources[i];
-				if (res.Type == ShaderResourceType::ConstBuffer)
+				if (res.Type == ShaderResourceType::ShaderResourceType_ConstBuffer)
 				{
 					ResourceData res;
 					res.BufferData = new uint8_t[resources[i].Size];

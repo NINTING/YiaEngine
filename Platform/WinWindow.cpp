@@ -14,11 +14,11 @@ namespace YiaEngine
         return *s_Window;
     }
 
-    void Window::ResizeScreen(UINT width, UINT height)
+    void Window::ResizeScreen(UINT width, UINT Height)
     {
         if (s_Window != nullptr)
         {
-            s_Window->Resize(width, height);
+            s_Window->Resize(width, Height);
         }
     }
     void Window::FullScreen()
@@ -39,18 +39,18 @@ namespace YiaEngine
             if (wParam == SIZE_RESTORED)
             {
                 UINT width = LOWORD(lParam);
-                UINT height = HIWORD(lParam);
-                Window::ResizeScreen(width, height);
-                WindowResizeEvent event(width, height);
+                UINT Height = HIWORD(lParam);
+                Window::ResizeScreen(width, Height);
+                WindowResizeEvent event(width, Height);
                 Window::Dispatch(event);
 
             }
             else if (wParam == SIZE_MAXIMIZED)
             {
                 UINT width = LOWORD(lParam);
-                UINT height = HIWORD(lParam);
-                Window::ResizeScreen(width, height);
-                WindowResizeEvent event(width, height);
+                UINT Height = HIWORD(lParam);
+                Window::ResizeScreen(width, Height);
+                WindowResizeEvent event(width, Height);
                 Window::Dispatch(event);
                 //Window::FullScreen();
             }
@@ -159,10 +159,10 @@ namespace YiaEngine
         return hwnd_;
     }
 
-    void WinWindow::Resize(UINT width, UINT height)
+    void WinWindow::Resize(UINT width, UINT Height)
     {
 
-        windowData_.Height = height;
+        windowData_.Height = Height;
         windowData_.Width = width;
     }
 

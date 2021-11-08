@@ -5,7 +5,7 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
-		void RenderBuffer::Create(const wchar_t * Name,UINT width, UINT height, DXGI_FORMAT format, UINT numMip, UINT arraySize, UINT sampleCount)
+		void RenderBuffer::Create(const wchar_t * Name,UINT width, UINT Height, DXGI_FORMAT format, UINT numMip, UINT arraySize, UINT sampleCount)
 		{
 			D3D12_CLEAR_VALUE clearValue;
 			clearValue.Format = format;
@@ -15,7 +15,7 @@ namespace YiaEngine
 			clearValue.Color[3] = 1.0f;
 			
 
-			auto desc = DescribeTex2D(width, height, arraySize, numMip, format, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
+			auto desc = DescribeTex2D(width, Height, arraySize, numMip, format, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
 			CreateTextureResource(Name, desc,&clearValue);
 
 			CreateView(format, arraySize, numMip);
@@ -79,9 +79,9 @@ namespace YiaEngine
 
 	
 
-		void RenderBuffer::CreateResource(UINT width, UINT height, DXGI_FORMAT format, const D3D12_CLEAR_VALUE* clearValue, UINT arraySize, UINT sampleCount, UINT numMip)
+		void RenderBuffer::CreateResource(UINT width, UINT Height, DXGI_FORMAT format, const D3D12_CLEAR_VALUE* clearValue, UINT arraySize, UINT sampleCount, UINT numMip)
 		{
-			auto desc = DescribeTex2D(width,height,arraySize, numMip, format, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);// CD3DX12_RESOURCE_DESC::Tex2D(format, width, height, arraySize, numMip, sampleCount, 0, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
+			auto desc = DescribeTex2D(width,Height,arraySize, numMip, format, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);// CD3DX12_RESOURCE_DESC::Tex2D(format, width, height, arraySize, numMip, sampleCount, 0, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
 			auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
 			ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(
 				&heap_properties,

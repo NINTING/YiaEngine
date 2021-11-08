@@ -8,9 +8,9 @@ namespace YiaEngine
 		{
 
 		}
-		void YiaEngine::Graphic::DepthBuffer::Create(const wchar_t* Name, UINT width, UINT height, DXGI_FORMAT format)
+		void YiaEngine::Graphic::DepthBuffer::Create(const wchar_t* Name, UINT width, UINT Height, DXGI_FORMAT format)
 		{
-			auto desc = DescribeTex2D(width, height,1, 1, format, D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL);
+			auto desc = DescribeTex2D(width, Height,1, 1, format, D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL);
 			D3D12_CLEAR_VALUE clearValue = { };
 			clearValue.DepthStencil.Depth = 1;
 			clearValue.Format = format;

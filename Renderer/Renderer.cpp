@@ -116,7 +116,7 @@ namespace YiaEngine
 			for (size_t i = 0; i < material.GetResourceCount(); i++)
 			{
 				ResourceData& data = material.GetResourceData(i);
-				if (data.Type == ShaderResourceType::ConstBuffer)
+				if (data.Type == ShaderResourceType::ShaderResourceType_ConstBuffer)
 				{
 					graphicContext->BindConstBufferView(i, data.Size, data.BufferData);
 				}

@@ -9,7 +9,7 @@ namespace YiaEngine:: Graphic
 	{
 	public:
 		
-		void Create(size_t data_size, size_t stride, void* data = nullptr);
+		void Create(size_t Size, size_t stride, void* data = nullptr);
 		void Create(const wchar_t* Name, int numElement,int elementSize,const void* initData);
 		void Create(const wchar_t* Name, int numElement, int elementSize, const UploadBuffer& initData,UINT offset = 0);
 		D3D12_VERTEX_BUFFER_VIEW VertexBufferView(size_t offset, UINT stride, UINT dataSize)const;

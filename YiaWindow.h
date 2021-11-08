@@ -7,8 +7,8 @@ namespace YiaEngine
 	struct WindowData
 	{
 
-		WindowData(const char* Name, UINT width, UINT height) 
-			:Name(Name), Width(width), Height(height), LTPosX(0), LTPosY(0){}
+		WindowData(const char* Name, UINT width, UINT Height) 
+			:Name(Name), Width(width), Height(Height), LTPosX(0), LTPosY(0){}
 		std::string Name;
 		UINT Width;
 		UINT Height;
@@ -31,11 +31,11 @@ namespace YiaEngine
 		static Window& Create(const WindowData& data);
 		virtual void SetEventCallBack(const EventCallBack& callBack) { callBack_ = callBack; };
 		static void Dispatch(Event& e) {if(s_Window!=nullptr&&s_Window->callBack_) s_Window->callBack_(e); };
-		static void ResizeScreen(UINT width, UINT height);
+		static void ResizeScreen(UINT width, UINT Height);
 		static void FullScreen();
 		static Window& CurrentWindow() { return *s_Window; }
 	protected:
-		virtual void Resize(UINT width, UINT height) = 0;
+		virtual void Resize(UINT width, UINT Height) = 0;
 		virtual void ResizeFullScreen() = 0;
 	protected:
 		static std::unique_ptr<Window> s_Window;

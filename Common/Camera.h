@@ -40,7 +40,7 @@ namespace YiaEngine
 		float Aspect();
 		float GetCameraWidth() {return viewport_.Width; };
 		float GetCameraHeight() {return viewport_.Height; };
-		void SetViewport(float width, float height, float topLeftX = 0, float topLeftY = 0, float minDepth = 0.01, float maxDepth = 100);
+		void SetViewport(float width, float Height, float topLeftX = 0, float topLeftY = 0, float minDepth = 0.01, float maxDepth = 100);
 	private:
 		FovType fov_type_;
 		float near_clip_;
@@ -71,7 +71,7 @@ namespace YiaEngine
 		void Strafe(float d);
 		void Walk(float d);
 		void Rotation(Math::Vec3f axis, Math::Vec3f dir, float angle);
-		void EulerRotation(float yaw, float pitch, float roll);
+		void EulerRotation(float yaw, float Pitch, float roll);
 		void Rotation(Math::Vec2f dir);
 	private:
 		Math::Vec3f position_;

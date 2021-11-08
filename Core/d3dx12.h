@@ -61,14 +61,14 @@ struct CD3DX12_VIEWPORT : public D3D12_VIEWPORT
 		FLOAT topLeftX,
 		FLOAT topLeftY,
 		FLOAT width,
-		FLOAT height,
+		FLOAT Height,
 		FLOAT minDepth = D3D12_MIN_DEPTH,
 		FLOAT maxDepth = D3D12_MAX_DEPTH) noexcept
 	{
 		TopLeftX = topLeftX;
 		TopLeftY = topLeftY;
 		Width = width;
-		Height = height;
+		Height = Height;
 		MinDepth = minDepth;
 		MaxDepth = maxDepth;
 	}
@@ -677,13 +677,13 @@ struct CD3DX12_TILE_REGION_SIZE : public D3D12_TILE_REGION_SIZE
 		UINT numTiles,
 		BOOL useBox,
 		UINT width,
-		UINT16 height,
+		UINT16 Height,
 		UINT16 depth) noexcept
 	{
 		NumTiles = numTiles;
 		UseBox = useBox;
 		Width = width;
-		Height = height;
+		Height = Height;
 		Depth = depth;
 	}
 };
@@ -802,13 +802,13 @@ struct CD3DX12_SUBRESOURCE_FOOTPRINT : public D3D12_SUBRESOURCE_FOOTPRINT
 	CD3DX12_SUBRESOURCE_FOOTPRINT(
 		DXGI_FORMAT format,
 		UINT width,
-		UINT height,
+		UINT Height,
 		UINT depth,
 		UINT rowPitch) noexcept
 	{
 		Format = format;
 		Width = width;
-		Height = height;
+		Height = Height;
 		Depth = depth;
 		RowPitch = rowPitch;
 	}
@@ -1730,7 +1730,7 @@ struct CD3DX12_RESOURCE_DESC : public D3D12_RESOURCE_DESC
 		D3D12_RESOURCE_DIMENSION dimension,
 		UINT64 alignment,
 		UINT64 width,
-		UINT height,
+		UINT Height,
 		UINT16 depthOrArraySize,
 		UINT16 mipLevels,
 		DXGI_FORMAT format,
@@ -1742,7 +1742,7 @@ struct CD3DX12_RESOURCE_DESC : public D3D12_RESOURCE_DESC
 		Dimension = dimension;
 		Alignment = alignment;
 		Width = width;
-		Height = height;
+		Height = Height;
 		DepthOrArraySize = depthOrArraySize;
 		MipLevels = mipLevels;
 		Format = format;
@@ -1781,7 +1781,7 @@ struct CD3DX12_RESOURCE_DESC : public D3D12_RESOURCE_DESC
 	static inline CD3DX12_RESOURCE_DESC Tex2D(
 		DXGI_FORMAT format,
 		UINT64 width,
-		UINT height,
+		UINT Height,
 		UINT16 arraySize = 1,
 		UINT16 mipLevels = 0,
 		UINT sampleCount = 1,
@@ -1790,20 +1790,20 @@ struct CD3DX12_RESOURCE_DESC : public D3D12_RESOURCE_DESC
 		D3D12_TEXTURE_LAYOUT layout = D3D12_TEXTURE_LAYOUT_UNKNOWN,
 		UINT64 alignment = 0) noexcept
 	{
-		return CD3DX12_RESOURCE_DESC(D3D12_RESOURCE_DIMENSION_TEXTURE2D, alignment, width, height, arraySize,
+		return CD3DX12_RESOURCE_DESC(D3D12_RESOURCE_DIMENSION_TEXTURE2D, alignment, width, Height, arraySize,
 			mipLevels, format, sampleCount, sampleQuality, layout, flags);
 	}
 	static inline CD3DX12_RESOURCE_DESC Tex3D(
 		DXGI_FORMAT format,
 		UINT64 width,
-		UINT height,
+		UINT Height,
 		UINT16 depth,
 		UINT16 mipLevels = 0,
 		D3D12_RESOURCE_FLAGS flags = D3D12_RESOURCE_FLAG_NONE,
 		D3D12_TEXTURE_LAYOUT layout = D3D12_TEXTURE_LAYOUT_UNKNOWN,
 		UINT64 alignment = 0) noexcept
 	{
-		return CD3DX12_RESOURCE_DESC(D3D12_RESOURCE_DIMENSION_TEXTURE3D, alignment, width, height, depth,
+		return CD3DX12_RESOURCE_DESC(D3D12_RESOURCE_DIMENSION_TEXTURE3D, alignment, width, Height, depth,
 			mipLevels, format, 1, 0, layout, flags);
 	}
 	inline UINT16 Depth() const noexcept
@@ -1857,7 +1857,7 @@ struct CD3DX12_RESOURCE_DESC1 : public D3D12_RESOURCE_DESC1
 		D3D12_RESOURCE_DIMENSION dimension,
 		UINT64 alignment,
 		UINT64 width,
-		UINT height,
+		UINT Height,
 		UINT16 depthOrArraySize,
 		UINT16 mipLevels,
 		DXGI_FORMAT format,
@@ -1872,7 +1872,7 @@ struct CD3DX12_RESOURCE_DESC1 : public D3D12_RESOURCE_DESC1
 		Dimension = dimension;
 		Alignment = alignment;
 		Width = width;
-		Height = height;
+		Height = Height;
 		DepthOrArraySize = depthOrArraySize;
 		MipLevels = mipLevels;
 		Format = format;
@@ -1914,7 +1914,7 @@ struct CD3DX12_RESOURCE_DESC1 : public D3D12_RESOURCE_DESC1
 	static inline CD3DX12_RESOURCE_DESC1 Tex2D(
 		DXGI_FORMAT format,
 		UINT64 width,
-		UINT height,
+		UINT Height,
 		UINT16 arraySize = 1,
 		UINT16 mipLevels = 0,
 		UINT sampleCount = 1,
@@ -1926,21 +1926,21 @@ struct CD3DX12_RESOURCE_DESC1 : public D3D12_RESOURCE_DESC1
 		UINT samplerFeedbackMipRegionHeight = 0,
 		UINT samplerFeedbackMipRegionDepth = 0) noexcept
 	{
-		return CD3DX12_RESOURCE_DESC1(D3D12_RESOURCE_DIMENSION_TEXTURE2D, alignment, width, height, arraySize,
+		return CD3DX12_RESOURCE_DESC1(D3D12_RESOURCE_DIMENSION_TEXTURE2D, alignment, width, Height, arraySize,
 			mipLevels, format, sampleCount, sampleQuality, layout, flags, samplerFeedbackMipRegionWidth,
 			samplerFeedbackMipRegionHeight, samplerFeedbackMipRegionDepth);
 	}
 	static inline CD3DX12_RESOURCE_DESC1 Tex3D(
 		DXGI_FORMAT format,
 		UINT64 width,
-		UINT height,
+		UINT Height,
 		UINT16 depth,
 		UINT16 mipLevels = 0,
 		D3D12_RESOURCE_FLAGS flags = D3D12_RESOURCE_FLAG_NONE,
 		D3D12_TEXTURE_LAYOUT layout = D3D12_TEXTURE_LAYOUT_UNKNOWN,
 		UINT64 alignment = 0) noexcept
 	{
-		return CD3DX12_RESOURCE_DESC1(D3D12_RESOURCE_DIMENSION_TEXTURE3D, alignment, width, height, depth,
+		return CD3DX12_RESOURCE_DESC1(D3D12_RESOURCE_DIMENSION_TEXTURE3D, alignment, width, Height, depth,
 			mipLevels, format, 1, 0, layout, flags, 0, 0, 0);
 	}
 	inline UINT16 Depth() const noexcept

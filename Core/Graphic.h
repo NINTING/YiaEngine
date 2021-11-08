@@ -47,7 +47,7 @@ namespace YiaEngine
 		void GetHardwareAdapter(IDXGIFactory1* pFactory,
 			IDXGIAdapter1** ppAdapter,
 			bool requestHighPerformanceAdapter);
-		void ResizeScreen(UINT width, UINT height);
+		void ResizeScreen(UINT width, UINT Height);
 		enum DescriptorType
 		{
 			SRV,CBV,UAV

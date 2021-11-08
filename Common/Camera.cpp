@@ -35,17 +35,17 @@ namespace YiaEngine
 		return aspect_;
 	}
 
-	void Camera::SetViewport(float width, float height, float topLeftX, float topLeftY, float minDepth, float maxDepth)
+	void Camera::SetViewport(float width, float Height, float topLeftX, float topLeftY, float minDepth, float maxDepth)
 	{
 		viewport_.Width = width;
-		viewport_.Height = height;
+		viewport_.Height = Height;
 		viewport_.TopLeftX= topLeftX;
 		viewport_.TopLeftY = topLeftY;
 		viewport_.MinDepth = minDepth;
 		viewport_.MaxDepth = maxDepth;
 		near_clip_ = minDepth;
 		far_clip_ = maxDepth;
-		aspect_ = width / height;
+		aspect_ = width / Height;
 	}
 
 #pragma region Transform
@@ -108,9 +108,9 @@ namespace YiaEngine
 		
 	}
 	
-	void Camera::EulerRotation(float yaw,float pitch,float roll)
+	void Camera::EulerRotation(float yaw,float Pitch,float roll)
 	{
-		Eigen::Vector3f axis(yaw, pitch, roll);
+		Eigen::Vector3f axis(yaw, Pitch, roll);
 		Eigen::AngleAxisf rollAngle(Eigen::AngleAxisf(axis(2), Eigen::Vector3f::UnitZ()));
 		Eigen::AngleAxisf pitchAngle(Eigen::AngleAxisf(axis(1), Eigen::Vector3f::UnitX()));
 		Eigen::AngleAxisf yawAngle(Eigen::AngleAxisf(axis(0), Eigen::Vector3f::UnitY()));

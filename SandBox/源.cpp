@@ -1,5 +1,6 @@
 #include<YiaEngine.h>
 #include<Core/YiaGraphic.h>
+#include<Renderer/YiaRenderer.h>
 #include<ThirdParty/WinPixEventRuntime.1.0.210818001/Include/WinPixEventRuntime/pix3.h>
 #include<Renderer/Renderer.h>
 #include<Renderer/Material.h>
@@ -19,6 +20,55 @@ public:
 	};
 	virtual void OnUpdate() {};
 };
+
+
+
+UINT TextureWidth = 200;
+UINT TextureHeight = 200;
+UINT TexturePixelSize = 4;
+Graphic::ImageData GenerateTextureData()
+{
+	Graphic::ImageData retImage;
+	retImage.Width = 200;
+	retImage.Height = 200;
+	retImage.PerPixelByte = 4;
+	retImage.Pitch = 200 * 4;
+	retImage.Size = retImage.Pitch * retImage.Height;
+	retImage.pData = std::shared_ptr<uint8_t>(new uint8_t[retImage.Size]);
+
+	const UINT rowPitch = TextureWidth * TexturePixelSize;
+	const UINT cellPitch = rowPitch >> 3;        // The width of a cell in the checkboard texture.
+	const UINT cellHeight = TextureWidth >> 3;    // The height of a cell in the checkerboard texture.
+	const UINT textureSize = rowPitch * TextureHeight;
+	
+	std::vector<UINT8> data(textureSize);
+	UINT8* pData = retImage.pData.get();
+
+	for (UINT n = 0; n < textureSize; n += TexturePixelSize)
+	{
+		UINT x = n % rowPitch;
+		UINT y = n / rowPitch;
+		UINT i = x / cellPitch;
+		UINT j = y / cellHeight;
+
+		if (i % 2 == j % 2)
+		{
+			pData[n] = 0x00;        // R
+			pData[n + 1] = 0xFF;    // G
+			pData[n + 2] = 0xFF;    // B
+			pData[n + 3] = 0xff;    // A
+		}
+		else
+		{
+			pData[n] = 0xff;        // R
+			pData[n + 1] = 0xff;    // G
+			pData[n + 2] = 0xff;    // B
+			pData[n + 3] = 0xff;    // A
+		}
+	}
+	
+	return retImage;
+}
 
 class SampleApp :public Application
 {

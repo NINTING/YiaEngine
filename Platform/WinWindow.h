@@ -15,7 +15,7 @@ namespace YiaEngine
 		// Í¨¹ý Window ¼Ì³Ð
 		virtual UINT GetWidth() override { return windowData_.Width; }
 		virtual UINT GetHeight() override { return windowData_.Height; }
-		virtual void Resize(UINT width, UINT height);
+		virtual void Resize(UINT width, UINT Height);
 		virtual void ResizeFullScreen();
 		virtual void OnUpdate() override;
 		virtual void OnDestroy()override;

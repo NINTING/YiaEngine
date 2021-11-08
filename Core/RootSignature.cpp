@@ -53,7 +53,7 @@ namespace YiaEngine::Graphic
 		for (size_t i = 0; i < resources.size(); i++)
 		{
 			ShaderResource& res = resources[i];
-			if (res.Type == ShaderResourceType::ConstBuffer)
+			if (res.Type == ShaderResourceType::ShaderResourceType_ConstBuffer)
 			{
 				paraments_[i].InitAsConstBufferView(ToDx12ShaderVisiblity(res.Stage), res.registerSpace);
 			}

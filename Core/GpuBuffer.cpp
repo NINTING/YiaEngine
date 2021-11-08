@@ -7,7 +7,7 @@
 namespace YiaEngine:: Graphic
 {
  
-    void GpuBuffer::Create(size_t data_size, size_t stride, void* data)
+    void GpuBuffer::Create(size_t Size, size_t stride, void* data)
 	{
         D3D12_RESOURCE_DESC desc = DescriptBuffer();
         D3D12_HEAP_PROPERTIES heap_prop;
@@ -16,7 +16,7 @@ namespace YiaEngine:: Graphic
         heap_prop.CreationNodeMask = 1;
         heap_prop.VisibleNodeMask = 1;
         heap_prop.MemoryPoolPreference = D3D12_MEMORY_POOL_UNKNOWN;
-        bufferSize_ = data_size;
+        bufferSize_ = Size;
         ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(
             &heap_prop,
             D3D12_HEAP_FLAG_NONE,

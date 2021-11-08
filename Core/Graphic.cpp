@@ -87,13 +87,13 @@ namespace YiaEngine
 			*ppAdapter = adapter.Detach();
 		}
 
-		void ResizeScreen(UINT width, UINT height)
+		void ResizeScreen(UINT width, UINT Height)
 		{
 			for (UINT i = 0; i < SWAP_CHAIN_COUNT; i++)
 			{
 				Graphic::g_SwapRenderTarget[i].Destroy();
 			}
-			ASSERT_SUCCEEDED( g_SwapChain->ResizeBuffers(SWAP_CHAIN_COUNT, width, height, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
+			ASSERT_SUCCEEDED( g_SwapChain->ResizeBuffers(SWAP_CHAIN_COUNT, width, Height, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
 			for (UINT i = 0; i < SWAP_CHAIN_COUNT; i++)
 			{
 			

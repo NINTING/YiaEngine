@@ -21,7 +21,7 @@ namespace YiaEngine
 	class WindowResizeEvent : public Event
 	{
 	public:
-		WindowResizeEvent(UINT width, UINT height):Width(width),Height(height){}
+		WindowResizeEvent(UINT width, UINT Height):Width(width),Height(Height){}
 		REGISTER_EVENT_CLASS(EventCategoryApplication, WindowResize);
 		virtual std::string Tostring() { return Name(); }
 		UINT Width, Height;

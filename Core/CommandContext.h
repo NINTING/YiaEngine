@@ -10,6 +10,8 @@
 #include"PipelineStateObject.h"
 #include"UploadBuffer.h"
 #include"GpuBuffer.h"
+#include"Renderer/Image.h"
+
 namespace YiaEngine
 {
 	namespace Graphic
@@ -74,7 +76,8 @@ namespace YiaEngine
 			void CopyBuffer(GpuResource& dest,size_t destOffset,GpuResource& src,size_t srcOffset,size_t numBytes);
 
 		public:
-			static void InitializeTexture(GpuResource& dest, UINT subresource_num, D3D12_SUBRESOURCE_DATA data);
+			//static void InitializeTexture(Texture& dest, UINT subresource_num, D3D12_SUBRESOURCE_DATA data);
+			static void InitializeTexture(GpuResource& dest, ImageData& image);
 			static void InitializeBuffer(GpuResource& dest,UINT bufferSize,void* initData);
 			static void InitializeBuffer(GpuBuffer& dest, const UploadBuffer& uploadBuffer, UINT srcOffset = 0, UINT destOffset = 0, size_t numByte = -1);
 			
