@@ -86,17 +86,21 @@ public:
 
 		Graphic::ShaderLoadDesc loadDesc = {};
 		Graphic::ShaderLoadDesc boxLoadDesc = {};
+		Graphic::ShaderLoadDesc blitLoadDesc = {};
 #ifdef USE_PIX
 		const wchar_t* filename = L"D:/Yia/YiaEngine/Shader/SampleShader.hlsl";
 		const wchar_t* boxFilename = L"D:/Yia/YiaEngine/Shader/DefaultShader.hlsl";
+		const wchar_t* blitFilename = L"D:/Yia/YiaEngine/Shader/BlitShader.hlsl";
 #else
 		const wchar_t* filename = L"../Shader/SampleShader.hlsl";
 		const wchar_t* boxFilename = L"../Shader/SampleShader.hlsl";
+		const wchar_t* blitFilename = L"../Shader/BlitShader.hlsl";
 #endif
 
 		loadDesc.StageLoadDesc[0] = { filename,Graphic::Shader_Stage_Vertex,L"vs_6_2" };
 		loadDesc.StageLoadDesc[1] = { filename,Graphic::Shader_Stage_Pixel,L"ps_6_2" };
-		
+		blitLoadDesc.StageLoadDesc[0] = { blitFilename,Graphic::Shader_Stage_Vertex,L"vs_6_2" };
+		blitLoadDesc.StageLoadDesc[1] = { blitFilename,Graphic::Shader_Stage_Pixel,L"ps_6_2" };
 		boxLoadDesc.StageLoadDesc[0] = { boxFilename,Graphic::Shader_Stage_Vertex,L"vs_6_2" };
 		boxLoadDesc.StageLoadDesc[1] = { boxFilename,Graphic::Shader_Stage_Pixel,L"ps_6_2" };
 
@@ -106,6 +110,7 @@ public:
 
 		Graphic::LoadShader(boxLoadDesc, defaultShader);
 
+		Graphic::LoadShader(blitLoadDesc, blitShader);
 		Math::Vec3f pos[] = {
 			{ -1.0f, 1.f , 0.0f },
 			{ 1.0f, 1.f , 0.0f },
@@ -248,7 +253,7 @@ public:
 		BoxSignature.Finalize(L"BoxSignature", D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT );*/
 
 		BoxSignature.CreateRootSignature(L"BoxSignature", defaultShader, 0);
-
+		BlitSignature.CreateRootSignature(L"BlitSignature", blitShader, 1);
 		CD3DX12_RASTERIZER_DESC wirframe_rasterized_desc(D3D12_FILL_MODE_WIREFRAME, D3D12_CULL_MODE_NONE,
 			false, 0, 0, 0, true, false, true, 0,
 			D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF);
@@ -279,7 +284,7 @@ public:
 		Math::Mat4x4f projMat = camera.ProjectionMatrix();
 		Math::Mat4x4f worldMat = Math::Mat4x4f::Identity();
 		
-		auto tmp_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+		/*auto tmp_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
 		auto tmp_buffer_desc = CD3DX12_RESOURCE_DESC::Buffer(sizeof(Math::Vec4f));
 		ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(&tmp_properties,
 			D3D12_HEAP_FLAG_NONE,
@@ -292,7 +297,7 @@ public:
 		UINT8* buffer_begin;
 		ASSERT_SUCCEEDED(g_cbv->Map(0, &range, reinterpret_cast<void**>(&buffer_begin)));
 		memcpy(buffer_begin, &finalColor, sizeof(finalColor));
-		g_cbv->Unmap(0, nullptr);
+		g_cbv->Unmap(0, nullptr);*/
 		//Graphic::UploadBuffer perFrameUpLoadBuffer;
 		//Graphic::GpuBuffer perFrameBuffer;
 		//perFrameBuffer.Create();
@@ -309,6 +314,9 @@ public:
 		*/
 
 		defaultMaterial.InitMaterial("DefaultMaterial",&defaultShader);
+		Graphic::ImageData image = GenerateTextureData();
+
+		testTexture.InitializeByImage(image, DXGI_FORMAT_R8G8B8A8_UNORM);
 	}
 	virtual void Init() 
 	{
@@ -359,6 +367,12 @@ public:
 		//DefaultRenderer.DrawMesh(fullScreenRect, pso, sampleShader);
 		//DefaultRenderer.End();
 
+		defaultMaterial.SetMatrix("ObjectMat", Math::Mat4x4f::Identity());
+		defaultMaterial.SetMatrix("WorldMat", Math::Mat4x4f::Identity());
+		defaultMaterial.SetMatrix("ViewMat", camera.ViewMatrix());
+		defaultMaterial.SetMatrix("ProjMat", camera.ProjectionMatrix());
+
+
 		DefaultRenderer.Begin();
 		DefaultRenderer.SetRenderTarget(&sceneColorBuffer, &sceneDepthBuffer);
 		DefaultRenderer.SetCamera(camera);
@@ -394,16 +408,19 @@ public:
 	Graphic::RootSignature signature;
 	Math::Vec4f finalColor = Math::Vec4f(1, 0, 0.5, 1);
 	Graphic::RootSignature BoxSignature;
-
+	Graphic::RootSignature BlitSignature;
 	Mesh fullScreenRect;
 	Mesh Box;
 	Graphic::Shader sampleShader;
 	Graphic::Shader defaultShader;
+	Graphic::Shader blitShader;
 	Graphic::Renderer DefaultRenderer;
 	ComPtr<ID3D12Resource>g_cbv;
 	Camera camera;
 
 	Graphic::Material defaultMaterial;
+
+	Graphic::Texture testTexture;
 };
 
 

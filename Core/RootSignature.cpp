@@ -50,6 +50,8 @@ namespace YiaEngine::Graphic
 		}
 
 		Reset(resources.size(),staticSamplerCount);
+		//static sample存储
+		//texture根签名的分配
 		for (size_t i = 0; i < resources.size(); i++)
 		{
 			ShaderResource& res = resources[i];
@@ -62,6 +64,21 @@ namespace YiaEngine::Graphic
 				YIA_ERROR("尚未支持创建其他类型的RootParamter {0}",res.Name);
 			}
 		}
+	
+
+		D3D12_SAMPLER_DESC sampler_desc;
+		sampler_desc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
+		sampler_desc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
+		sampler_desc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
+		sampler_desc.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;
+		sampler_desc.MinLOD = 0;
+		sampler_desc.MaxLOD = 0;
+		sampler_desc.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
+		sampler_desc.MipLODBias = 0;
+		sampler_desc.MaxAnisotropy = 0;
+
+		InitStaticSampler(0, sampler_desc, D3D12_SHADER_VISIBILITY_PIXEL);
+		
 
 		Finalize(name, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 	}

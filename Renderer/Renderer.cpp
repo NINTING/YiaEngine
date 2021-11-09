@@ -98,14 +98,7 @@ namespace YiaEngine
 
 
 		
-			if (pCamera_ != nullptr)
-			{
-				material.SetMatrix("ObjectMat", Math::Mat4x4f::Identity());
-				material.SetMatrix("WorldMat", Math::Mat4x4f::Identity());
-				material.SetMatrix("ViewMat", pCamera_->ViewMatrix());
-				material.SetMatrix("ProjMat", pCamera_->ProjectionMatrix());
-			}
-
+			
 			
 			
 

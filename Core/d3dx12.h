@@ -1730,7 +1730,7 @@ struct CD3DX12_RESOURCE_DESC : public D3D12_RESOURCE_DESC
 		D3D12_RESOURCE_DIMENSION dimension,
 		UINT64 alignment,
 		UINT64 width,
-		UINT Height,
+		UINT height,
 		UINT16 depthOrArraySize,
 		UINT16 mipLevels,
 		DXGI_FORMAT format,
@@ -1742,7 +1742,7 @@ struct CD3DX12_RESOURCE_DESC : public D3D12_RESOURCE_DESC
 		Dimension = dimension;
 		Alignment = alignment;
 		Width = width;
-		Height = Height;
+		Height = height;
 		DepthOrArraySize = depthOrArraySize;
 		MipLevels = mipLevels;
 		Format = format;

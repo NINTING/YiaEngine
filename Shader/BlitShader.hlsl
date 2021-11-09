@@ -17,7 +17,7 @@ struct PSInput
 struct  VSInput
 {
     float3 position : POSITION;
-    float3 uv:TEXCOORD;
+    float2 uv:TEXCOORD0;
 };
 
 PSInput VsMain(VSInput input)
