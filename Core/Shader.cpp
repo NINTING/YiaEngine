@@ -6,9 +6,6 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
-		
-		
-		
 		D3D12_SHADER_VISIBILITY ToDx12ShaderVisiblity(ShaderStage stage)
 		{
 			int stageCount = 0;
@@ -25,6 +22,17 @@ namespace YiaEngine
 				stageCount++;
 			}
 			return stage > 1 ? D3D12_SHADER_VISIBILITY_ALL : ret;
+		}
+
+		D3D12_DESCRIPTOR_RANGE_TYPE ToDx12RangeType(ShaderResourceType stage)
+		{
+			switch (stage)
+			{
+			case YiaEngine::Graphic::ShaderResourceType_ConstBuffer:
+				return D3D12_DESCRIPTOR_RANGE_TYPE_CBV;
+			case YiaEngine::Graphic::ShaderResourceType_Texture:
+				return D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
+			}
 		}
 
 	}

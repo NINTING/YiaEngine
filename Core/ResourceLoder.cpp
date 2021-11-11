@@ -225,6 +225,18 @@ namespace YiaEngine::Graphic
 				YIA_INFO("\tSpace {0}", desc.Space);
 				YIA_INFO("\tType {0}", desc.Type);
 				YIA_INFO("\tflag {0}", desc.uFlags);
+				int NameSize = strlen(desc.Name) + 1;
+
+				sprintf_s(currentName, NameSize, "%s", desc.Name);
+				reflect.Resources[resIndex].Name = currentName;
+				reflect.Resources[resIndex].NameSize = NameSize;
+				reflect.Resources[resIndex].RegisterSpace = desc.Space;
+				reflect.Resources[resIndex].Type = (ShaderResourceType)desc.Type;
+				//reflect.Resources[resIndex].Size = desc.BindCount;
+				reflect.Resources[resIndex].Reg = desc.BindPoint;
+				reflect.Resources[resIndex].Dimension = (TextureDimension)desc.Dimension;
+				reflect.Resources[resIndex].Count = desc.BindCount;
+				currentName += NameSize + 1;
 			}
 			
 			YIA_INFO("ConstantBuffers {0}", shader_desc.ConstantBuffers);
@@ -240,24 +252,22 @@ namespace YiaEngine::Graphic
 				D3D12_SHADER_INPUT_BIND_DESC bindResDesc;
 				pReflection->GetResourceBindingDescByName(desc.Name,&bindResDesc);
 				
-				int NameSize = strlen(desc.Name) + 1;
-
-				sprintf_s(currentName, NameSize, "%s", desc.Name);
-
-				reflect.Resources[cbIndex].Name = currentName;
-				reflect.Resources[cbIndex].NameSize = NameSize;
-				reflect.Resources[cbIndex].registerSpace = bindResDesc.Space;
-				reflect.Resources[cbIndex].Type =(ShaderResourceType) bindResDesc.Type;
-				reflect.Resources[cbIndex].Size = desc.Size;
-				reflect.Resources[cbIndex].Stage = (ShaderStage)(1 << cbIndex);
-				currentName += NameSize+1;
 
 				YIA_INFO("	ConstBuffer {0}", cbIndex);
 				YIA_INFO("		name {0}", desc.Name);
 				YIA_INFO("		Size {0}", desc.Size);
 				YIA_INFO("		Type {0}", desc.Type);
 				YIA_INFO("		Variables {0}", desc.Variables);
-			
+				int resCbIndex;
+				for (size_t resIndex = 0; resIndex < shader_desc.BoundResources; resIndex++)
+				{
+					if (strcmp(desc.Name, reflect.Resources[resIndex].Name) == 0)
+					{
+						resCbIndex = resIndex;
+					}
+
+				}
+				reflect.Resources[resCbIndex].Size = desc.Size;
 				for (size_t varIndex = 0; varIndex < desc.Variables; varIndex++)
 				{
 					ID3D12ShaderReflectionVariable* var =buffer->GetVariableByIndex(varIndex);
@@ -269,7 +279,7 @@ namespace YiaEngine::Graphic
 					reflect.Variables[varIndex].NameSize = varNameSize;
 					reflect.Variables[varIndex].Size = varDesc.Size;
 					reflect.Variables[varIndex].Offset = varDesc.StartOffset;
-					reflect.Variables[varIndex].ResourceIndex = cbIndex;
+					reflect.Variables[varIndex].ResourceIndex = resCbIndex;
 
 					currentName += varNameSize + 1;
 

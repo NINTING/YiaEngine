@@ -68,7 +68,13 @@ namespace YiaEngine::Graphic
 		D3D12_ROOT_PARAMETER parameter_;
 	};
 
-
+	struct SignatureLocation
+	{
+		SignatureLocation() = default;
+		SignatureLocation(UINT rootIndex, UINT offset) :RootIndex(rootIndex), Offset(offset){}
+		UINT RootIndex;
+		UINT Offset;
+	};
 	/*
 		64 DWORD ¿Õ¼ä
 		Root Constants			= 1 DWORD * numConstant
@@ -90,6 +96,7 @@ namespace YiaEngine::Graphic
 		const RootParameter& operator[](int index) const { return paraments_[index]; }
 		size_t ParamenterCount()const { return paramenterCount_; }
 		RootParameter& operator[](int index) { return paraments_[index]; }
+		SignatureLocation GetResourceLocation(int i) { return locationMap[i]; }
 	private:
 
 		size_t descriptorTableSizeArray_[16];
@@ -99,5 +106,6 @@ namespace YiaEngine::Graphic
 		Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature_;
 		std::unique_ptr<D3D12_STATIC_SAMPLER_DESC[]>samplers_;
 		std::unique_ptr<RootParameter[]>paraments_;
+		std::map<int, SignatureLocation> locationMap;
 	};
 }

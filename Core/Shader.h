@@ -11,7 +11,7 @@ namespace YiaEngine
 		{
 			ShaderResourceType_ConstBuffer = 0,
 			ShaderResourceType_Texture,
-			ShaderResourceType_Sample,
+			ShaderResourceType_Sampler,
 		};
 		enum ShaderStage
 		{
@@ -23,6 +23,21 @@ namespace YiaEngine
 
 			Shader_Stage_Count = 3,
 		};
+		enum TextureDimension
+		{
+			TEXTURE_DIM_UNKNOWN = 0,
+			TEXTURE_DIM_BUFFER = 1,
+			TEXTURE_DIM_TEXTURE1D = 2,
+			TEXTURE_DIM_TEXTURE1DARRAY = 3,
+			TEXTURE_DIM_TEXTURE2D = 4,
+			TEXTURE_DIM_TEXTURE2DARRAY = 5,
+			TEXTURE_DIM_TEXTURE2DMS = 6,
+			TEXTURE_DIM_TEXTURE2DMSARRAY = 7,
+			TEXTURE_DIM_TEXTURE3D = 8,
+			TEXTURE_DIM_TEXTURECUBE = 9,
+			TEXTURE_DIM_TEXTURECUBEARRAY = 10,
+		};
+
 		struct VertextInputAttribute
 		{
 			char* SemanticName;
@@ -41,8 +56,11 @@ namespace YiaEngine
 		{
 			char* Name;
 			UINT NameSize;
-			int registerSpace;
+			int RegisterSpace;
+			int Reg;
+			TextureDimension Dimension;
 			size_t Size;
+			int Count;
 			ShaderResourceType Type;
 			ShaderStage Stage;
 		};
@@ -53,8 +71,8 @@ namespace YiaEngine
 			size_t Size;
 			size_t Offset;
 			UINT ResourceIndex;
-			
 		};
+
 		struct ShaderReflect
 		{
 			char* pNamePool;
@@ -81,5 +99,6 @@ namespace YiaEngine
 		};
 
 		D3D12_SHADER_VISIBILITY ToDx12ShaderVisiblity(ShaderStage stage);
+		D3D12_DESCRIPTOR_RANGE_TYPE ToDx12RangeType(ShaderResourceType stage);
 	}
 }

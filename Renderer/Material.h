@@ -3,7 +3,7 @@
 #include"Core/YiaGraphic.h"
 
 #include"Common/YiaMath.h"
-
+#include"Texture.h"
 namespace YiaEngine
 {
 	namespace Graphic
@@ -12,7 +12,9 @@ namespace YiaEngine
 		struct ResourceData
 		{
 			ShaderResourceType Type;
-			uint8_t* BufferData;
+			uint8_t* Data;
+			SignatureLocation location;
+			UINT Count;
 			UINT Size;
 		};
 
@@ -30,11 +32,15 @@ namespace YiaEngine
 		public:
 			void SetMatrix(const char* name, const Math::Mat4x4f& mat);
 
+			void SetTexture(const char* name, const Texture& texture);
+
 		private:
 
 			void AddInputLayout();
 
 			void AddVariable();
+
+			void AddTextureResource();
 
 			
 
@@ -46,6 +52,7 @@ namespace YiaEngine
 			std::string name_;
 			std::map<std::string,ShaderVariable> varibalData_;
 			std::vector <ResourceData> resourceDatas_;
+			std::map<std::string, UINT>textureMap;
 		};
 	}
 }

@@ -97,11 +97,11 @@ namespace YiaEngine
 			}
 
 
-		
 			
 			
 			
-
+			
+			bool bindGpuDescriptor = false;
 
 			D3D12_INDEX_BUFFER_VIEW ibo = mesh.GetIndexBuffer();
 			graphicContext->SetPipelineState(pso);
@@ -111,14 +111,23 @@ namespace YiaEngine
 				ResourceData& data = material.GetResourceData(i);
 				if (data.Type == ShaderResourceType::ShaderResourceType_ConstBuffer)
 				{
-					graphicContext->BindConstBufferView(i, data.Size, data.BufferData);
+					graphicContext->BindConstBufferView(data.location.RootIndex, data.Size, data.Data);
+				}
+				else if (data.Type == ShaderResourceType::ShaderResourceType_Texture)
+				{
+					 Texture*texData = (Texture*)(data.Data);
+
+					graphicContext->BindCpuDescriptor(data.location.RootIndex, data.location.Offset, data.Count, &texData->CpuHandle());
+					bindGpuDescriptor = true;
 				}
 				else
 				{
 					YIA_ERROR("未知Shader 资源处理{0}", i);
 				}
 			}
-
+			if(bindGpuDescriptor)
+				graphicContext->BindGpuDescriptor();
+			
 			graphicContext->SetVertexBuffers(0, shader.Reflect->VertexInput.AttributesCount, vbo);
 			graphicContext->SetIndexBuffer(&ibo);
 			graphicContext->SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);

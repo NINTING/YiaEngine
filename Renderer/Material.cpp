@@ -11,11 +11,42 @@ namespace YiaEngine
 			
 			wchar_t* wname = new wchar_t[strlen(name) + 1];
 			Char2Wchar(name, wname);
+
+
+			std::vector<ShaderResource> outResources;
+			FilterDuplicateShaderResource(*shader, outResources);
+
 			resourceLayout_.CreateRootSignature(wname, *shader, 0);
 			delete wname;
 			InitMaterialResource();
 			AddInputLayout();
 			AddVariable();
+		}
+		void FilterDuplicateShaderResource(const Shader& shader, std::vector<ShaderResource>& outResources)
+		{
+			std::map<const char*, int> resourceMap;
+		
+			UINT rootParamCount = 0;
+			for (size_t i = 0; i < Shader_Stage_Count; i++)
+			{
+				if (shader.Stages & (1 << i))
+				{
+					const ShaderReflect& reflect = shader.Reflect[i];
+					for (size_t j = 0; j < reflect.ResourcesSize; j++)
+					{
+						auto it = resourceMap.find(reflect.Resources[i].Name);
+						if (it == resourceMap.end())
+						{
+							outResources.push_back(reflect.Resources[i]);
+							resourceMap[reflect.Resources[i].Name] = outResources.size() - 1;
+						}
+						else
+						{
+							outResources[it->second].Stage |= reflect.Resources[i].Stage;
+						}
+					}
+				}
+			}
 		}
 		void Material::InitMaterial(const char* name, Shader* shader)
 		{
@@ -66,11 +97,21 @@ namespace YiaEngine
 				ShaderResource& res = resources[i];
 				if (res.Type == ShaderResourceType::ShaderResourceType_ConstBuffer)
 				{
-					ResourceData res;
-					res.BufferData = new uint8_t[resources[i].Size];
-					res.Size = resources[i].Size;
-					res.Type = resources[i].Type;
-					resourceDatas_.push_back(res);
+					ResourceData resData;
+					resData.Data = new uint8_t[resources[i].Size];
+
+					resData.Size = resources[i].Size;
+					resData.Type = resources[i].Type;
+					resourceDatas_.push_back(resData);
+				}
+				else if(res.Type == ShaderResourceType::ShaderResourceType_Texture)
+				{
+					ResourceData resData;
+					textureMap[res.Name] = resourceDatas_.size();
+					resData.Count = res.Count;
+					resData.Data = nullptr;
+					resData.location = resourceLayout_.GetResourceLocation(i);
+					resourceDatas_.push_back(resData);
 				}
 				else
 				{
@@ -81,7 +122,12 @@ namespace YiaEngine
 		void Material::SetMatrix(const char* name,const Math::Mat4x4f& mat)
 		{
 			ResourceData& data = resourceDatas_[varibalData_[name].ResourceIndex];
-			memcpy(data.BufferData + varibalData_[name].Offset, (uint8_t*)&mat, sizeof(Math::Mat4x4f));
+			memcpy(data.Data + varibalData_[name].Offset, (uint8_t*)&mat, sizeof(Math::Mat4x4f));
+		}
+		void Material::SetTexture(const char* name,const Texture&texture)
+		{
+			ResourceData& resourceData = resourceDatas_[textureMap[name]];
+			resourceData.Data = (uint8_t*)(&texture);
 		}
 		void Material::AddInputLayout()
 		{
@@ -120,7 +166,9 @@ namespace YiaEngine
 				} 
 			}
 		}
-
+		void Material::AddTextureResource(){
+		
+		}
 		ResourceData& Material::GetResourceData(int rootIndex)
 		{
 			return resourceDatas_[rootIndex];
