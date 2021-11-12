@@ -12,6 +12,7 @@
 
 namespace YiaEngine::Graphic
 {
+	std::map<size_t, ComPtr<ID3D12PipelineState>> PipelineStateObject::s_PipelineStatePool;
 	PipelineStateObject PipelineStateObject::s_DefaultPSO(L"Default PSO");
 	void PipelineStateObject::StaticPSOInit()
 	{

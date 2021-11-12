@@ -21,7 +21,7 @@ namespace YiaEngine
 				ret = D3D12_SHADER_VISIBILITY_PIXEL;
 				stageCount++;
 			}
-			return stage > 1 ? D3D12_SHADER_VISIBILITY_ALL : ret;
+			return stageCount > 1 ? D3D12_SHADER_VISIBILITY_ALL : ret;
 		}
 
 		D3D12_DESCRIPTOR_RANGE_TYPE ToDx12RangeType(ShaderResourceType stage)

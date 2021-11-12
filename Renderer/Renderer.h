@@ -27,8 +27,7 @@ namespace YiaEngine
 			void SetConstBufferView(int rootIndex, int size, void* data);
 			void SetConstBufferView(int rootIndex, void* data);
 			void SetTestConstBufferView(int rootIndex, D3D12_GPU_VIRTUAL_ADDRESS address);
-			void DrawMesh(const Mesh& mesh, PipelineStateObject& pso, Material& shader);
-			void DrawMesh(const Mesh& mesh, PipelineStateObject& pso, Shader& shader);
+			void DrawMesh(const Mesh& mesh,  Material& shader);
 			Camera& GetCurrentCamera();
 		private:
 			RenderBuffer* renderTarget_;

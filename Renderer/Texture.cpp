@@ -7,7 +7,8 @@ namespace YiaEngine
 	{
 		void Texture::InitializeByImage(ImageData& image, DXGI_FORMAT format)
 		{
-
+			width_ = image.Width;
+			height_ = image.Height;
 			auto desc = CD3DX12_RESOURCE_DESC::Tex2D(format, image.Width, image.Height);
 			auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
 			
@@ -19,6 +20,7 @@ namespace YiaEngine
 				nullptr,
 				IID_PPV_ARGS(&resource_)));
 			CommandContext::InitializeTexture(*this,image);
+			CreateView();
 		}
 		void Texture::SetDebugName(const wchar_t* name)
 		{

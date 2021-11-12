@@ -10,8 +10,8 @@ namespace YiaEngine
 		enum ShaderResourceType
 		{
 			ShaderResourceType_ConstBuffer = 0,
-			ShaderResourceType_Texture,
-			ShaderResourceType_Sampler,
+			ShaderResourceType_Texture = 2,
+			ShaderResourceType_Sampler = 3,
 		};
 		enum ShaderStage
 		{
@@ -21,7 +21,7 @@ namespace YiaEngine
 
 			Shader_Stage_Pixel = 2,
 
-			Shader_Stage_Count = 3,
+			Shader_Stage_Count = Shader_Stage_Pixel,
 		};
 		enum TextureDimension
 		{

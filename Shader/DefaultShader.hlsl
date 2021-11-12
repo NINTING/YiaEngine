@@ -6,7 +6,7 @@
 Texture2D t1 : register(t0);
 SamplerState s1 : register(s0);
 
-
+ 
 cbuffer ConstBufferPerFrame : register(b0)
 {
     float4x4 ObjectMat;
@@ -43,7 +43,7 @@ float4 ObjectToClipProjection(float4 p)
     
     return mul(wvp,p);
 }
-[RootSignature(Renderer_RootSig)]
+//[RootSignature(Renderer_RootSig)]
 PSInput VsMain(VSInput input)
 {
     PSInput result;

@@ -9,6 +9,7 @@ namespace YiaEngine
 		void Renderer::Begin()
 		{
 			graphicContext = &Graphic::GraphicContext::Begin();
+			pso_ = Graphic::PipelineStateObject::s_DefaultPSO;
 			useDefalutViewport = useDefalutScissorRect = true;
 		}
 		void Renderer::BeginPass()
@@ -69,7 +70,7 @@ namespace YiaEngine
 		void Renderer::SetTestConstBufferView(int rootIndex, D3D12_GPU_VIRTUAL_ADDRESS address) {
 			graphicContext->BindTestConstBufferView(rootIndex, address);
 		};
-		void Renderer::DrawMesh(const Mesh& mesh, PipelineStateObject& pso, Material& material)
+		void Renderer::DrawMesh(const Mesh& mesh, Material& material)
 		{
 			YIA_ASSERT(renderTarget_);
 
@@ -91,20 +92,16 @@ namespace YiaEngine
 			
 			Shader& shader = material.GetShader();
 
-			for (size_t i = 0; i <shader.Reflect->VertexInput.AttributesCount; i++)
-			{
-				vbo[i] = mesh.GetVertexBuffer(shader.Reflect->VertexInput.Attrs[i].Attribute);
-			}
+			
 
 
-			
-			
-			
-			
+#pragma region RootSignature
+			SetRootSignature(material.GetRootSignature());
+
+
 			bool bindGpuDescriptor = false;
 
-			D3D12_INDEX_BUFFER_VIEW ibo = mesh.GetIndexBuffer();
-			graphicContext->SetPipelineState(pso);
+			
 			//	graphicContext->BindGpuDescriptor();
 			for (size_t i = 0; i < material.GetResourceCount(); i++)
 			{
@@ -115,87 +112,81 @@ namespace YiaEngine
 				}
 				else if (data.Type == ShaderResourceType::ShaderResourceType_Texture)
 				{
-					 Texture*texData = (Texture*)(data.Data);
+					Texture* texData = (Texture*)(data.Data);
+					auto handle = texData->CpuHandle();
 
-					graphicContext->BindCpuDescriptor(data.location.RootIndex, data.location.Offset, data.Count, &texData->CpuHandle());
+					graphicContext->BindCpuDescriptor(data.location.RootIndex, data.location.Offset, data.Count, &handle);
 					bindGpuDescriptor = true;
+				}
+				else if (data.Type == ShaderResourceType::ShaderResourceType_Sampler)
+				{
 				}
 				else
 				{
 					YIA_ERROR("未知Shader 资源处理{0}", i);
 				}
 			}
-			if(bindGpuDescriptor)
+			if (bindGpuDescriptor)
 				graphicContext->BindGpuDescriptor();
-			
-			graphicContext->SetVertexBuffers(0, shader.Reflect->VertexInput.AttributesCount, vbo);
-			graphicContext->SetIndexBuffer(&ibo);
-			graphicContext->SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-			graphicContext->SetViewPortAndScissorRects(&viewport_, &scissorRect_);
-			graphicContext->TransitionBarrier(*renderTarget_, D3D12_RESOURCE_STATE_RENDER_TARGET);
-			graphicContext->DrawIndexInstance(mesh.GetIndexCount(), 1, 0, 0, 0);
-			graphicContext->TransitionBarrier(*renderTarget_, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+#pragma endregion
 
+#pragma region PSO
+			D3D12_INPUT_LAYOUT_DESC desc;
+			auto& vertexInput = shader.Reflect[0].VertexInput;
 
-			useDefalutScissorRect = useDefalutViewport = true;
-		}
-
-		void Renderer::DrawMesh(const Mesh& mesh, PipelineStateObject& pso, Shader& shader)
-		{
-			YIA_ASSERT(renderTarget_);
-		
-			if (useDefalutViewport)
+			desc.NumElements = shader.Reflect[0].VertexInput.AttributesCount;
+			D3D12_INPUT_ELEMENT_DESC elements[8];// = new D3D12_INPUT_ELEMENT_DESC[desc.NumElements];
+			for (size_t i = 0; i < desc.NumElements; i++)
 			{
-				viewport_ = {};
-				viewport_.Width = renderTarget_->Size().x();
-				viewport_.Height = renderTarget_->Size().y();
-			}
-			if (useDefalutScissorRect)
-			{
-				scissorRect_ = {};
-				scissorRect_.right = renderTarget_->Size().x();
-				scissorRect_.bottom = renderTarget_->Size().y();
+				elements[i].SemanticName = vertexInput.Attrs[i].SemanticName;
+				elements[i].SemanticIndex = vertexInput.Attrs[i].SemanticIndex;
+				elements[i].Format = DataFormatToDX12(vertexInput.Attrs[i].format);
+				elements[i].AlignedByteOffset = 0;
+				elements[i].InputSlot = i;
+				elements[i].InputSlotClass = D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA;
+				elements[i].InstanceDataStepRate = 0;
 			}
 
-			D3D12_VERTEX_BUFFER_VIEW vbo[15];
 		
-			__declspec(align(16)) struct TransformMat
-			{
-				Math::Mat4x4f ObjMat;
-				Math::Mat4x4f WorldMat;
-				Math::Mat4x4f ViewMat;
-				Math::Mat4x4f ProjMat;
-			} transfromMat;
+			pso_.SetRootSignature(material.GetRootSignature());
+
+			pso_.SetInputLayout(desc.NumElements, elements);
+			//delete elements;
+
+			pso_.SetShader(shader);
+		
+			//pso.SetRenderTarget();
+			pso_.Finalize();
+
+			graphicContext->SetPipelineState(pso_);
+
+#pragma endregion
+
+			D3D12_INDEX_BUFFER_VIEW ibo = mesh.GetIndexBuffer();
 
 			for (size_t i = 0; i < shader.Reflect->VertexInput.AttributesCount; i++)
 			{
 				vbo[i] = mesh.GetVertexBuffer(shader.Reflect->VertexInput.Attrs[i].Attribute);
-			} 
-			
-			transfromMat.ObjMat = Math::Mat4x4f::Identity();
-			transfromMat.WorldMat = Math::Mat4x4f::Identity();
-			
-			if (pCamera_ != nullptr)
-			{
-				transfromMat.ViewMat = pCamera_->ViewMatrix();
-				transfromMat.ProjMat = pCamera_->ProjectionMatrix();
 			}
+
 			
-			D3D12_INDEX_BUFFER_VIEW ibo = mesh.GetIndexBuffer();
-			graphicContext->SetPipelineState(pso);
-		//	graphicContext->BindGpuDescriptor();
-			graphicContext->BindConstBufferView(0,sizeof(transfromMat),&transfromMat);
+
+			
 			graphicContext->SetVertexBuffers(0, shader.Reflect->VertexInput.AttributesCount, vbo);
 			graphicContext->SetIndexBuffer(&ibo);
+
+		
 			graphicContext->SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 			graphicContext->SetViewPortAndScissorRects(&viewport_, &scissorRect_);
 			graphicContext->TransitionBarrier(*renderTarget_, D3D12_RESOURCE_STATE_RENDER_TARGET);
 			graphicContext->DrawIndexInstance(mesh.GetIndexCount(), 1, 0, 0, 0);
 			graphicContext->TransitionBarrier(*renderTarget_, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
-			
+
 
 			useDefalutScissorRect = useDefalutViewport = true;
 		}
+
+		
 		Camera& Renderer::GetCurrentCamera()
 		{
 			return  *pCamera_;

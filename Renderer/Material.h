@@ -24,11 +24,12 @@ namespace YiaEngine
 			Material()=default;
 			Material(const char* name, Shader* shader);
 			void InitMaterial(const char* name, Shader* shader);
-			void InitMaterialResource();
+			void InitMaterialResource(const std::vector<ShaderResource>& resources);
 			
 			Shader& GetShader() { return *pShader_; };
 			int GetResourceCount() { return  resourceDatas_.size(); };
 			ResourceData& GetResourceData(int rootIndex);
+			RootSignature& GetRootSignature();
 		public:
 			void SetMatrix(const char* name, const Math::Mat4x4f& mat);
 

@@ -224,16 +224,7 @@ public:
 		signature[0].InitAsConstBufferView(D3D12_SHADER_VISIBILITY_PIXEL, 0);
 		signature.Finalize(L"SampleSignature", D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 
-		pso = Graphic::PipelineStateObject::s_DefaultPSO;
-		pso.SetRootSignature(signature); 
-
-		pso.SetInputLayout(desc.NumElements, elements);
-		//delete elements;
-
-		pso.SetShader(sampleShader);
-
-		//pso.SetRenderTarget();
-		pso.Finalize();
+		
 
 
 		fullScreenRect.SetName("FullScreenRect");
@@ -248,31 +239,31 @@ public:
 		Box.AddIndices(sizeof(boxIndex) / sizeof(int), boxIndex);
 		Box.CreateMeshGpuBuffer();
 
-		/*BoxSignature.Reset(1, 0);
-		BoxSignature[0].InitAsConstBufferView(D3D12_SHADER_VISIBILITY_VERTEX,0);
-		BoxSignature.Finalize(L"BoxSignature", D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT );*/
+		//BoxSignature.Reset(1, 0);
+		//BoxSignature[0].InitAsConstBufferView(D3D12_SHADER_VISIBILITY_VERTEX,0);
+		//BoxSignature.Finalize(L"BoxSignature", D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT );
 
-		BoxSignature.CreateRootSignature(L"BoxSignature", defaultShader, 0);
-		BlitSignature.CreateRootSignature(L"BlitSignature", blitShader, 1);
-		CD3DX12_RASTERIZER_DESC wirframe_rasterized_desc(D3D12_FILL_MODE_WIREFRAME, D3D12_CULL_MODE_NONE,
-			false, 0, 0, 0, true, false, true, 0,
-			D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF);
+		//BoxSignature.CreateRootSignature(L"BoxSignature", defaultShader, 0);
+		//BlitSignature.CreateRootSignature(L"BlitSignature", blitShader, 1);
+		//CD3DX12_RASTERIZER_DESC wirframe_rasterized_desc(D3D12_FILL_MODE_WIREFRAME, D3D12_CULL_MODE_NONE,
+		//	false, 0, 0, 0, true, false, true, 0,
+		//	D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF);
 
-		default3DPso = Graphic::PipelineStateObject::s_DefaultPSO;
-		default3DPso.SetRootSignature(BoxSignature);
-		default3DPso.SetSolideShowMode();
-		//default3DPso.SetWireframeShowMode();
-		default3DPso.SetBackCullMode();
-		//default3DPso.SetNoneCullMode();
-		default3DPso.SetInputLayout(desc.NumElements, elements);
-		
+		//default3DPso = Graphic::PipelineStateObject::s_DefaultPSO;
+		//default3DPso.SetRootSignature(BoxSignature);
+		//default3DPso.SetSolideShowMode();
+		////default3DPso.SetWireframeShowMode();
+		//default3DPso.SetBackCullMode();
+		////default3DPso.SetNoneCullMode();
+		//default3DPso.SetInputLayout(desc.NumElements, elements);
+		//
 
-		default3DPso.SetShader(defaultShader);
+		//default3DPso.SetShader(defaultShader);
 
 		Window& curWindow = Window::CurrentWindow();
 
 		//pso.SetRenderTarget();
-		default3DPso.Finalize();
+	//	default3DPso.Finalize();
 		
 		
 		camera.SetViewport(1691, 969);
@@ -314,6 +305,7 @@ public:
 		*/
 
 		defaultMaterial.InitMaterial("DefaultMaterial",&defaultShader);
+		TextureMaterial.InitMaterial("TextureMaterial", &blitShader);
 		Graphic::ImageData image = GenerateTextureData();
 
 		testTexture.InitializeByImage(image, DXGI_FORMAT_R8G8B8A8_UNORM);
@@ -352,6 +344,43 @@ public:
 	SampleLayer sampleLayer; 
 	ImguiLayer imGuiLayer;
 
+
+	void RenderObject()
+	{
+		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
+		Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();
+
+		defaultMaterial.SetMatrix("ObjectMat", Math::Mat4x4f::Identity());
+		defaultMaterial.SetMatrix("WorldMat", Math::Mat4x4f::Identity());
+		defaultMaterial.SetMatrix("ViewMat", camera.ViewMatrix());
+		defaultMaterial.SetMatrix("ProjMat", camera.ProjectionMatrix());
+
+
+		DefaultRenderer.Begin();
+		DefaultRenderer.SetRenderTarget(&sceneColorBuffer, &sceneDepthBuffer);
+		DefaultRenderer.SetCamera(camera);
+		DefaultRenderer.ClearRenderTarget();
+		DefaultRenderer.ClearDepthStencil();
+		
+		DefaultRenderer.DrawMesh(Box, defaultMaterial);
+
+		DefaultRenderer.End();
+	}
+	void RenderImage()
+	{
+		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
+		Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();
+
+		TextureMaterial.SetTexture("MainTexture", testTexture);
+
+		DefaultRenderer.Begin();
+		DefaultRenderer.SetRenderTarget(&sceneColorBuffer, &sceneDepthBuffer);
+		DefaultRenderer.ClearRenderTarget();
+		DefaultRenderer.ClearDepthStencil();
+		DefaultRenderer.DrawMesh(fullScreenRect,TextureMaterial);
+
+		DefaultRenderer.End();
+	}
 	void RenderScene()
 	{
 		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
@@ -366,22 +395,9 @@ public:
 
 		//DefaultRenderer.DrawMesh(fullScreenRect, pso, sampleShader);
 		//DefaultRenderer.End();
-
-		defaultMaterial.SetMatrix("ObjectMat", Math::Mat4x4f::Identity());
-		defaultMaterial.SetMatrix("WorldMat", Math::Mat4x4f::Identity());
-		defaultMaterial.SetMatrix("ViewMat", camera.ViewMatrix());
-		defaultMaterial.SetMatrix("ProjMat", camera.ProjectionMatrix());
-
-
-		DefaultRenderer.Begin();
-		DefaultRenderer.SetRenderTarget(&sceneColorBuffer, &sceneDepthBuffer);
-		DefaultRenderer.SetCamera(camera);
-		DefaultRenderer.ClearRenderTarget();
-		DefaultRenderer.ClearDepthStencil();
-		DefaultRenderer.SetRootSignature(BoxSignature);
-		DefaultRenderer.DrawMesh(Box, default3DPso, defaultMaterial);
-
-		DefaultRenderer.End();
+		//RenderObject();
+		//RenderObject();
+		RenderImage();
 		/*
 		*	DefaultRenderer.BeginPass();
 			DefaultRenderer.SetRenderTarget(&sceneColorBuffer, &sceneDepthBuffer);
@@ -414,11 +430,14 @@ public:
 	Graphic::Shader sampleShader;
 	Graphic::Shader defaultShader;
 	Graphic::Shader blitShader;
+
 	Graphic::Renderer DefaultRenderer;
+	
 	ComPtr<ID3D12Resource>g_cbv;
 	Camera camera;
 
 	Graphic::Material defaultMaterial;
+	Graphic::Material TextureMaterial;
 
 	Graphic::Texture testTexture;
 };

@@ -6,6 +6,7 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
+		void FilterDuplicateShaderResource(const Shader& shader, std::vector<ShaderResource>& outResources);
 		Material::Material(const char* name, Shader* shader) :name_(name),pShader_(shader)
 		{
 			
@@ -16,9 +17,9 @@ namespace YiaEngine
 			std::vector<ShaderResource> outResources;
 			FilterDuplicateShaderResource(*shader, outResources);
 
-			resourceLayout_.CreateRootSignature(wname, *shader, 0);
+			resourceLayout_.CreateRootSignature(wname, outResources);
 			delete wname;
-			InitMaterialResource();
+			InitMaterialResource(outResources);
 			AddInputLayout();
 			AddVariable();
 		}
@@ -34,15 +35,15 @@ namespace YiaEngine
 					const ShaderReflect& reflect = shader.Reflect[i];
 					for (size_t j = 0; j < reflect.ResourcesSize; j++)
 					{
-						auto it = resourceMap.find(reflect.Resources[i].Name);
+						auto it = resourceMap.find(reflect.Resources[j].Name);
 						if (it == resourceMap.end())
 						{
-							outResources.push_back(reflect.Resources[i]);
-							resourceMap[reflect.Resources[i].Name] = outResources.size() - 1;
+							outResources.push_back(reflect.Resources[j]);
+							resourceMap[reflect.Resources[j].Name] = outResources.size() - 1;
 						}
 						else
 						{
-							outResources[it->second].Stage |= reflect.Resources[i].Stage;
+							outResources[it->second].Stage |= reflect.Resources[j].Stage;
 						}
 					}
 				}
@@ -54,52 +55,33 @@ namespace YiaEngine
 			pShader_ = shader;
 			std::string rootName(name);
 			rootName += "RootSignature";
-			wchar_t* wname = new wchar_t[rootName.size()+1];
-			Char2Wchar(rootName.c_str(), wname);
-			resourceLayout_.CreateRootSignature(wname, *shader, 0);
-			delete wname;
+			wchar_t* wname = new wchar_t[strlen(name) + 1];
+			Char2Wchar(name, wname);
 
-			InitMaterialResource();
+
+			std::vector<ShaderResource> outResources;
+			FilterDuplicateShaderResource(*shader, outResources);
+
+			resourceLayout_.CreateRootSignature(wname, outResources);
+			delete wname;
+			InitMaterialResource(outResources);
 			AddInputLayout();
 			AddVariable();
 		}
-		void Material::InitMaterialResource()
+		void Material::InitMaterialResource(const std::vector<ShaderResource>& resources)
 		{
-			std::map<const char*, int> resourceMap;
-			std::vector<ShaderResource>resources;
+			
+;
 			UINT rootParamCount = 0;
-			for (size_t i = 0; i < Shader_Stage_Count; i++)
-			{
-				if (pShader_->Stages & (1 << i))
-				{
-					ShaderReflect& reflect = pShader_->Reflect[i];
-					for (size_t j = 0; j < reflect.ResourcesSize; j++)
-					{
-						auto it = resourceMap.find(reflect.Resources[i].Name);
-						if (it == resourceMap.end())
-						{
-							resources.push_back(reflect.Resources[i]);
-							resourceMap[reflect.Resources[i].Name] = resources.size();
-							for (size_t varIndex = 0; varIndex < reflect.VariablesSize; varIndex++)
-							{
-								reflect.Variables[varIndex].ResourceIndex = resources.size() - 1;
-							}
-						}
-						else
-						{
-							resources[it->second].Stage |= reflect.Resources[i].Stage;
-						}
-					}
-				}
-			}
+			
 			for (size_t i = 0; i < resources.size(); i++)
 			{
-				ShaderResource& res = resources[i];
+				const ShaderResource& res = resources[i];
 				if (res.Type == ShaderResourceType::ShaderResourceType_ConstBuffer)
 				{
 					ResourceData resData;
 					resData.Data = new uint8_t[resources[i].Size];
-
+					resData.location = resourceLayout_.GetResourceLocation(i);
 					resData.Size = resources[i].Size;
 					resData.Type = resources[i].Type;
 					resourceDatas_.push_back(resData);
@@ -111,7 +93,11 @@ namespace YiaEngine
 					resData.Count = res.Count;
 					resData.Data = nullptr;
 					resData.location = resourceLayout_.GetResourceLocation(i);
+					resData.Type = resources[i].Type;
 					resourceDatas_.push_back(resData);
+				}
+				else if (res.Type == ShaderResourceType::ShaderResourceType_Sampler)
+				{
 				}
 				else
 				{
@@ -172,6 +158,10 @@ namespace YiaEngine
 		ResourceData& Material::GetResourceData(int rootIndex)
 		{
 			return resourceDatas_[rootIndex];
+		}
+		RootSignature& Material::GetRootSignature()
+		{
+			return resourceLayout_;
 		}
 	}
 }

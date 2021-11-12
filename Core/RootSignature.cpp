@@ -21,43 +21,18 @@ namespace YiaEngine::Graphic
 		static_sampler_count_ = static_sampler_count;
 		uninit_static_sampler_count_ = 0;
 	}
-	void RootSignature::CreateRootSignature(const wchar_t*name, Shader& shader,int staticSamplerCount)
+	void RootSignature::CreateRootSignature(const wchar_t*name, const std::vector<ShaderResource>& resources)
 	{
-		std::map<const char*, int> resourceMap;
-		std::vector<ShaderResource>resources;
-		UINT rootParamCount = 0;
-		for (size_t i = 0; i < Shader_Stage_Count; i++)
-		{
-			if (shader.Stages & (1 << i))
-			{
-				ShaderReflect& reflect = shader.Reflect[i];
-				for (size_t j = 0; j < reflect.ResourcesSize; j++)
-				{
-					auto it = resourceMap.find(reflect.Resources[i].Name);
-					if (it == resourceMap.end())
-					{
-						resources.push_back(reflect.Resources[i]);
-						resourceMap[reflect.Resources[i].Name] = resources.size() - 1;
-					}
-					else
-					{
-						 resources[it->second].Stage |= reflect.Resources[i].Stage;
-					}
-				}
-
-			}
-
-		}
-
-
 		//static sample存储
 		//texture根签名的分配
-		std::vector<int> descriptorTableRange;
-		std::vector<int> rootConstRange;
+		std::vector<UINT> descriptorTableRange;
+		std::vector<UINT> rootConstRange;
+		std::vector<UINT> samplerRange;
 		int rootParamentCount = 0;
+		UINT samplerCount = 0;
 		for (size_t i = 0; i < resources.size(); i++)
 		{
-			ShaderResource& res = resources[i];
+			const ShaderResource& res = resources[i];
 			D3D12_SHADER_VISIBILITY visibility = ToDx12ShaderVisiblity(res.Stage);
 			
 			if (res.Type == ShaderResourceType::ShaderResourceType_ConstBuffer)
@@ -68,18 +43,8 @@ namespace YiaEngine::Graphic
 			}
 			else if (res.Type == ShaderResourceType::ShaderResourceType_Sampler)
 			{
-				D3D12_SAMPLER_DESC sampler_desc;
-				sampler_desc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
-				sampler_desc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
-				sampler_desc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
-				sampler_desc.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;
-				sampler_desc.MinLOD = 0;
-				sampler_desc.MaxLOD = 0;
-				sampler_desc.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
-				sampler_desc.MipLODBias = 0;
-				sampler_desc.MaxAnisotropy = 0;
-
-				InitStaticSampler(res.Reg, sampler_desc, visibility);
+				
+				samplerRange.push_back(i);
 			}
 			else if (res.Type == ShaderResourceType::ShaderResourceType_Texture)
 			{
@@ -95,18 +60,18 @@ namespace YiaEngine::Graphic
 		{
 			rootParamentCount++;
 		}
-		Reset(rootParamentCount, staticSamplerCount);
-		int rootParamIndex = 0;
+		Reset(rootParamentCount, samplerRange.size());
+		UINT rootParamIndex = 0;
 #pragma region RootConst
 		for (rootParamIndex = 0; rootParamIndex < rootConstRange.size(); rootParamIndex++)
 		{
-			ShaderResource& res = resources[rootConstRange[rootParamIndex]];
+			const ShaderResource& res = resources[rootConstRange[rootParamIndex]];
 			
 
 			D3D12_SHADER_VISIBILITY visibility = ToDx12ShaderVisiblity(res.Stage);
 			paraments_[rootParamIndex].InitAsConstBufferView(visibility, res.Reg);
 
-			locationMap[rootConstRange[rootParamIndex]] = { rootParamIndex, 0 };
+			locationMap[rootConstRange[rootParamIndex]] = SignatureLocation(rootParamIndex, 0);
 		}
 #pragma endregion
 
@@ -114,28 +79,47 @@ namespace YiaEngine::Graphic
 #pragma region DescriptorTable
 		if (descriptorTableRange.size())
 		{
-			std::sort(descriptorTableRange.begin(), descriptorTableRange.end(), [](const ShaderResource& lhs, const ShaderResource& rhs) {return lhs.Reg > rhs.Reg; });
-			std::sort(descriptorTableRange.begin(), descriptorTableRange.end(), [](const ShaderResource& lhs, const ShaderResource& rhs) {return lhs.Type > rhs.Type; });
+			std::sort(descriptorTableRange.begin(), descriptorTableRange.end(), [resources](UINT lhs, UINT rhs) {return resources[lhs].Reg > resources[rhs].Reg; });
+			std::sort(descriptorTableRange.begin(), descriptorTableRange.end(), [resources](UINT lhs, UINT rhs) {return resources[lhs].Type> resources[rhs].Type;  });
 			
 			ShaderStage stages;
 			
 			for (size_t i = 0; i < descriptorTableRange.size(); i++)
 			{
-				ShaderResource& res = resources[descriptorTableRange[i]];
+				const ShaderResource& res = resources[descriptorTableRange[i]];
 				stages |= res.Stage;
 			}
 			paraments_[rootParamIndex].InitAsDescriptorTable(descriptorTableRange.size(),ToDx12ShaderVisiblity(stages));
 
-			for (size_t i = 0; i < descriptorTableRange.size(); i++)
+			for (UINT i = 0; i < descriptorTableRange.size(); i++)
 			{
-				ShaderResource& res = resources[descriptorTableRange[i]];
+				const ShaderResource& res = resources[descriptorTableRange[i]];
 				paraments_[rootParamIndex].SetTableRange(i, res.Count, ToDx12RangeType(res.Type),res.Reg);
 
-				locationMap[descriptorTableRange[i]] = { rootParamIndex,i };
+				locationMap[descriptorTableRange[i]] = SignatureLocation( rootParamIndex,i );
 			}
 			
 		}
 #pragma endregion
+
+		for (size_t i = 0; i < samplerRange.size(); i++)
+		{
+			const ShaderResource& res = resources[samplerRange[i]];
+			D3D12_SAMPLER_DESC sampler_desc;
+			sampler_desc.AddressU = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
+			sampler_desc.AddressV = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
+			sampler_desc.AddressW = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
+			sampler_desc.Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;
+			sampler_desc.MinLOD = 0;
+			sampler_desc.MaxLOD = 0;
+			sampler_desc.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
+			sampler_desc.MipLODBias = 0;
+			sampler_desc.MaxAnisotropy = 0;
+
+			InitStaticSampler(res.Reg, sampler_desc, ToDx12ShaderVisiblity(res.Stage));
+		}
+
+		
 
 		Finalize(name, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 	}

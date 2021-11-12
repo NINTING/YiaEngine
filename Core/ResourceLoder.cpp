@@ -236,6 +236,7 @@ namespace YiaEngine::Graphic
 				reflect.Resources[resIndex].Reg = desc.BindPoint;
 				reflect.Resources[resIndex].Dimension = (TextureDimension)desc.Dimension;
 				reflect.Resources[resIndex].Count = desc.BindCount;
+				reflect.Resources[resIndex].Stage = (ShaderStage)(1 << stage);
 				currentName += NameSize + 1;
 			}
 			
