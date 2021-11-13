@@ -7,7 +7,7 @@ namespace YiaEngine
 	namespace Graphic
 	{
 		void FilterDuplicateShaderResource(const Shader& shader, std::vector<ShaderResource>& outResources);
-		Material::Material(const char* name, Shader* shader) :name_(name),pShader_(shader)
+		Material::Material(const char* name,std::shared_ptr<Shader>shader) :name_(name),pShader_(shader)
 		{
 			
 			wchar_t* wname = new wchar_t[strlen(name) + 1];
@@ -49,7 +49,7 @@ namespace YiaEngine
 				}
 			}
 		}
-		void Material::InitMaterial(const char* name, Shader* shader)
+		void Material::InitMaterial(const char* name, std::shared_ptr<Shader>shader)
 		{
 			name_ = name;
 			pShader_ = shader;

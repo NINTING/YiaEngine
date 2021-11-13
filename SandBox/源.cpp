@@ -84,33 +84,10 @@ public:
 	{
 
 
-		Graphic::ShaderLoadDesc loadDesc = {};
-		Graphic::ShaderLoadDesc boxLoadDesc = {};
-		Graphic::ShaderLoadDesc blitLoadDesc = {};
-#ifdef USE_PIX
-		const wchar_t* filename = L"D:/Yia/YiaEngine/Shader/SampleShader.hlsl";
-		const wchar_t* boxFilename = L"D:/Yia/YiaEngine/Shader/DefaultShader.hlsl";
-		const wchar_t* blitFilename = L"D:/Yia/YiaEngine/Shader/BlitShader.hlsl";
-#else
-		const wchar_t* filename = L"../Shader/SampleShader.hlsl";
-		const wchar_t* boxFilename = L"../Shader/SampleShader.hlsl";
-		const wchar_t* blitFilename = L"../Shader/BlitShader.hlsl";
-#endif
-
-		loadDesc.StageLoadDesc[0] = { filename,Graphic::Shader_Stage_Vertex,L"vs_6_2" };
-		loadDesc.StageLoadDesc[1] = { filename,Graphic::Shader_Stage_Pixel,L"ps_6_2" };
-		blitLoadDesc.StageLoadDesc[0] = { blitFilename,Graphic::Shader_Stage_Vertex,L"vs_6_2" };
-		blitLoadDesc.StageLoadDesc[1] = { blitFilename,Graphic::Shader_Stage_Pixel,L"ps_6_2" };
-		boxLoadDesc.StageLoadDesc[0] = { boxFilename,Graphic::Shader_Stage_Vertex,L"vs_6_2" };
-		boxLoadDesc.StageLoadDesc[1] = { boxFilename,Graphic::Shader_Stage_Pixel,L"ps_6_2" };
 
 
- 		Graphic::LoadShader(loadDesc, sampleShader);
-
-
-		Graphic::LoadShader(boxLoadDesc, defaultShader);
-
-		Graphic::LoadShader(blitLoadDesc, blitShader);
+		Graphic::ShaderLibrary::LoadShader("DefaultShader.hlsl",defaultShader);
+		Graphic::ShaderLibrary::LoadShader("BlitShader.hlsl", blitShader);
 		Math::Vec3f pos[] = {
 			{ -1.0f, 1.f , 0.0f },
 			{ 1.0f, 1.f , 0.0f },
@@ -132,7 +109,7 @@ public:
 		};
 		UINT index[] = { 0,1,2,3,4,5 };
 
-		Math::Vec3f BoxPos[] = {
+		Math::Vec3f BoxVertex[] = {
 			//ио
 			{ -1.0f, 1.f , 1.0f },
 			{ 1.0f, 1.f , 1.0f },
@@ -204,26 +181,10 @@ public:
 			15,13,12,15,14,13,
 			16,17,19,17,18,19,
 			23,21,20,23,22,21 };
-		D3D12_INPUT_LAYOUT_DESC desc;
-		auto& vertexInput = sampleShader.Reflect[0].VertexInput;
 
-		desc.NumElements = sampleShader.Reflect[0].VertexInput.AttributesCount;
-		D3D12_INPUT_ELEMENT_DESC elements[8];// = new D3D12_INPUT_ELEMENT_DESC[desc.NumElements];
-		for (size_t i = 0; i < desc.NumElements; i++)
-		{
-			elements[i].SemanticName = vertexInput.Attrs[i].SemanticName;
-			elements[i].SemanticIndex = vertexInput.Attrs[i].SemanticIndex;
-			elements[i].Format = DataFormatToDX12(vertexInput.Attrs[i].format);
-			elements[i].AlignedByteOffset = 0;
-			elements[i].InputSlot = i;
-			elements[i].InputSlotClass = D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA;
-			elements[i].InstanceDataStepRate = 0;
-		}
+		
 
-		signature.Reset(1, 0);
-		signature[0].InitAsConstBufferView(D3D12_SHADER_VISIBILITY_PIXEL, 0);
-		signature.Finalize(L"SampleSignature", D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
-
+	
 		
 
 
@@ -234,36 +195,15 @@ public:
 		fullScreenRect.CreateMeshGpuBuffer();
 
 		Box.SetName("Box");
-		Box.AddAttribute(CreateVertexAttribute(VertexAttributeEnum::kPosition, DataFormate::kFloat_3, 24, BoxPos));
+		Box.AddAttribute(CreateVertexAttribute(VertexAttributeEnum::kPosition, DataFormate::kFloat_3, 24, BoxVertex));
 		Box.AddAttribute(CreateVertexAttribute(VertexAttributeEnum::kTexcoord, DataFormate::kFloat_2, 24, Boxuv));
 		Box.AddIndices(sizeof(boxIndex) / sizeof(int), boxIndex);
 		Box.CreateMeshGpuBuffer();
+		BoxPos = Math::Vec3f(5, 0, 0);
 
-		//BoxSignature.Reset(1, 0);
-		//BoxSignature[0].InitAsConstBufferView(D3D12_SHADER_VISIBILITY_VERTEX,0);
-		//BoxSignature.Finalize(L"BoxSignature", D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT );
-
-		//BoxSignature.CreateRootSignature(L"BoxSignature", defaultShader, 0);
-		//BlitSignature.CreateRootSignature(L"BlitSignature", blitShader, 1);
-		//CD3DX12_RASTERIZER_DESC wirframe_rasterized_desc(D3D12_FILL_MODE_WIREFRAME, D3D12_CULL_MODE_NONE,
-		//	false, 0, 0, 0, true, false, true, 0,
-		//	D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF);
-
-		//default3DPso = Graphic::PipelineStateObject::s_DefaultPSO;
-		//default3DPso.SetRootSignature(BoxSignature);
-		//default3DPso.SetSolideShowMode();
-		////default3DPso.SetWireframeShowMode();
-		//default3DPso.SetBackCullMode();
-		////default3DPso.SetNoneCullMode();
-		//default3DPso.SetInputLayout(desc.NumElements, elements);
-		//
-
-		//default3DPso.SetShader(defaultShader);
 
 		Window& curWindow = Window::CurrentWindow();
 
-		//pso.SetRenderTarget();
-	//	default3DPso.Finalize();
 		
 		
 		camera.SetViewport(1691, 969);
@@ -274,41 +214,18 @@ public:
 		Math::Mat4x4f viewMat = camera.ViewMatrix();
 		Math::Mat4x4f projMat = camera.ProjectionMatrix();
 		Math::Mat4x4f worldMat = Math::Mat4x4f::Identity();
-		
-		/*auto tmp_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
-		auto tmp_buffer_desc = CD3DX12_RESOURCE_DESC::Buffer(sizeof(Math::Vec4f));
-		ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(&tmp_properties,
-			D3D12_HEAP_FLAG_NONE,
-			&tmp_buffer_desc,
-			D3D12_RESOURCE_STATE_GENERIC_READ,
-			nullptr, IID_PPV_ARGS(&g_cbv))
-		);
-		finalColor = Math::Vec4f(0.5, 0, 0.5, 1);
-		CD3DX12_RANGE range(0, 0);
-		UINT8* buffer_begin;
-		ASSERT_SUCCEEDED(g_cbv->Map(0, &range, reinterpret_cast<void**>(&buffer_begin)));
-		memcpy(buffer_begin, &finalColor, sizeof(finalColor));
-		g_cbv->Unmap(0, nullptr);*/
-		//Graphic::UploadBuffer perFrameUpLoadBuffer;
-		//Graphic::GpuBuffer perFrameBuffer;
-		//perFrameBuffer.Create();
 
-		/*
-		* 
-		* material.setMat("WorldMat",matWorld);
-		* 
-		* renderer.beginPass()
-		* renderer.setBlendState();
-		* 
-		* renderer.drawMesh(mesh,material);
-		* renderer.endPass()
-		*/
 
-		defaultMaterial.InitMaterial("DefaultMaterial",&defaultShader);
-		TextureMaterial.InitMaterial("TextureMaterial", &blitShader);
+		defaultMaterial.InitMaterial("DefaultMaterial",defaultShader);
+		TextureMaterial.InitMaterial("TextureMaterial", blitShader);
 		Graphic::ImageData image = GenerateTextureData();
 
 		testTexture.InitializeByImage(image, DXGI_FORMAT_R8G8B8A8_UNORM);
+		LightData light;
+		light.Dirction =Math::Vec3f (-1, -1, 0);
+		light.Color = Color::Red;
+		light.Intensity = 1;
+		mainLight = Light(LightType::Light_Direction, light);
 	}
 	virtual void Init() 
 	{
@@ -345,23 +262,27 @@ public:
 	ImguiLayer imGuiLayer;
 
 
-	void RenderObject()
+	void RenderObject(Math::Vec3f pos)
 	{
 		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
 		Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();
-
-		defaultMaterial.SetMatrix("ObjectMat", Math::Mat4x4f::Identity());
-		defaultMaterial.SetMatrix("WorldMat", Math::Mat4x4f::Identity());
-		defaultMaterial.SetMatrix("ViewMat", camera.ViewMatrix());
-		defaultMaterial.SetMatrix("ProjMat", camera.ProjectionMatrix());
-
-
+		
 		DefaultRenderer.Begin();
 		DefaultRenderer.SetRenderTarget(&sceneColorBuffer, &sceneDepthBuffer);
 		DefaultRenderer.SetCamera(camera);
 		DefaultRenderer.ClearRenderTarget();
 		DefaultRenderer.ClearDepthStencil();
-		
+
+		defaultMaterial.SetMatrix("ObjectMat", Math::Mat4x4f::Identity());
+		defaultMaterial.SetMatrix("WorldMat", Math::Translate({1,0,1}));
+		defaultMaterial.SetMatrix("ViewMat", camera.ViewMatrix());
+		defaultMaterial.SetMatrix("ProjMat", camera.ProjectionMatrix());
+
+		defaultMaterial.SetTexture("MainTexture", testTexture);
+
+		DefaultRenderer.DrawMesh(Box, defaultMaterial);
+
+		defaultMaterial.SetMatrix("WorldMat", Math::Translate({ 5,0,1 }));
 		DefaultRenderer.DrawMesh(Box, defaultMaterial);
 
 		DefaultRenderer.End();
@@ -396,8 +317,8 @@ public:
 		//DefaultRenderer.DrawMesh(fullScreenRect, pso, sampleShader);
 		//DefaultRenderer.End();
 		//RenderObject();
-		//RenderObject();
-		RenderImage();
+		RenderObject(Math::Vec3f(3, 0, 0));
+		//RenderImage();
 		/*
 		*	DefaultRenderer.BeginPass();
 			DefaultRenderer.SetRenderTarget(&sceneColorBuffer, &sceneDepthBuffer);
@@ -427,9 +348,9 @@ public:
 	Graphic::RootSignature BlitSignature;
 	Mesh fullScreenRect;
 	Mesh Box;
-	Graphic::Shader sampleShader;
-	Graphic::Shader defaultShader;
-	Graphic::Shader blitShader;
+	std::shared_ptr<Graphic::Shader> sampleShader;
+	std::shared_ptr<Graphic::Shader> defaultShader;
+	std::shared_ptr<Graphic::Shader> blitShader;
 
 	Graphic::Renderer DefaultRenderer;
 	
@@ -440,6 +361,9 @@ public:
 	Graphic::Material TextureMaterial;
 
 	Graphic::Texture testTexture;
+
+	Math::Vec3f BoxPos;
+	Light mainLight;
 };
 
 

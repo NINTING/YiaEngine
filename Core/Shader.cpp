@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "Shader.h"
-#include "Utility.h"
+#include "Common/Utility.h"
 #include<d3d12shader.h>
+#include"ResourceLoder.h"
 namespace YiaEngine
 {
 	namespace Graphic
@@ -35,5 +36,39 @@ namespace YiaEngine
 			}
 		}
 
+		std::string ShaderLibrary::Prefix = "../Asset/Shader/";
+		std::string ShaderLibrary::CompletePrefix = "D:/Yia/YiaEngine/Asset/Shader/";
+		std::map<std::string, std::shared_ptr<Shader>> ShaderLibrary::shaderLib_;
+
+		bool ShaderLibrary::LoadShader(const char* name, std::shared_ptr<Shader>& outShader)
+		{
+
+			auto it = shaderLib_.find(name);
+			if (it != shaderLib_.end())
+			{
+				outShader = it->second;
+			}
+			else
+			{
+				shaderLib_[name] = std::shared_ptr<Shader>(new Shader());
+				Graphic::ShaderLoadDesc loadDesc = {};
+
+				std::string filename = name;
+#ifdef USE_PIX
+				filename = CompletePrefix + name;
+
+#else
+				filename = Prefix + name;
+#endif
+				auto sw = String2WString(filename);
+
+				loadDesc.StageLoadDesc[0] = { sw.c_str(),Graphic::Shader_Stage_Vertex,L"vs_6_2" };
+				loadDesc.StageLoadDesc[1] = { sw.c_str(),Graphic::Shader_Stage_Pixel,L"ps_6_2" };
+
+				Graphic::LoadShader(loadDesc, *shaderLib_[name]);
+				outShader = shaderLib_[name];
+			}
+			return true;
+		}
 	}
 }

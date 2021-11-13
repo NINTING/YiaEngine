@@ -7,7 +7,7 @@
 		#define YIA_API
 	#endif 
 #endif
-
+#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
 #define NOMINMAX
 
 #ifdef YIA_WINDOW
@@ -27,7 +27,8 @@
 #include<memory>
 #include<algorithm>
 #include<map>
-
+#include <locale>
+#include <codecvt>
 using std::max;
 using std::min;
 

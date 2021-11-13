@@ -17,6 +17,24 @@ namespace YiaEngine
 		WideCharToMultiByte(CP_ACP, 0, source, -1, dest, size, NULL, NULL);
 	}
 
+
+	// convert string to wstring
+	inline std::wstring String2WString(const std::string& str)
+	{
+		using convert_typeX = std::codecvt_utf8<wchar_t>;
+		std::wstring_convert<convert_typeX, wchar_t> converterX;
+
+		return converterX.from_bytes(str);
+	}
+	// convert wstring to string 
+	inline std::string WString2String(const std::wstring& wstr)
+	{
+		//std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+		using convert_typeX = std::codecvt_utf8<wchar_t>;
+		std::wstring_convert<convert_typeX, wchar_t> converterX;
+
+		return converterX.to_bytes(wstr);
+	}
 	inline size_t HashRange(uint32_t* begin,uint32_t* end,size_t hash)
 	{
 		for (const uint32_t* i = begin; i != end; i++)

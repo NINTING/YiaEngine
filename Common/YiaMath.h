@@ -38,5 +38,9 @@ namespace YiaEngine
 		Math::Vec3f RotationByAxisX(Math::Vec3f dir,float rad);
 		Math::Vec3f RotationByAxisY(Math::Vec3f dir, float rad);
 		Math::Vec3f RotationByAxisZ(Math::Vec3f dir, float rad);
+
+
+		Mat4x4f Translate(float x,float y,float z);
+		Mat4x4f Translate(const Math::Vec3f& offset);
 	}
 }

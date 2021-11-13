@@ -98,6 +98,17 @@ namespace YiaEngine
 			ShaderReflect Reflect[Shader_Stage_Count];
 		};
 
+		class ShaderLibrary
+		{
+		public:
+			static bool LoadShader(const char* name, std::shared_ptr<Shader>&outShader);
+		private:
+
+			static std::string Prefix;
+			static std::string CompletePrefix;
+			static std::map<std::string, std::shared_ptr<Shader>> shaderLib_;
+		};
+
 		D3D12_SHADER_VISIBILITY ToDx12ShaderVisiblity(ShaderStage stage);
 		D3D12_DESCRIPTOR_RANGE_TYPE ToDx12RangeType(ShaderResourceType stage);
 	}

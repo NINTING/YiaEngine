@@ -30,6 +30,20 @@ namespace YiaEngine
 			
 			return dir * rotation_matrix;
 		}
+
+		Mat4x4f Translate(float x, float y, float z)
+		{
+			Math::Mat4x4f ret;
+			ret <<	1, 0, 0, 0,
+					0, 1, 0, 0,
+					0, 0, 1, 0,
+					x, y, z, 1;
+			return ret;
+		}
+		Mat4x4f Translate(const Math::Vec3f& offset)
+		{
+			return Translate(offset.x(), offset.y(), offset.z());
+		}
 	}
 }
 

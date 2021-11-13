@@ -13,3 +13,5 @@
 
 #include"Common/Camera.h"
 #include"Platform/WindowInput.h"
+
+#include"Component/Light.h"

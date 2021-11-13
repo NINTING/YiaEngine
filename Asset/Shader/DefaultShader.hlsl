@@ -3,10 +3,9 @@
     "RootFlags(ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT), " \
     "CBV(b0, visibility = SHADER_VISIBILITY_VERTEX) " \
 
-Texture2D t1 : register(t0);
-SamplerState s1 : register(s0);
+Texture2D MainTexture : register(t0);
+SamplerState MainTexture_Sampler : register(s0);
 
- 
 cbuffer ConstBufferPerFrame : register(b0)
 {
     float4x4 ObjectMat;
@@ -39,9 +38,12 @@ struct  VSInput
 float4 ObjectToClipProjection(float4 p)
 {
     //float4x4 wvp =  mul(mul(mul(ObjectMat,WorldMat),ViewMat),ProjMat);
-    float4x4 wvp = mul(ProjMat,ViewMat);
+    //float4x4 wvp =mul(mul(mul(ProjMat,ViewMat), WorldMat), ObjectMat);
     
-    return mul(wvp,p);
+    float4x4 wo = mul(WorldMat, ObjectMat);
+    float4x4 vwo = mul(ViewMat, wo);
+    float4x4 pvwo = mul(ProjMat, vwo);
+    return mul(pvwo,p);
 }
 //[RootSignature(Renderer_RootSig)]
 PSInput VsMain(VSInput input)
@@ -58,6 +60,6 @@ PSInput VsMain(VSInput input)
 float4 PsMain(PSInput input) : SV_TARGET
 {
     
-    return float4(input.uv.xy, 0.f, 1.f);
+    return MainTexture.Sample(MainTexture_Sampler,float2(input.uv.x,input.uv.y));
     //return color;
 }

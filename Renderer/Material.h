@@ -22,8 +22,8 @@ namespace YiaEngine
 		{
 		public:
 			Material()=default;
-			Material(const char* name, Shader* shader);
-			void InitMaterial(const char* name, Shader* shader);
+			Material(const char* name, std::shared_ptr<Shader>shader);
+			void InitMaterial(const char* name, std::shared_ptr<Shader>shader);
 			void InitMaterialResource(const std::vector<ShaderResource>& resources);
 			
 			Shader& GetShader() { return *pShader_; };
@@ -46,7 +46,7 @@ namespace YiaEngine
 			
 
 		private:
-			Shader* pShader_;
+			std::shared_ptr<Shader> pShader_;
 
 			RootSignature resourceLayout_;
 
