@@ -6,6 +6,7 @@
 #include"RenderBuffer.h"
 #include"PipelineStateObject.h"
 #include"Shader.h"
+#include <dxgidebug.h>
 namespace YiaEngine
 {
 	namespace Graphic
@@ -107,10 +108,63 @@ namespace YiaEngine
 		{
 			
 		}
+		int dxgiFactoryFlags = 0;
+		void GraphicDebug()
+		{
+			uint32_t useDebugLayers = 0;
+#if _DEBUG
+			// Default to true for debug builds
+			useDebugLayers = 1;
+#endif
+			if (useDebugLayers)
+			{
+				Microsoft::WRL::ComPtr<ID3D12Debug> debugInterface;
+				if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debugInterface))))
+				{
+					debugInterface->EnableDebugLayer();
+
+					uint32_t useGPUBasedValidation = 0;
+			
+					if (useGPUBasedValidation)
+					{
+						Microsoft::WRL::ComPtr<ID3D12Debug1> debugInterface1;
+						if (SUCCEEDED((debugInterface->QueryInterface(IID_PPV_ARGS(&debugInterface1)))))
+						{
+							debugInterface1->SetEnableGPUBasedValidation(true);
+						}
+					}
+				}
+				else
+				{
+					Utility::Print("WARNING:  Unable to enable D3D12 debug validation layer\n");
+				}
+
+#if _DEBUG
+				ComPtr<IDXGIInfoQueue> dxgiInfoQueue;
+				if (SUCCEEDED(DXGIGetDebugInterface1(0, IID_PPV_ARGS(dxgiInfoQueue.GetAddressOf()))))
+				{
+					dxgiFactoryFlags = DXGI_CREATE_FACTORY_DEBUG;
+
+					dxgiInfoQueue->SetBreakOnSeverity(DXGI_DEBUG_ALL, DXGI_INFO_QUEUE_MESSAGE_SEVERITY_ERROR, true);
+					dxgiInfoQueue->SetBreakOnSeverity(DXGI_DEBUG_ALL, DXGI_INFO_QUEUE_MESSAGE_SEVERITY_CORRUPTION, true);
+
+					DXGI_INFO_QUEUE_MESSAGE_ID hide[] =
+					{
+						80 /* IDXGISwapChain::GetContainingOutput: The swapchain's adapter does not control the output on which the swapchain's window resides. */,
+					};
+					DXGI_INFO_QUEUE_FILTER filter = {};
+					filter.DenyList.NumIDs = _countof(hide);
+					filter.DenyList.pIDList = hide;
+					dxgiInfoQueue->AddStorageFilterEntries(DXGI_DEBUG_DXGI, &filter);
+				}
+#endif
+			}
+		}
 		void GraphicInit()
 		{
+			GraphicDebug();
 			ComPtr<IDXGIFactory4> factory;
-			ASSERT_SUCCEEDED(CreateDXGIFactory1(IID_PPV_ARGS(&factory)));
+			ASSERT_SUCCEEDED(CreateDXGIFactory2(dxgiFactoryFlags,IID_PPV_ARGS(&factory)));
 			ComPtr<IDXGIAdapter1> hardwareAdapter;
 
 			GetHardwareAdapter(factory.Get(), &hardwareAdapter, false);

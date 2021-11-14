@@ -37,7 +37,14 @@ namespace YiaEngine
 			TEXTURE_DIM_TEXTURECUBE = 9,
 			TEXTURE_DIM_TEXTURECUBEARRAY = 10,
 		};
-
+		enum ResourceFrequenceType
+		{
+			UPDATE_FREQ_NONE		=0,
+			PDATE_FREQ_PER_FRAME	=1,
+			UPDATE_FREQ_PER_BATCH	=2,
+			UPDATE_FREQ_PER_DRAW	=3,	
+			UPDATE_FREQ_COUNT		
+		};
 		struct VertextInputAttribute
 		{
 			char* SemanticName;
@@ -56,7 +63,7 @@ namespace YiaEngine
 		{
 			char* Name;
 			UINT NameSize;
-			int RegisterSpace;
+			ResourceFrequenceType RegisterSpace;
 			int Reg;
 			TextureDimension Dimension;
 			size_t Size;

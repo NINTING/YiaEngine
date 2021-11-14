@@ -223,7 +223,7 @@ public:
 		testTexture.InitializeByImage(image, DXGI_FORMAT_R8G8B8A8_UNORM);
 		LightData light;
 		light.Dirction =Math::Vec3f (-1, -1, 0);
-		light.Color = Color::Red;
+		light.Color = Color(1,1,1,1);
 		light.Intensity = 1;
 		mainLight = Light(LightType::Light_Direction, light);
 	}
@@ -299,7 +299,6 @@ public:
 		DefaultRenderer.ClearRenderTarget();
 		DefaultRenderer.ClearDepthStencil();
 		DefaultRenderer.DrawMesh(fullScreenRect,TextureMaterial);
-
 		DefaultRenderer.End();
 	}
 	void RenderScene()

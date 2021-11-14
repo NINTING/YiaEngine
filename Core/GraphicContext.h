@@ -33,7 +33,10 @@ namespace YiaEngine
 
 			void BindTestConstBufferView(int rootIndex, D3D12_GPU_VIRTUAL_ADDRESS address);
 
-			void BindConstBufferView(int rootIndex, UINT size, void* data);
+			void BindDynamicConstBufferView(int rootIndex, UINT size, void* data);
+
+
+			void BindConstBufferView(int rootIndex, D3D12_GPU_VIRTUAL_ADDRESS address);
 			
 			void SetViewPortAndScissorRects(const D3D12_VIEWPORT* pViewPort, const D3D12_RECT* pAcissorRect_);
 			void SetRenderTarget(const DescriptorHandle* renderTarget,const DescriptorHandle* depth);

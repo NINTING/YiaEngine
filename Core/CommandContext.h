@@ -78,8 +78,9 @@ namespace YiaEngine
 		public:
 			//static void InitializeTexture(Texture& dest, UINT subresource_num, D3D12_SUBRESOURCE_DATA data);
 			static void InitializeTexture(GpuResource& dest, ImageData& image);
-			static void InitializeBuffer(GpuResource& dest,UINT bufferSize,void* initData);
-			static void InitializeBuffer(GpuBuffer& dest, const UploadBuffer& uploadBuffer, UINT srcOffset = 0, UINT destOffset = 0, size_t numByte = -1);
+			static void UpdateBufferData(GpuBuffer& dest, const void* initData);
+			static void UpdateBufferData(GpuResource& dest,UINT bufferSize,const void* initData);
+			static void UpdateBufferData(GpuBuffer& dest, const UploadBuffer& uploadBuffer, UINT srcOffset = 0, UINT destOffset = 0, size_t numByte = -1);
 			
 		public:
 

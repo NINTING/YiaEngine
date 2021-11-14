@@ -17,6 +17,7 @@ namespace YiaEngine
 			ID3D12Resource* NativeResource() {
 				return resource_.Get();
 			}
+			D3D12_GPU_VIRTUAL_ADDRESS GetGpuAddress() { return gpuVirtualAddress_; };
 			D3D12_RESOURCE_STATES Usage() { return usage_; };
 			~GpuResource() { Destroy(); }
 			void Usage(D3D12_RESOURCE_STATES state) { usage_ = state; }

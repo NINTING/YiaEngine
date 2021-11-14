@@ -16,6 +16,7 @@ cbuffer cbvPerFrame : register(b0)
     float4x4 WorldITMat;
 }
 
+
 struct Light
 {
     float3 LightDir;

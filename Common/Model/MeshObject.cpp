@@ -61,10 +61,7 @@ namespace YiaEngine
 
 		upload.UnMap();
 
-		wname = new wchar_t[name_.length() + 1];
-		Char2Wchar(name_.c_str(), wname);
-
-		gpuBuffer_.Create(wname, gemoSize, 1, upload);
+		gpuBuffer_.Create(name_.c_str(), gemoSize, 1, upload);
 	}
 	VertexAttributeArray CreateVertexAttribute(VertexAttributeEnum attribute, DataFormate formate, size_t count, void* data)
 	{

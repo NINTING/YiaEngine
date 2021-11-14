@@ -1,10 +1,10 @@
 #include"Color.h"
-
+#include"pch.h"
 namespace YiaEngine
 {
-	Color Color::Black = Color(0,0,0,1);
-	Color Color::White = Color(1, 1, 1, 1);
-	Color Color::Red = Color(1, 0, 0, 1);
-	Color Color::Green = Color(0, 1, 0, 1);
-	Color Color::Blue = Color(0, 0, 1, 1);
+	/*Color Black (0,0,0,1);
+	Color White (1, 1, 1, 1);
+	Color Red	(1, 0, 0, 1);
+	Color Green (0, 1, 0, 1);
+	Color Blue  (0, 0, 1, 1);*/
 }

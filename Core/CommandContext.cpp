@@ -125,9 +125,9 @@ namespace YiaEngine
 
 		}
 		
-		void CommandContext::InitializeBuffer(GpuResource& dest, UINT bufferSize, void* initData)
+		void CommandContext::UpdateBufferData(GpuBuffer& dest,const void* initData)
 		{
-
+			UINT bufferSize = dest.BufferSize();
 			CommandContext* initContext = CommandContext::Begin();
 			AllocateBuffer upload_buffer = initContext->GetAllocateUploadBuffer(bufferSize);
 			D3D12_SUBRESOURCE_DATA data;
@@ -141,7 +141,7 @@ namespace YiaEngine
 
 		}
 
-		void CommandContext::InitializeBuffer(GpuBuffer& dest, const UploadBuffer& uploadBuffer, UINT srcOffset, UINT destOffset, size_t numByte)
+		void CommandContext::UpdateBufferData(GpuBuffer& dest, const UploadBuffer& uploadBuffer, UINT srcOffset, UINT destOffset, size_t numByte)
 		{
 
 			CommandContext* initContext = CommandContext::Begin();

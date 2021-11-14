@@ -64,16 +64,16 @@ namespace YiaEngine
 		void Renderer::SetRootSignature(const RootSignature& signature) {
 			graphicContext->SetRootSignature(signature);
 		};
-		void Renderer::SetConstBufferView(int rootIndex,int size,void* data) {
-			graphicContext->BindConstBufferView(rootIndex, size,data);
-		};
+		//void Renderer::SetConstBufferView(int rootIndex,int size,void* data) {
+		//	graphicContext->BindConstBufferView(rootIndex, size,data);
+		//};
 		void Renderer::SetTestConstBufferView(int rootIndex, D3D12_GPU_VIRTUAL_ADDRESS address) {
 			graphicContext->BindTestConstBufferView(rootIndex, address);
 		};
 		void Renderer::DrawMesh(const Mesh& mesh, Material& material)
 		{
 			YIA_ASSERT(renderTarget_);
-
+			material.Finalize();
 			if (useDefalutViewport)
 			{
 				viewport_ = {};
@@ -108,7 +108,12 @@ namespace YiaEngine
 				ResourceData& data = material.GetResourceData(i);
 				if (data.Type == ShaderResourceType::ShaderResourceType_ConstBuffer)
 				{
-					graphicContext->BindConstBufferView(data.location.RootIndex, data.Size, data.Data);
+					if (data.Freq==ResourceFrequenceType::UPDATE_FREQ_PER_DRAW)
+					{
+						graphicContext->BindDynamicConstBufferView(data.location.RootIndex, data.Size, data.Data);
+					}
+					else
+						graphicContext->BindConstBufferView(data.location.RootIndex,material.GetCbvData(i).GetGpuAddress());
 				}
 				else if (data.Type == ShaderResourceType::ShaderResourceType_Texture)
 				{

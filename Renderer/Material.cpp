@@ -70,34 +70,49 @@ namespace YiaEngine
 		}
 		void Material::InitMaterialResource(const std::vector<ShaderResource>& resources)
 		{
-			
-;
 			UINT rootParamCount = 0;
 			
 			for (size_t i = 0; i < resources.size(); i++)
 			{
 				const ShaderResource& res = resources[i];
+				dirtyFlags_.push_back(true);
+
+				ResourceData resData;
+				resData.Type = resources[i].Type;
+				resData.Freq = resources[i].RegisterSpace;
 				if (res.Type == ShaderResourceType::ShaderResourceType_ConstBuffer)
 				{
-					ResourceData resData;
+					
 					resData.Data = new uint8_t[resources[i].Size];
 					resData.location = resourceLayout_.GetResourceLocation(i);
 					resData.Size = resources[i].Size;
-					resData.Type = resources[i].Type;
+					
+				
+					resData.Freq = resources[i].RegisterSpace;
+			
+
+					//更新频率为 PerDraw将使用临时分配的CBV,而不主动分配
+					if (resData.Freq!=ResourceFrequenceType::UPDATE_FREQ_PER_DRAW)
+					{
+						resData.BufferIndex = cbvList.size();
+						cbvList.push_back(std::shared_ptr<GpuBuffer>(new GpuBuffer()));
+						cbvList.back()->Create(resources[i].Name, resData.Size);
+					}
 					resourceDatas_.push_back(resData);
 				}
 				else if(res.Type == ShaderResourceType::ShaderResourceType_Texture)
 				{
-					ResourceData resData;
+		
 					textureMap[res.Name] = resourceDatas_.size();
 					resData.Count = res.Count;
 					resData.Data = nullptr;
 					resData.location = resourceLayout_.GetResourceLocation(i);
-					resData.Type = resources[i].Type;
 					resourceDatas_.push_back(resData);
 				}
 				else if (res.Type == ShaderResourceType::ShaderResourceType_Sampler)
 				{
+			
+					resourceDatas_.push_back(resData);
 				}
 				else
 				{
@@ -105,16 +120,7 @@ namespace YiaEngine
 				}
 			}
 		}
-		void Material::SetMatrix(const char* name,const Math::Mat4x4f& mat)
-		{
-			ResourceData& data = resourceDatas_[varibalData_[name].ResourceIndex];
-			memcpy(data.Data + varibalData_[name].Offset, (uint8_t*)&mat, sizeof(Math::Mat4x4f));
-		}
-		void Material::SetTexture(const char* name,const Texture&texture)
-		{
-			ResourceData& resourceData = resourceDatas_[textureMap[name]];
-			resourceData.Data = (uint8_t*)(&texture);
-		}
+	
 		void Material::AddInputLayout()
 		{
 			D3D12_INPUT_LAYOUT_DESC desc;
@@ -155,13 +161,51 @@ namespace YiaEngine
 		void Material::AddTextureResource(){
 		
 		}
+
+		void Material::SetMatrix(const char* name, const Math::Mat4x4f& mat)
+		{
+			ResourceData& data = resourceDatas_[varibalData_[name].ResourceIndex];
+			dirtyFlags_[varibalData_[name].ResourceIndex] = true;
+			memcpy(data.Data + varibalData_[name].Offset, (uint8_t*)&mat, sizeof(Math::Mat4x4f));
+		}
+		void Material::SetTexture(const char* name, const Texture& texture)
+		{
+			ResourceData& resourceData = resourceDatas_[textureMap[name]];
+			resourceData.Data = (uint8_t*)(&texture);
+
+			dirtyFlags_[varibalData_[name].ResourceIndex] = true;
+		}
+
 		ResourceData& Material::GetResourceData(int rootIndex)
 		{
 			return resourceDatas_[rootIndex];
 		}
+		GpuBuffer& Material::GetCbvData(int rootIndex)
+		{
+			assert(resourceDatas_[rootIndex].Type == ShaderResourceType::ShaderResourceType_ConstBuffer);
+			return *cbvList[resourceDatas_[rootIndex].BufferIndex];
+		}
 		RootSignature& Material::GetRootSignature()
 		{
 			return resourceLayout_;
+		}
+		void Material::Finalize()
+		{
+			for (size_t i = 0; i < dirtyFlags_.size(); i++)
+			{
+				if (dirtyFlags_[i])
+				{
+					if (resourceDatas_[i].Type == ShaderResourceType::ShaderResourceType_ConstBuffer)
+					{
+						if (resourceDatas_[i].Freq!=ResourceFrequenceType::UPDATE_FREQ_PER_DRAW)
+						{
+							CommandContext::UpdateBufferData(*cbvList[resourceDatas_[i].BufferIndex], resourceDatas_[i].Data);
+						}
+					
+					}
+					dirtyFlags_[i] = false;
+				}
+			}
 		}
 	}
 }

@@ -12,17 +12,18 @@ namespace YiaEngine
 	class Color
 	{
 	public:
-		static Color Black;
-		static Color White;
-		static Color Red;
-		static Color Green;
-		static Color Blue;
+	
 	public:
-		Color():R(White.R),G(White.G), B(White.B), A(White.A) {}
+		Color():R(1),G(1), B(1), A(1) {}
 		Color(float r, float g, float b, float a) :R(r), G(g), B(b), A(a) {};
 		float R;
 		float G;
 		float B;
 		float A;
 	};
+	extern Color Black;
+	extern Color White;
+	extern Color Red;
+	extern Color Green;
+	extern Color Blue;
 }

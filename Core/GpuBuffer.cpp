@@ -4,43 +4,31 @@
 #include"Graphic.h"
 #include"GpuBuffer.h"
 #include"CommandContext.h"
+#include"Common/YiaMath.h"
+#include"Common/Utility.h"
 namespace YiaEngine:: Graphic
 {
  
-    void GpuBuffer::Create(size_t Size, size_t stride, void* data)
+    void GpuBuffer::Create(const char* Name, size_t Size, void* data)
 	{
-        D3D12_RESOURCE_DESC desc = DescriptBuffer();
-        D3D12_HEAP_PROPERTIES heap_prop;
-        heap_prop.Type = D3D12_HEAP_TYPE_DEFAULT;
-        heap_prop.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
-        heap_prop.CreationNodeMask = 1;
-        heap_prop.VisibleNodeMask = 1;
-        heap_prop.MemoryPoolPreference = D3D12_MEMORY_POOL_UNKNOWN;
-        bufferSize_ = Size;
-        ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(
-            &heap_prop,
-            D3D12_HEAP_FLAG_NONE,
-            &desc,
-            D3D12_RESOURCE_STATE_GENERIC_READ,
-            nullptr,
-            IID_PPV_ARGS(&resource_)));
+        CreateResource(Size);
         if (data != nullptr)
         {
-          /*  CommandContext* initContext = CommandContext::Begin(L"InitBuffer");
-            initContext->GetAllocateUploadBuffer(data_size);*/
+            CommandContext::UpdateBufferData(*this, data);
         }
-            
+#ifdef _DEBUG
+        wchar_t* wname = new wchar_t[strlen(Name) + 1];
+        Char2Wchar(Name, wname);
+        resource_->SetName(wname);
+        delete wname;
+#endif // _DEBUG
 	}
-
-    void GpuBuffer::Create(const wchar_t* Name, int numElement, int elementSize, const UploadBuffer& initData, UINT offset)
+    void GpuBuffer::CreateResource(size_t Size)
     {
-        elementSize_ = elementSize;
-        elementCount_ = numElement;
-        bufferSize_ = elementSize_ * elementCount_;
         D3D12_RESOURCE_DESC  resourceDesc = DescriptBuffer();
 
         usage_ = D3D12_RESOURCE_STATE_COMMON;
-
+        resourceDesc.Width = Size;
         D3D12_HEAP_PROPERTIES heapProps;
         heapProps.Type = D3D12_HEAP_TYPE_DEFAULT;
         heapProps.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
@@ -50,13 +38,41 @@ namespace YiaEngine:: Graphic
         ASSERT_SUCCEEDED(g_Device->CreateCommittedResource(&heapProps, D3D12_HEAP_FLAG_NONE, &resourceDesc, usage_, nullptr, IID_PPV_ARGS(&resource_)));
 
         gpuVirtualAddress_ = resource_->GetGPUVirtualAddress();
+    }
+    void GpuBuffer::Create(const char* Name, int numElement, int elementSize, const void* initData)
+    {
+        elementSize_ = elementSize;
+        elementCount_ = numElement;
+        bufferSize_ = elementSize_ * elementCount_;
+        CreateResource(bufferSize_);
 
 #ifdef _DEBUG
-        resource_->SetName(Name);
+        wchar_t* wname = new wchar_t[strlen(Name) + 1];
+        Char2Wchar(Name, wname);
+        resource_->SetName(wname);
+        delete wname;
+#endif // _DEBUG
+
+        CommandContext::UpdateBufferData(*this, initData);
+
+    }
+
+    void GpuBuffer::Create(const char* Name, int numElement, int elementSize, const UploadBuffer& initData, UINT offset)
+    {
+        elementSize_ = elementSize;
+        elementCount_ = numElement;
+        bufferSize_ = elementSize_ * elementCount_;
+        CreateResource(bufferSize_);
+
+#ifdef _DEBUG
+        wchar_t* wname = new wchar_t[strlen(Name) + 1];
+        Char2Wchar(Name,wname);
+        resource_->SetName(wname);
+        delete wname;
 #endif // _DEBUG
 
 
-        CommandContext::InitializeBuffer(*this, initData,offset);
+        CommandContext::UpdateBufferData(*this, initData,offset);
     }
 
     D3D12_VERTEX_BUFFER_VIEW GpuBuffer::VertexBufferView(size_t offset, UINT stride, UINT dataSize)const
@@ -74,6 +90,17 @@ namespace YiaEngine:: Graphic
         ibo.Format = DXGI_FORMAT_R32_UINT;;
         ibo.SizeInBytes = dataSize;
         return ibo;
+    }
+
+    void GpuBuffer::CreateConstBufferView(UINT offset,UINT size)
+    {
+        size = Math::AlignUp(size, 16);
+        D3D12_CONSTANT_BUFFER_VIEW_DESC desc;
+        desc.BufferLocation = gpuVirtualAddress_ + offset;
+        desc.SizeInBytes = size;
+
+       auto cbvHandle =  g_CpuDescriptorAllocator[D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV].Alloc(1);
+        g_Device->CreateConstantBufferView(&desc, cbvHandle);
     }
    
     D3D12_RESOURCE_DESC GpuBuffer::DescriptBuffer()
