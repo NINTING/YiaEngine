@@ -218,6 +218,7 @@ public:
 
 		defaultMaterial.InitMaterial("DefaultMaterial",defaultShader);
 		TextureMaterial.InitMaterial("TextureMaterial", blitShader);
+		defaultMaterial.InitMaterial("DefaultMaterial", defaultShader);
 		Graphic::ImageData image = GenerateTextureData();
 
 		testTexture.InitializeByImage(image, DXGI_FORMAT_R8G8B8A8_UNORM);
@@ -301,6 +302,33 @@ public:
 		DefaultRenderer.DrawMesh(fullScreenRect,TextureMaterial);
 		DefaultRenderer.End();
 	}
+	void RenderPBR()
+	{
+		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
+		Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();
+
+		DefaultRenderer.Begin();
+		DefaultRenderer.SetRenderTarget(&sceneColorBuffer, &sceneDepthBuffer);
+		DefaultRenderer.SetCamera(camera);
+		DefaultRenderer.ClearRenderTarget();
+		DefaultRenderer.ClearDepthStencil();
+
+		defaultMaterial.SetMatrix("ObjectMat", Math::Mat4x4f::Identity());
+		defaultMaterial.SetMatrix("WorldMat", Math::Translate({ 1,0,1 }));
+		defaultMaterial.SetMatrix("ViewMat", camera.ViewMatrix());
+		defaultMaterial.SetMatrix("ProjMat", camera.ProjectionMatrix());
+
+		defaultMaterial.SetTexture("MainTexture", testTexture);
+
+		
+
+		DefaultRenderer.DrawMesh(Box, defaultMaterial);
+
+		defaultMaterial.SetMatrix("WorldMat", Math::Translate({ 5,0,1 }));
+		DefaultRenderer.DrawMesh(Box, defaultMaterial);
+
+		DefaultRenderer.End();
+	}
 	void RenderScene()
 	{
 		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
@@ -357,6 +385,7 @@ public:
 	Camera camera;
 
 	Graphic::Material defaultMaterial;
+	Graphic::Material pbrMaterial;
 	Graphic::Material TextureMaterial;
 
 	Graphic::Texture testTexture;
