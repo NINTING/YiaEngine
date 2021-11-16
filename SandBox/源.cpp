@@ -87,7 +87,9 @@ public:
 
 
 		Graphic::ShaderLibrary::LoadShader("DefaultShader.hlsl",defaultShader);
-		Graphic::ShaderLibrary::LoadShader("BlitShader.hlsl", blitShader);
+	//	Graphic::ShaderLibrary::LoadShader("BlitShader.hlsl", blitShader);
+		Graphic::ShaderLibrary::LoadShader("PbrShader.hlsl", pbrShader);
+
 		Math::Vec3f pos[] = {
 			{ -1.0f, 1.f , 0.0f },
 			{ 1.0f, 1.f , 0.0f },
@@ -140,6 +142,39 @@ public:
 			{ 1.0f, 1.f ,	1.0f },
 			{ 1.0f, -1.f ,	1.0f },
 			{ -1.0f, -1.f , 1.0f },
+		};
+		Math::Vec3f Boxnormal[] =
+		{
+			//上
+			{ 0.0f, 1.f , 0.0f },
+			{ 0.0f, 1.f , 0.0f },
+			{ 0.0f, 1.f , 0.0f },
+			{ 0.0f, 1.f , 0.0f },
+			//下
+			{ 0.0f, -1.f , 0.0f },
+			{ 0.0f, -1.f , 0.0f },
+			{ 0.0f, -1.f , 0.0f },
+			{ 0.0f, -1.f , 0.0f },
+			//左
+			{ -1.0f, 0.f , 0.0f },
+			{ -1.0f, 0.f , 0.0f },
+			{ -1.0f, 0.f , 0.0f },
+			{ -1.0f, 0.f , 0.0f },
+			//右
+			{ 1.0f, 0.f , 0.0f },
+			{ 1.0f, 0.f , 0.0f },
+			{ 1.0f, 0.f , 0.0f },
+			{ 1.0f, 0.f , 0.0f },
+			//前
+			{ 0.0f, 0.f , -1.0f },
+			{ 0.0f, 0.f , -1.0f },
+			{ 0.0f, 0.f , -1.0f },
+			{ 0.0f, 0.f , -1.0f },
+			//后
+			{ 0.0f, 0.f , 1.0f },
+			{ 0.0f, 0.f , 1.0f },
+			{ 0.0f, 0.f , 1.0f },
+			{ 0.0f, 0.f , 1.0f },
 		};
 		Math::Vec2f Boxuv[] =
 		{
@@ -197,6 +232,7 @@ public:
 		Box.SetName("Box");
 		Box.AddAttribute(CreateVertexAttribute(VertexAttributeEnum::kPosition, DataFormate::kFloat_3, 24, BoxVertex));
 		Box.AddAttribute(CreateVertexAttribute(VertexAttributeEnum::kTexcoord, DataFormate::kFloat_2, 24, Boxuv));
+		Box.AddAttribute(CreateVertexAttribute(VertexAttributeEnum::kNormal, DataFormate::kFloat_3, 24, Boxnormal));
 		Box.AddIndices(sizeof(boxIndex) / sizeof(int), boxIndex);
 		Box.CreateMeshGpuBuffer();
 		BoxPos = Math::Vec3f(5, 0, 0);
@@ -217,8 +253,9 @@ public:
 
 
 		defaultMaterial.InitMaterial("DefaultMaterial",defaultShader);
-		TextureMaterial.InitMaterial("TextureMaterial", blitShader);
-		defaultMaterial.InitMaterial("DefaultMaterial", defaultShader);
+	//	TextureMaterial.InitMaterial("TextureMaterial", blitShader);
+		pbrMaterial.InitMaterial("PBRMaterial", pbrShader);
+		
 		Graphic::ImageData image = GenerateTextureData();
 
 		testTexture.InitializeByImage(image, DXGI_FORMAT_R8G8B8A8_UNORM);
@@ -227,6 +264,9 @@ public:
 		light.Color = Color(1,1,1,1);
 		light.Intensity = 1;
 		mainLight = Light(LightType::Light_Direction, light);
+
+
+		surfaceData.Albedo = Color(1, 0, 1, 1);
 	}
 	virtual void Init() 
 	{
@@ -312,20 +352,23 @@ public:
 		DefaultRenderer.SetCamera(camera);
 		DefaultRenderer.ClearRenderTarget();
 		DefaultRenderer.ClearDepthStencil();
+		
+		Math::Mat4x4f world = Math::Translate({ 1,0,1 });
 
-		defaultMaterial.SetMatrix("ObjectMat", Math::Mat4x4f::Identity());
-		defaultMaterial.SetMatrix("WorldMat", Math::Translate({ 1,0,1 }));
-		defaultMaterial.SetMatrix("ViewMat", camera.ViewMatrix());
-		defaultMaterial.SetMatrix("ProjMat", camera.ProjectionMatrix());
+		pbrMaterial.SetMatrix("ObjectMat", Math::Mat4x4f::Identity());
+		pbrMaterial.SetMatrix("WorldMat", world);
+		pbrMaterial.SetMatrix("ViewMat", camera.ViewMatrix());
+		pbrMaterial.SetMatrix("ProjMat", camera.ProjectionMatrix());
+		pbrMaterial.SetMatrix("WorldToObjMat", world.inverse());
 
-		defaultMaterial.SetTexture("MainTexture", testTexture);
-
+		pbrMaterial.SetTexture("MainTexture", testTexture);
+		pbrMaterial.SetMemoryValue("surface",&surfaceData);
 		
 
-		DefaultRenderer.DrawMesh(Box, defaultMaterial);
+		DefaultRenderer.DrawMesh(Box, pbrMaterial);
 
-		defaultMaterial.SetMatrix("WorldMat", Math::Translate({ 5,0,1 }));
-		DefaultRenderer.DrawMesh(Box, defaultMaterial);
+		/*defaultMaterial.SetMatrix("WorldMat", Math::Translate({ 5,0,1 }));
+		DefaultRenderer.DrawMesh(Box, defaultMaterial);*/
 
 		DefaultRenderer.End();
 	}
@@ -345,6 +388,7 @@ public:
 		//DefaultRenderer.End();
 		//RenderObject();
 		RenderObject(Math::Vec3f(3, 0, 0));
+		//RenderPBR();
 		//RenderImage();
 		/*
 		*	DefaultRenderer.BeginPass();
@@ -378,6 +422,7 @@ public:
 	std::shared_ptr<Graphic::Shader> sampleShader;
 	std::shared_ptr<Graphic::Shader> defaultShader;
 	std::shared_ptr<Graphic::Shader> blitShader;
+	std::shared_ptr<Graphic::Shader> pbrShader;
 
 	Graphic::Renderer DefaultRenderer;
 	
@@ -389,9 +434,10 @@ public:
 	Graphic::Material TextureMaterial;
 
 	Graphic::Texture testTexture;
-
+	
 	Math::Vec3f BoxPos;
 	Light mainLight;
+	SurfaceData surfaceData;
 };
 
 

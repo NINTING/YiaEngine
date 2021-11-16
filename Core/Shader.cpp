@@ -62,8 +62,8 @@ namespace YiaEngine
 #endif
 				auto sw = String2WString(filename);
 
-				loadDesc.StageLoadDesc[0] = { sw.c_str(),Graphic::Shader_Stage_Vertex,L"vs_6_2" };
-				loadDesc.StageLoadDesc[1] = { sw.c_str(),Graphic::Shader_Stage_Pixel,L"ps_6_2" };
+				loadDesc.StageLoadDesc[0] = { sw.c_str(),Graphic::Shader_Stage_Vertex,L"vs_6_0" };
+				loadDesc.StageLoadDesc[1] = { sw.c_str(),Graphic::Shader_Stage_Pixel,L"ps_6_0" };
 
 				Graphic::LoadShader(loadDesc, *shaderLib_[name]);
 				outShader = shaderLib_[name];

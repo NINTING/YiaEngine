@@ -1,8 +1,10 @@
-#pragma once
+#ifndef YIA_HLSL_LIGHT
+#define YIA_HLSL_LIGHT
 #include"Common.hlsl"
 
 
 
+#define MAX_LIGHT_COUNT 16
 
 struct Light
 {
@@ -20,13 +22,14 @@ cbuffer cbvLight : register(b1, UPDATE_FREQ_PER_FRAME)
 }
 
 
-float4 ComputeDirectionLight(Light light,Surface surface,
+float3 ComputeDirectionLight(Light light,Surface surface,
                     float3 posW,float3 normal)
 {
-    float3 diffuse = max(0, dot(lights.LightDir, normal)) *
-        light.LightColor.xyz * albedo.xyz * Lights.Intensity;
+    float3 diffuse = max(0, dot(light.LightDir, normal)) *
+        light.LightColor.xyz * surface.Albedo.xyz * Lights.Intensity;
     return diffuse;
 }
 
 
 
+#endif //YIA_HLSL_LIGHT

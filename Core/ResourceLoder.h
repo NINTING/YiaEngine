@@ -18,7 +18,7 @@ namespace YiaEngine
 			ShaderStageLoadDesc StageLoadDesc[Shader_Stage_Count];
 		};
 		void LoadShader(const ShaderLoadDesc& desc,Shader& shader);
-		ComPtr<IDxcBlob> CompilerShaderFromDXC(const wchar_t* path, const wchar_t* entry, const wchar_t* target, ID3D12ShaderReflection**ppOutReflection);
+		void CompilerShaderFromDXC(const wchar_t* path, const wchar_t* entry, const wchar_t* target, ID3D12ShaderReflection** ppOutReflect, ShaderBinaryData* pOut);
 
 	}
 }

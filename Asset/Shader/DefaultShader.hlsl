@@ -10,6 +10,7 @@ Texture2D MainTexture : register(t0);
 SamplerState MainTexture_Sampler : register(s0);
 
 
+
 struct PSInput
 {
     float4 position : SV_POSITION;
@@ -22,8 +23,8 @@ struct PSInput
 struct  VSInput
 {
     float3 position : POSITION;
-
-    float2 uv:TEXCOORD;
+    float2 uv       : TEXCOORD;
+    float2 uv1       : NORMAL;
 };
 
 

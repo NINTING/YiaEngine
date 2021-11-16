@@ -39,15 +39,24 @@ namespace YiaEngine
 						if (it == resourceMap.end())
 						{
 							outResources.push_back(reflect.Resources[j]);
-							resourceMap[reflect.Resources[j].Name] = outResources.size() - 1;
+							int index = outResources.size() - 1;
+							resourceMap[reflect.Resources[j].Name] = index;
 						}
 						else
 						{
 							outResources[it->second].Stage |= reflect.Resources[j].Stage;
 						}
 					}
+					for (size_t vari = 0; vari < reflect.VariablesSize; vari++)
+					{
+						int index = resourceMap[reflect.Resources[reflect.Variables[vari].ResourceIndex].Name];
+
+						reflect.Variables[vari].ResourceIndex = index;
+					}
 				}
 			}
+
+			
 		}
 		void Material::InitMaterial(const char* name, std::shared_ptr<Shader>shader)
 		{
@@ -154,7 +163,9 @@ namespace YiaEngine
 						YIA_ERROR("同名变量{0}",varName);
 					}
 					else
+					{
 						varibalData_[varName] = reflect.Variables[j];
+					}
 				} 
 			}
 		}
@@ -175,7 +186,12 @@ namespace YiaEngine
 
 			dirtyFlags_[varibalData_[name].ResourceIndex] = true;
 		}
-
+		void Material::SetMemoryValue(const char* name,const void* value )
+		{
+			ResourceData& data = resourceDatas_[varibalData_[name].ResourceIndex];
+			dirtyFlags_[varibalData_[name].ResourceIndex] = true;
+			memcpy(data.Data + varibalData_[name].Offset, (uint8_t*)&value, data.Size);
+		}
 		ResourceData& Material::GetResourceData(int rootIndex)
 		{
 			return resourceDatas_[rootIndex];

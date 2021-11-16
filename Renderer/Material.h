@@ -36,7 +36,7 @@ namespace YiaEngine
 			void Finalize();
 		public:
 			void SetMatrix(const char* name, const Math::Mat4x4f& mat);
-
+			void SetMemoryValue(const char* name, const void* value);
 			void SetTexture(const char* name, const Texture& texture);
 
 		private:

@@ -92,6 +92,12 @@ namespace YiaEngine
 		ShaderVariable* Variables;
 			UINT VariablesSize;
 		};
+
+		struct ShaderBinaryData
+		{
+			LPVOID Data;
+			SIZE_T DataSize;
+		};
 		
 		static inline ShaderStage operator | (ShaderStage a, ShaderStage b) { return (ShaderStage)((UINT)(a) | (UINT)(b)); }
 		static inline ShaderStage operator & (ShaderStage a, ShaderStage b) { return (ShaderStage)((UINT)(a) & (UINT)(b)); }
@@ -101,7 +107,7 @@ namespace YiaEngine
 		struct Shader
 		{
 			ShaderStage Stages;
-			ComPtr<IDxcBlob> ShaderBlob[Shader_Stage_Count];
+			ShaderBinaryData ShaderBlob[Shader_Stage_Count];
 			ShaderReflect Reflect[Shader_Stage_Count];
 		};
 

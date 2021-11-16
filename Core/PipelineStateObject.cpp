@@ -66,8 +66,8 @@ namespace YiaEngine::Graphic
 
 			if ((shader.Stages & stage) == stage)
 			{
-				const void* pointer = shader.ShaderBlob[i]->GetBufferPointer();
-				size_t size = shader.ShaderBlob[i]->GetBufferSize();
+				const void* pointer = shader.ShaderBlob[i].Data;
+				size_t size = shader.ShaderBlob[i].DataSize;
 				switch (stage)
 				{
 				

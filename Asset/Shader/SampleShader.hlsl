@@ -1,46 +1,58 @@
 
-Texture2D t1 : register(t0);
-SamplerState s1 : register(s0);
+#include"Common.hlsl"
+#include"Light.hlsl"
+
+#define Renderer_RootSig \
+    "RootFlags(ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT), " \
+    "CBV(b0, visibility = SHADER_VISIBILITY_VERTEX) " \
+
+Texture2D MainTexture : register(t0);
+SamplerState MainTexture_Sampler : register(s0);
 
 
-cbuffer ConstBufferPerFrame : register(b0)
-{
-    float4 outColor;
-}
+
+
+
 
 struct PSInput
 {
     float4 position : SV_POSITION;
-
+    float4 posW : POSITION;
+    float3 normalW : NORMAL;
     float2 uv   :TEXCOORD0;
-
 };
 
 
 struct  VSInput
 {
     float3 position : POSITION;
+    float3 normal : NORMAL;
     float2 uv:TEXCOORD;
 };
 
 
 
+
+
+//[RootSignature(Renderer_RootSig)]
 PSInput VsMain(VSInput input)
 {
     PSInput result;
 
-    result.position = float4(input.position,1.0f);
- //   result.position = mul(vpMat, float4(input.position, 1.0f));
+
+    result.position = ObjectToClipProjection(float4(input.position, 1.0f));
+    result.normalW = ObjectToWorldNormal(input.normal).xyz;
+    //result.position = float4(0, 0, 0, 0);
     result.uv = input.uv;
+    result.posW = ObjectToWorldPoint(float4(input.position, 1.0f));
     return result;
 }
 
 float4 PsMain(PSInput input) : SV_TARGET
 {
-    //  float4 color = float4(1,1,1,1);
-    //float3 color = t1.Sample(s1,float2(input.uv.x,input.uv.y));
-    //return float4(color, 1.0f);
-   // return float4(input.uv.xy, 0.f, 1.f);
-    
-   return outColor;
+    float4 albedo = MainTexture.Sample(MainTexture_Sampler,float2(input.uv.x,input.uv.y));
+    float3 diffuse = ComputeDirectionLight(Lights, surface, input.posW.xyz, input.normalW);
+    return float4(diffuse,1.f);
+    //return color;
+//    return float4(1, 1, 1, 1);
 }
