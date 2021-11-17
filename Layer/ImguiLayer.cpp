@@ -123,7 +123,8 @@ namespace YiaEngine
         //Context.End(true);
 
         Graphic::GraphicContext& UiContext = Graphic::GraphicContext::Begin();
-      
+
+            UiContext.TransitionBarrier(sceneColorBuffer, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
         UiContext.SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, gpuImGuiDescriptoHeap_.NativeHeap());
         UiContext.TransitionBarrier(Graphic::g_SwapRenderTarget[Graphic::g_FrameIndex], D3D12_RESOURCE_STATE_RENDER_TARGET);
         UiContext.SetRenderTarget(Graphic::g_SwapRenderTarget[Graphic::g_FrameIndex].RtvCpuHandlePtr(), nullptr);

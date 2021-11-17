@@ -260,7 +260,7 @@ public:
 
 		testTexture.InitializeByImage(image, DXGI_FORMAT_R8G8B8A8_UNORM);
 		LightData light;
-		light.Dirction =Math::Vec3f (-1, -1, 0);
+		light.Dirction =Math::Vec3f (1, 0, 1).normalized();
 		light.Color = Color(1,1,1,1);
 		light.Intensity = 1;
 		mainLight = Light(LightType::Light_Direction, light);
@@ -363,8 +363,12 @@ public:
 
 		pbrMaterial.SetTexture("MainTexture", testTexture);
 		pbrMaterial.SetMemoryValue("surface",&surfaceData);
-		
+		pbrMaterial.SetMemoryValue("Lights", &mainLight.data_);
 
+		DefaultRenderer.DrawMesh(Box, pbrMaterial);
+		world = Math::Translate({ -3,0,1 });
+		pbrMaterial.SetMatrix("WorldMat", world);
+		pbrMaterial.SetMatrix("WorldToObjMat", world.inverse());
 		DefaultRenderer.DrawMesh(Box, pbrMaterial);
 
 		/*defaultMaterial.SetMatrix("WorldMat", Math::Translate({ 5,0,1 }));
@@ -387,8 +391,8 @@ public:
 		//DefaultRenderer.DrawMesh(fullScreenRect, pso, sampleShader);
 		//DefaultRenderer.End();
 		//RenderObject();
-		RenderObject(Math::Vec3f(3, 0, 0));
-		//RenderPBR();
+		//RenderObject(Math::Vec3f(3, 0, 0));
+		RenderPBR();
 		//RenderImage();
 		/*
 		*	DefaultRenderer.BeginPass();

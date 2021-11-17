@@ -9,9 +9,9 @@ namespace YiaEngine
 		{
 			D3D12_CLEAR_VALUE clearValue;
 			clearValue.Format = format;
-			clearValue.Color[0] = 1.0f;
-			clearValue.Color[1] = 1.0f;
-			clearValue.Color[2] = 1.0f;
+			clearValue.Color[0] = 0.6f;
+			clearValue.Color[1] = 0.3f;
+			clearValue.Color[2] = 0.4f;
 			clearValue.Color[3] = 1.0f;
 			
 

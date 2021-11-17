@@ -1,6 +1,6 @@
 
 #include"Common.hlsl"
-//#include"Light.hlsl"
+#include"Light.hlsl"
 
 #define Renderer_RootSig \
     "RootFlags(ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT), " \
@@ -25,9 +25,9 @@ struct PSInput
 
 struct  VSInput
 {
-    float4 position : POSITION;
+    float3 position : POSITION;
     float2 uv       :TEXCOORD;
-  //  float4 normal   :TEXCOORD1;
+    float3 normal   :NORMAL;
 };
 //[RootSignature(Renderer_RootSig)]
 PSInput VsMain(VSInput input)
@@ -35,19 +35,19 @@ PSInput VsMain(VSInput input)
     PSInput result;
 
 
-    result.position = ObjectToClipProjection(input.position);
-   // result.normalW = ObjectToWorldNormal(input.normal).xyz;
+    result.position = ObjectToClipProjection(float4(input.position, 1.0f));
+    result.normalW = ObjectToWorldNormal(float4(input.normal, 1.0f)).xyz;
     //result.position = float4(0, 0, 0, 0);
     result.uv = input.uv;
-    //result.posW = ObjectToWorldPoint(float4(input.position, 1.0f));
+    result.posW = ObjectToWorldPoint(float4(input.position, 1.0f));
     return result;
 }
 
 float4 PsMain(PSInput input) : SV_TARGET
 {
-    //float4 albedo = MainTexture.Sample(MainTexture_Sampler,float2(input.uv.x,input.uv.y));
-    //float3 diffuse = ComputeDirectionLight(Lights, surface, input.posW.xyz, input.normalW);
-    //return float4(diffuse,1.f);
-    //return color;
-  return MainTexture.Sample(MainTexture_Sampler,float2(input.uv.x,input.uv.y));
+    float4 albedo = MainTexture.Sample(MainTexture_Sampler,input.uv);
+    float3 diffuse = ComputeDirectionLight(Lights, surface, input.posW.xyz, input.normalW);
+    return float4(diffuse*albedo.xyz,1.f);
+    //return albedo;
+  //return MainTexture.Sample(MainTexture_Sampler,float2(input.uv.x,input.uv.y));
 }

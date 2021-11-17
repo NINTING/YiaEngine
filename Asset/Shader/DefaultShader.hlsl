@@ -24,7 +24,6 @@ struct  VSInput
 {
     float3 position : POSITION;
     float2 uv       : TEXCOORD;
-    float2 uv1       : NORMAL;
 };
 
 

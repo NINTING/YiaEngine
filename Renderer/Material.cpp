@@ -175,12 +175,20 @@ namespace YiaEngine
 
 		void Material::SetMatrix(const char* name, const Math::Mat4x4f& mat)
 		{
+			if (varibalData_.find(name) == varibalData_.end())
+			{
+				return;
+			}
 			ResourceData& data = resourceDatas_[varibalData_[name].ResourceIndex];
 			dirtyFlags_[varibalData_[name].ResourceIndex] = true;
 			memcpy(data.Data + varibalData_[name].Offset, (uint8_t*)&mat, sizeof(Math::Mat4x4f));
 		}
 		void Material::SetTexture(const char* name, const Texture& texture)
 		{
+			if (textureMap.find(name) == textureMap.end())
+			{
+				return;
+			}
 			ResourceData& resourceData = resourceDatas_[textureMap[name]];
 			resourceData.Data = (uint8_t*)(&texture);
 
@@ -188,9 +196,14 @@ namespace YiaEngine
 		}
 		void Material::SetMemoryValue(const char* name,const void* value )
 		{
+			if (varibalData_.find(name)==varibalData_.end())
+			{
+				return;
+			}
 			ResourceData& data = resourceDatas_[varibalData_[name].ResourceIndex];
+			
+			memcpy(data.Data + varibalData_[name].Offset, value, data.Size);
 			dirtyFlags_[varibalData_[name].ResourceIndex] = true;
-			memcpy(data.Data + varibalData_[name].Offset, (uint8_t*)&value, data.Size);
 		}
 		ResourceData& Material::GetResourceData(int rootIndex)
 		{

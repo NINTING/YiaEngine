@@ -38,6 +38,7 @@ namespace YiaEngine
                 D3D12_RESOURCE_STATE_COMMON,
                 value,
                 IID_PPV_ARGS(&resource_)));
+            usage_ = D3D12_RESOURCE_STATE_COMMON;
         }
         DXGI_FORMAT GpuTexture::GetStencilFormat(DXGI_FORMAT format)
         {

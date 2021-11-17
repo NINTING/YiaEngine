@@ -106,7 +106,7 @@ namespace YiaEngine
 		}
 		void GraphicContext::BindDynamicConstBufferView(int rootIndex, UINT size, void* data)
 		{
-			AllocateBuffer allcBuffer = GetAllocateUploadBuffer(size, 16);
+			AllocateBuffer allcBuffer = GetAllocateUploadBuffer(size, 256);
 			memcpy_s(allcBuffer.CpuAddress, size, data, size);
 			commandList_->SetGraphicsRootConstantBufferView(rootIndex, allcBuffer.GpuAddress);
 
@@ -140,6 +140,7 @@ namespace YiaEngine
 		}
 		void GraphicContext::ClearRenderTarget(DescriptorHandle renderTarget, const Math::Vec4f& colors)
 		{
+		
 			commandList_->ClearRenderTargetView(renderTarget, (const float*)(&colors), 0, nullptr);
 		
 		}
@@ -156,8 +157,7 @@ namespace YiaEngine
 
 		void GraphicContext::ClearRenderTarget(DescriptorHandle renderTarget)
 		{
-			Math::Vec4f black = { 0.2f,0.3f,0.4f,1.0f };
-
+			Math::Vec4f black = {0.6f,0.3f,0.4f,1.0f };
 			ClearRenderTarget(renderTarget, black);
 		}
 		

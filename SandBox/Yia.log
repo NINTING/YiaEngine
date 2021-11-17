@@ -1,209 +1,2068 @@
-[01:32:46] [info] APP: App init
-[01:32:46] [info] APP: InputParament 3
-[01:32:46] [info] APP:   InputParament 0
-[01:32:46] [info] APP: 	name POSITION
-[01:32:46] [info] APP: 	SemanticIndex 0
-[01:32:46] [info] APP: 	register 0
-[01:32:46] [info] APP: 	SystemValueType 0
-[01:32:46] [info] APP: 	ComponentType 3
-[01:32:46] [info] APP: 	Stream 0
-[01:32:46] [info] APP: 	Mask 7
-[01:32:46] [info] APP: 	ReadWriteMask 7
-[01:32:46] [info] APP:   InputParament 1
-[01:32:46] [info] APP: 	name TEXCOORD
-[01:32:46] [info] APP: 	SemanticIndex 0
-[01:32:46] [info] APP: 	register 1
-[01:32:46] [info] APP: 	SystemValueType 0
-[01:32:46] [info] APP: 	ComponentType 3
-[01:32:46] [info] APP: 	Stream 0
-[01:32:46] [info] APP: 	Mask 3
-[01:32:46] [info] APP: 	ReadWriteMask 3
-[01:32:46] [info] APP:   InputParament 2
-[01:32:46] [info] APP: 	name NORMAL
-[01:32:46] [info] APP: 	SemanticIndex 0
-[01:32:46] [info] APP: 	register 2
-[01:32:46] [info] APP: 	SystemValueType 0
-[01:32:46] [info] APP: 	ComponentType 3
-[01:32:46] [info] APP: 	Stream 0
-[01:32:46] [info] APP: 	Mask 3
-[01:32:46] [info] APP: 	ReadWriteMask 0
-[01:32:46] [info] APP: BoundResources 2
-[01:32:46] [info] APP: 	BoundResources cbvPerFrame
-[01:32:46] [info] APP: 	BindCount 1
-[01:32:46] [info] APP: 	BindPoint 0
-[01:32:46] [info] APP: 	Dimension 0
-[01:32:46] [info] APP: 	NumSamples 0
-[01:32:46] [info] APP: 	ReturnType 0
-[01:32:46] [info] APP: 	Space 1
-[01:32:46] [info] APP: 	Type 0
-[01:32:46] [info] APP: 	flag 1
-[01:32:46] [info] APP: 	BoundResources cbvPerDraw
-[01:32:46] [info] APP: 	BindCount 1
-[01:32:46] [info] APP: 	BindPoint 1
-[01:32:46] [info] APP: 	Dimension 0
-[01:32:46] [info] APP: 	NumSamples 0
-[01:32:46] [info] APP: 	ReturnType 0
-[01:32:46] [info] APP: 	Space 3
-[01:32:46] [info] APP: 	Type 0
-[01:32:46] [info] APP: 	flag 1
-[01:32:46] [info] APP: ConstantBuffers 2
-[01:32:46] [info] APP: 	ConstBuffer 0
-[01:32:46] [info] APP: 		name cbvPerFrame
-[01:32:46] [info] APP: 		Size 192
-[01:32:46] [info] APP: 		Type 0
-[01:32:46] [info] APP: 		Variables 3
-[01:32:46] [info] APP: 			Name ObjectMat
-[01:32:46] [info] APP: 			size 64
-[01:32:46] [info] APP: 			StartOffset 0
-[01:32:46] [info] APP: 			StartSampler 0
-[01:32:46] [info] APP: 			StartTexture 0
-[01:32:46] [info] APP: 			TextureSize 0
-[01:32:46] [info] APP: 			Name ViewMat
-[01:32:46] [info] APP: 			size 64
-[01:32:46] [info] APP: 			StartOffset 64
-[01:32:46] [info] APP: 			StartSampler 0
-[01:32:46] [info] APP: 			StartTexture 0
-[01:32:46] [info] APP: 			TextureSize 0
-[01:32:46] [info] APP: 			Name ProjMat
-[01:32:46] [info] APP: 			size 64
-[01:32:46] [info] APP: 			StartOffset 128
-[01:32:46] [info] APP: 			StartSampler 0
-[01:32:46] [info] APP: 			StartTexture 0
-[01:32:46] [info] APP: 			TextureSize 0
-[01:32:46] [info] APP: 	ConstBuffer 1
-[01:32:46] [info] APP: 		name cbvPerDraw
-[01:32:46] [info] APP: 		Size 128
-[01:32:46] [info] APP: 		Type 0
-[01:32:46] [info] APP: 		Variables 2
-[01:32:46] [info] APP: 			Name WorldMat
-[01:32:46] [info] APP: 			size 64
-[01:32:46] [info] APP: 			StartOffset 0
-[01:32:46] [info] APP: 			StartSampler 0
-[01:32:46] [info] APP: 			StartTexture 0
-[01:32:46] [info] APP: 			TextureSize 0
-[01:32:46] [info] APP: 			Name WorldToObjMat
-[01:32:46] [info] APP: 			size 64
-[01:32:46] [info] APP: 			StartOffset 64
-[01:32:46] [info] APP: 			StartSampler 0
-[01:32:46] [info] APP: 			StartTexture 0
-[01:32:46] [info] APP: 			TextureSize 0
-[01:32:46] [info] APP: BoundResources 2
-[01:32:46] [info] APP: 	BoundResources MainTexture_Sampler
-[01:32:46] [info] APP: 	BindCount 1
-[01:32:46] [info] APP: 	BindPoint 0
-[01:32:46] [info] APP: 	Dimension 0
-[01:32:46] [info] APP: 	NumSamples 0
-[01:32:46] [info] APP: 	ReturnType 0
-[01:32:46] [info] APP: 	Space 0
-[01:32:46] [info] APP: 	Type 3
-[01:32:46] [info] APP: 	flag 0
-[01:32:46] [info] APP: 	BoundResources MainTexture
-[01:32:46] [info] APP: 	BindCount 1
-[01:32:46] [info] APP: 	BindPoint 0
-[01:32:46] [info] APP: 	Dimension 4
-[01:32:46] [info] APP: 	NumSamples 4294967295
-[01:32:46] [info] APP: 	ReturnType 5
-[01:32:46] [info] APP: 	Space 0
-[01:32:46] [info] APP: 	Type 2
-[01:32:46] [info] APP: 	flag 12
-[01:32:46] [info] APP: ConstantBuffers 0
-[01:32:46] [info] APP: InputParament 2
-[01:32:46] [info] APP:   InputParament 0
-[01:32:46] [info] APP: 	name POSITION
-[01:32:46] [info] APP: 	SemanticIndex 0
-[01:32:46] [info] APP: 	register 0
-[01:32:46] [info] APP: 	SystemValueType 0
-[01:32:46] [info] APP: 	ComponentType 3
-[01:32:46] [info] APP: 	Stream 0
-[01:32:46] [info] APP: 	Mask 15
-[01:32:46] [info] APP: 	ReadWriteMask 15
-[01:32:46] [info] APP:   InputParament 1
-[01:32:46] [info] APP: 	name TEXCOORD
-[01:32:46] [info] APP: 	SemanticIndex 0
-[01:32:46] [info] APP: 	register 1
-[01:32:46] [info] APP: 	SystemValueType 0
-[01:32:46] [info] APP: 	ComponentType 3
-[01:32:46] [info] APP: 	Stream 0
-[01:32:46] [info] APP: 	Mask 3
-[01:32:46] [info] APP: 	ReadWriteMask 3
-[01:32:46] [info] APP: BoundResources 2
-[01:32:46] [info] APP: 	BoundResources cbvPerFrame
-[01:32:46] [info] APP: 	BindCount 1
-[01:32:46] [info] APP: 	BindPoint 0
-[01:32:46] [info] APP: 	Dimension 0
-[01:32:46] [info] APP: 	NumSamples 0
-[01:32:46] [info] APP: 	ReturnType 0
-[01:32:46] [info] APP: 	Space 1
-[01:32:46] [info] APP: 	Type 0
-[01:32:46] [info] APP: 	flag 1
-[01:32:46] [info] APP: 	BoundResources cbvPerDraw
-[01:32:46] [info] APP: 	BindCount 1
-[01:32:46] [info] APP: 	BindPoint 1
-[01:32:46] [info] APP: 	Dimension 0
-[01:32:46] [info] APP: 	NumSamples 0
-[01:32:46] [info] APP: 	ReturnType 0
-[01:32:46] [info] APP: 	Space 3
-[01:32:46] [info] APP: 	Type 0
-[01:32:46] [info] APP: 	flag 1
-[01:32:46] [info] APP: ConstantBuffers 2
-[01:32:46] [info] APP: 	ConstBuffer 0
-[01:32:46] [info] APP: 		name cbvPerFrame
-[01:32:46] [info] APP: 		Size 192
-[01:32:46] [info] APP: 		Type 0
-[01:32:46] [info] APP: 		Variables 3
-[01:32:46] [info] APP: 			Name ObjectMat
-[01:32:46] [info] APP: 			size 64
-[01:32:46] [info] APP: 			StartOffset 0
-[01:32:46] [info] APP: 			StartSampler 0
-[01:32:46] [info] APP: 			StartTexture 0
-[01:32:46] [info] APP: 			TextureSize 0
-[01:32:46] [info] APP: 			Name ViewMat
-[01:32:46] [info] APP: 			size 64
-[01:32:46] [info] APP: 			StartOffset 64
-[01:32:46] [info] APP: 			StartSampler 0
-[01:32:46] [info] APP: 			StartTexture 0
-[01:32:46] [info] APP: 			TextureSize 0
-[01:32:46] [info] APP: 			Name ProjMat
-[01:32:46] [info] APP: 			size 64
-[01:32:46] [info] APP: 			StartOffset 128
-[01:32:46] [info] APP: 			StartSampler 0
-[01:32:46] [info] APP: 			StartTexture 0
-[01:32:46] [info] APP: 			TextureSize 0
-[01:32:46] [info] APP: 	ConstBuffer 1
-[01:32:46] [info] APP: 		name cbvPerDraw
-[01:32:46] [info] APP: 		Size 128
-[01:32:46] [info] APP: 		Type 0
-[01:32:46] [info] APP: 		Variables 2
-[01:32:46] [info] APP: 			Name WorldMat
-[01:32:46] [info] APP: 			size 64
-[01:32:46] [info] APP: 			StartOffset 0
-[01:32:46] [info] APP: 			StartSampler 0
-[01:32:46] [info] APP: 			StartTexture 0
-[01:32:46] [info] APP: 			TextureSize 0
-[01:32:46] [info] APP: 			Name WorldToObjMat
-[01:32:46] [info] APP: 			size 64
-[01:32:46] [info] APP: 			StartOffset 64
-[01:32:46] [info] APP: 			StartSampler 0
-[01:32:46] [info] APP: 			StartTexture 0
-[01:32:46] [info] APP: 			TextureSize 0
-[01:32:46] [info] APP: BoundResources 2
-[01:32:46] [info] APP: 	BoundResources MainTexture_Sampler
-[01:32:46] [info] APP: 	BindCount 1
-[01:32:46] [info] APP: 	BindPoint 0
-[01:32:46] [info] APP: 	Dimension 0
-[01:32:46] [info] APP: 	NumSamples 0
-[01:32:46] [info] APP: 	ReturnType 0
-[01:32:46] [info] APP: 	Space 0
-[01:32:46] [info] APP: 	Type 3
-[01:32:46] [info] APP: 	flag 0
-[01:32:46] [info] APP: 	BoundResources MainTexture
-[01:32:46] [info] APP: 	BindCount 1
-[01:32:46] [info] APP: 	BindPoint 0
-[01:32:46] [info] APP: 	Dimension 4
-[01:32:46] [info] APP: 	NumSamples 4294967295
-[01:32:46] [info] APP: 	ReturnType 5
-[01:32:46] [info] APP: 	Space 0
-[01:32:46] [info] APP: 	Type 2
-[01:32:46] [info] APP: 	flag 12
-[01:32:46] [info] APP: ConstantBuffers 0
-[01:32:50] [info] CORE: App End
+[00:14:28] [info] APP: App init
+[00:14:28] [info] APP: InputParament 2
+[00:14:28] [info] APP:   InputParament 0
+[00:14:28] [info] APP: 	name POSITION
+[00:14:28] [info] APP: 	SemanticIndex 0
+[00:14:28] [info] APP: 	register 0
+[00:14:28] [info] APP: 	SystemValueType 0
+[00:14:28] [info] APP: 	ComponentType 3
+[00:14:28] [info] APP: 	Stream 0
+[00:14:28] [info] APP: 	Mask 7
+[00:14:28] [info] APP: 	ReadWriteMask 7
+[00:14:28] [info] APP:   InputParament 1
+[00:14:28] [info] APP: 	name TEXCOORD
+[00:14:28] [info] APP: 	SemanticIndex 0
+[00:14:28] [info] APP: 	register 1
+[00:14:28] [info] APP: 	SystemValueType 0
+[00:14:28] [info] APP: 	ComponentType 3
+[00:14:28] [info] APP: 	Stream 0
+[00:14:28] [info] APP: 	Mask 3
+[00:14:28] [info] APP: 	ReadWriteMask 3
+[00:14:28] [info] APP: BoundResources 2
+[00:14:28] [info] APP: 	BoundResources cbvPerFrame
+[00:14:28] [info] APP: 	BindCount 1
+[00:14:28] [info] APP: 	BindPoint 0
+[00:14:28] [info] APP: 	Dimension 0
+[00:14:28] [info] APP: 	NumSamples 0
+[00:14:28] [info] APP: 	ReturnType 0
+[00:14:28] [info] APP: 	Space 1
+[00:14:28] [info] APP: 	Type 0
+[00:14:28] [info] APP: 	flag 1
+[00:14:28] [info] APP: 	BoundResources cbvPerDraw
+[00:14:28] [info] APP: 	BindCount 1
+[00:14:28] [info] APP: 	BindPoint 1
+[00:14:28] [info] APP: 	Dimension 0
+[00:14:28] [info] APP: 	NumSamples 0
+[00:14:28] [info] APP: 	ReturnType 0
+[00:14:28] [info] APP: 	Space 3
+[00:14:28] [info] APP: 	Type 0
+[00:14:28] [info] APP: 	flag 1
+[00:14:28] [info] APP: ConstantBuffers 2
+[00:14:28] [info] APP: 	ConstBuffer 0
+[00:14:28] [info] APP: 		name cbvPerFrame
+[00:14:28] [info] APP: 		Size 192
+[00:14:28] [info] APP: 		Type 0
+[00:14:28] [info] APP: 		Variables 3
+[00:14:28] [info] APP: 			Name ObjectMat
+[00:14:28] [info] APP: 			size 64
+[00:14:28] [info] APP: 			StartOffset 0
+[00:14:28] [info] APP: 			StartSampler 0
+[00:14:28] [info] APP: 			StartTexture 0
+[00:14:28] [info] APP: 			TextureSize 0
+[00:14:28] [info] APP: 			Name ViewMat
+[00:14:28] [info] APP: 			size 64
+[00:14:28] [info] APP: 			StartOffset 64
+[00:14:28] [info] APP: 			StartSampler 0
+[00:14:28] [info] APP: 			StartTexture 0
+[00:14:28] [info] APP: 			TextureSize 0
+[00:14:28] [info] APP: 			Name ProjMat
+[00:14:28] [info] APP: 			size 64
+[00:14:28] [info] APP: 			StartOffset 128
+[00:14:28] [info] APP: 			StartSampler 0
+[00:14:28] [info] APP: 			StartTexture 0
+[00:14:28] [info] APP: 			TextureSize 0
+[00:14:28] [info] APP: 	ConstBuffer 1
+[00:14:28] [info] APP: 		name cbvPerDraw
+[00:14:28] [info] APP: 		Size 128
+[00:14:28] [info] APP: 		Type 0
+[00:14:28] [info] APP: 		Variables 2
+[00:14:28] [info] APP: 			Name WorldMat
+[00:14:28] [info] APP: 			size 64
+[00:14:28] [info] APP: 			StartOffset 0
+[00:14:28] [info] APP: 			StartSampler 0
+[00:14:28] [info] APP: 			StartTexture 0
+[00:14:28] [info] APP: 			TextureSize 0
+[00:14:28] [info] APP: 			Name WorldToObjMat
+[00:14:28] [info] APP: 			size 64
+[00:14:28] [info] APP: 			StartOffset 64
+[00:14:28] [info] APP: 			StartSampler 0
+[00:14:28] [info] APP: 			StartTexture 0
+[00:14:28] [info] APP: 			TextureSize 0
+[00:14:28] [info] APP: BoundResources 2
+[00:14:28] [info] APP: 	BoundResources MainTexture_Sampler
+[00:14:28] [info] APP: 	BindCount 1
+[00:14:28] [info] APP: 	BindPoint 0
+[00:14:28] [info] APP: 	Dimension 0
+[00:14:28] [info] APP: 	NumSamples 0
+[00:14:28] [info] APP: 	ReturnType 0
+[00:14:28] [info] APP: 	Space 0
+[00:14:28] [info] APP: 	Type 3
+[00:14:28] [info] APP: 	flag 0
+[00:14:28] [info] APP: 	BoundResources MainTexture
+[00:14:28] [info] APP: 	BindCount 1
+[00:14:28] [info] APP: 	BindPoint 0
+[00:14:28] [info] APP: 	Dimension 4
+[00:14:28] [info] APP: 	NumSamples 4294967295
+[00:14:28] [info] APP: 	ReturnType 5
+[00:14:28] [info] APP: 	Space 0
+[00:14:28] [info] APP: 	Type 2
+[00:14:28] [info] APP: 	flag 12
+[00:14:28] [info] APP: ConstantBuffers 0
+[00:14:28] [info] APP: InputParament 3
+[00:14:28] [info] APP:   InputParament 0
+[00:14:28] [info] APP: 	name POSITION
+[00:14:28] [info] APP: 	SemanticIndex 0
+[00:14:28] [info] APP: 	register 0
+[00:14:28] [info] APP: 	SystemValueType 0
+[00:14:28] [info] APP: 	ComponentType 3
+[00:14:28] [info] APP: 	Stream 0
+[00:14:28] [info] APP: 	Mask 7
+[00:14:28] [info] APP: 	ReadWriteMask 7
+[00:14:28] [info] APP:   InputParament 1
+[00:14:28] [info] APP: 	name TEXCOORD
+[00:14:28] [info] APP: 	SemanticIndex 0
+[00:14:28] [info] APP: 	register 1
+[00:14:28] [info] APP: 	SystemValueType 0
+[00:14:28] [info] APP: 	ComponentType 3
+[00:14:28] [info] APP: 	Stream 0
+[00:14:28] [info] APP: 	Mask 3
+[00:14:28] [info] APP: 	ReadWriteMask 3
+[00:14:28] [info] APP:   InputParament 2
+[00:14:28] [info] APP: 	name NORMAL
+[00:14:28] [info] APP: 	SemanticIndex 0
+[00:14:28] [info] APP: 	register 2
+[00:14:28] [info] APP: 	SystemValueType 0
+[00:14:28] [info] APP: 	ComponentType 3
+[00:14:28] [info] APP: 	Stream 0
+[00:14:28] [info] APP: 	Mask 7
+[00:14:28] [info] APP: 	ReadWriteMask 7
+[00:14:28] [info] APP: BoundResources 2
+[00:14:28] [info] APP: 	BoundResources cbvPerFrame
+[00:14:28] [info] APP: 	BindCount 1
+[00:14:28] [info] APP: 	BindPoint 0
+[00:14:28] [info] APP: 	Dimension 0
+[00:14:28] [info] APP: 	NumSamples 0
+[00:14:28] [info] APP: 	ReturnType 0
+[00:14:28] [info] APP: 	Space 1
+[00:14:28] [info] APP: 	Type 0
+[00:14:28] [info] APP: 	flag 1
+[00:14:28] [info] APP: 	BoundResources cbvPerDraw
+[00:14:28] [info] APP: 	BindCount 1
+[00:14:28] [info] APP: 	BindPoint 1
+[00:14:28] [info] APP: 	Dimension 0
+[00:14:28] [info] APP: 	NumSamples 0
+[00:14:28] [info] APP: 	ReturnType 0
+[00:14:28] [info] APP: 	Space 3
+[00:14:28] [info] APP: 	Type 0
+[00:14:28] [info] APP: 	flag 1
+[00:14:28] [info] APP: ConstantBuffers 2
+[00:14:28] [info] APP: 	ConstBuffer 0
+[00:14:28] [info] APP: 		name cbvPerFrame
+[00:14:28] [info] APP: 		Size 192
+[00:14:28] [info] APP: 		Type 0
+[00:14:28] [info] APP: 		Variables 3
+[00:14:28] [info] APP: 			Name ObjectMat
+[00:14:28] [info] APP: 			size 64
+[00:14:28] [info] APP: 			StartOffset 0
+[00:14:28] [info] APP: 			StartSampler 0
+[00:14:28] [info] APP: 			StartTexture 0
+[00:14:28] [info] APP: 			TextureSize 0
+[00:14:28] [info] APP: 			Name ViewMat
+[00:14:28] [info] APP: 			size 64
+[00:14:28] [info] APP: 			StartOffset 64
+[00:14:28] [info] APP: 			StartSampler 0
+[00:14:28] [info] APP: 			StartTexture 0
+[00:14:28] [info] APP: 			TextureSize 0
+[00:14:28] [info] APP: 			Name ProjMat
+[00:14:28] [info] APP: 			size 64
+[00:14:28] [info] APP: 			StartOffset 128
+[00:14:28] [info] APP: 			StartSampler 0
+[00:14:28] [info] APP: 			StartTexture 0
+[00:14:28] [info] APP: 			TextureSize 0
+[00:14:28] [info] APP: 	ConstBuffer 1
+[00:14:28] [info] APP: 		name cbvPerDraw
+[00:14:28] [info] APP: 		Size 128
+[00:14:28] [info] APP: 		Type 0
+[00:14:28] [info] APP: 		Variables 2
+[00:14:28] [info] APP: 			Name WorldMat
+[00:14:28] [info] APP: 			size 64
+[00:14:28] [info] APP: 			StartOffset 0
+[00:14:28] [info] APP: 			StartSampler 0
+[00:14:28] [info] APP: 			StartTexture 0
+[00:14:28] [info] APP: 			TextureSize 0
+[00:14:28] [info] APP: 			Name WorldToObjMat
+[00:14:28] [info] APP: 			size 64
+[00:14:28] [info] APP: 			StartOffset 64
+[00:14:28] [info] APP: 			StartSampler 0
+[00:14:28] [info] APP: 			StartTexture 0
+[00:14:28] [info] APP: 			TextureSize 0
+[00:14:28] [info] APP: BoundResources 4
+[00:14:28] [info] APP: 	BoundResources cbvPerMaterial
+[00:14:28] [info] APP: 	BindCount 1
+[00:14:28] [info] APP: 	BindPoint 1
+[00:14:28] [info] APP: 	Dimension 0
+[00:14:28] [info] APP: 	NumSamples 0
+[00:14:28] [info] APP: 	ReturnType 0
+[00:14:28] [info] APP: 	Space 2
+[00:14:28] [info] APP: 	Type 0
+[00:14:28] [info] APP: 	flag 1
+[00:14:28] [info] APP: 	BoundResources cbvLight
+[00:14:28] [info] APP: 	BindCount 1
+[00:14:28] [info] APP: 	BindPoint 1
+[00:14:28] [info] APP: 	Dimension 0
+[00:14:28] [info] APP: 	NumSamples 0
+[00:14:28] [info] APP: 	ReturnType 0
+[00:14:28] [info] APP: 	Space 1
+[00:14:28] [info] APP: 	Type 0
+[00:14:28] [info] APP: 	flag 1
+[00:14:28] [info] APP: 	BoundResources MainTexture_Sampler
+[00:14:28] [info] APP: 	BindCount 1
+[00:14:28] [info] APP: 	BindPoint 0
+[00:14:28] [info] APP: 	Dimension 0
+[00:14:28] [info] APP: 	NumSamples 0
+[00:14:28] [info] APP: 	ReturnType 0
+[00:14:28] [info] APP: 	Space 0
+[00:14:28] [info] APP: 	Type 3
+[00:14:28] [info] APP: 	flag 0
+[00:14:28] [info] APP: 	BoundResources MainTexture
+[00:14:28] [info] APP: 	BindCount 1
+[00:14:28] [info] APP: 	BindPoint 0
+[00:14:28] [info] APP: 	Dimension 4
+[00:14:28] [info] APP: 	NumSamples 4294967295
+[00:14:28] [info] APP: 	ReturnType 5
+[00:14:28] [info] APP: 	Space 0
+[00:14:28] [info] APP: 	Type 2
+[00:14:28] [info] APP: 	flag 12
+[00:14:28] [info] APP: ConstantBuffers 2
+[00:14:28] [info] APP: 	ConstBuffer 0
+[00:14:28] [info] APP: 		name cbvPerMaterial
+[00:14:28] [info] APP: 		Size 16
+[00:14:28] [info] APP: 		Type 0
+[00:14:28] [info] APP: 		Variables 1
+[00:14:28] [info] APP: 			Name surface
+[00:14:28] [info] APP: 			size 16
+[00:14:28] [info] APP: 			StartOffset 0
+[00:14:28] [info] APP: 			StartSampler 0
+[00:14:28] [info] APP: 			StartTexture 0
+[00:14:28] [info] APP: 			TextureSize 0
+[00:14:28] [info] APP: 	ConstBuffer 1
+[00:14:28] [info] APP: 		name cbvLight
+[00:14:28] [info] APP: 		Size 32
+[00:14:28] [info] APP: 		Type 0
+[00:14:28] [info] APP: 		Variables 1
+[00:14:28] [info] APP: 			Name Lights
+[00:14:28] [info] APP: 			size 32
+[00:14:28] [info] APP: 			StartOffset 0
+[00:14:28] [info] APP: 			StartSampler 0
+[00:14:28] [info] APP: 			StartTexture 0
+[00:14:28] [info] APP: 			TextureSize 0
+[00:14:29] [info] APP: 输入2
+[00:14:29] [info] APP: button event dispatch
+[00:14:29] [info] APP: ImguiLayer  Pos 779 672
+[00:14:29] [info] APP: ImguiLayer  CLIENT Pos 779 672
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:29] [info] APP: [0.00075577985,0]
+[00:14:29] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0.00075577985,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0.0015115597,-0.0021613985]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入68
+[00:14:30] [info] APP: 输入100
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入d
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.0015115597,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.0030231194,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [-0.0015115597,0]
+[00:14:30] [info] APP: [-0.0022673397,0]
+[00:14:30] [info] APP: [-0.0015115597,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [-0.0015115597,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.0015115597,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.0015115597,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [-0.0015115597,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.0022673397,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.0015115597,0]
+[00:14:30] [info] APP: [-0.0015115597,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [-0.00075577985,-0.0010806993]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.0015115597,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入68
+[00:14:30] [info] APP: 输入100
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入d
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.0015115597,0]
+[00:14:30] [info] APP: 输入68
+[00:14:30] [info] APP: 输入100
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入d
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入68
+[00:14:30] [info] APP: 输入100
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入d
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入68
+[00:14:30] [info] APP: 输入100
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入d
+[00:14:30] [info] APP: [-0.0015115597,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [-0.00075577985,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入68
+[00:14:30] [info] APP: 输入100
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入d
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入68
+[00:14:30] [info] APP: 输入100
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入d
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入68
+[00:14:30] [info] APP: 输入100
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入d
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入68
+[00:14:30] [info] APP: 输入100
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入d
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入68
+[00:14:30] [info] APP: 输入100
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入d
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入68
+[00:14:30] [info] APP: 输入100
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入d
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: [0,0]
+[00:14:30] [info] APP: 输入68
+[00:14:30] [info] APP: 输入100
+[00:14:30] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入d
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入68
+[00:14:31] [info] APP: 输入100
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入d
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入68
+[00:14:31] [info] APP: 输入100
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入d
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入68
+[00:14:31] [info] APP: 输入100
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入d
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入68
+[00:14:31] [info] APP: 输入100
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入d
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入68
+[00:14:31] [info] APP: 输入100
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入d
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入68
+[00:14:31] [info] APP: 输入100
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入d
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入68
+[00:14:31] [info] APP: 输入100
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入d
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入68
+[00:14:31] [info] APP: 输入100
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入d
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入68
+[00:14:31] [info] APP: 输入100
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入d
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入68
+[00:14:31] [info] APP: 输入100
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入d
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入68
+[00:14:31] [info] APP: 输入100
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入d
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入68
+[00:14:31] [info] APP: 输入100
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入d
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入68
+[00:14:31] [info] APP: 输入100
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入d
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入68
+[00:14:31] [info] APP: 输入100
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入d
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入68
+[00:14:31] [info] APP: 输入100
+[00:14:31] [info] APP: 输入65
+[00:14:31] [info] APP: 输入97
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: 输入da
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:31] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,-0.0010806993]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0.0015115597,-0.0021613985]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0.00075577985,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0.00075577985,-0.0010806993]
+[00:14:32] [info] APP: [0.0015115597,0]
+[00:14:32] [info] APP: [0.00075577985,-0.0021613985]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0.00075577985,0]
+[00:14:32] [info] APP: [0.0015115597,-0.0010806993]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0.00075577985,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0.0022673397,0]
+[00:14:32] [info] APP: [0.00075577985,-0.0021613985]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0.00075577985,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0.0015115597,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0.0022673397,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0.0015115597,0]
+[00:14:32] [info] APP: [0.0015115597,0]
+[00:14:32] [info] APP: [0.0022673397,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0.0015115597,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0.00075577985,0]
+[00:14:32] [info] APP: [0.0015115597,0]
+[00:14:32] [info] APP: [0.00075577985,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0.00075577985,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0.00075577985,0]
+[00:14:32] [info] APP: [0.0015115597,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0.00075577985,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0.0022673397,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0.00075577985,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0.00075577985,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0.0015115597,0]
+[00:14:32] [info] APP: [0.00075577985,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0.0015115597,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0.0022673397,0]
+[00:14:32] [info] APP: [0.0022673397,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0.0015115597,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0.0015115597,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0.0022673397,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0.0030231194,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0.0030231194,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0.0045346795,0]
+[00:14:32] [info] APP: [0.0037788996,0.0010806993]
+[00:14:32] [info] APP: [0.0045346795,0.0010806993]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0.0037788996,0.0010806993]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0.0045346795,0]
+[00:14:32] [info] APP: [0.0037788996,0.0010806993]
+[00:14:32] [info] APP: [0.0037788996,0.0010806993]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0.0022673397,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0.0015115597,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0.0015115597,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入a
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: [0,0]
+[00:14:32] [info] APP: 输入65
+[00:14:32] [info] APP: 输入97
+[00:14:32] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0.0015115597,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0.00075577985,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0.00075577985,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0.0015115597,0]
+[00:14:33] [info] APP: [0.0015115597,0.0010806993]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0.0015115597,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0.00075577985,0]
+[00:14:33] [info] APP: [0.0015115597,0]
+[00:14:33] [info] APP: [0.00075577985,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0.00075577985,0.0010806993]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0.0015115597,0.0010806993]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0.00075577985,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0.00075577985,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0.00075577985,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0.0015115597,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0.00075577985,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0.00075577985,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0.0015115597,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0.00075577985,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0.00075577985,0]
+[00:14:33] [info] APP: [0.00075577985,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0.0015115597,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: [0.00075577985,0]
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入65
+[00:14:33] [info] APP: 输入97
+[00:14:33] [info] APP: [0,0]
+[00:14:33] [info] APP: 输入a
+[00:14:33] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入65
+[00:14:34] [info] APP: 输入97
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入a
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入65
+[00:14:34] [info] APP: 输入97
+[00:14:34] [info] APP: [0.00075577985,0.0010806993]
+[00:14:34] [info] APP: 输入a
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.0015115597,0.0010806993]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入65
+[00:14:34] [info] APP: 输入97
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入a
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入65
+[00:14:34] [info] APP: 输入97
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入a
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0.00075577985,0.0010806993]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入65
+[00:14:34] [info] APP: 输入97
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入a
+[00:14:34] [info] APP: [0.00075577985,0.0010806993]
+[00:14:34] [info] APP: [0.00075577985,0.0010806993]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入65
+[00:14:34] [info] APP: 输入97
+[00:14:34] [info] APP: [0.00075577985,0.0010806993]
+[00:14:34] [info] APP: 输入a
+[00:14:34] [info] APP: [0.0015115597,0]
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入65
+[00:14:34] [info] APP: 输入97
+[00:14:34] [info] APP: [0.0015115597,0]
+[00:14:34] [info] APP: 输入a
+[00:14:34] [info] APP: [0.00075577985,0.0010806993]
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0.0010806993]
+[00:14:34] [info] APP: 输入65
+[00:14:34] [info] APP: 输入97
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: 输入a
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入83
+[00:14:34] [info] APP: 输入115
+[00:14:34] [info] APP: [0.00075577985,0.0010806993]
+[00:14:34] [info] APP: 输入s
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.00075577985,0.0010806993]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.0015115597,0]
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.00075577985,0.0010806993]
+[00:14:34] [info] APP: [0.00075577985,0.0010806993]
+[00:14:34] [info] APP: [0.0015115597,0.0010806993]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.0015115597,0.0010806993]
+[00:14:34] [info] APP: [0.00075577985,0.0010806993]
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0.0022673397,0]
+[00:14:34] [info] APP: [0.00075577985,0.0010806993]
+[00:14:34] [info] APP: [0.00075577985,0.0010806993]
+[00:14:34] [info] APP: [0.0015115597,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.0015115597,0.0010806993]
+[00:14:34] [info] APP: [0.0015115597,0]
+[00:14:34] [info] APP: [0.00075577985,0.0010806993]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.0022673397,0.0010806993]
+[00:14:34] [info] APP: [0.00075577985,0.0010806993]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.0022673397,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0.0010806993]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.0015115597,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入83
+[00:14:34] [info] APP: 输入115
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入s
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入83
+[00:14:34] [info] APP: 输入115
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入s
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入83
+[00:14:34] [info] APP: 输入115
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入s
+[00:14:34] [info] APP: [0.0015115597,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入83
+[00:14:34] [info] APP: 输入115
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入s
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入83
+[00:14:34] [info] APP: 输入115
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入s
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入83
+[00:14:34] [info] APP: 输入115
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入s
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: [0.0015115597,0]
+[00:14:34] [info] APP: 输入83
+[00:14:34] [info] APP: 输入115
+[00:14:34] [info] APP: [0,0]
+[00:14:34] [info] APP: 输入s
+[00:14:34] [info] APP: [0.00075577985,0]
+[00:14:34] [info] APP: [0,0]
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: [0.00075577985,0]
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: [0.0015115597,0]
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: [0.0015115597,0]
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: [0.00075577985,0]
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: [0.0015115597,0]
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: [0.00075577985,0]
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: [0.00075577985,0]
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: [0.0015115597,0]
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: [0.00075577985,0]
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: [0.00075577985,0]
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: [0.00075577985,0]
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: [0.0015115597,0]
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: [0.00075577985,0]
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: [0.00075577985,0]
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: [0.00075577985,0]
+[00:14:35] [info] APP: [0.0015115597,0]
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: [0.00075577985,0]
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: [0.0022673397,0]
+[00:14:35] [info] APP: [0,0]
+[00:14:35] [info] APP: button event dispatch
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:35] [info] APP: 输入83
+[00:14:35] [info] APP: 输入115
+[00:14:35] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:36] [info] APP: 输入83
+[00:14:36] [info] APP: 输入115
+[00:14:36] [info] APP: 输入s
+[00:14:37] [info] APP: 输入83
+[00:14:37] [info] APP: 输入115
+[00:14:37] [info] APP: 输入s
+[00:14:37] [info] APP: 输入83
+[00:14:37] [info] APP: 输入115
+[00:14:37] [info] APP: 输入s
+[00:14:37] [info] APP: 输入83
+[00:14:37] [info] APP: 输入115
+[00:14:37] [info] APP: 输入s
+[00:14:37] [info] APP: 输入83
+[00:14:37] [info] APP: 输入115
+[00:14:37] [info] APP: 输入s
+[00:14:37] [info] APP: 输入83
+[00:14:37] [info] APP: 输入115
+[00:14:37] [info] APP: 输入s
+[00:14:37] [info] APP: 输入83
+[00:14:37] [info] APP: 输入115
+[00:14:37] [info] APP: 输入s
+[00:14:37] [info] APP: 输入83
+[00:14:37] [info] APP: 输入115
+[00:14:37] [info] APP: 输入s
+[00:14:37] [info] APP: 输入83
+[00:14:37] [info] APP: 输入115
+[00:14:37] [info] APP: 输入s
+[00:14:37] [info] APP: 输入83
+[00:14:37] [info] APP: 输入115
+[00:14:37] [info] APP: 输入s
+[00:14:37] [info] APP: 输入83
+[00:14:37] [info] APP: 输入115
+[00:14:37] [info] APP: 输入s
+[00:14:37] [info] APP: 输入83
+[00:14:37] [info] APP: 输入115
+[00:14:37] [info] APP: 输入s
+[00:14:37] [info] APP: 输入83
+[00:14:37] [info] APP: 输入115
+[00:14:37] [info] APP: 输入s
+[00:14:37] [info] APP: 输入83
+[00:14:37] [info] APP: 输入115
+[00:14:37] [info] APP: 输入s
+[00:14:37] [info] APP: 输入83
+[00:14:37] [info] APP: 输入115
+[00:14:37] [info] APP: 输入s
+[00:14:37] [info] APP: 输入83
+[00:14:37] [info] APP: 输入115
+[00:14:37] [info] APP: 输入s
+[00:14:37] [info] APP: 输入83
+[00:14:37] [info] APP: 输入115
+[00:14:37] [info] APP: 输入s
+[00:14:37] [info] APP: 输入83
+[00:14:37] [info] APP: 输入115
+[00:14:37] [info] APP: 输入s
+[00:14:37] [info] APP: 输入2
+[00:14:37] [info] APP: button event dispatch
+[00:14:37] [info] APP: ImguiLayer  Pos 688 630
+[00:14:37] [info] APP: ImguiLayer  CLIENT Pos 688 630
+[00:14:37] [info] APP: [0,0]
+[00:14:37] [info] APP: [0,0]
+[00:14:37] [info] APP: [0.00075577985,0]
+[00:14:37] [info] APP: [0,0]
+[00:14:37] [info] APP: [0.0015115597,0.0010806993]
+[00:14:37] [info] APP: [0,0]
+[00:14:37] [info] APP: [0.00075577985,0]
+[00:14:37] [info] APP: [0.00075577985,0]
+[00:14:37] [info] APP: [0.0015115597,0]
+[00:14:37] [info] APP: [0,0]
+[00:14:37] [info] APP: [0.00075577985,0]
+[00:14:37] [info] APP: [0,0]
+[00:14:37] [info] APP: [0,0]
+[00:14:37] [info] APP: [0.00075577985,0]
+[00:14:37] [info] APP: [0.0015115597,0]
+[00:14:37] [info] APP: [0,0]
+[00:14:37] [info] APP: [0,0]
+[00:14:37] [info] APP: [0.00075577985,0]
+[00:14:37] [info] APP: [0,0]
+[00:14:37] [info] APP: [0,0]
+[00:14:37] [info] APP: [0.00075577985,0.0010806993]
+[00:14:37] [info] APP: [0.0015115597,0.0010806993]
+[00:14:37] [info] APP: [0.00075577985,0]
+[00:14:37] [info] APP: [0.0015115597,0]
+[00:14:37] [info] APP: [0.00075577985,0]
+[00:14:38] [info] APP: [0.0015115597,0]
+[00:14:38] [info] APP: [0.0022673397,0.0010806993]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0.006046239,0.0021613985]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.0037788996,0]
+[00:14:38] [info] APP: [0.0030231194,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.0015115597,0]
+[00:14:38] [info] APP: [0.0030231194,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.0037788996,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0.0015115597,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.0015115597,0]
+[00:14:38] [info] APP: [0.0030231194,0.0010806993]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.0015115597,0]
+[00:14:38] [info] APP: [0.0015115597,0]
+[00:14:38] [info] APP: [0.0030231194,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.0015115597,0]
+[00:14:38] [info] APP: [0.0015115597,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0.0030231194,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.00529046,0]
+[00:14:38] [info] APP: [0.0045346795,0]
+[00:14:38] [info] APP: [0.0037788996,0]
+[00:14:38] [info] APP: [0.0030231194,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.0030231194,0]
+[00:14:38] [info] APP: [0.0030231194,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0.0015115597,0]
+[00:14:38] [info] APP: [0.00075577985,0]
+[00:14:38] [info] APP: [0.00075577985,0]
+[00:14:38] [info] APP: [0.00075577985,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.0015115597,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.00075577985,-0.0010806993]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.00075577985,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.0022673397,-0.0021613985]
+[00:14:38] [info] APP: [0.00075577985,0]
+[00:14:38] [info] APP: [0.0015115597,0]
+[00:14:38] [info] APP: [0.00075577985,0]
+[00:14:38] [info] APP: [0.0015115597,-0.0010806993]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.0030231194,0]
+[00:14:38] [info] APP: [0.0030231194,-0.0021613985]
+[00:14:38] [info] APP: [0.0030231194,0]
+[00:14:38] [info] APP: [0.0030231194,0]
+[00:14:38] [info] APP: [0.0030231194,-0.0010806993]
+[00:14:38] [info] APP: [0.0045346795,-0.0021613985]
+[00:14:38] [info] APP: [0.0037788996,-0.0021613985]
+[00:14:38] [info] APP: [0.0022673397,0]
+[00:14:38] [info] APP: [0.0022673397,-0.0021613985]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.0015115597,0]
+[00:14:38] [info] APP: [0.0022673397,-0.0010806993]
+[00:14:38] [info] APP: [0.0015115597,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.0015115597,-0.0021613985]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: 输入87
+[00:14:38] [info] APP: 输入119
+[00:14:38] [info] APP: [0.00075577985,-0.0010806993]
+[00:14:38] [info] APP: 输入w
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.00075577985,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.00075577985,-0.0021613985]
+[00:14:38] [info] APP: [0.00075577985,0]
+[00:14:38] [info] APP: [0.0015115597,-0.0010806993]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.00075577985,0]
+[00:14:38] [info] APP: [0.00075577985,-0.0010806993]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.0015115597,-0.0021613985]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.00075577985,-0.0010806993]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.0015115597,0]
+[00:14:38] [info] APP: [0,-0.0021613985]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.00075577985,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0,0]
+[00:14:38] [info] APP: [0.00075577985,-0.0010806993]
+[00:14:38] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0.00075577985,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0.00075577985,-0.0010806993]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入87
+[00:14:39] [info] APP: 输入119
+[00:14:39] [info] APP: [0,0]
+[00:14:39] [info] APP: 输入w
+[00:14:39] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入87
+[00:14:40] [info] APP: 输入119
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入w
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入87
+[00:14:40] [info] APP: 输入119
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入w
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入87
+[00:14:40] [info] APP: 输入119
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入w
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入87
+[00:14:40] [info] APP: 输入119
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入w
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入87
+[00:14:40] [info] APP: 输入119
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入w
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入87
+[00:14:40] [info] APP: 输入119
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入w
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入87
+[00:14:40] [info] APP: 输入119
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入w
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入87
+[00:14:40] [info] APP: 输入119
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入w
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入87
+[00:14:40] [info] APP: 输入119
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: 输入w
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: [0,0]
+[00:14:40] [info] APP: button event dispatch
+[00:14:40] [info] APP: 输入87
+[00:14:40] [info] APP: 输入119
+[00:14:40] [info] APP: 输入w
+[00:14:40] [info] APP: 输入87
+[00:14:40] [info] APP: 输入119
+[00:14:40] [info] APP: 输入w
+[00:14:42] [info] CORE: App End

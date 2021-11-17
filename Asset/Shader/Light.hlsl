@@ -25,8 +25,9 @@ cbuffer cbvLight : register(b1, UPDATE_FREQ_PER_FRAME)
 float3 ComputeDirectionLight(Light light,Surface surface,
                     float3 posW,float3 normal)
 {
-    float3 diffuse = max(0, dot(light.LightDir, normal)) *
-        light.LightColor.xyz * surface.Albedo.xyz * Lights.Intensity;
+    float lambert = max(0, dot(-light.LightDir, normal));
+
+    float3 diffuse = lambert * light.LightColor.xyz * surface.Albedo.xyz * Lights.Intensity;
     return diffuse;
 }
 

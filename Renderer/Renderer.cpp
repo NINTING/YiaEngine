@@ -20,19 +20,44 @@ namespace YiaEngine
 		}
 		void Renderer::End()
 		{
+			graphicContext->TransitionBarrier(*renderTarget_, D3D12_RESOURCE_STATE_COMMON);
+			graphicContext->TransitionBarrier(*depthTarget_, D3D12_RESOURCE_STATE_COMMON);
+			renderTarget_ = nullptr;
+			depthTarget_ = nullptr;
 			graphicContext->End();
 		}
 		void Renderer::SetRenderTarget(RenderBuffer* renderTarget) 
 		{
+			if (renderTarget_ != renderTarget)
+			{
+				graphicContext->TransitionBarrier(*renderTarget, D3D12_RESOURCE_STATE_RENDER_TARGET);
+				graphicContext->TransitionBarrier(*renderTarget_, D3D12_RESOURCE_STATE_COMMON);
+				renderTarget_ = renderTarget;
+			}
 			renderTarget_ = renderTarget; 
 			graphicContext->SetRenderTarget(renderTarget_->RtvCpuHandlePtr(), nullptr);
-
-			
 		}
 		void Renderer::SetRenderTarget(RenderBuffer* renderTarget,DepthBuffer* depthTarget)
 		{
-			renderTarget_ = renderTarget;
-			depthTarget_ = depthTarget;
+			if (renderTarget_ != renderTarget)
+			{
+				graphicContext->TransitionBarrier(*renderTarget, D3D12_RESOURCE_STATE_RENDER_TARGET);
+				if (renderTarget_)
+				{
+					graphicContext->TransitionBarrier(*renderTarget_, D3D12_RESOURCE_STATE_COMMON);
+				}
+				renderTarget_ = renderTarget;
+			}
+			if (depthTarget_ != depthTarget)
+			{
+				graphicContext->TransitionBarrier(*depthTarget, D3D12_RESOURCE_STATE_DEPTH_WRITE);
+				if (depthTarget_)
+				{
+					graphicContext->TransitionBarrier(*depthTarget_, D3D12_RESOURCE_STATE_DEPTH_READ);
+				}
+				depthTarget_ = depthTarget;
+			}
+
 			graphicContext->SetRenderTarget(renderTarget_->RtvCpuHandlePtr(), depthTarget_->GetDepthStencilHandlePtr());
 		}
 		void Renderer::SetCamera(Camera& camera)
@@ -183,9 +208,9 @@ namespace YiaEngine
 		
 			graphicContext->SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 			graphicContext->SetViewPortAndScissorRects(&viewport_, &scissorRect_);
-			graphicContext->TransitionBarrier(*renderTarget_, D3D12_RESOURCE_STATE_RENDER_TARGET);
+			//graphicContext->TransitionBarrier(*renderTarget_, D3D12_RESOURCE_STATE_RENDER_TARGET);
 			graphicContext->DrawIndexInstance(mesh.GetIndexCount(), 1, 0, 0, 0);
-			graphicContext->TransitionBarrier(*renderTarget_, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+			//graphicContext->TransitionBarrier(*renderTarget_, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 
 
 			useDefalutScissorRect = useDefalutViewport = true;
