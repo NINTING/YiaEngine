@@ -5,6 +5,10 @@ namespace YiaEngine
 {
 	namespace Math
 	{
+		const Math::Vec3f AxisX = Vec3f(1, 0, 0);
+		const Math::Vec3f AxisY = Vec3f(0, 1, 0); 
+		const Math::Vec3f AxisZ = Vec3f(0, 0, 1);
+
 		float Angle2Rad(float angle)
 		{
 			return angle * (float)M_PI / 180.f;

@@ -1,11 +1,18 @@
 #pragma once
 #include"pch.h"
 
-namespace YiaEingine
+
+#include"Transform.h"
+#include"MeshRenderer.h"
+namespace YiaEngine
 {
 	class GameObject
 	{
+	public:
+		MeshRenderer meshRenderer;
 
+		Transform transform;
+		
 	private:
 
 	};

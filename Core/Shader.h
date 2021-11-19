@@ -1,7 +1,7 @@
 #pragma once
 #include"Graphic.h"
 #include"Common/DataFormat.h"
-#include"Common/Model/MeshObject.h"
+#include"Component/MeshObject.h"
 namespace YiaEngine
 {
 	namespace Graphic

@@ -1,7 +1,7 @@
 #pragma once
 #include"pch.h"
-#include"VertexArray.h"
 #include"Core/GpuBuffer.h"
+#include"Common/DataFormat.h"
 namespace YiaEngine
 {
 

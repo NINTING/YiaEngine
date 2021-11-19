@@ -33,12 +33,15 @@ namespace YiaEngine
 		//using Vec4f = Eigen::Vector4f;
 		//using Mat3x3f = Eigen::Matrix3f;
 		//using Mat4x4f = Eigen::Matrix4f;
-
+		
 		Math::Vec3f RotationByAxis(Math::Vec3f aixs,Math::Vec3f dir, float rad);
 		Math::Vec3f RotationByAxisX(Math::Vec3f dir,float rad);
 		Math::Vec3f RotationByAxisY(Math::Vec3f dir, float rad);
 		Math::Vec3f RotationByAxisZ(Math::Vec3f dir, float rad);
-
+	
+		extern const Math::Vec3f AxisX;
+		extern const Math::Vec3f AxisY;
+		extern const Math::Vec3f AxisZ;
 
 		Mat4x4f Translate(float x,float y,float z);
 		Mat4x4f Translate(const Math::Vec3f& offset);

@@ -1,10 +1,10 @@
 #pragma once
 
 #include"Core/YiaGraphic.h"
-
-#include"Common/Model/MeshObject.h"
+#include"Component/MeshObject.h"
 #include"Common/Camera.h"
 #include"Material.h"
+#include"Component/MeshRenderer.h"
 namespace YiaEngine
 {
 	namespace Graphic
@@ -28,6 +28,7 @@ namespace YiaEngine
 			void SetConstBufferView(int rootIndex, void* data);
 			void SetTestConstBufferView(int rootIndex, D3D12_GPU_VIRTUAL_ADDRESS address);
 			void DrawMesh(const Mesh& mesh,  Material& shader);
+			void DrawMesh(MeshRenderer&meshRenderer);
 			Camera& GetCurrentCamera();
 		private:
 			RenderBuffer* renderTarget_;

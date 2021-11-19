@@ -1,9 +1,8 @@
 #include<YiaEngine.h>
-#include<Core/YiaGraphic.h>
-#include<Renderer/YiaRenderer.h>
+
+
 #include<ThirdParty/WinPixEventRuntime.1.0.210818001/Include/WinPixEventRuntime/pix3.h>
-#include<Renderer/Renderer.h>
-#include<Renderer/Material.h>
+
 using namespace YiaEngine;
 
 class SampleLayer :public Layer
@@ -267,6 +266,15 @@ public:
 
 
 		surfaceData.Albedo = Color(1, 0, 1, 1);
+
+		Transform trans;
+		trans.Position = { 1.f,2.f,3.f };
+		trans.Translation(1, 2, 3);
+
+		obj.meshRenderer.pMesh = std::shared_ptr<Mesh>(&Box);
+		obj.meshRenderer.pMaterial = std::shared_ptr<Graphic::Material>(&pbrMaterial);
+		obj.transform.Position = Math::Vec3f(1, 0, 0);
+		obj.transform.Rotation(0,Math::Angle2Rad(45),0);
 	}
 	virtual void Init() 
 	{
@@ -290,7 +298,7 @@ public:
 		
 		imGuiLayer.Render();
 
-		RenderScene();
+		RenderScene(timestep);
 		/*
 		*	Renderer->bindTexture(TextureBuffer);
 			Renderer->DrawMesh(Mesh,shader);
@@ -322,7 +330,6 @@ public:
 		defaultMaterial.SetTexture("MainTexture", testTexture);
 
 		DefaultRenderer.DrawMesh(Box, defaultMaterial);
-
 		defaultMaterial.SetMatrix("WorldMat", Math::Translate({ 5,0,1 }));
 		DefaultRenderer.DrawMesh(Box, defaultMaterial);
 
@@ -342,7 +349,7 @@ public:
 		DefaultRenderer.DrawMesh(fullScreenRect,TextureMaterial);
 		DefaultRenderer.End();
 	}
-	void RenderPBR()
+	void RenderPBR(Timestep  timestep)
 	{
 		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
 		Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();
@@ -352,9 +359,10 @@ public:
 		DefaultRenderer.SetCamera(camera);
 		DefaultRenderer.ClearRenderTarget();
 		DefaultRenderer.ClearDepthStencil();
-		
-		Math::Mat4x4f world = Math::Translate({ 1,0,1 });
 
+		obj.transform.EularRotation += Math::Vec3f(0, Math::Angle2Rad(timestep.GetSeconds() * 30), 0);
+		Math::Mat4x4f world = obj.transform.FinalMatrix();
+		
 		pbrMaterial.SetMatrix("ObjectMat", Math::Mat4x4f::Identity());
 		pbrMaterial.SetMatrix("WorldMat", world);
 		pbrMaterial.SetMatrix("ViewMat", camera.ViewMatrix());
@@ -365,18 +373,15 @@ public:
 		pbrMaterial.SetMemoryValue("surface",&surfaceData);
 		pbrMaterial.SetMemoryValue("Lights", &mainLight.data_);
 
-		DefaultRenderer.DrawMesh(Box, pbrMaterial);
-		world = Math::Translate({ -3,0,1 });
-		pbrMaterial.SetMatrix("WorldMat", world);
-		pbrMaterial.SetMatrix("WorldToObjMat", world.inverse());
-		DefaultRenderer.DrawMesh(Box, pbrMaterial);
 
+	//	DefaultRenderer.DrawMesh(Box, pbrMaterial);
+		DefaultRenderer.DrawMesh(obj.meshRenderer);
 		/*defaultMaterial.SetMatrix("WorldMat", Math::Translate({ 5,0,1 }));
 		DefaultRenderer.DrawMesh(Box, defaultMaterial);*/
 
 		DefaultRenderer.End();
 	}
-	void RenderScene()
+	void RenderScene(Timestep  timestep)
 	{
 		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
 		Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();
@@ -392,7 +397,7 @@ public:
 		//DefaultRenderer.End();
 		//RenderObject();
 		//RenderObject(Math::Vec3f(3, 0, 0));
-		RenderPBR();
+		RenderPBR(timestep);
 		//RenderImage();
 		/*
 		*	DefaultRenderer.BeginPass();
@@ -442,6 +447,8 @@ public:
 	Math::Vec3f BoxPos;
 	Light mainLight;
 	SurfaceData surfaceData;
+	GameObject obj;
+	
 };
 
 

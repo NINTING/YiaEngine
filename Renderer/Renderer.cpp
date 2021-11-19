@@ -216,6 +216,11 @@ namespace YiaEngine
 			useDefalutScissorRect = useDefalutViewport = true;
 		}
 
+		void Renderer::DrawMesh(MeshRenderer& meshRenderer)
+		{
+			DrawMesh(*meshRenderer.pMesh, *meshRenderer.pMaterial);
+		}
+
 		
 		Camera& Renderer::GetCurrentCamera()
 		{
