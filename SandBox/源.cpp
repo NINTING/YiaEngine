@@ -82,9 +82,6 @@ public:
 	void Load()
 	{
 
-
-
-
 		Graphic::ShaderLibrary::LoadShader("DefaultShader.hlsl",defaultShader);
 	//	Graphic::ShaderLibrary::LoadShader("BlitShader.hlsl", blitShader);
 		Graphic::ShaderLibrary::LoadShader("PbrShader.hlsl", pbrShader);
@@ -236,6 +233,7 @@ public:
 		Box.CreateMeshGpuBuffer();
 		BoxPos = Math::Vec3f(5, 0, 0);
 
+		sphere = MeshSample::CreateSphere(1,20,20);
 
 		Window& curWindow = Window::CurrentWindow();
 
@@ -243,13 +241,13 @@ public:
 		
 		camera.SetViewport(1691, 969);
 		camera.Position(Math::Vec3f(1, 0, -5));
-		camera.SetFarclip(10);
+		camera.SetFarclip(1000000);
 		camera.SetNearclip(0.01);
 		camera.Front(Math::Vec3f(0, 0, 1));
 		Math::Mat4x4f viewMat = camera.ViewMatrix();
 		Math::Mat4x4f projMat = camera.ProjectionMatrix();
 		Math::Mat4x4f worldMat = Math::Mat4x4f::Identity();
-
+		 
 
 		defaultMaterial.InitMaterial("DefaultMaterial",defaultShader);
 	//	TextureMaterial.InitMaterial("TextureMaterial", blitShader);
@@ -271,10 +269,17 @@ public:
 		trans.Position = { 1.f,2.f,3.f };
 		trans.Translation(1, 2, 3);
 
-		obj.meshRenderer.pMesh = std::shared_ptr<Mesh>(&Box);
+		obj.meshRenderer.pMesh = sphere;
 		obj.meshRenderer.pMaterial = std::shared_ptr<Graphic::Material>(&pbrMaterial);
 		obj.transform.Position = Math::Vec3f(1, 0, 0);
-		obj.transform.Rotation(0,Math::Angle2Rad(45),0);
+		
+		//obj.transform.Rotation(0,Math::Angle2Rad(45),0);
+
+		//obj.rigidBody.SetVelocity({ 1,2,3 });
+		obj.rigidBody.SetMass(10);
+		//obj.rigidBody.SetStartForce({1,0,0});
+		Math::Vec3f u = { 0,sinf(Math::Angle2Rad(45 * 0.5)),0 };
+		obj.rigidBody.QuatRotation = Math::Quaternion(cosf(Math::Angle2Rad(45*0.5)), u[0],u[1],u[2]);
 	}
 	virtual void Init() 
 	{
@@ -291,6 +296,8 @@ public:
 		
 		//YIA_INFO("Delta time {0}", timestep.GetSeconds());
 		camera.Update(timestep);
+
+		obj.Update();
 
 		imGuiLayer.Begin();
 		imGuiLayer.OnUpdate(timestep);
@@ -360,7 +367,7 @@ public:
 		DefaultRenderer.ClearRenderTarget();
 		DefaultRenderer.ClearDepthStencil();
 
-		obj.transform.EularRotation += Math::Vec3f(0, Math::Angle2Rad(timestep.GetSeconds() * 30), 0);
+		
 		Math::Mat4x4f world = obj.transform.FinalMatrix();
 		
 		pbrMaterial.SetMatrix("ObjectMat", Math::Mat4x4f::Identity());
@@ -373,7 +380,7 @@ public:
 		pbrMaterial.SetMemoryValue("surface",&surfaceData);
 		pbrMaterial.SetMemoryValue("Lights", &mainLight.data_);
 
-
+		
 	//	DefaultRenderer.DrawMesh(Box, pbrMaterial);
 		DefaultRenderer.DrawMesh(obj.meshRenderer);
 		/*defaultMaterial.SetMatrix("WorldMat", Math::Translate({ 5,0,1 }));
@@ -399,6 +406,7 @@ public:
 		//RenderObject(Math::Vec3f(3, 0, 0));
 		RenderPBR(timestep);
 		//RenderImage();
+	
 		/*
 		*	DefaultRenderer.BeginPass();
 			DefaultRenderer.SetRenderTarget(&sceneColorBuffer, &sceneDepthBuffer);
@@ -428,6 +436,7 @@ public:
 	Graphic::RootSignature BlitSignature;
 	Mesh fullScreenRect;
 	Mesh Box;
+	std::shared_ptr<Mesh> sphere;
 	std::shared_ptr<Graphic::Shader> sampleShader;
 	std::shared_ptr<Graphic::Shader> defaultShader;
 	std::shared_ptr<Graphic::Shader> blitShader;

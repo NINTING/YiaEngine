@@ -26,7 +26,7 @@ namespace YiaEngine
 		Window& window = Window::Create(win);
 		window.SetEventCallBack([this](Event& e) { this->OnEvent(e); });
 		InitGraphicEngine();
-
+		Timestep::InitGlobalFrameTime();
 	}
 	void Application::InitGraphicEngine()
 	{
@@ -122,6 +122,8 @@ namespace YiaEngine
 	{
 		long currTime = clock();
 		Timestep  timestep = currTime - lastFrameTime;
+		
+		Timestep::Update(currTime - lastFrameTime);
 		lastFrameTime = currTime;
 		Window::CurrentWindow().OnUpdate();
 	

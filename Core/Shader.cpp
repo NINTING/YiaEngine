@@ -58,7 +58,7 @@ namespace YiaEngine
 				filename = CompletePrefix + name;
 
 #else
-				filename = Prefix + name;
+				filename = CompletePrefix + name;
 #endif
 				auto sw = String2WString(filename);
 

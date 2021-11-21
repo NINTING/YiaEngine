@@ -6,6 +6,8 @@ namespace YiaEngine
 {
 	namespace Math
 	{
+		inline const double PI = M_PI;
+		inline const double PI2 = M_PI * 2.f;
 		float Angle2Rad(float angle);
 
 		template <typename T> __forceinline T AlignUpWithMask(T value, size_t mask)
@@ -28,6 +30,7 @@ namespace YiaEngine
 		using Vec4f = Eigen::RowVector4f;
 		using Mat3x3f = Eigen::Matrix<float, 3,3, Eigen::RowMajor>;
 		using Mat4x4f = Eigen::Matrix<float, 4,4, Eigen::RowMajor>;
+		using Quaternion = Eigen::Quaternionf;
 		//using Vec2f = Eigen::Vector2f;
 		//using Vec3f = Eigen::Vector3f;
 		//using Vec4f = Eigen::Vector4f;

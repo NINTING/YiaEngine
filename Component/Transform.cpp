@@ -35,7 +35,7 @@ namespace YiaEngine
 			sinX* sinY* cosZ - cosX * sinZ, sinX* sinY* sinZ + cosX * cosZ, sinX* cosY,0.f,
 			cosX* sinY* cosZ + sinX * sinZ, cosX* sinY* sinZ - sinX * cosZ, cosX* cosY,0.f,
 			Position.x(), Position.y(), Position.z(), 1.f;
-		//std::cout << ret << std::endl;
+	//	std::cout << ret << std::endl;
 		return ret;
 	}
 }

@@ -182,7 +182,6 @@ namespace YiaEngine
 
 			pso_.SetInputLayout(desc.NumElements, elements);
 			//delete elements;
-
 			pso_.SetShader(shader);
 		
 			//pso.SetRenderTarget();

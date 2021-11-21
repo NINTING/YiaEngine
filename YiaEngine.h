@@ -7,7 +7,7 @@
 
 #include<Common/YiaMath.h>
 #include"Common/DataFormat.h"
-#include"Common/Model/VertexArray.h"
+#include"Common/Model/MeshSample.h"
 #include"EntryPoint.h"
 
 #include"Common/Camera.h"
