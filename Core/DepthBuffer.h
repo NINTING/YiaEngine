@@ -20,6 +20,8 @@ namespace YiaEngine
 			void CreateFromSwapChian(const wchar_t* Name, ID3D12Resource* resource);
 
 
+			virtual  DescriptorHandle SrvCpuHandle() const { return depthSrvHandle_; };
+
 			 DescriptorHandle GetDepthStencilHandle() { return dsvHandle_[0]; };
 			const DescriptorHandle* GetDepthStencilHandlePtr()const { return &dsvHandle_[0]; };
 			const DescriptorHandle* GetDepthReadHandlePtr()const { return &dsvHandle_[1]; };

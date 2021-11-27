@@ -18,7 +18,7 @@ namespace YiaEngine
 			~RenderBuffer() { Destroy(); }
 			void CreateFromSwapChian(const wchar_t* Name,ID3D12Resource* resource);
 			DescriptorHandle RtvCpuHandle()const { return rtvHandle_; };
-			DescriptorHandle SrvCpuHandle()const { return srvHandle_; };
+			virtual DescriptorHandle SrvCpuHandle()const { return srvHandle_; };
 			
 			const DescriptorHandle* RtvCpuHandlePtr()const { return &rtvHandle_; };
 			const DescriptorHandle* SrvCpuHandlePtr()const { return &srvHandle_; };

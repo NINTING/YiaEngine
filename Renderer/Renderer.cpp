@@ -20,45 +20,78 @@ namespace YiaEngine
 		}
 		void Renderer::End()
 		{
-			graphicContext->TransitionBarrier(*renderTarget_, D3D12_RESOURCE_STATE_COMMON);
+			for (size_t i = 0; i < numRt_; i++)
+			{
+				graphicContext->TransitionBarrier(*renderTarget_[i], D3D12_RESOURCE_STATE_COMMON);
+				renderTarget_[i] = nullptr;
+			}
+			
 			graphicContext->TransitionBarrier(*depthTarget_, D3D12_RESOURCE_STATE_COMMON);
-			renderTarget_ = nullptr;
+			
 			depthTarget_ = nullptr;
 			graphicContext->End();
 		}
 		void Renderer::SetRenderTarget(RenderBuffer* renderTarget) 
 		{
-			if (renderTarget_ != renderTarget)
+		
+			if (renderTarget_[0] != renderTarget)
 			{
 				graphicContext->TransitionBarrier(*renderTarget, D3D12_RESOURCE_STATE_RENDER_TARGET);
-				graphicContext->TransitionBarrier(*renderTarget_, D3D12_RESOURCE_STATE_COMMON);
-				renderTarget_ = renderTarget;
+				graphicContext->TransitionBarrier(*renderTarget_[0], D3D12_RESOURCE_STATE_COMMON);
+				renderTarget_[0] = renderTarget;
+			
 			}
-			renderTarget_ = renderTarget; 
-			graphicContext->SetRenderTarget(renderTarget_->RtvCpuHandlePtr(), nullptr);
+			renderTarget_[0] = renderTarget;
+			graphicContext->SetRenderTarget(renderTarget_[0]->RtvCpuHandlePtr(), nullptr);
+		}
+		void Renderer::SetRenderTargets(int numRt, RenderBuffer* renderTarget[], DepthBuffer* depthTarget)
+		{
+			numRt_ = numRt;
+			DescriptorHandle rtHandle[8];
+			for (size_t i = 0; i < numRt; i++)
+			{
+				TransitionRenderTarget(i, renderTarget[i]);
+				rtHandle[i] = renderTarget[i]->RtvCpuHandle();
+			}
+			TransitionDepthTarget(depthTarget);
+
+			graphicContext->SetRenderTargets(numRt, rtHandle, depthTarget_->GetDepthStencilHandlePtr());
+		}
+		void Renderer::TransitionRenderTarget(int i, RenderBuffer* Rt)
+		{
+			if (renderTarget_[i] != Rt)
+			{
+				graphicContext->TransitionBarrier(*Rt, D3D12_RESOURCE_STATE_RENDER_TARGET);
+				if (renderTarget_[i])
+				{
+					graphicContext->TransitionBarrier(*Rt, D3D12_RESOURCE_STATE_COMMON);
+				}
+				renderTarget_[i] = Rt;
+			}
+		}
+		void Renderer::TransitionDepthTarget(DepthBuffer* depthBuffer)
+		{
+			if (depthBuffer==nullptr)
+			{
+
+			}
+				if (depthTarget_ != depthBuffer)
+				{
+					graphicContext->TransitionBarrier(*depthBuffer, D3D12_RESOURCE_STATE_DEPTH_WRITE);
+					if (depthTarget_)
+					{
+						graphicContext->TransitionBarrier(*depthTarget_, D3D12_RESOURCE_STATE_DEPTH_READ);
+					}
+					depthTarget_ = depthBuffer;
+				}
+			
 		}
 		void Renderer::SetRenderTarget(RenderBuffer* renderTarget,DepthBuffer* depthTarget)
 		{
-			if (renderTarget_ != renderTarget)
-			{
-				graphicContext->TransitionBarrier(*renderTarget, D3D12_RESOURCE_STATE_RENDER_TARGET);
-				if (renderTarget_)
-				{
-					graphicContext->TransitionBarrier(*renderTarget_, D3D12_RESOURCE_STATE_COMMON);
-				}
-				renderTarget_ = renderTarget;
-			}
-			if (depthTarget_ != depthTarget)
-			{
-				graphicContext->TransitionBarrier(*depthTarget, D3D12_RESOURCE_STATE_DEPTH_WRITE);
-				if (depthTarget_)
-				{
-					graphicContext->TransitionBarrier(*depthTarget_, D3D12_RESOURCE_STATE_DEPTH_READ);
-				}
-				depthTarget_ = depthTarget;
-			}
-
-			graphicContext->SetRenderTarget(renderTarget_->RtvCpuHandlePtr(), depthTarget_->GetDepthStencilHandlePtr());
+			TransitionRenderTarget(0, renderTarget);
+			TransitionDepthTarget(depthTarget);
+			numRt_ = 1;
+			graphicContext->SetRenderTarget(renderTarget_[0]->RtvCpuHandlePtr(), depthTarget_->GetDepthStencilHandlePtr());
 		}
 		void Renderer::SetCamera(Camera& camera)
 		{
@@ -67,11 +100,21 @@ namespace YiaEngine
 		;
 		void Renderer::ClearRenderTarget(const Math::Vec4f& clearColor)
 		{
-			graphicContext->ClearRenderTarget(renderTarget_->RtvCpuHandle(),clearColor);
+			for (size_t i = 0; i < numRt_; i++)
+			{
+				graphicContext->ClearRenderTarget(renderTarget_[i]->RtvCpuHandle(), clearColor);
+		
+			}
+			
+		
 		}
 		void Renderer::ClearRenderTarget()
 		{
-			graphicContext->ClearRenderTarget(renderTarget_->RtvCpuHandle());
+			for (size_t i = 0; i < numRt_; i++)
+			{
+				graphicContext->ClearRenderTarget(renderTarget_[i]->RtvCpuHandle());
+
+			}
 		}
 		void Renderer::ClearDepthStencil()
 		{
@@ -102,14 +145,14 @@ namespace YiaEngine
 			if (useDefalutViewport)
 			{
 				viewport_ = {};
-				viewport_.Width = renderTarget_->Size().x();
-				viewport_.Height = renderTarget_->Size().y();
+				viewport_.Width = renderTarget_[0]->Size().x();
+				viewport_.Height = renderTarget_[0]->Size().y();
 			}
 			if (useDefalutScissorRect)
 			{
 				scissorRect_ = {};
-				scissorRect_.right = renderTarget_->Size().x();
-				scissorRect_.bottom = renderTarget_->Size().y();
+				scissorRect_.right = renderTarget_[0]->Size().x();
+				scissorRect_.bottom = renderTarget_[0]->Size().y();
 			}
 
 			D3D12_VERTEX_BUFFER_VIEW vbo[15];
@@ -142,8 +185,8 @@ namespace YiaEngine
 				}
 				else if (data.Type == ShaderResourceType::ShaderResourceType_Texture)
 				{
-					Texture* texData = (Texture*)(data.Data);
-					auto handle = texData->CpuHandle();
+					GpuTexture* texData = (GpuTexture*)(data.Data);
+					auto handle = texData->SrvCpuHandle();
 
 					graphicContext->BindCpuDescriptor(data.location.RootIndex, data.location.Offset, data.Count, &handle);
 					bindGpuDescriptor = true;

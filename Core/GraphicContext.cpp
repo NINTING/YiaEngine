@@ -138,6 +138,7 @@ namespace YiaEngine
 		{
 			SetRenderTargets(1, renderTarget, depth);
 		}
+
 		void GraphicContext::ClearRenderTarget(DescriptorHandle renderTarget, const Math::Vec4f& colors)
 		{
 		

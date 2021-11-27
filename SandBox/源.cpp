@@ -85,7 +85,10 @@ public:
 		Graphic::ShaderLibrary::LoadShader("DefaultShader.hlsl",defaultShader);
 	//	Graphic::ShaderLibrary::LoadShader("BlitShader.hlsl", blitShader);
 		Graphic::ShaderLibrary::LoadShader("PbrShader.hlsl", pbrShader);
+		Graphic::ShaderLibrary::LoadShader("GbufferShader.hlsl", gbufferShader);
+		Graphic::ShaderLibrary::LoadShader("LightingShader.hlsl", lightingShader);
 
+#pragma region model
 		Math::Vec3f pos[] = {
 			{ -1.0f, 1.f , 0.0f },
 			{ 1.0f, 1.f , 0.0f },
@@ -213,6 +216,9 @@ public:
 			16,17,19,17,18,19,
 			23,21,20,23,22,21 };
 
+#pragma endregion
+
+		
 		
 
 	
@@ -252,7 +258,9 @@ public:
 		defaultMaterial.InitMaterial("DefaultMaterial",defaultShader);
 	//	TextureMaterial.InitMaterial("TextureMaterial", blitShader);
 		pbrMaterial.InitMaterial("PBRMaterial", pbrShader);
-		
+		gbufferMaterial.InitMaterial("GbufferMaterial", gbufferShader);
+		lightingMaterial.InitMaterial("lightingMaterial", lightingShader);
+
 		Graphic::ImageData image = GenerateTextureData();
 
 		testTexture.InitializeByImage(image, DXGI_FORMAT_R8G8B8A8_UNORM);
@@ -388,6 +396,62 @@ public:
 
 		DefaultRenderer.End();
 	}
+	void DefferredRender()
+	{
+		Graphic::RenderBuffer* gbuffers[] = { 
+			positionGbuffer.get(),normalGbuffer.get(),uvGbuffer.get() };
+
+		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
+		Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();
+		
+		DefaultRenderer.Begin();
+		DefaultRenderer.SetRenderTargets(3,gbuffers, &sceneDepthBuffer);
+		DefaultRenderer.SetCamera(camera);
+		DefaultRenderer.ClearRenderTarget();
+		DefaultRenderer.ClearDepthStencil();
+
+
+		gbufferMaterial.SetMatrix("ObjectMat", Math::Mat4x4f::Identity());
+		gbufferMaterial.SetMatrix("WorldMat", Math::Translate({ 1,0,1 }));
+		gbufferMaterial.SetMatrix("ViewMat", camera.ViewMatrix());
+		gbufferMaterial.SetMatrix("ProjMat", camera.ProjectionMatrix());
+
+		//defaultMaterial.SetTexture("MainTexture", testTexture);
+
+		DefaultRenderer.DrawMesh(Box, gbufferMaterial);
+		DefaultRenderer.End();
+
+
+
+		DefaultRenderer.Begin();
+		DefaultRenderer.SetRenderTarget(&sceneColorBuffer, &sceneDepthBuffer);
+		DefaultRenderer.SetCamera(camera);
+		DefaultRenderer.ClearRenderTarget();
+		DefaultRenderer.ClearDepthStencil();
+
+
+		Math::Mat4x4f world = obj.transform.FinalMatrix();
+
+		lightingMaterial.SetMatrix("ObjectMat", Math::Mat4x4f::Identity());
+		lightingMaterial.SetMatrix("WorldMat", world);
+		lightingMaterial.SetMatrix("ViewMat", camera.ViewMatrix());
+		lightingMaterial.SetMatrix("ProjMat", camera.ProjectionMatrix());
+		lightingMaterial.SetMatrix("WorldToObjMat", world.inverse());
+
+		lightingMaterial.SetTexture("MainTexture", testTexture);
+
+		lightingMaterial.SetTexture("PostionWTexture", positionGbuffer.get());
+		lightingMaterial.SetTexture("NormalWTexture", normalGbuffer.get());
+		lightingMaterial.SetTexture("UvTexture", testTexture);
+		lightingMaterial.SetMemoryValue("surface", &surfaceData);
+		lightingMaterial.SetMemoryValue("Lights", &mainLight.data_);
+
+
+		DefaultRenderer.DrawMesh(fullScreenRect,lightingMaterial);
+
+		DefaultRenderer.End();
+
+	}
 	void RenderScene(Timestep  timestep)
 	{
 		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
@@ -405,6 +469,7 @@ public:
 		//RenderObject();
 		//RenderObject(Math::Vec3f(3, 0, 0));
 		RenderPBR(timestep);
+		DefferredRender();
 		//RenderImage();
 	
 		/*
@@ -441,6 +506,8 @@ public:
 	std::shared_ptr<Graphic::Shader> defaultShader;
 	std::shared_ptr<Graphic::Shader> blitShader;
 	std::shared_ptr<Graphic::Shader> pbrShader;
+	std::shared_ptr<Graphic::Shader> gbufferShader;
+	std::shared_ptr<Graphic::Shader> lightingShader;
 
 	Graphic::Renderer DefaultRenderer;
 	
@@ -450,6 +517,8 @@ public:
 	Graphic::Material defaultMaterial;
 	Graphic::Material pbrMaterial;
 	Graphic::Material TextureMaterial;
+	Graphic::Material gbufferMaterial;
+	Graphic::Material lightingMaterial;
 
 	Graphic::Texture testTexture;
 	
@@ -458,6 +527,9 @@ public:
 	SurfaceData surfaceData;
 	GameObject obj;
 	
+	std::shared_ptr< Graphic::RenderBuffer> positionGbuffer;
+	std::shared_ptr < Graphic::RenderBuffer> normalGbuffer;
+	std::shared_ptr < Graphic::RenderBuffer> uvGbuffer;
 };
 
 

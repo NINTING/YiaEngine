@@ -16,7 +16,11 @@ namespace YiaEngine
 			void BeginPass();
 			void End();
 			void SetRenderTarget(RenderBuffer* renderTarget);
-			void SetRenderTarget(RenderBuffer* renderTarget, DepthBuffer* depthTarget);
+			void SetRenderTargets(int numRt, RenderBuffer* renderTarget[], DepthBuffer* depthTarget = nullptr);
+
+			
+			
+			void SetRenderTarget(RenderBuffer* renderTarget, DepthBuffer* depthTarget = nullptr);
 			void SetCamera(Camera& camera);
 			void ClearRenderTarget(const Math::Vec4f& clearColor);
 			void ClearRenderTarget();
@@ -31,7 +35,11 @@ namespace YiaEngine
 			void DrawMesh(MeshRenderer&meshRenderer);
 			Camera& GetCurrentCamera();
 		private:
-			RenderBuffer* renderTarget_;
+			void TransitionDepthTarget(DepthBuffer* Rt);
+			void TransitionRenderTarget(int i, RenderBuffer* Rt);
+		private:
+			int numRt_;
+			RenderBuffer* renderTarget_[D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT];
 			DepthBuffer* depthTarget_;
 			PipelineStateObject pso_;
 			bool useDefalutViewport;

@@ -5,7 +5,7 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
-		class Texture :public GpuResource
+		class Texture :public GpuTexture
 		{
 		public:
 			Texture() = default;
@@ -13,12 +13,10 @@ namespace YiaEngine
 			void SetDebugName(const wchar_t* name);
 			void CreateView();
 			void CreateTex2D();
-			DescriptorHandle CpuHandle()const { return srvHandle; };
+			virtual  DescriptorHandle SrvCpuHandle() const { return srvHandle_; };
 		private:
-			UINT width_;
-			UINT height_;
-			DescriptorHandle srvHandle;
-
+			
+			DescriptorHandle srvHandle_;
 
 			
 

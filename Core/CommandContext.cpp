@@ -87,7 +87,10 @@ namespace YiaEngine
 		}
 		void CommandContext::TransitionBarrier(GpuResource& gpu_resource, D3D12_RESOURCE_STATES destStates)
 		{
-
+			if (gpu_resource.Usage()== destStates)
+			{
+				return;
+			}
 			TransitionBarrier(gpu_resource, gpu_resource.Usage(), destStates);
 			gpu_resource.Usage(destStates);
 		}

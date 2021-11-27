@@ -148,6 +148,7 @@ namespace YiaEngine
 				elements[i].InstanceDataStepRate = 0;
 			}
 		}
+
 		void Material::AddVariable()
 		{
 			for (size_t i = 0; i < Shader_Stage_Count; i++)
@@ -169,6 +170,7 @@ namespace YiaEngine
 				} 
 			}
 		}
+
 		void Material::AddTextureResource(){
 		
 		}
@@ -183,7 +185,8 @@ namespace YiaEngine
 			dirtyFlags_[varibalData_[name].ResourceIndex] = true;
 			memcpy(data.Data + varibalData_[name].Offset, (uint8_t*)&mat, sizeof(Math::Mat4x4f));
 		}
-		void Material::SetTexture(const char* name, const Texture& texture)
+
+		void Material::SetTexture(const char* name, const GpuTexture& texture)
 		{
 			if (textureMap.find(name) == textureMap.end())
 			{

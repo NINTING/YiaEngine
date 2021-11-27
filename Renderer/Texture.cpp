@@ -35,9 +35,9 @@ namespace YiaEngine
 			srvDesc.Format = desc.Format;
 			srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
 			srvDesc.Texture2D.MipLevels = 1;
-			srvHandle = CpuDescriptorAllocator::AllocateDescriptorHandle(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+			srvHandle_ = CpuDescriptorAllocator::AllocateDescriptorHandle(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
-			Graphic::g_Device->CreateShaderResourceView(resource_.Get(), &srvDesc, srvHandle);
+			Graphic::g_Device->CreateShaderResourceView(resource_.Get(), &srvDesc, srvHandle_);
 		
 		}
 	}
