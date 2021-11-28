@@ -41,6 +41,7 @@ namespace YiaEngine
 		float GetCameraWidth() {return viewport_.Width; };
 		float GetCameraHeight() {return viewport_.Height; };
 		void SetViewport(float width, float Height, float topLeftX = 0, float topLeftY = 0, float minDepth = 0.01, float maxDepth = 100);
+		Viewport GetViewport();
 	private:
 		FovType fov_type_;
 		float near_clip_;

@@ -1,30 +1,91 @@
 #pragma once
 #include "GpuResource.h"
 #include"DescriptorHeap.h"
+#include "Common/Color.h"
 namespace YiaEngine
 {
     namespace Graphic
     {
+        enum class ResourceDimension
+        {
+            UNKNOWN = 0,
+			BUFFER = 1,
+			TEXTURE1D = 2,
+			TEXTURE2D = 3,
+			TEXTURE3D = 4
+        };
+
+        enum TextureFlag
+        {
+			NONE = 0,
+			ALLOW_RENDER_TARGET = 0x1,
+			ALLOW_DEPTH_STENCIL = 0x2,
+			ALLOW_UNORDERED_ACCESS = 0x4,
+        };
+        enum class TextureLayout
+        {
+            UNKNOWN = 0,
+			ROW_MAJOR = 1,
+			UNDEFINED_SWIZZLE_64KB = 2,
+			STANDARD_SWIZZLE_64KB = 3
+        };
+        
+
+        struct DepthStencilValue
+        {
+			float Depth;
+			UINT8 Stencil;
+        };
+		
+        struct ClearState
+        {
+            ClearState() {}
+            union 
+            {
+				Color ClearColor;
+                DepthStencilValue DepthStencilClearValue;
+            };
+            static ClearState DefaultState()
+            {
+                ClearState ret;
+                ret.ClearColor = DefaultColor;
+                ret.DepthStencilClearValue.Depth = 1;
+                ret.DepthStencilClearValue.Stencil= 0x00;
+                return ret;
+            }
+        };
+		struct TextureDescribe
+		{
+			ResourceDimension Dimension;
+			UINT64 Alignment;
+			UINT64 Width;
+			UINT Height;
+			UINT16 DepthOrArraySize;
+			UINT16 MipLevels;
+			DXGI_FORMAT Format;
+			UINT MsaaCount;
+			UINT MsaaQuality;
+			TextureLayout Layout;
+			TextureFlag Flags;
+            ClearState ClearValue;
+		};
+
         class GpuTexture : public GpuResource
         {
         public:
          //   const DescriptorHandle& SrvHandle()const;
             ~GpuTexture() { Destroy(); }
-            D3D12_RESOURCE_DESC DescribeTex2D(UINT widht, UINT Height, UINT depthOrArraySize, UINT mips, DXGI_FORMAT format, UINT flag);
-            void CreateTextureResource(const wchar_t* Name,const D3D12_RESOURCE_DESC resourceDesc, const D3D12_CLEAR_VALUE* value);
-            
-            virtual DescriptorHandle SrvCpuHandle() = 0;
+           
+            DXGI_FORMAT GetFormat() { return (DXGI_FORMAT)describe_.Format; };
+            virtual DescriptorHandle SrvCpuHandle()const = 0;
+            Math::Vec2f Size() { return Math::Vec2f{ describe_.Width,describe_.Height }; };
         protected:
+            TextureDescribe DescribeTex2D(UINT widht, UINT Height, DXGI_FORMAT format, UINT depthOrArraySize = 1, UINT mips = 0, UINT flag = D3D12_RESOURCE_FLAG_NONE);
+            void CreateTextureResource(const wchar_t* Name, const ClearState value = ClearState::DefaultState());
+
             DXGI_FORMAT GetStencilFormat(DXGI_FORMAT format);
         protected:
-            UINT64 width_ = 0;
-            UINT64 height_ = 0;
-            DXGI_FORMAT format_;
-            UINT numMips_;
-            UINT arraySize_;
-
-
-            
+            TextureDescribe describe_;
       //      DescriptorHandle srvHandle_;
         };
 

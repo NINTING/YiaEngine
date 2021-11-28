@@ -31,68 +31,69 @@ namespace YiaEngine
 			depthTarget_ = nullptr;
 			graphicContext->End();
 		}
-		void Renderer::SetRenderTarget(RenderBuffer* renderTarget) 
+		void Renderer::SetRenderTarget(RenderBuffer* renderTarget, DepthBuffer* depthTarget)
 		{
-		
-			if (renderTarget_[0] != renderTarget)
-			{
-				graphicContext->TransitionBarrier(*renderTarget, D3D12_RESOURCE_STATE_RENDER_TARGET);
-				graphicContext->TransitionBarrier(*renderTarget_[0], D3D12_RESOURCE_STATE_COMMON);
-				renderTarget_[0] = renderTarget;
-			
-			}
-			renderTarget_[0] = renderTarget;
-			graphicContext->SetRenderTarget(renderTarget_[0]->RtvCpuHandlePtr(), nullptr);
+			TransitionRenderTarget(0, renderTarget);
+			TransitionDepthTarget(depthTarget);
+			numRt_ = 1;
+			pso_.SetRenderTarget(renderTarget->GetFormat(), depthTarget->GetFormat());
+			graphicContext->SetRenderTarget(renderTarget_[0]->RtvCpuHandlePtr(), depthTarget_->GetDepthStencilHandlePtr());
 		}
 		void Renderer::SetRenderTargets(int numRt, RenderBuffer* renderTarget[], DepthBuffer* depthTarget)
 		{
 			numRt_ = numRt;
 			DescriptorHandle rtHandle[8];
+			DXGI_FORMAT formats[8];
 			for (size_t i = 0; i < numRt; i++)
 			{
 				TransitionRenderTarget(i, renderTarget[i]);
 				rtHandle[i] = renderTarget[i]->RtvCpuHandle();
+				formats[i] = renderTarget[i]->GetFormat();
 			}
-			TransitionDepthTarget(depthTarget);
+			for (int i = numRt_;i<8;i++)
+			{
+				TransitionRenderTarget(i,nullptr);
+			}
 
+			TransitionDepthTarget(depthTarget);
+			pso_.SetRenderTargets(numRt_, formats, depthTarget->GetFormat());
 			graphicContext->SetRenderTargets(numRt, rtHandle, depthTarget_->GetDepthStencilHandlePtr());
 		}
 		void Renderer::TransitionRenderTarget(int i, RenderBuffer* Rt)
 		{
 			if (renderTarget_[i] != Rt)
 			{
-				graphicContext->TransitionBarrier(*Rt, D3D12_RESOURCE_STATE_RENDER_TARGET);
 				if (renderTarget_[i])
 				{
-					graphicContext->TransitionBarrier(*Rt, D3D12_RESOURCE_STATE_COMMON);
+					graphicContext->TransitionBarrier(*renderTarget_[i], D3D12_RESOURCE_STATE_COMMON);
 				}
-				renderTarget_[i] = Rt;
+				if (Rt)
+				{
+					graphicContext->TransitionBarrier(*Rt, D3D12_RESOURCE_STATE_RENDER_TARGET);
+					renderTarget_[i] = Rt;
+				}
 			}
 		}
 		void Renderer::TransitionDepthTarget(DepthBuffer* depthBuffer)
 		{
-			if (depthBuffer==nullptr)
-			{
-
-			}
+			
 				if (depthTarget_ != depthBuffer)
 				{
-					graphicContext->TransitionBarrier(*depthBuffer, D3D12_RESOURCE_STATE_DEPTH_WRITE);
+					
 					if (depthTarget_)
 					{
 						graphicContext->TransitionBarrier(*depthTarget_, D3D12_RESOURCE_STATE_DEPTH_READ);
 					}
-					depthTarget_ = depthBuffer;
+					if (depthBuffer)
+					{
+
+						graphicContext->TransitionBarrier(*depthBuffer, D3D12_RESOURCE_STATE_DEPTH_WRITE);
+						depthTarget_ = depthBuffer;
+					}
 				}
 			
 		}
-		void Renderer::SetRenderTarget(RenderBuffer* renderTarget,DepthBuffer* depthTarget)
-		{
-			TransitionRenderTarget(0, renderTarget);
-			TransitionDepthTarget(depthTarget);
-			numRt_ = 1;
-			graphicContext->SetRenderTarget(renderTarget_[0]->RtvCpuHandlePtr(), depthTarget_->GetDepthStencilHandlePtr());
-		}
+		
 		void Renderer::SetCamera(Camera& camera)
 		{
 			pCamera_ = &camera;
@@ -120,6 +121,38 @@ namespace YiaEngine
 		{
 			graphicContext->ClearDepthStencil(depthTarget_->GetDepthStencilHandle(),true,1,false);
 		}
+		
+
+		void Renderer::SetDepthStencilState(bool depthEnable, D3D12_COMPARISON_FUNC comFunc /*= D3D12_COMPARISON_FUNC_LESS*/, D3D12_DEPTH_WRITE_MASK depthMask /*= D3D12_DEPTH_WRITE_MASK_ALL*/,
+			bool stencilEnable /*= false*/, UINT8 stencilWriteMask /*= D3D12_DEFAULT_STENCIL_WRITE_MASK*/, UINT8 stencilReadMask /*= D3D12_DEFAULT_STENCIL_READ_MASK*/, 
+			D3D12_STENCIL_OP frontStencilFailOp /*= D3D12_STENCIL_OP_KEEP*/, 
+			D3D12_STENCIL_OP frontStencilDepthFailOp /*= D3D12_STENCIL_OP_KEEP*/, 
+			D3D12_STENCIL_OP frontStencilPassOp /*= D3D12_STENCIL_OP_KEEP*/,
+			D3D12_COMPARISON_FUNC frontStencilFunc /*= D3D12_COMPARISON_FUNC_ALWAYS*/, 
+			D3D12_STENCIL_OP backStencilFailOp /*= D3D12_STENCIL_OP_KEEP*/, 
+			D3D12_STENCIL_OP backStencilDepthFailOp /*= D3D12_STENCIL_OP_KEEP*/, 
+			D3D12_STENCIL_OP backStencilPassOp /*= D3D12_STENCIL_OP_KEEP*/, 
+			D3D12_COMPARISON_FUNC backStencilFunc /*= D3D12_COMPARISON_FUNC_ALWAYS*/)
+		{
+			D3D12_DEPTH_STENCIL_DESC desc;
+			desc.DepthEnable = depthEnable;
+			desc.DepthFunc = comFunc;
+			desc.DepthWriteMask = depthMask;
+			desc.StencilEnable = stencilEnable;
+			desc.StencilReadMask = stencilReadMask;
+			desc.StencilWriteMask = stencilWriteMask;
+			desc.FrontFace.StencilDepthFailOp = frontStencilDepthFailOp;
+			desc.FrontFace.StencilPassOp = frontStencilPassOp;
+			desc.FrontFace.StencilFailOp = frontStencilFailOp;
+			desc.FrontFace.StencilFunc = frontStencilFunc;
+
+			desc.BackFace.StencilDepthFailOp = backStencilDepthFailOp;
+			desc.BackFace.StencilPassOp = backStencilPassOp;
+			desc.BackFace.StencilFailOp = backStencilFailOp;
+			desc.BackFace.StencilFunc = backStencilFunc;
+			pso_.SetDepthStencilState(desc);
+		}
+
 		void Renderer::SetViewport(const CD3DX12_VIEWPORT& viewport)
 		{ 
 			viewport_ = viewport; 
@@ -144,9 +177,11 @@ namespace YiaEngine
 			material.Finalize();
 			if (useDefalutViewport)
 			{
+				Viewport viewport = pCamera_->GetViewport();
+
 				viewport_ = {};
-				viewport_.Width = renderTarget_[0]->Size().x();
-				viewport_.Height = renderTarget_[0]->Size().y();
+				viewport_.Width = viewport.Width;
+				viewport_.Height = viewport.Height;
 			}
 			if (useDefalutScissorRect)
 			{
@@ -220,9 +255,8 @@ namespace YiaEngine
 				elements[i].InstanceDataStepRate = 0;
 			}
 
-		
+			
 			pso_.SetRootSignature(material.GetRootSignature());
-
 			pso_.SetInputLayout(desc.NumElements, elements);
 			//delete elements;
 			pso_.SetShader(shader);

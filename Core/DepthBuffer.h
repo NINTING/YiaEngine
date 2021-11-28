@@ -29,7 +29,7 @@ namespace YiaEngine
 			const DescriptorHandle* GetDepthStencilReadHandlePtr()const { return &dsvHandle_[3]; };
 			const DescriptorHandle* GetDepthSrvCpuHandlePtr()const { return &depthSrvHandle_; };
 			const DescriptorHandle* GetStencilSrvCpuHandlePtr()const { return &depthSrvHandle_; };
-			Math::Vec2f Size() { return Math::Vec2f{ width_,height_ }; };
+												  
 		private:
 			
 			void CreateView(DXGI_FORMAT format);

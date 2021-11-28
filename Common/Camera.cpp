@@ -47,7 +47,10 @@ namespace YiaEngine
 		far_clip_ = maxDepth;
 		aspect_ = width / Height;
 	}
-
+	Viewport Camera::GetViewport()
+	{
+		return viewport_;
+	}
 #pragma region Transform
 	Math::Mat4x4f Camera::ViewMatrix()
 	{

@@ -1,339 +1,1001 @@
-[21:29:31] [info] APP: App init
-[21:29:31] [info] APP: InputParament 2
-[21:29:31] [info] APP:   InputParament 0
-[21:29:31] [info] APP: 	name POSITION
-[21:29:31] [info] APP: 	SemanticIndex 0
-[21:29:31] [info] APP: 	register 0
-[21:29:31] [info] APP: 	SystemValueType 0
-[21:29:31] [info] APP: 	ComponentType 3
-[21:29:31] [info] APP: 	Stream 0
-[21:29:31] [info] APP: 	Mask 7
-[21:29:31] [info] APP: 	ReadWriteMask 7
-[21:29:31] [info] APP:   InputParament 1
-[21:29:31] [info] APP: 	name TEXCOORD
-[21:29:31] [info] APP: 	SemanticIndex 0
-[21:29:31] [info] APP: 	register 1
-[21:29:31] [info] APP: 	SystemValueType 0
-[21:29:31] [info] APP: 	ComponentType 3
-[21:29:31] [info] APP: 	Stream 0
-[21:29:31] [info] APP: 	Mask 3
-[21:29:31] [info] APP: 	ReadWriteMask 3
-[21:29:31] [info] APP: BoundResources 2
-[21:29:31] [info] APP: 	BoundResources cbvPerFrame
-[21:29:31] [info] APP: 	BindCount 1
-[21:29:31] [info] APP: 	BindPoint 0
-[21:29:31] [info] APP: 	Dimension 0
-[21:29:31] [info] APP: 	NumSamples 0
-[21:29:31] [info] APP: 	ReturnType 0
-[21:29:31] [info] APP: 	Space 1
-[21:29:31] [info] APP: 	Type 0
-[21:29:31] [info] APP: 	flag 1
-[21:29:31] [info] APP: 	BoundResources cbvPerDraw
-[21:29:31] [info] APP: 	BindCount 1
-[21:29:31] [info] APP: 	BindPoint 1
-[21:29:31] [info] APP: 	Dimension 0
-[21:29:31] [info] APP: 	NumSamples 0
-[21:29:31] [info] APP: 	ReturnType 0
-[21:29:31] [info] APP: 	Space 3
-[21:29:31] [info] APP: 	Type 0
-[21:29:31] [info] APP: 	flag 1
-[21:29:31] [info] APP: ConstantBuffers 2
-[21:29:31] [info] APP: 	ConstBuffer 0
-[21:29:31] [info] APP: 		name cbvPerFrame
-[21:29:31] [info] APP: 		Size 192
-[21:29:31] [info] APP: 		Type 0
-[21:29:31] [info] APP: 		Variables 3
-[21:29:31] [info] APP: 			Name ObjectMat
-[21:29:31] [info] APP: 			size 64
-[21:29:31] [info] APP: 			StartOffset 0
-[21:29:31] [info] APP: 			StartSampler 0
-[21:29:31] [info] APP: 			StartTexture 0
-[21:29:31] [info] APP: 			TextureSize 0
-[21:29:31] [info] APP: 			Name ViewMat
-[21:29:31] [info] APP: 			size 64
-[21:29:31] [info] APP: 			StartOffset 64
-[21:29:31] [info] APP: 			StartSampler 0
-[21:29:31] [info] APP: 			StartTexture 0
-[21:29:31] [info] APP: 			TextureSize 0
-[21:29:31] [info] APP: 			Name ProjMat
-[21:29:31] [info] APP: 			size 64
-[21:29:31] [info] APP: 			StartOffset 128
-[21:29:31] [info] APP: 			StartSampler 0
-[21:29:31] [info] APP: 			StartTexture 0
-[21:29:31] [info] APP: 			TextureSize 0
-[21:29:31] [info] APP: 	ConstBuffer 1
-[21:29:31] [info] APP: 		name cbvPerDraw
-[21:29:31] [info] APP: 		Size 128
-[21:29:31] [info] APP: 		Type 0
-[21:29:31] [info] APP: 		Variables 2
-[21:29:31] [info] APP: 			Name WorldMat
-[21:29:31] [info] APP: 			size 64
-[21:29:31] [info] APP: 			StartOffset 0
-[21:29:31] [info] APP: 			StartSampler 0
-[21:29:31] [info] APP: 			StartTexture 0
-[21:29:31] [info] APP: 			TextureSize 0
-[21:29:31] [info] APP: 			Name WorldToObjMat
-[21:29:31] [info] APP: 			size 64
-[21:29:31] [info] APP: 			StartOffset 64
-[21:29:31] [info] APP: 			StartSampler 0
-[21:29:31] [info] APP: 			StartTexture 0
-[21:29:31] [info] APP: 			TextureSize 0
-[21:29:31] [info] APP: BoundResources 2
-[21:29:31] [info] APP: 	BoundResources MainTexture_Sampler
-[21:29:31] [info] APP: 	BindCount 1
-[21:29:31] [info] APP: 	BindPoint 0
-[21:29:31] [info] APP: 	Dimension 0
-[21:29:31] [info] APP: 	NumSamples 0
-[21:29:31] [info] APP: 	ReturnType 0
-[21:29:31] [info] APP: 	Space 0
-[21:29:31] [info] APP: 	Type 3
-[21:29:31] [info] APP: 	flag 0
-[21:29:31] [info] APP: 	BoundResources MainTexture
-[21:29:31] [info] APP: 	BindCount 1
-[21:29:31] [info] APP: 	BindPoint 0
-[21:29:31] [info] APP: 	Dimension 4
-[21:29:31] [info] APP: 	NumSamples 4294967295
-[21:29:31] [info] APP: 	ReturnType 5
-[21:29:31] [info] APP: 	Space 0
-[21:29:31] [info] APP: 	Type 2
-[21:29:31] [info] APP: 	flag 12
-[21:29:31] [info] APP: ConstantBuffers 0
-[21:29:31] [info] APP: InputParament 3
-[21:29:31] [info] APP:   InputParament 0
-[21:29:31] [info] APP: 	name POSITION
-[21:29:31] [info] APP: 	SemanticIndex 0
-[21:29:31] [info] APP: 	register 0
-[21:29:31] [info] APP: 	SystemValueType 0
-[21:29:31] [info] APP: 	ComponentType 3
-[21:29:31] [info] APP: 	Stream 0
-[21:29:31] [info] APP: 	Mask 7
-[21:29:31] [info] APP: 	ReadWriteMask 7
-[21:29:31] [info] APP:   InputParament 1
-[21:29:31] [info] APP: 	name TEXCOORD
-[21:29:31] [info] APP: 	SemanticIndex 0
-[21:29:31] [info] APP: 	register 1
-[21:29:31] [info] APP: 	SystemValueType 0
-[21:29:31] [info] APP: 	ComponentType 3
-[21:29:31] [info] APP: 	Stream 0
-[21:29:31] [info] APP: 	Mask 3
-[21:29:31] [info] APP: 	ReadWriteMask 3
-[21:29:31] [info] APP:   InputParament 2
-[21:29:31] [info] APP: 	name NORMAL
-[21:29:31] [info] APP: 	SemanticIndex 0
-[21:29:31] [info] APP: 	register 2
-[21:29:31] [info] APP: 	SystemValueType 0
-[21:29:31] [info] APP: 	ComponentType 3
-[21:29:31] [info] APP: 	Stream 0
-[21:29:31] [info] APP: 	Mask 7
-[21:29:31] [info] APP: 	ReadWriteMask 7
-[21:29:31] [info] APP: BoundResources 2
-[21:29:31] [info] APP: 	BoundResources cbvPerFrame
-[21:29:31] [info] APP: 	BindCount 1
-[21:29:31] [info] APP: 	BindPoint 0
-[21:29:31] [info] APP: 	Dimension 0
-[21:29:31] [info] APP: 	NumSamples 0
-[21:29:31] [info] APP: 	ReturnType 0
-[21:29:31] [info] APP: 	Space 1
-[21:29:31] [info] APP: 	Type 0
-[21:29:31] [info] APP: 	flag 1
-[21:29:31] [info] APP: 	BoundResources cbvPerDraw
-[21:29:31] [info] APP: 	BindCount 1
-[21:29:31] [info] APP: 	BindPoint 1
-[21:29:31] [info] APP: 	Dimension 0
-[21:29:31] [info] APP: 	NumSamples 0
-[21:29:31] [info] APP: 	ReturnType 0
-[21:29:31] [info] APP: 	Space 3
-[21:29:31] [info] APP: 	Type 0
-[21:29:31] [info] APP: 	flag 1
-[21:29:31] [info] APP: ConstantBuffers 2
-[21:29:31] [info] APP: 	ConstBuffer 0
-[21:29:31] [info] APP: 		name cbvPerFrame
-[21:29:31] [info] APP: 		Size 192
-[21:29:31] [info] APP: 		Type 0
-[21:29:31] [info] APP: 		Variables 3
-[21:29:31] [info] APP: 			Name ObjectMat
-[21:29:31] [info] APP: 			size 64
-[21:29:31] [info] APP: 			StartOffset 0
-[21:29:31] [info] APP: 			StartSampler 0
-[21:29:31] [info] APP: 			StartTexture 0
-[21:29:31] [info] APP: 			TextureSize 0
-[21:29:31] [info] APP: 			Name ViewMat
-[21:29:31] [info] APP: 			size 64
-[21:29:31] [info] APP: 			StartOffset 64
-[21:29:31] [info] APP: 			StartSampler 0
-[21:29:31] [info] APP: 			StartTexture 0
-[21:29:31] [info] APP: 			TextureSize 0
-[21:29:31] [info] APP: 			Name ProjMat
-[21:29:31] [info] APP: 			size 64
-[21:29:31] [info] APP: 			StartOffset 128
-[21:29:31] [info] APP: 			StartSampler 0
-[21:29:31] [info] APP: 			StartTexture 0
-[21:29:31] [info] APP: 			TextureSize 0
-[21:29:31] [info] APP: 	ConstBuffer 1
-[21:29:31] [info] APP: 		name cbvPerDraw
-[21:29:31] [info] APP: 		Size 128
-[21:29:31] [info] APP: 		Type 0
-[21:29:31] [info] APP: 		Variables 2
-[21:29:31] [info] APP: 			Name WorldMat
-[21:29:31] [info] APP: 			size 64
-[21:29:31] [info] APP: 			StartOffset 0
-[21:29:31] [info] APP: 			StartSampler 0
-[21:29:31] [info] APP: 			StartTexture 0
-[21:29:31] [info] APP: 			TextureSize 0
-[21:29:31] [info] APP: 			Name WorldToObjMat
-[21:29:31] [info] APP: 			size 64
-[21:29:31] [info] APP: 			StartOffset 64
-[21:29:31] [info] APP: 			StartSampler 0
-[21:29:31] [info] APP: 			StartTexture 0
-[21:29:31] [info] APP: 			TextureSize 0
-[21:29:31] [info] APP: BoundResources 4
-[21:29:31] [info] APP: 	BoundResources cbvPerMaterial
-[21:29:31] [info] APP: 	BindCount 1
-[21:29:31] [info] APP: 	BindPoint 1
-[21:29:31] [info] APP: 	Dimension 0
-[21:29:31] [info] APP: 	NumSamples 0
-[21:29:31] [info] APP: 	ReturnType 0
-[21:29:31] [info] APP: 	Space 2
-[21:29:31] [info] APP: 	Type 0
-[21:29:31] [info] APP: 	flag 1
-[21:29:31] [info] APP: 	BoundResources cbvLight
-[21:29:31] [info] APP: 	BindCount 1
-[21:29:31] [info] APP: 	BindPoint 1
-[21:29:31] [info] APP: 	Dimension 0
-[21:29:31] [info] APP: 	NumSamples 0
-[21:29:31] [info] APP: 	ReturnType 0
-[21:29:31] [info] APP: 	Space 1
-[21:29:31] [info] APP: 	Type 0
-[21:29:31] [info] APP: 	flag 1
-[21:29:31] [info] APP: 	BoundResources MainTexture_Sampler
-[21:29:31] [info] APP: 	BindCount 1
-[21:29:31] [info] APP: 	BindPoint 0
-[21:29:31] [info] APP: 	Dimension 0
-[21:29:31] [info] APP: 	NumSamples 0
-[21:29:31] [info] APP: 	ReturnType 0
-[21:29:31] [info] APP: 	Space 0
-[21:29:31] [info] APP: 	Type 3
-[21:29:31] [info] APP: 	flag 0
-[21:29:31] [info] APP: 	BoundResources MainTexture
-[21:29:31] [info] APP: 	BindCount 1
-[21:29:31] [info] APP: 	BindPoint 0
-[21:29:31] [info] APP: 	Dimension 4
-[21:29:31] [info] APP: 	NumSamples 4294967295
-[21:29:31] [info] APP: 	ReturnType 5
-[21:29:31] [info] APP: 	Space 0
-[21:29:31] [info] APP: 	Type 2
-[21:29:31] [info] APP: 	flag 12
-[21:29:31] [info] APP: ConstantBuffers 2
-[21:29:31] [info] APP: 	ConstBuffer 0
-[21:29:31] [info] APP: 		name cbvPerMaterial
-[21:29:31] [info] APP: 		Size 16
-[21:29:31] [info] APP: 		Type 0
-[21:29:31] [info] APP: 		Variables 1
-[21:29:31] [info] APP: 			Name surface
-[21:29:31] [info] APP: 			size 16
-[21:29:31] [info] APP: 			StartOffset 0
-[21:29:31] [info] APP: 			StartSampler 0
-[21:29:31] [info] APP: 			StartTexture 0
-[21:29:31] [info] APP: 			TextureSize 0
-[21:29:31] [info] APP: 	ConstBuffer 1
-[21:29:31] [info] APP: 		name cbvLight
-[21:29:31] [info] APP: 		Size 32
-[21:29:31] [info] APP: 		Type 0
-[21:29:31] [info] APP: 		Variables 1
-[21:29:31] [info] APP: 			Name Lights
-[21:29:31] [info] APP: 			size 32
-[21:29:31] [info] APP: 			StartOffset 0
-[21:29:31] [info] APP: 			StartSampler 0
-[21:29:31] [info] APP: 			StartTexture 0
-[21:29:31] [info] APP: 			TextureSize 0
-[21:29:31] [info] APP: InputParament 3
-[21:29:31] [info] APP:   InputParament 0
-[21:29:31] [info] APP: 	name POSITION
-[21:29:31] [info] APP: 	SemanticIndex 0
-[21:29:31] [info] APP: 	register 0
-[21:29:31] [info] APP: 	SystemValueType 0
-[21:29:31] [info] APP: 	ComponentType 3
-[21:29:31] [info] APP: 	Stream 0
-[21:29:31] [info] APP: 	Mask 7
-[21:29:31] [info] APP: 	ReadWriteMask 7
-[21:29:31] [info] APP:   InputParament 1
-[21:29:31] [info] APP: 	name NORMAL
-[21:29:31] [info] APP: 	SemanticIndex 0
-[21:29:31] [info] APP: 	register 1
-[21:29:31] [info] APP: 	SystemValueType 0
-[21:29:31] [info] APP: 	ComponentType 3
-[21:29:31] [info] APP: 	Stream 0
-[21:29:31] [info] APP: 	Mask 7
-[21:29:31] [info] APP: 	ReadWriteMask 7
-[21:29:31] [info] APP:   InputParament 2
-[21:29:31] [info] APP: 	name TEXCOORD
-[21:29:31] [info] APP: 	SemanticIndex 0
-[21:29:31] [info] APP: 	register 2
-[21:29:31] [info] APP: 	SystemValueType 0
-[21:29:31] [info] APP: 	ComponentType 3
-[21:29:31] [info] APP: 	Stream 0
-[21:29:31] [info] APP: 	Mask 3
-[21:29:31] [info] APP: 	ReadWriteMask 3
-[21:29:31] [info] APP: BoundResources 2
-[21:29:31] [info] APP: 	BoundResources cbvPerFrame
-[21:29:31] [info] APP: 	BindCount 1
-[21:29:31] [info] APP: 	BindPoint 0
-[21:29:31] [info] APP: 	Dimension 0
-[21:29:31] [info] APP: 	NumSamples 0
-[21:29:31] [info] APP: 	ReturnType 0
-[21:29:31] [info] APP: 	Space 1
-[21:29:31] [info] APP: 	Type 0
-[21:29:31] [info] APP: 	flag 1
-[21:29:31] [info] APP: 	BoundResources cbvPerDraw
-[21:29:31] [info] APP: 	BindCount 1
-[21:29:31] [info] APP: 	BindPoint 1
-[21:29:31] [info] APP: 	Dimension 0
-[21:29:31] [info] APP: 	NumSamples 0
-[21:29:31] [info] APP: 	ReturnType 0
-[21:29:31] [info] APP: 	Space 3
-[21:29:31] [info] APP: 	Type 0
-[21:29:31] [info] APP: 	flag 1
-[21:29:31] [info] APP: ConstantBuffers 2
-[21:29:31] [info] APP: 	ConstBuffer 0
-[21:29:31] [info] APP: 		name cbvPerFrame
-[21:29:31] [info] APP: 		Size 192
-[21:29:31] [info] APP: 		Type 0
-[21:29:31] [info] APP: 		Variables 3
-[21:29:31] [info] APP: 			Name ObjectMat
-[21:29:31] [info] APP: 			size 64
-[21:29:31] [info] APP: 			StartOffset 0
-[21:29:31] [info] APP: 			StartSampler 0
-[21:29:31] [info] APP: 			StartTexture 0
-[21:29:31] [info] APP: 			TextureSize 0
-[21:29:31] [info] APP: 			Name ViewMat
-[21:29:31] [info] APP: 			size 64
-[21:29:31] [info] APP: 			StartOffset 64
-[21:29:31] [info] APP: 			StartSampler 0
-[21:29:31] [info] APP: 			StartTexture 0
-[21:29:31] [info] APP: 			TextureSize 0
-[21:29:31] [info] APP: 			Name ProjMat
-[21:29:31] [info] APP: 			size 64
-[21:29:31] [info] APP: 			StartOffset 128
-[21:29:31] [info] APP: 			StartSampler 0
-[21:29:31] [info] APP: 			StartTexture 0
-[21:29:31] [info] APP: 			TextureSize 0
-[21:29:31] [info] APP: 	ConstBuffer 1
-[21:29:31] [info] APP: 		name cbvPerDraw
-[21:29:31] [info] APP: 		Size 128
-[21:29:31] [info] APP: 		Type 0
-[21:29:31] [info] APP: 		Variables 2
-[21:29:31] [info] APP: 			Name WorldMat
-[21:29:31] [info] APP: 			size 64
-[21:29:31] [info] APP: 			StartOffset 0
-[21:29:31] [info] APP: 			StartSampler 0
-[21:29:31] [info] APP: 			StartTexture 0
-[21:29:31] [info] APP: 			TextureSize 0
-[21:29:31] [info] APP: 			Name WorldToObjMat
-[21:29:31] [info] APP: 			size 64
-[21:29:31] [info] APP: 			StartOffset 64
-[21:29:31] [info] APP: 			StartSampler 0
-[21:29:31] [info] APP: 			StartTexture 0
-[21:29:31] [info] APP: 			TextureSize 0
-[21:29:31] [info] APP: BoundResources 0
-[21:29:31] [info] APP: ConstantBuffers 0
-[21:29:33] [info] CORE: App End
+[23:09:08] [info] APP: App init
+[23:09:08] [info] APP: InputParament 2
+[23:09:08] [info] APP:   InputParament 0
+[23:09:08] [info] APP: 	name POSITION
+[23:09:08] [info] APP: 	SemanticIndex 0
+[23:09:08] [info] APP: 	register 0
+[23:09:08] [info] APP: 	SystemValueType 0
+[23:09:08] [info] APP: 	ComponentType 3
+[23:09:08] [info] APP: 	Stream 0
+[23:09:08] [info] APP: 	Mask 7
+[23:09:08] [info] APP: 	ReadWriteMask 7
+[23:09:08] [info] APP:   InputParament 1
+[23:09:08] [info] APP: 	name TEXCOORD
+[23:09:08] [info] APP: 	SemanticIndex 0
+[23:09:08] [info] APP: 	register 1
+[23:09:08] [info] APP: 	SystemValueType 0
+[23:09:08] [info] APP: 	ComponentType 3
+[23:09:08] [info] APP: 	Stream 0
+[23:09:08] [info] APP: 	Mask 3
+[23:09:08] [info] APP: 	ReadWriteMask 3
+[23:09:08] [info] APP: BoundResources 2
+[23:09:08] [info] APP: 	BoundResources cbvPerFrame
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 0
+[23:09:08] [info] APP: 	Dimension 0
+[23:09:08] [info] APP: 	NumSamples 0
+[23:09:08] [info] APP: 	ReturnType 0
+[23:09:08] [info] APP: 	Space 1
+[23:09:08] [info] APP: 	Type 0
+[23:09:08] [info] APP: 	flag 1
+[23:09:08] [info] APP: 	BoundResources cbvPerDraw
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 1
+[23:09:08] [info] APP: 	Dimension 0
+[23:09:08] [info] APP: 	NumSamples 0
+[23:09:08] [info] APP: 	ReturnType 0
+[23:09:08] [info] APP: 	Space 3
+[23:09:08] [info] APP: 	Type 0
+[23:09:08] [info] APP: 	flag 1
+[23:09:08] [info] APP: ConstantBuffers 2
+[23:09:08] [info] APP: 	ConstBuffer 0
+[23:09:08] [info] APP: 		name cbvPerFrame
+[23:09:08] [info] APP: 		Size 192
+[23:09:08] [info] APP: 		Type 0
+[23:09:08] [info] APP: 		Variables 3
+[23:09:08] [info] APP: 			Name ObjectMat
+[23:09:08] [info] APP: 			size 64
+[23:09:08] [info] APP: 			StartOffset 0
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: 			Name ViewMat
+[23:09:08] [info] APP: 			size 64
+[23:09:08] [info] APP: 			StartOffset 64
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: 			Name ProjMat
+[23:09:08] [info] APP: 			size 64
+[23:09:08] [info] APP: 			StartOffset 128
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: 	ConstBuffer 1
+[23:09:08] [info] APP: 		name cbvPerDraw
+[23:09:08] [info] APP: 		Size 128
+[23:09:08] [info] APP: 		Type 0
+[23:09:08] [info] APP: 		Variables 2
+[23:09:08] [info] APP: 			Name WorldMat
+[23:09:08] [info] APP: 			size 64
+[23:09:08] [info] APP: 			StartOffset 0
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: 			Name WorldToObjMat
+[23:09:08] [info] APP: 			size 64
+[23:09:08] [info] APP: 			StartOffset 64
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: BoundResources 2
+[23:09:08] [info] APP: 	BoundResources MainTexture_Sampler
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 0
+[23:09:08] [info] APP: 	Dimension 0
+[23:09:08] [info] APP: 	NumSamples 0
+[23:09:08] [info] APP: 	ReturnType 0
+[23:09:08] [info] APP: 	Space 0
+[23:09:08] [info] APP: 	Type 3
+[23:09:08] [info] APP: 	flag 0
+[23:09:08] [info] APP: 	BoundResources MainTexture
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 0
+[23:09:08] [info] APP: 	Dimension 4
+[23:09:08] [info] APP: 	NumSamples 4294967295
+[23:09:08] [info] APP: 	ReturnType 5
+[23:09:08] [info] APP: 	Space 0
+[23:09:08] [info] APP: 	Type 2
+[23:09:08] [info] APP: 	flag 12
+[23:09:08] [info] APP: ConstantBuffers 0
+[23:09:08] [info] APP: InputParament 3
+[23:09:08] [info] APP:   InputParament 0
+[23:09:08] [info] APP: 	name POSITION
+[23:09:08] [info] APP: 	SemanticIndex 0
+[23:09:08] [info] APP: 	register 0
+[23:09:08] [info] APP: 	SystemValueType 0
+[23:09:08] [info] APP: 	ComponentType 3
+[23:09:08] [info] APP: 	Stream 0
+[23:09:08] [info] APP: 	Mask 7
+[23:09:08] [info] APP: 	ReadWriteMask 7
+[23:09:08] [info] APP:   InputParament 1
+[23:09:08] [info] APP: 	name TEXCOORD
+[23:09:08] [info] APP: 	SemanticIndex 0
+[23:09:08] [info] APP: 	register 1
+[23:09:08] [info] APP: 	SystemValueType 0
+[23:09:08] [info] APP: 	ComponentType 3
+[23:09:08] [info] APP: 	Stream 0
+[23:09:08] [info] APP: 	Mask 3
+[23:09:08] [info] APP: 	ReadWriteMask 3
+[23:09:08] [info] APP:   InputParament 2
+[23:09:08] [info] APP: 	name NORMAL
+[23:09:08] [info] APP: 	SemanticIndex 0
+[23:09:08] [info] APP: 	register 2
+[23:09:08] [info] APP: 	SystemValueType 0
+[23:09:08] [info] APP: 	ComponentType 3
+[23:09:08] [info] APP: 	Stream 0
+[23:09:08] [info] APP: 	Mask 7
+[23:09:08] [info] APP: 	ReadWriteMask 7
+[23:09:08] [info] APP: BoundResources 2
+[23:09:08] [info] APP: 	BoundResources cbvPerFrame
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 0
+[23:09:08] [info] APP: 	Dimension 0
+[23:09:08] [info] APP: 	NumSamples 0
+[23:09:08] [info] APP: 	ReturnType 0
+[23:09:08] [info] APP: 	Space 1
+[23:09:08] [info] APP: 	Type 0
+[23:09:08] [info] APP: 	flag 1
+[23:09:08] [info] APP: 	BoundResources cbvPerDraw
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 1
+[23:09:08] [info] APP: 	Dimension 0
+[23:09:08] [info] APP: 	NumSamples 0
+[23:09:08] [info] APP: 	ReturnType 0
+[23:09:08] [info] APP: 	Space 3
+[23:09:08] [info] APP: 	Type 0
+[23:09:08] [info] APP: 	flag 1
+[23:09:08] [info] APP: ConstantBuffers 2
+[23:09:08] [info] APP: 	ConstBuffer 0
+[23:09:08] [info] APP: 		name cbvPerFrame
+[23:09:08] [info] APP: 		Size 192
+[23:09:08] [info] APP: 		Type 0
+[23:09:08] [info] APP: 		Variables 3
+[23:09:08] [info] APP: 			Name ObjectMat
+[23:09:08] [info] APP: 			size 64
+[23:09:08] [info] APP: 			StartOffset 0
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: 			Name ViewMat
+[23:09:08] [info] APP: 			size 64
+[23:09:08] [info] APP: 			StartOffset 64
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: 			Name ProjMat
+[23:09:08] [info] APP: 			size 64
+[23:09:08] [info] APP: 			StartOffset 128
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: 	ConstBuffer 1
+[23:09:08] [info] APP: 		name cbvPerDraw
+[23:09:08] [info] APP: 		Size 128
+[23:09:08] [info] APP: 		Type 0
+[23:09:08] [info] APP: 		Variables 2
+[23:09:08] [info] APP: 			Name WorldMat
+[23:09:08] [info] APP: 			size 64
+[23:09:08] [info] APP: 			StartOffset 0
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: 			Name WorldToObjMat
+[23:09:08] [info] APP: 			size 64
+[23:09:08] [info] APP: 			StartOffset 64
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: BoundResources 4
+[23:09:08] [info] APP: 	BoundResources cbvPerMaterial
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 1
+[23:09:08] [info] APP: 	Dimension 0
+[23:09:08] [info] APP: 	NumSamples 0
+[23:09:08] [info] APP: 	ReturnType 0
+[23:09:08] [info] APP: 	Space 2
+[23:09:08] [info] APP: 	Type 0
+[23:09:08] [info] APP: 	flag 1
+[23:09:08] [info] APP: 	BoundResources cbvLight
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 1
+[23:09:08] [info] APP: 	Dimension 0
+[23:09:08] [info] APP: 	NumSamples 0
+[23:09:08] [info] APP: 	ReturnType 0
+[23:09:08] [info] APP: 	Space 1
+[23:09:08] [info] APP: 	Type 0
+[23:09:08] [info] APP: 	flag 1
+[23:09:08] [info] APP: 	BoundResources MainTexture_Sampler
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 0
+[23:09:08] [info] APP: 	Dimension 0
+[23:09:08] [info] APP: 	NumSamples 0
+[23:09:08] [info] APP: 	ReturnType 0
+[23:09:08] [info] APP: 	Space 0
+[23:09:08] [info] APP: 	Type 3
+[23:09:08] [info] APP: 	flag 0
+[23:09:08] [info] APP: 	BoundResources MainTexture
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 0
+[23:09:08] [info] APP: 	Dimension 4
+[23:09:08] [info] APP: 	NumSamples 4294967295
+[23:09:08] [info] APP: 	ReturnType 5
+[23:09:08] [info] APP: 	Space 0
+[23:09:08] [info] APP: 	Type 2
+[23:09:08] [info] APP: 	flag 12
+[23:09:08] [info] APP: ConstantBuffers 2
+[23:09:08] [info] APP: 	ConstBuffer 0
+[23:09:08] [info] APP: 		name cbvPerMaterial
+[23:09:08] [info] APP: 		Size 16
+[23:09:08] [info] APP: 		Type 0
+[23:09:08] [info] APP: 		Variables 1
+[23:09:08] [info] APP: 			Name surface
+[23:09:08] [info] APP: 			size 16
+[23:09:08] [info] APP: 			StartOffset 0
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: 	ConstBuffer 1
+[23:09:08] [info] APP: 		name cbvLight
+[23:09:08] [info] APP: 		Size 32
+[23:09:08] [info] APP: 		Type 0
+[23:09:08] [info] APP: 		Variables 1
+[23:09:08] [info] APP: 			Name Lights
+[23:09:08] [info] APP: 			size 32
+[23:09:08] [info] APP: 			StartOffset 0
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: InputParament 3
+[23:09:08] [info] APP:   InputParament 0
+[23:09:08] [info] APP: 	name POSITION
+[23:09:08] [info] APP: 	SemanticIndex 0
+[23:09:08] [info] APP: 	register 0
+[23:09:08] [info] APP: 	SystemValueType 0
+[23:09:08] [info] APP: 	ComponentType 3
+[23:09:08] [info] APP: 	Stream 0
+[23:09:08] [info] APP: 	Mask 7
+[23:09:08] [info] APP: 	ReadWriteMask 7
+[23:09:08] [info] APP:   InputParament 1
+[23:09:08] [info] APP: 	name NORMAL
+[23:09:08] [info] APP: 	SemanticIndex 0
+[23:09:08] [info] APP: 	register 1
+[23:09:08] [info] APP: 	SystemValueType 0
+[23:09:08] [info] APP: 	ComponentType 3
+[23:09:08] [info] APP: 	Stream 0
+[23:09:08] [info] APP: 	Mask 7
+[23:09:08] [info] APP: 	ReadWriteMask 7
+[23:09:08] [info] APP:   InputParament 2
+[23:09:08] [info] APP: 	name TEXCOORD
+[23:09:08] [info] APP: 	SemanticIndex 0
+[23:09:08] [info] APP: 	register 2
+[23:09:08] [info] APP: 	SystemValueType 0
+[23:09:08] [info] APP: 	ComponentType 3
+[23:09:08] [info] APP: 	Stream 0
+[23:09:08] [info] APP: 	Mask 3
+[23:09:08] [info] APP: 	ReadWriteMask 3
+[23:09:08] [info] APP: BoundResources 2
+[23:09:08] [info] APP: 	BoundResources cbvPerFrame
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 0
+[23:09:08] [info] APP: 	Dimension 0
+[23:09:08] [info] APP: 	NumSamples 0
+[23:09:08] [info] APP: 	ReturnType 0
+[23:09:08] [info] APP: 	Space 1
+[23:09:08] [info] APP: 	Type 0
+[23:09:08] [info] APP: 	flag 1
+[23:09:08] [info] APP: 	BoundResources cbvPerDraw
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 1
+[23:09:08] [info] APP: 	Dimension 0
+[23:09:08] [info] APP: 	NumSamples 0
+[23:09:08] [info] APP: 	ReturnType 0
+[23:09:08] [info] APP: 	Space 3
+[23:09:08] [info] APP: 	Type 0
+[23:09:08] [info] APP: 	flag 1
+[23:09:08] [info] APP: ConstantBuffers 2
+[23:09:08] [info] APP: 	ConstBuffer 0
+[23:09:08] [info] APP: 		name cbvPerFrame
+[23:09:08] [info] APP: 		Size 192
+[23:09:08] [info] APP: 		Type 0
+[23:09:08] [info] APP: 		Variables 3
+[23:09:08] [info] APP: 			Name ObjectMat
+[23:09:08] [info] APP: 			size 64
+[23:09:08] [info] APP: 			StartOffset 0
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: 			Name ViewMat
+[23:09:08] [info] APP: 			size 64
+[23:09:08] [info] APP: 			StartOffset 64
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: 			Name ProjMat
+[23:09:08] [info] APP: 			size 64
+[23:09:08] [info] APP: 			StartOffset 128
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: 	ConstBuffer 1
+[23:09:08] [info] APP: 		name cbvPerDraw
+[23:09:08] [info] APP: 		Size 128
+[23:09:08] [info] APP: 		Type 0
+[23:09:08] [info] APP: 		Variables 2
+[23:09:08] [info] APP: 			Name WorldMat
+[23:09:08] [info] APP: 			size 64
+[23:09:08] [info] APP: 			StartOffset 0
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: 			Name WorldToObjMat
+[23:09:08] [info] APP: 			size 64
+[23:09:08] [info] APP: 			StartOffset 64
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: BoundResources 2
+[23:09:08] [info] APP: 	BoundResources MainTexture_Sampler
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 0
+[23:09:08] [info] APP: 	Dimension 0
+[23:09:08] [info] APP: 	NumSamples 0
+[23:09:08] [info] APP: 	ReturnType 0
+[23:09:08] [info] APP: 	Space 0
+[23:09:08] [info] APP: 	Type 3
+[23:09:08] [info] APP: 	flag 0
+[23:09:08] [info] APP: 	BoundResources MainTexture
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 0
+[23:09:08] [info] APP: 	Dimension 4
+[23:09:08] [info] APP: 	NumSamples 4294967295
+[23:09:08] [info] APP: 	ReturnType 5
+[23:09:08] [info] APP: 	Space 0
+[23:09:08] [info] APP: 	Type 2
+[23:09:08] [info] APP: 	flag 12
+[23:09:08] [info] APP: ConstantBuffers 0
+[23:09:08] [info] APP: InputParament 2
+[23:09:08] [info] APP:   InputParament 0
+[23:09:08] [info] APP: 	name POSITION
+[23:09:08] [info] APP: 	SemanticIndex 0
+[23:09:08] [info] APP: 	register 0
+[23:09:08] [info] APP: 	SystemValueType 0
+[23:09:08] [info] APP: 	ComponentType 3
+[23:09:08] [info] APP: 	Stream 0
+[23:09:08] [info] APP: 	Mask 7
+[23:09:08] [info] APP: 	ReadWriteMask 7
+[23:09:08] [info] APP:   InputParament 1
+[23:09:08] [info] APP: 	name TEXCOORD
+[23:09:08] [info] APP: 	SemanticIndex 0
+[23:09:08] [info] APP: 	register 1
+[23:09:08] [info] APP: 	SystemValueType 0
+[23:09:08] [info] APP: 	ComponentType 3
+[23:09:08] [info] APP: 	Stream 0
+[23:09:08] [info] APP: 	Mask 3
+[23:09:08] [info] APP: 	ReadWriteMask 3
+[23:09:08] [info] APP: BoundResources 0
+[23:09:08] [info] APP: ConstantBuffers 0
+[23:09:08] [info] APP: BoundResources 5
+[23:09:08] [info] APP: 	BoundResources cbvPerMaterial
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 1
+[23:09:08] [info] APP: 	Dimension 0
+[23:09:08] [info] APP: 	NumSamples 0
+[23:09:08] [info] APP: 	ReturnType 0
+[23:09:08] [info] APP: 	Space 2
+[23:09:08] [info] APP: 	Type 0
+[23:09:08] [info] APP: 	flag 1
+[23:09:08] [info] APP: 	BoundResources cbvLight
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 1
+[23:09:08] [info] APP: 	Dimension 0
+[23:09:08] [info] APP: 	NumSamples 0
+[23:09:08] [info] APP: 	ReturnType 0
+[23:09:08] [info] APP: 	Space 1
+[23:09:08] [info] APP: 	Type 0
+[23:09:08] [info] APP: 	flag 1
+[23:09:08] [info] APP: 	BoundResources Common_Sampler
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 0
+[23:09:08] [info] APP: 	Dimension 0
+[23:09:08] [info] APP: 	NumSamples 0
+[23:09:08] [info] APP: 	ReturnType 0
+[23:09:08] [info] APP: 	Space 0
+[23:09:08] [info] APP: 	Type 3
+[23:09:08] [info] APP: 	flag 0
+[23:09:08] [info] APP: 	BoundResources NormalWTexture
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 1
+[23:09:08] [info] APP: 	Dimension 4
+[23:09:08] [info] APP: 	NumSamples 4294967295
+[23:09:08] [info] APP: 	ReturnType 5
+[23:09:08] [info] APP: 	Space 0
+[23:09:08] [info] APP: 	Type 2
+[23:09:08] [info] APP: 	flag 12
+[23:09:08] [info] APP: 	BoundResources AlbedoTexture
+[23:09:08] [info] APP: 	BindCount 1
+[23:09:08] [info] APP: 	BindPoint 2
+[23:09:08] [info] APP: 	Dimension 4
+[23:09:08] [info] APP: 	NumSamples 4294967295
+[23:09:08] [info] APP: 	ReturnType 5
+[23:09:08] [info] APP: 	Space 0
+[23:09:08] [info] APP: 	Type 2
+[23:09:08] [info] APP: 	flag 12
+[23:09:08] [info] APP: ConstantBuffers 2
+[23:09:08] [info] APP: 	ConstBuffer 0
+[23:09:08] [info] APP: 		name cbvPerMaterial
+[23:09:08] [info] APP: 		Size 16
+[23:09:08] [info] APP: 		Type 0
+[23:09:08] [info] APP: 		Variables 1
+[23:09:08] [info] APP: 			Name surface
+[23:09:08] [info] APP: 			size 16
+[23:09:08] [info] APP: 			StartOffset 0
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:08] [info] APP: 	ConstBuffer 1
+[23:09:08] [info] APP: 		name cbvLight
+[23:09:08] [info] APP: 		Size 32
+[23:09:08] [info] APP: 		Type 0
+[23:09:08] [info] APP: 		Variables 1
+[23:09:08] [info] APP: 			Name Lights
+[23:09:08] [info] APP: 			size 32
+[23:09:08] [info] APP: 			StartOffset 0
+[23:09:08] [info] APP: 			StartSampler 0
+[23:09:08] [info] APP: 			StartTexture 0
+[23:09:08] [info] APP: 			TextureSize 0
+[23:09:11] [info] APP: 输入2
+[23:09:11] [info] APP: button event dispatch
+[23:09:11] [info] APP: ImguiLayer  Pos 828 353
+[23:09:11] [info] APP: ImguiLayer  CLIENT Pos 828 353
+[23:09:11] [info] APP: [0.0015115597,0.0021613985]
+[23:09:11] [info] APP: [0.00075577985,0.0010806993]
+[23:09:11] [info] APP: [0.0015115597,0.0010806993]
+[23:09:11] [info] APP: [0,0.0010806993]
+[23:09:11] [info] APP: [0.0015115597,0.0010806993]
+[23:09:11] [info] APP: [0.0015115597,0]
+[23:09:11] [info] APP: [0.0015115597,0]
+[23:09:11] [info] APP: [0.0037788996,0]
+[23:09:11] [info] APP: [0.006802019,0]
+[23:09:11] [info] APP: [0.01058092,0]
+[23:09:11] [info] APP: [0.013604038,0]
+[23:09:11] [info] APP: [0.0188945,0.0021613985]
+[23:09:11] [info] APP: [0.017382938,0.0021613985]
+[23:09:11] [info] APP: [0.019650277,0.0032420978]
+[23:09:11] [info] APP: [0.017382938,0.0032420978]
+[23:09:11] [info] APP: [0.011336699,0.0032420978]
+[23:09:11] [info] APP: [0.009069359,0.0010806993]
+[23:09:11] [info] APP: [0.009069359,0]
+[23:09:11] [info] APP: [0.006046239,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0.00529046,0.0010806993]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0.0022673397,0.0010806993]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: 输入68
+[23:09:11] [info] APP: 输入100
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: 输入d
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0.0015115597,0.0021613985]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [-0.00075577985,0.0010806993]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [-0.0015115597,0.0010806993]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0.0021613985]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [-0.0022673397,0]
+[23:09:11] [info] APP: [-0.00075577985,0.0010806993]
+[23:09:11] [info] APP: [-0.0015115597,0.0010806993]
+[23:09:11] [info] APP: [-0.0015115597,0]
+[23:09:11] [info] APP: [-0.00075577985,0.0010806993]
+[23:09:11] [info] APP: [-0.0022673397,0.0010806993]
+[23:09:11] [info] APP: [-0.0015115597,0.0010806993]
+[23:09:11] [info] APP: [-0.00075577985,0]
+[23:09:11] [info] APP: [-0.00075577985,0.0010806993]
+[23:09:11] [info] APP: [-0.0015115597,0]
+[23:09:11] [info] APP: [-0.00075577985,0]
+[23:09:11] [info] APP: [-0.00075577985,0]
+[23:09:11] [info] APP: [-0.0015115597,0]
+[23:09:11] [info] APP: [-0.00075577985,0]
+[23:09:11] [info] APP: [-0.00075577985,0]
+[23:09:11] [info] APP: [-0.00075577985,0]
+[23:09:11] [info] APP: [-0.0015115597,0]
+[23:09:11] [info] APP: [-0.00075577985,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [-0.0045346795,0.0010806993]
+[23:09:11] [info] APP: [-0.0037788996,0.0010806993]
+[23:09:11] [info] APP: [-0.0045346795,0]
+[23:09:11] [info] APP: [-0.0045346795,0]
+[23:09:11] [info] APP: [-0.0045346795,0]
+[23:09:11] [info] APP: [-0.006046239,0]
+[23:09:11] [info] APP: [-0.006802019,0]
+[23:09:11] [info] APP: [-0.0045346795,0.0010806993]
+[23:09:11] [info] APP: [-0.0045346795,0.0010806993]
+[23:09:11] [info] APP: [-0.00529046,0]
+[23:09:11] [info] APP: [-0.0037788996,0]
+[23:09:11] [info] APP: [-0.0045346795,0]
+[23:09:11] [info] APP: [-0.0037788996,0]
+[23:09:11] [info] APP: [-0.0030231194,0]
+[23:09:11] [info] APP: [-0.0015115597,0]
+[23:09:11] [info] APP: [-0.0022673397,0]
+[23:09:11] [info] APP: 输入87
+[23:09:11] [info] APP: 输入119
+[23:09:11] [info] APP: [-0.0015115597,0]
+[23:09:11] [info] APP: 输入w
+[23:09:11] [info] APP: [-0.00075577985,0]
+[23:09:11] [info] APP: [-0.00075577985,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [-0.0015115597,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [0,0]
+[23:09:11] [info] APP: [-0.00075577985,0]
+[23:09:11] [info] APP: [-0.00075577985,0]
+[23:09:11] [info] APP: [-0.00075577985,0]
+[23:09:11] [info] APP: [-0.0015115597,0]
+[23:09:11] [info] APP: [-0.00075577985,0]
+[23:09:11] [info] APP: [-0.0022673397,0]
+[23:09:11] [info] APP: [-0.0022673397,0]
+[23:09:12] [info] APP: [-0.0030231194,-0.0021613985]
+[23:09:12] [info] APP: [-0.006046239,-0.0021613985]
+[23:09:12] [info] APP: [-0.0030231194,0]
+[23:09:12] [info] APP: [-0.0045346795,0]
+[23:09:12] [info] APP: [-0.0015115597,-0.0010806993]
+[23:09:12] [info] APP: [-0.00075577985,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [-0.0015115597,-0.0021613985]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [-0.00075577985,0]
+[23:09:12] [info] APP: [-0.00075577985,-0.0010806993]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [-0.00075577985,0]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [-0.00075577985,0]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [-0.0015115597,-0.0010806993]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [-0.00075577985,0]
+[23:09:12] [info] APP: [-0.0022673397,-0.0021613985]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [-0.00075577985,0]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [-0.0030231194,-0.0010806993]
+[23:09:12] [info] APP: [-0.00075577985,-0.0021613985]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [-0.00075577985,0]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [-0.0022673397,-0.0010806993]
+[23:09:12] [info] APP: [-0.0022673397,-0.0021613985]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [-0.00075577985,0]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [-0.0022673397,-0.0010806993]
+[23:09:12] [info] APP: [-0.0022673397,0]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [-0.0022673397,0]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [-0.0015115597,0]
+[23:09:12] [info] APP: [-0.00075577985,-0.0021613985]
+[23:09:12] [info] APP: [-0.00075577985,0]
+[23:09:12] [info] APP: [-0.0015115597,0]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [-0.00075577985,0]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [-0.0015115597,0]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [-0.00075577985,0]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [-0.00075577985,0]
+[23:09:12] [info] APP: [-0.00529046,0]
+[23:09:12] [info] APP: [-0.0045346795,0]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [-0.00529046,-0.0021613985]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [-0.0045346795,0]
+[23:09:12] [info] APP: [-0.006046239,0]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [-0.0045346795,-0.0021613985]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [-0.00529046,0]
+[23:09:12] [info] APP: [-0.00529046,-0.0021613985]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [-0.0037788996,-0.0010806993]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [-0.0045346795,-0.0021613985]
+[23:09:12] [info] APP: [-0.0045346795,-0.0021613985]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [-0.0045346795,-0.0021613985]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [-0.0030231194,-0.0021613985]
+[23:09:12] [info] APP: [-0.0037788996,-0.0021613985]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [-0.0022673397,-0.0021613985]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [-0.0015115597,0]
+[23:09:12] [info] APP: [-0.0015115597,0]
+[23:09:12] [info] APP: [-0.0015115597,0]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [-0.00075577985,-0.0010806993]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [0,0]
+[23:09:12] [info] APP: [-0.0022673397,0]
+[23:09:12] [info] APP: [-0.00075577985,-0.0010806993]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [-0.00075577985,0]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [-0.0022673397,0]
+[23:09:12] [info] APP: [-0.0022673397,-0.0021613985]
+[23:09:12] [info] APP: [-0.0030231194,0]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [-0.0030231194,0]
+[23:09:12] [info] APP: 输入w
+[23:09:12] [info] APP: [-0.0037788996,0]
+[23:09:12] [info] APP: [-0.0045346795,0]
+[23:09:12] [info] APP: 输入87
+[23:09:12] [info] APP: 输入119
+[23:09:12] [info] APP: [-0.00529046,0]
+[23:09:13] [info] APP: 输入w
+[23:09:13] [info] APP: [-0.0045346795,0]
+[23:09:13] [info] APP: [-0.006802019,-0.0021613985]
+[23:09:13] [info] APP: [-0.006046239,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入87
+[23:09:13] [info] APP: 输入119
+[23:09:13] [info] APP: [-0.006046239,0]
+[23:09:13] [info] APP: 输入w
+[23:09:13] [info] APP: [-0.006046239,-0.0021613985]
+[23:09:13] [info] APP: [-0.006046239,0]
+[23:09:13] [info] APP: 输入87
+[23:09:13] [info] APP: 输入119
+[23:09:13] [info] APP: [-0.00529046,0]
+[23:09:13] [info] APP: 输入w
+[23:09:13] [info] APP: [-0.0030231194,-0.0021613985]
+[23:09:13] [info] APP: [-0.0022673397,0]
+[23:09:13] [info] APP: [-0.0015115597,0]
+[23:09:13] [info] APP: 输入87
+[23:09:13] [info] APP: 输入119
+[23:09:13] [info] APP: [-0.0015115597,0]
+[23:09:13] [info] APP: 输入w
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入87
+[23:09:13] [info] APP: 输入119
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入w
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入87
+[23:09:13] [info] APP: 输入119
+[23:09:13] [info] APP: [-0.00075577985,0]
+[23:09:13] [info] APP: 输入w
+[23:09:13] [info] APP: [-0.00075577985,0]
+[23:09:13] [info] APP: [-0.0015115597,-0.0010806993]
+[23:09:13] [info] APP: 输入87
+[23:09:13] [info] APP: 输入119
+[23:09:13] [info] APP: [-0.00075577985,0]
+[23:09:13] [info] APP: 输入w
+[23:09:13] [info] APP: [-0.00075577985,0]
+[23:09:13] [info] APP: [-0.00075577985,0]
+[23:09:13] [info] APP: [-0.0022673397,-0.0021613985]
+[23:09:13] [info] APP: [-0.0015115597,0]
+[23:09:13] [info] APP: 输入87
+[23:09:13] [info] APP: 输入119
+[23:09:13] [info] APP: [-0.00075577985,-0.0010806993]
+[23:09:13] [info] APP: 输入w
+[23:09:13] [info] APP: [-0.0015115597,0]
+[23:09:13] [info] APP: [-0.0015115597,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入87
+[23:09:13] [info] APP: 输入119
+[23:09:13] [info] APP: [-0.00075577985,0]
+[23:09:13] [info] APP: 输入w
+[23:09:13] [info] APP: [-0.0015115597,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [-0.0022673397,0]
+[23:09:13] [info] APP: 输入87
+[23:09:13] [info] APP: 输入119
+[23:09:13] [info] APP: [-0.0022673397,0]
+[23:09:13] [info] APP: 输入w
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [-0.0015115597,0]
+[23:09:13] [info] APP: 输入87
+[23:09:13] [info] APP: 输入119
+[23:09:13] [info] APP: [-0.00075577985,0]
+[23:09:13] [info] APP: 输入w
+[23:09:13] [info] APP: [-0.00075577985,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入87
+[23:09:13] [info] APP: 输入119
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入w
+[23:09:13] [info] APP: [-0.0015115597,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入87
+[23:09:13] [info] APP: 输入119
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入w
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入87
+[23:09:13] [info] APP: 输入119
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入w
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入87
+[23:09:13] [info] APP: 输入119
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入w
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入87
+[23:09:13] [info] APP: 输入119
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入w
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入87
+[23:09:13] [info] APP: 输入119
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入w
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入65
+[23:09:13] [info] APP: 输入97
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: 输入a
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,-0.0010806993]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0.00075577985,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0.00075577985,-0.0010806993]
+[23:09:13] [info] APP: [0.00075577985,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0.00075577985,0]
+[23:09:13] [info] APP: [0.00075577985,-0.0021613985]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0.0015115597,0]
+[23:09:13] [info] APP: [0,-0.0010806993]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0.00075577985,0]
+[23:09:13] [info] APP: [0.00075577985,-0.0010806993]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0,0]
+[23:09:13] [info] APP: [0.00075577985,0]
+[23:09:14] [info] APP: [0.0015115597,0]
+[23:09:14] [info] APP: [0.00075577985,0]
+[23:09:14] [info] APP: [0.00075577985,-0.0021613985]
+[23:09:14] [info] APP: [0.0022673397,0]
+[23:09:14] [info] APP: [0.0015115597,0]
+[23:09:14] [info] APP: [0.0030231194,0]
+[23:09:14] [info] APP: [0.0030231194,0]
+[23:09:14] [info] APP: [0.00529046,0]
+[23:09:14] [info] APP: [0.0045346795,0]
+[23:09:14] [info] APP: [0.006046239,0]
+[23:09:14] [info] APP: [0.006046239,0]
+[23:09:14] [info] APP: [0.006046239,0]
+[23:09:14] [info] APP: [0.00529046,0]
+[23:09:14] [info] APP: [0.00529046,0]
+[23:09:14] [info] APP: [0.00529046,0.0010806993]
+[23:09:14] [info] APP: [0.0037788996,0.0010806993]
+[23:09:14] [info] APP: [0.006046239,0]
+[23:09:14] [info] APP: [0.006046239,0]
+[23:09:14] [info] APP: [0.007557799,0]
+[23:09:14] [info] APP: [0.009069359,0.0010806993]
+[23:09:14] [info] APP: [0.009825138,0.0010806993]
+[23:09:14] [info] APP: [0.014359819,0.0021613985]
+[23:09:14] [info] APP: [0.017382938,0.0032420978]
+[23:09:14] [info] APP: [0.016627157,0.0010806993]
+[23:09:14] [info] APP: [0.017382938,0.0010806993]
+[23:09:14] [info] APP: 输入65
+[23:09:14] [info] APP: 输入97
+[23:09:14] [info] APP: [0.015115598,0.0032420978]
+[23:09:14] [info] APP: 输入a
+[23:09:14] [info] APP: [0.012092478,0.0021613985]
+[23:09:14] [info] APP: [0.017382938,0.0021613985]
+[23:09:14] [info] APP: [0,0]
+[23:09:14] [info] APP: 输入65
+[23:09:14] [info] APP: 输入97
+[23:09:14] [info] APP: [0.0030231194,0]
+[23:09:14] [info] APP: 输入a
+[23:09:14] [info] APP: [0.0022673397,0]
+[23:09:14] [info] APP: [0.0015115597,0]
+[23:09:14] [info] APP: 输入65
+[23:09:14] [info] APP: 输入97
+[23:09:14] [info] APP: [0.0015115597,0]
+[23:09:14] [info] APP: 输入a
+[23:09:14] [info] APP: [0.00075577985,0]
+[23:09:14] [info] APP: [0,0]
+[23:09:14] [info] APP: [0,0]
+[23:09:14] [info] APP: [0.00075577985,0]
+[23:09:14] [info] APP: 输入65
+[23:09:14] [info] APP: 输入97
+[23:09:14] [info] APP: [0,0]
+[23:09:14] [info] APP: 输入a
+[23:09:14] [info] APP: [0,0]
+[23:09:14] [info] APP: [0,0]
+[23:09:14] [info] APP: [0,0]
+[23:09:14] [info] APP: [0,0]
+[23:09:14] [info] APP: 输入65
+[23:09:14] [info] APP: 输入97
+[23:09:14] [info] APP: [0.0015115597,0]
+[23:09:14] [info] APP: 输入a
+[23:09:14] [info] APP: [0,0]
+[23:09:14] [info] APP: [0,0]
+[23:09:14] [info] APP: 输入65
+[23:09:14] [info] APP: 输入97
+[23:09:14] [info] APP: [0,0]
+[23:09:14] [info] APP: 输入a
+[23:09:14] [info] APP: [0,0]
+[23:09:14] [info] APP: [0,0]
+[23:09:14] [info] APP: 输入65
+[23:09:14] [info] APP: 输入97
+[23:09:14] [info] APP: [0,0]
+[23:09:14] [info] APP: 输入a
+[23:09:14] [info] APP: [0,0]
+[23:09:14] [info] APP: [0,0]
+[23:09:14] [info] APP: button event dispatch
+[23:09:14] [info] APP: 输入65
+[23:09:14] [info] APP: 输入97
+[23:09:14] [info] APP: 输入a
+[23:09:14] [info] APP: 输入65
+[23:09:14] [info] APP: 输入97
+[23:09:14] [info] APP: 输入a
+[23:09:14] [info] APP: 输入65
+[23:09:14] [info] APP: 输入97
+[23:09:14] [info] APP: 输入a
+[23:09:14] [info] APP: 输入65
+[23:09:14] [info] APP: 输入97
+[23:09:14] [info] APP: 输入a
+[23:09:15] [info] CORE: App End

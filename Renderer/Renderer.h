@@ -15,16 +15,24 @@ namespace YiaEngine
 			void Begin();
 			void BeginPass();
 			void End();
-			void SetRenderTarget(RenderBuffer* renderTarget);
 			void SetRenderTargets(int numRt, RenderBuffer* renderTarget[], DepthBuffer* depthTarget = nullptr);
-
-			
-			
 			void SetRenderTarget(RenderBuffer* renderTarget, DepthBuffer* depthTarget = nullptr);
 			void SetCamera(Camera& camera);
 			void ClearRenderTarget(const Math::Vec4f& clearColor);
 			void ClearRenderTarget();
 			void ClearDepthStencil();
+			void SetDepthStencilState(bool depthEnable, D3D12_COMPARISON_FUNC comFunc =  D3D12_COMPARISON_FUNC_LESS, D3D12_DEPTH_WRITE_MASK depthMask = D3D12_DEPTH_WRITE_MASK_ALL, 
+				bool stencilEnable = false,
+				UINT8 stencilWriteMask = D3D12_DEFAULT_STENCIL_WRITE_MASK, UINT8 stencilReadMask = D3D12_DEFAULT_STENCIL_READ_MASK,
+				D3D12_STENCIL_OP frontStencilFailOp = D3D12_STENCIL_OP_KEEP,
+				D3D12_STENCIL_OP frontStencilDepthFailOp = D3D12_STENCIL_OP_KEEP,
+				D3D12_STENCIL_OP frontStencilPassOp = D3D12_STENCIL_OP_KEEP,
+				D3D12_COMPARISON_FUNC frontStencilFunc = D3D12_COMPARISON_FUNC_ALWAYS,
+				D3D12_STENCIL_OP backStencilFailOp =  D3D12_STENCIL_OP_KEEP,
+				D3D12_STENCIL_OP backStencilDepthFailOp = D3D12_STENCIL_OP_KEEP,
+				D3D12_STENCIL_OP backStencilPassOp =  D3D12_STENCIL_OP_KEEP,
+				D3D12_COMPARISON_FUNC backStencilFunc = D3D12_COMPARISON_FUNC_ALWAYS);
+
 			void SetViewport(const CD3DX12_VIEWPORT& viewport);
 			void SetScissorRect(const CD3DX12_RECT& scissorRect);
 			void SetRootSignature(const RootSignature& signature);

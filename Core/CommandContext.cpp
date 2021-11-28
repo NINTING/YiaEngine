@@ -115,14 +115,17 @@ namespace YiaEngine
 
 		void CommandContext::InitializeTexture(GpuResource& dest, ImageData&image)
 		{
+			
+
 			UINT64 textureUploadBufferSize = GetRequiredIntermediateSize(dest.NativeResource(), 0, 1);
 			
 			D3D12_SUBRESOURCE_DATA initData = { image.pData.get(), image.Pitch,image.Size };
 
 			CommandContext* initContext = CommandContext::Begin();
+			initContext->TransitionBarrier(dest, D3D12_RESOURCE_STATE_COPY_DEST);
 			AllocateBuffer upload_buffer = initContext->GetAllocateUploadBuffer(textureUploadBufferSize);
 			ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->NativeCommandList(), dest.NativeResource(), upload_buffer.Buffer.NativeResource(), 0, 0, 1, &initData));
-			initContext->TransitionBarrier(dest, D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+			initContext->TransitionBarrier(dest,  D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 			initContext->End();
 
 

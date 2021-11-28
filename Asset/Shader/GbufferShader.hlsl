@@ -3,6 +3,8 @@
 #include"Light.hlsl"
 
 
+Texture2D MainTexture : register(t0);
+SamplerState MainTexture_Sampler : register(s0);
 
 struct  VSInput
 {
@@ -24,7 +26,7 @@ struct Gbuffer
 {
     float4 positionW :  SV_TARGET0;
     float4 normalW : SV_TARGET1;
-    float4 uv : SV_TARGET2;
+    float4 albedo : SV_TARGET2;
 
 };
 
@@ -45,10 +47,15 @@ PSInput VsMain(VSInput input)
 
 Gbuffer PsMain(PSInput input) : SV_TARGET
 {
+
+    float4 albedo = MainTexture.Sample(MainTexture_Sampler, input.uv);
+    
     Gbuffer gbuffer;
     gbuffer.positionW = input.positionW;
-    gbuffer.normalW = (input.normalW +float4(1,1,1,0)) * 0.5 ;
-    gbuffer.uv.xy = input.uv;
+    gbuffer.normalW = input.normalW  ;
+    gbuffer.albedo = albedo;
+    
+
     return gbuffer;
     //return color;
 //    return float4(1, 1, 1, 1);

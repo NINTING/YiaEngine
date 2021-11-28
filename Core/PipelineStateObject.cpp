@@ -125,6 +125,7 @@ namespace YiaEngine::Graphic
 	}
 	void PipelineStateObject::SetDepthStencilState(D3D12_DEPTH_STENCIL_DESC depth_stencil_desc)
 	{
+		
 		desc_.DepthStencilState = depth_stencil_desc;
 	}
 	void PipelineStateObject::SetSampleMask(UINT mask)

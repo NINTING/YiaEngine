@@ -7,16 +7,12 @@ namespace YiaEngine
 	{
 		void RenderBuffer::Create(const wchar_t * Name,UINT width, UINT Height, DXGI_FORMAT format, UINT numMip, UINT arraySize, UINT sampleCount)
 		{
-			D3D12_CLEAR_VALUE clearValue;
-			clearValue.Format = format;
-			clearValue.Color[0] = 0.6f;
-			clearValue.Color[1] = 0.3f;
-			clearValue.Color[2] = 0.4f;
-			clearValue.Color[3] = 1.0f;
+
 			
 
-			auto desc = DescribeTex2D(width, Height, arraySize, numMip, format, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
-			CreateTextureResource(Name, desc,&clearValue);
+			auto desc = DescribeTex2D(width, Height,  format, arraySize, numMip, TextureFlag::ALLOW_RENDER_TARGET);
+			ClearState clearState = ClearState::DefaultState();
+			CreateTextureResource(Name,clearState);
 
 			CreateView(format, arraySize, numMip);
 
@@ -30,10 +26,10 @@ namespace YiaEngine
 			usage_ = D3D12_RESOURCE_STATE_PRESENT;
 			D3D12_RESOURCE_DESC desc = resource->GetDesc();
 
-			width_ = desc.Width;
-			height_ = desc.Height;
-			arraySize_ = desc.DepthOrArraySize;
-			format_ = desc.Format;
+			describe_.Width = desc.Width;
+			describe_.Height = desc.Height;
+			describe_.DepthOrArraySize = desc.DepthOrArraySize;
+			describe_.Format = desc.Format;
 			rtvHandle_ = g_CpuDescriptorAllocator[D3D12_DESCRIPTOR_HEAP_TYPE_RTV].Alloc(1);
 			Graphic::g_Device->CreateRenderTargetView(resource_.Get(), nullptr, rtvHandle_);
 	
@@ -79,24 +75,6 @@ namespace YiaEngine
 
 	
 
-		void RenderBuffer::CreateResource(UINT width, UINT Height, DXGI_FORMAT format, const D3D12_CLEAR_VALUE* clearValue, UINT arraySize, UINT sampleCount, UINT numMip)
-		{
-			auto desc = DescribeTex2D(width,Height,arraySize, numMip, format, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);// CD3DX12_RESOURCE_DESC::Tex2D(format, width, height, arraySize, numMip, sampleCount, 0, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET);
-			auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
-			ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(
-				&heap_properties,
-				D3D12_HEAP_FLAG_NONE,
-				&desc,
-				D3D12_RESOURCE_STATE_COMMON,
-				clearValue,
-				IID_PPV_ARGS(&resource_)));
-			usage_ = D3D12_RESOURCE_STATE_COMMON;
-			
-			
-
-			gpuVirtualAddress_ = ADDRESS_NULL;	//用不到该属性
 		
-		
-		}
 	}
 }

@@ -5,8 +5,7 @@
 
 Texture2D PostionWTexture : register(t0);
 Texture2D NormalWTexture : register(t1);
-Texture2D UvTexture : register(t2);
-Texture2D MainTexture : register(t3);
+Texture2D AlbedoTexture : register(t2);
 
 SamplerState Common_Sampler : register(s0);
 
@@ -23,13 +22,6 @@ struct PSInput
     float2 uv   :TEXCOORD0;
 };
 
-struct Gbuffer
-{
-    float4 positionW :  SV_TARGET0;
-    float4 normalW : SV_TARGET1;
-    float4 uv : SV_TARGET2;
-
-};
 
 
 //[RootSignature(Renderer_RootSig)]
@@ -43,16 +35,16 @@ PSInput VsMain(VSInput input)
     return result;
 }
 
-Gbuffer PsMain(PSInput input) : SV_TARGET
+float4 PsMain(PSInput input) : SV_TARGET
 {
      float4 posW = PostionWTexture.Sample(Common_Sampler,input.uv);
      float4 normalW = NormalWTexture.Sample(Common_Sampler, input.uv);
-     float4 UV = UvTexture.Sample(Common_Sampler, input.uv);]
+     float4 albedo = AlbedoTexture.Sample(Common_Sampler, input.uv);
+     Surface finalSurface = surface;
+     finalSurface.Albedo *= albedo;
+     float3 diffuse = ComputeDirectionLight(Lights, finalSurface, posW.xyz, normalW.xyz);
 
-     float4 albedo = MainTexture.Sample(Common_Sampler,UV);
-     float3 diffuse = ComputeDirectionLight(Lights, surface, posW.xyz, normalW.xyz);
-
-    return gbuffer;
+    return float4( diffuse + finalSurface.Albedo * 0.1,1.f);
     //return color;
 //    return float4(1, 1, 1, 1);
 }

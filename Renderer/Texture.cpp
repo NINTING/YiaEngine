@@ -7,18 +7,11 @@ namespace YiaEngine
 	{
 		void Texture::InitializeByImage(ImageData& image, DXGI_FORMAT format)
 		{
-			width_ = image.Width;
-			height_ = image.Height;
-			auto desc = CD3DX12_RESOURCE_DESC::Tex2D(format, image.Width, image.Height);
-			auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+			auto desc = DescribeTex2D(image.Width, image.Height, format);
 			
-			ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(
-				&heap_properties,
-				D3D12_HEAP_FLAG_NONE,
-				&desc,
-				D3D12_RESOURCE_STATE_COPY_DEST,
-				nullptr,
-				IID_PPV_ARGS(&resource_)));
+			
+			CreateTextureResource(L"Tex_Image");
+
 			CommandContext::InitializeTexture(*this,image);
 			CreateView();
 		}

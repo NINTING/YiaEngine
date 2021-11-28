@@ -21,3 +21,5 @@
 #include<Core/YiaGraphic.h>
 
 #include<Renderer/YiaRenderer.h>
+
+#include"FrameGraph/YiaFrameGraph.h"

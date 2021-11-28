@@ -288,6 +288,15 @@ public:
 		//obj.rigidBody.SetStartForce({1,0,0});
 		Math::Vec3f u = { 0,sinf(Math::Angle2Rad(45 * 0.5)),0 };
 		obj.rigidBody.QuatRotation = Math::Quaternion(cosf(Math::Angle2Rad(45*0.5)), u[0],u[1],u[2]);
+	
+
+		positionGbuffer = std::shared_ptr<Graphic::RenderBuffer>(new Graphic::RenderBuffer());
+		positionGbuffer->Create(L"positionGbuffer", camera.GetCameraWidth(), camera.GetCameraHeight(),DXGI_FORMAT_R32G32B32A32_FLOAT);
+		normalGbuffer = std::shared_ptr<Graphic::RenderBuffer>(new Graphic::RenderBuffer());
+		normalGbuffer->Create(L"normalGbuffer", camera.GetCameraWidth(), camera.GetCameraHeight(), DXGI_FORMAT_R32G32B32A32_FLOAT);
+		albedoGBuffer = std::shared_ptr<Graphic::RenderBuffer>(new Graphic::RenderBuffer());
+		albedoGBuffer->Create(L"albedoGBuffer", camera.GetCameraWidth(), camera.GetCameraHeight(), DXGI_FORMAT_B8G8R8A8_UNORM);
+
 	}
 	virtual void Init() 
 	{
@@ -395,22 +404,28 @@ public:
 		DefaultRenderer.DrawMesh(Box, defaultMaterial);*/
 
 		DefaultRenderer.End();
+
+
+	
+
 	}
 	void DefferredRender()
 	{
 		Graphic::RenderBuffer* gbuffers[] = { 
-			positionGbuffer.get(),normalGbuffer.get(),uvGbuffer.get() };
+			positionGbuffer.get(),normalGbuffer.get(),albedoGBuffer.get() };
 
 		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
 		Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();
 		
+		// Deferred Opaque Feature
+		//Gbuffer Pass
 		DefaultRenderer.Begin();
 		DefaultRenderer.SetRenderTargets(3,gbuffers, &sceneDepthBuffer);
 		DefaultRenderer.SetCamera(camera);
 		DefaultRenderer.ClearRenderTarget();
 		DefaultRenderer.ClearDepthStencil();
 
-
+		gbufferMaterial.SetTexture("MainTexture", testTexture);
 		gbufferMaterial.SetMatrix("ObjectMat", Math::Mat4x4f::Identity());
 		gbufferMaterial.SetMatrix("WorldMat", Math::Translate({ 1,0,1 }));
 		gbufferMaterial.SetMatrix("ViewMat", camera.ViewMatrix());
@@ -418,31 +433,26 @@ public:
 
 		//defaultMaterial.SetTexture("MainTexture", testTexture);
 
-		DefaultRenderer.DrawMesh(Box, gbufferMaterial);
+		DefaultRenderer.DrawMesh(*sphere, gbufferMaterial);
 		DefaultRenderer.End();
 
 
-
+		//Lighting Pass
 		DefaultRenderer.Begin();
 		DefaultRenderer.SetRenderTarget(&sceneColorBuffer, &sceneDepthBuffer);
+		DefaultRenderer.SetDepthStencilState(false);
 		DefaultRenderer.SetCamera(camera);
+
 		DefaultRenderer.ClearRenderTarget();
-		DefaultRenderer.ClearDepthStencil();
 
 
 		Math::Mat4x4f world = obj.transform.FinalMatrix();
 
-		lightingMaterial.SetMatrix("ObjectMat", Math::Mat4x4f::Identity());
-		lightingMaterial.SetMatrix("WorldMat", world);
-		lightingMaterial.SetMatrix("ViewMat", camera.ViewMatrix());
-		lightingMaterial.SetMatrix("ProjMat", camera.ProjectionMatrix());
-		lightingMaterial.SetMatrix("WorldToObjMat", world.inverse());
 
-		lightingMaterial.SetTexture("MainTexture", testTexture);
+		lightingMaterial.SetTexture("PostionWTexture", *positionGbuffer);
+		lightingMaterial.SetTexture("NormalWTexture", *normalGbuffer);
+		lightingMaterial.SetTexture("AlbedoTexture", *albedoGBuffer);
 
-		lightingMaterial.SetTexture("PostionWTexture", positionGbuffer.get());
-		lightingMaterial.SetTexture("NormalWTexture", normalGbuffer.get());
-		lightingMaterial.SetTexture("UvTexture", testTexture);
 		lightingMaterial.SetMemoryValue("surface", &surfaceData);
 		lightingMaterial.SetMemoryValue("Lights", &mainLight.data_);
 
@@ -451,6 +461,56 @@ public:
 
 		DefaultRenderer.End();
 
+		//Blur feature
+		/*
+			beginPass
+			AllocateTempRt(b0)
+			AllocateTempRt(b1)
+		
+			psource = sceneRt;
+			//Blur Pass
+			for()
+			{
+				//draw call
+				renderer.begin
+				
+				renderer.setRt(b0);
+				blurmaterial.setTexture(psource);
+				...
+				renderer.drawMesh(fullScreen,material);
+				
+				renderer.end
+
+				//draw call
+				renderer.setRt(b1);
+				blurmaterial.setTexture(b0);
+				...
+				renderer.drawMesh(fullScreen,material);
+
+				psource = b1;
+			}
+			//copy Pass
+			renderer.setRt(b0);
+			blitmaterial.setTexture(psource);
+			renderer.drawMesh(fullScreen,material);
+		*/
+
+
+	}
+	void FrameGraphSample()
+	{
+		/*
+		* FramePass LightingPass;
+		* FramePass GbufferPass;
+		* 
+		* 
+		* LightingPass->AddInputResource(PositionBuffer);
+		* LightingPass->AddInputResource(NormalBuffer);
+		* LightingPass->AddInputResource(AlbedoBuffer);
+		* LightingPass
+		* 
+			FrameGraph->AddPass();
+		*/
 	}
 	void RenderScene(Timestep  timestep)
 	{
@@ -468,7 +528,7 @@ public:
 		//DefaultRenderer.End();
 		//RenderObject();
 		//RenderObject(Math::Vec3f(3, 0, 0));
-		RenderPBR(timestep);
+		//RenderPBR(timestep);
 		DefferredRender();
 		//RenderImage();
 	
@@ -529,7 +589,7 @@ public:
 	
 	std::shared_ptr< Graphic::RenderBuffer> positionGbuffer;
 	std::shared_ptr < Graphic::RenderBuffer> normalGbuffer;
-	std::shared_ptr < Graphic::RenderBuffer> uvGbuffer;
+	std::shared_ptr < Graphic::RenderBuffer> albedoGBuffer;
 };
 
 
