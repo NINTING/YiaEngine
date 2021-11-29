@@ -5,23 +5,24 @@
 #include "FramePass.h"
 namespace YiaEngine
 {
-	namespace FrameGraph
+	namespace YiaFrameGraph
 	{
 		class FrameGraph
 		{
-			template<class T>
-			VirtualResourceId CreateTemplateResource(const char* name,Graphic::TextureDescribe desc);
-			VirtualResourceId RegisterResource(const char*name, VirtualResourceId id);
+		public:
+			VirtualResourceHandle CreateTemplateRenderBuffer(const char* name,Graphic::TextureDescribe desc);
+			VirtualResourceHandle RegisterResource(const char*name, VirtualResourceHandle handle);
 			
-			VirtualResourceId GetResourceId(const char* name);
+			VirtualResourceHandle GetResourceId(const char* name);
 			VirtualResource GetResource(const char* name);
-
-
-
-			std::unordered_map<std::string, VirtualResourceId> resourceIdMap_;
+			
+			std::string GetResourceName(VirtualResourceHandle handle);
+		private:
+			std::unordered_map<StrHash, VirtualResourceId> resourceIdMap_;
 			std::vector<std::unique_ptr<VirtualResource>> resouceList_;
 			std::vector<PassNode> passNodeList_;
 			std::vector<ResourceNode> resouceNodeList_;
+			std::unordered_set<std::string> namedPool;
 
 		};
 	}

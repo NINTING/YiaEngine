@@ -28,6 +28,11 @@
 #include<memory>
 #include<algorithm>
 #include<map>
+#include <set>
+#include <unordered_map>
+#include <unordered_set>
+#include <hash_map>
+#include <hash_set>
 #include <locale>
 #include <codecvt>
 using std::max;

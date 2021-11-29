@@ -39,7 +39,9 @@ namespace YiaEngine
 		
         struct ClearState
         {
-            ClearState() {}
+            ClearState() {
+                ClearColor = 0;
+            }
             union 
             {
 				Color ClearColor;
@@ -56,8 +58,32 @@ namespace YiaEngine
         };
 		struct TextureDescribe
 		{
+            static TextureDescribe RenderTarget2Describe(
+                UINT width,
+                UINT height,
+                DXGI_FORMAT format,
+                TextureLayout layout = TextureLayout::UNKNOWN,
+                ClearState clearvalue = ClearState::DefaultState(),
+                UINT16 mipLevels = 1,
+                UINT64 alignment = 0,
+                UINT msaaCount = 1,
+                UINT msaaQuality = 0) {
+                TextureDescribe ret;
+
+                ret.Dimension = ResourceDimension::TEXTURE2D;
+                ret.Width = width;
+                ret.Height = height;
+                ret.DepthOrArraySize = 1;
+                ret.MipLevels = mipLevels;
+                ret.Format = format;
+                ret.MsaaCount = msaaCount;
+                ret.MsaaQuality = msaaQuality;
+                ret.Layout = layout;
+                ret.Flags = ALLOW_RENDER_TARGET;
+            }
+
 			ResourceDimension Dimension;
-			UINT64 Alignment;
+			
 			UINT64 Width;
 			UINT Height;
 			UINT16 DepthOrArraySize;
@@ -68,7 +94,7 @@ namespace YiaEngine
 			TextureLayout Layout;
 			TextureFlag Flags;
             ClearState ClearValue;
-		};
+        };
 
         class GpuTexture : public GpuResource
         {

@@ -3,25 +3,44 @@
 
 namespace YiaEngine
 {
-	namespace FrameGraph
+	namespace YiaFrameGraph
 	{
 		using VirtualResourceId = UINT;
-
-		class VirtualResource
+		using StrHash = size_t;
+		struct VirtualResourceHandle
 		{
 
+			
+			bool operator == (const char* name)
+			{
+				std::hash<std::string> h;
+				return NameHash == h(name);
+			}
+			bool operator == (const VirtualResourceHandle& handle)
+			{
+				return Id == handle.Id;
+			}
 
-			VirtualResource(const char* name, Graphic::TextureDescribe);
+			VirtualResourceId Id;
+			StrHash NameHash;
+		};
 
-			Graphic::TextureDescribe describe;
+	class VirtualResource
+		{
+		public:
+
+			VirtualResource(const char* name, Graphic::TextureDescribe desc) 
+				:Name(name), Describe(desc) {}
+			std::string Name;
+			Graphic::TextureDescribe Describe;
 			bool imported;
 		};
 
 		//记录资源使用情况
-		class ResourceNode
+		struct ResourceNode
 		{
-			ResourceNode(VirtualResource* resource):Resource(resource),RefCount(0){}
-			VirtualResource* Resource;
+			ResourceNode(int id):ResId(id),RefCount(0){}
+			int ResId;
 			int RefCount;
 		};
 	}
