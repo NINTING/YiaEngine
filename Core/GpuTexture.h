@@ -105,6 +105,7 @@ namespace YiaEngine
             DXGI_FORMAT GetFormat() { return (DXGI_FORMAT)describe_.Format; };
             virtual DescriptorHandle SrvCpuHandle()const = 0;
             Math::Vec2f Size() { return Math::Vec2f{ describe_.Width,describe_.Height }; };
+            TextureDescribe GetDescribe() { return describe_; }
         protected:
             TextureDescribe DescribeTex2D(UINT widht, UINT Height, DXGI_FORMAT format, UINT depthOrArraySize = 1, UINT mips = 0, UINT flag = D3D12_RESOURCE_FLAG_NONE);
             void CreateTextureResource(const wchar_t* Name, const ClearState value = ClearState::DefaultState());

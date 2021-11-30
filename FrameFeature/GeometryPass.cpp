@@ -15,10 +15,15 @@ namespace YiaEngine
 				Graphic::TextureDescribe::RenderTarget2Describe(1920, 1080, DXGI_FORMAT_R32G32B32A32_FLOAT));
 			VirtualResourceHandle albedoGbufferId = fg.CreateTemplateRenderBuffer("AlbedoGBuffer",
 				Graphic::TextureDescribe::RenderTarget2Describe(1920, 1080, DXGI_FORMAT_R8G8B8A8_UNORM));
+		
+			VirtualResourceHandle albedoTexture = fg.GetResourceHandle("AlbedoTexture");
+			AddInputResource(albedoTexture);
+			
+			AddOutput(posGbufferId);
+			AddOutput(normalGbufferId);
+			AddOutput(albedoGbufferId);
 
-			AddInputResource(posGbufferId);
-			AddInputResource(normalGbufferId);
-			AddInputResource(albedoGbufferId);
+		
 		}
 
 		void GeometryPass::Execute()
