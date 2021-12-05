@@ -297,6 +297,11 @@ public:
 		albedoGBuffer = std::shared_ptr<Graphic::RenderBuffer>(new Graphic::RenderBuffer());
 		albedoGBuffer->Create(L"albedoGBuffer", camera.GetCameraWidth(), camera.GetCameraHeight(), DXGI_FORMAT_B8G8R8A8_UNORM);
 
+
+
+		
+
+
 	}
 	virtual void Init() 
 	{
@@ -405,7 +410,7 @@ public:
 
 		DefaultRenderer.End();
 
-
+		
 	
 
 	}

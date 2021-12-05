@@ -6,7 +6,9 @@
 #include"RenderBuffer.h"
 #include"PipelineStateObject.h"
 #include"Shader.h"
+#include "ResourceAllocator.h"
 #include <dxgidebug.h>
+
 namespace YiaEngine
 {
 	namespace Graphic
@@ -17,6 +19,7 @@ namespace YiaEngine
 		ComPtr< IDXGISwapChain3> g_SwapChain;
 		UINT g_FrameIndex;
 		RenderBuffer g_SceneFinalTarget;
+		GpuResourceAllocator g_GpuResourceAllocator;
 		CpuDescriptorAllocator g_CpuDescriptorAllocator[D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES] =
 		{
 			D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV,
@@ -43,23 +46,23 @@ namespace YiaEngine
 				bool adapterFound = false; // set this to true when a good one was found
 
 				// find first hardware gpu that supports d3d 12
-				while (factory6->EnumAdapters1(adapterIndex, &adapter) != DXGI_ERROR_NOT_FOUND)
+				while (factory6->EnumAdapters1(adapterIndex, &adapter) == DXGI_ERROR_NOT_FOUND)
 				{
-					DXGI_ADAPTER_DESC1 desc;
-					adapter->GetDesc1(&desc);
+					//DXGI_ADAPTER_DESC1 desc;
+					//adapter->GetDesc1(&desc);
 
-					if (desc.Flags & DXGI_ADAPTER_FLAG_SOFTWARE)
-					{
-						// we dont want a software device
-						adapterIndex++; // add this line here. Its not currently in the downloadable project
-						continue;
-					}
+					//if (desc.Flags & DXGI_ADAPTER_FLAG_SOFTWARE)
+					//{
+					//	// we dont want a software device
+					//	adapterIndex++; // add this line here. Its not currently in the downloadable project
+					//	continue;
+					//}
 
-					// we want a device that is compatible with direct3d 12 (feature level 11 or higher)
-					ASSERT_SUCCEEDED(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_11_0, _uuidof(ID3D12Device), nullptr));
+					//// we want a device that is compatible with direct3d 12 (feature level 11 or higher)
+					//ASSERT_SUCCEEDED(D3D12CreateDevice(adapter.Get(), D3D_FEATURE_LEVEL_11_0, _uuidof(ID3D12Device), nullptr));
 
 
-					adapterIndex++;
+					//adapterIndex++;
 				}
 			}
 			else
@@ -177,6 +180,8 @@ namespace YiaEngine
 			Graphic::g_commandManager.Create(Graphic::g_Device.Get());
 			PipelineStateObject::StaticPSOInit();
 			CommonShaderInit();
+
+			g_GpuResourceAllocator.Init(g_Device.Get(), hardwareAdapter.Get());
 		}
 	}
 }

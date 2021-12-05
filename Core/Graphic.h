@@ -31,13 +31,14 @@ namespace YiaEngine
 		class CpuDescriptorAllocator;
 		class DescriptorHeap;
 		class RenderBuffer;
+		class GpuResourceAllocator;
 
 		extern CommandManager g_commandManager;
 		extern ComPtr<ID3D12Device> g_Device;
 		extern DescriptorHeap g_GpuCommonDescriptoHeap;
 		extern ComPtr< IDXGISwapChain3> g_SwapChain;
 		extern UINT g_FrameIndex;
-
+		extern GpuResourceAllocator g_GpuResourceAllocator;
 		extern CpuDescriptorAllocator g_CpuDescriptorAllocator[D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES] ;
 		
 		extern RenderBuffer g_SwapRenderTarget[2]; 

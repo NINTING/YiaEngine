@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "GpuBuffer.h"
 #include "GpuTexture.h"
-
+#include "ResourceAllocator.h"
 namespace YiaEngine
 {
     namespace Graphic
@@ -9,7 +9,6 @@ namespace YiaEngine
         TextureDescribe GpuTexture::DescribeTex2D(UINT width, UINT Height,  DXGI_FORMAT format, UINT depthOrArraySize, UINT mips, UINT flag)
         {
         
-            describe_.Alignment = 0;
             describe_.DepthOrArraySize = (UINT16)depthOrArraySize;
             describe_.Dimension =ResourceDimension::TEXTURE2D;
             describe_.Flags = (TextureFlag)flag;
@@ -57,13 +56,19 @@ namespace YiaEngine
            }
          
             auto heap_properties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
-            ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommittedResource(
-                &heap_properties,
-                D3D12_HEAP_FLAG_NONE,
+
+        
+            D3D12MA::ALLOCATION_DESC alloc_desc = {};
+			alloc_desc.HeapType = D3D12_HEAP_TYPE_DEFAULT;
+            
+            g_GpuResourceAllocator.CreateResource(
+                &alloc_desc,
                 &Desc,
                 D3D12_RESOURCE_STATE_COMMON,
                 pClearvalue,
-                IID_PPV_ARGS(&resource_)));
+                &allocation_,
+               &resource_
+            );
             usage_ = D3D12_RESOURCE_STATE_COMMON;
 #endif // DIRECT12
         }

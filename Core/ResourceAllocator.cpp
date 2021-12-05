@@ -154,14 +154,52 @@ namespace YiaEngine
             page_list_.push_back(cur_page_);
             s_pageManager[type_].DiscradPages(fence,page_list_);
             page_list_.clear();
-            
+           
             s_pageManager[type_].FreeLargePage(fence, large_page_list_);
             large_page_list_.clear();
-
+            
             cur_page_ = nullptr;
             cur_offset_ = 0;
         }
-    }
+
+		void GpuResourceAllocator::Init(ID3D12Device* device, IDXGIAdapter* adapter)
+		{
+			D3D12MA::ALLOCATOR_DESC desc = {};
+			desc.Flags = D3D12MA::ALLOCATOR_FLAGS::ALLOCATOR_FLAG_NONE;
+			desc.pDevice = device;
+			desc.pAdapter = adapter;
+
+            //使用自定义CPU内存分配器替换分配函数
+			/*	if (ENABLE_CPU_ALLOCATION_CALLBACKS)
+				{
+					g_AllocationCallbacks.pAllocate = &CustomAllocate;
+					g_AllocationCallbacks.pFree = &CustomFree;
+					g_AllocationCallbacks.pUserData = CUSTOM_ALLOCATION_USER_DATA;
+					desc.pAllocationCallbacks = &g_AllocationCallbacks;
+				}*/
+
+			SUCCEEDED(D3D12MA::CreateAllocator(&desc, &allocator_));
+		}
+
+		HRESULT GpuResourceAllocator::CreateResource(
+            const D3D12MA::ALLOCATION_DESC* pAllocDesc, 
+            const D3D12_RESOURCE_DESC* pResourceDesc, 
+            D3D12_RESOURCE_STATES InitialResourceState, 
+            const D3D12_CLEAR_VALUE* pOptimizedClearValue, 
+            D3D12MA::Allocation** ppAllocation, 
+            ID3D12Resource** ppResource)
+		{
+           return allocator_->CreateResource(
+                pAllocDesc,
+                pResourceDesc,
+                InitialResourceState,
+                pOptimizedClearValue,
+                ppAllocation,
+                IID_PPV_ARGS(ppResource));
+               
+		}
+
+	}
 }
 
 

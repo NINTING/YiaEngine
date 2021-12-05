@@ -54,6 +54,7 @@ namespace YiaEngine
 
 			AllocateBuffer GetAllocateUploadBuffer(UINT64 size_byte, int aligment = 256) {
 				
+				g_GpuResourceAllocator.CreateResource()
 				return upload_allocator_.Allocate(size_byte,aligment);
 			}
 			/*AllocateBuffer GetTemplateUploadBuffer(size_t size_byte) {

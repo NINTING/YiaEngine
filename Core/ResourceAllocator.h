@@ -7,7 +7,7 @@
 #include<queue>
 
 #include"GpuResource.h"
-
+#include "ThirdParty/D3D12MemoryAllocator/include/D3D12MemAlloc.h"
 
 namespace YiaEngine
 {
@@ -121,6 +121,43 @@ namespace YiaEngine
 			std::vector<ResourceAllocatePage*>page_list_;
 
 			static ResourceAllocatePageManager s_pageManager[(int)AllocateType::kTypeNum];
+		};
+
+		class TransientResource :GpuResource
+		{
+			~TransientResource()
+			{
+				
+			}
+			void Unmap()
+			{
+			}
+		};
+
+		class FenceResourceManager {
+		
+			std::queue <std::pair<UINT64, GpuResource*>>delete_queue;
+			void CraeteUploadResource(int size);
+		};
+
+		class GpuResourceAllocator
+		{
+		public:
+			void Init(ID3D12Device*,IDXGIAdapter* adater);
+			HRESULT CreateResource(
+				const D3D12MA::ALLOCATION_DESC* pAllocDesc,
+				const D3D12_RESOURCE_DESC* pResourceDesc,
+				D3D12_RESOURCE_STATES InitialResourceState,
+				const D3D12_CLEAR_VALUE* pOptimizedClearValue,
+				D3D12MA::Allocation** ppAllocation,
+				ID3D12Resource** ppResource);
+		private:
+
+#ifdef DIRECT12
+			D3D12MA::Allocator* allocator_;
+#endif // DIRECT12
+
+			
 		};
 	}
 }

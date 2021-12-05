@@ -2,6 +2,7 @@
 #include "GpuResource.h"
 #include"DescriptorHeap.h"
 #include "Common/Color.h"
+#include"ResourceAllocator.h"
 namespace YiaEngine
 {
     namespace Graphic
@@ -94,6 +95,7 @@ namespace YiaEngine
 			TextureLayout Layout;
 			TextureFlag Flags;
             ClearState ClearValue;
+            int Alignment;
         };
 
         class GpuTexture : public GpuResource
@@ -112,6 +114,7 @@ namespace YiaEngine
 
             DXGI_FORMAT GetStencilFormat(DXGI_FORMAT format);
         protected:
+            D3D12MA::Allocation* allocation_;
             TextureDescribe describe_;
       //      DescriptorHandle srvHandle_;
         };

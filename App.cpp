@@ -9,6 +9,8 @@
 #include"Core/Graphic.h"
 #include"Core/CommandManager.h"
 #include"Core/RenderBuffer.h"
+#include "ThirdParty/D3D12MemoryAllocator/include/D3D12MemAlloc.h"
+
 namespace YiaEngine
 {
 
@@ -35,6 +37,10 @@ namespace YiaEngine
 		ComPtr<IDXGIAdapter1> hardwareAdapter;
 
 		Graphic::GetHardwareAdapter(factory.Get(), &hardwareAdapter, false);
+
+		/*ComPtr<IDXGIAdapter1> adapter = g_DXGIUsage->CreateAdapter(g_CommandLineParameters.m_GPUSelection);
+		CHECK_BOOL(adapter);*/
+
 		ASSERT_SUCCEEDED(D3D12CreateDevice(
 			hardwareAdapter.Get(),
 			D3D_FEATURE_LEVEL_11_0,
@@ -73,6 +79,18 @@ namespace YiaEngine
 			ASSERT_SUCCEEDED(Graphic::g_SwapChain->GetBuffer(i, IID_PPV_ARGS(&swapChainResource)));
 			Graphic::g_SwapRenderTarget[i].CreateFromSwapChian(L"Screen Render Target", swapChainResource);
 		}
+
+		IDXGIAdapter* adapter = hardwareAdapter.Get();
+		ID3D12Device* device = Graphic::g_Device.Get();
+
+	D3D12MA::ALLOCATOR_DESC allocatorDesc = {};
+		allocatorDesc.pDevice = device;
+		allocatorDesc.pAdapter = adapter;
+
+		D3D12MA::Allocator* allocator = nullptr;
+		
+		SUCCEEDED( D3D12MA::CreateAllocator(&allocatorDesc, &allocator));
+		
 	}
 	void  Application::OnEvent(Event& e)
 	{
