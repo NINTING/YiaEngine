@@ -87,12 +87,12 @@ namespace YiaEngine
 		}
 		void CommandContext::TransitionBarrier(GpuResource& gpu_resource, D3D12_RESOURCE_STATES destStates)
 		{
-			if (gpu_resource.Usage()== destStates)
+			if (gpu_resource.State()== destStates)
 			{
 				return;
 			}
-			TransitionBarrier(gpu_resource, gpu_resource.Usage(), destStates);
-			gpu_resource.Usage(destStates);
+			TransitionBarrier(gpu_resource, gpu_resource.State(), destStates);
+			gpu_resource.State(destStates);
 		}
 		CommandContext* CommandContextManager::Allocator(D3D12_COMMAND_LIST_TYPE type)
 		{
@@ -116,15 +116,16 @@ namespace YiaEngine
 		void CommandContext::InitializeTexture(GpuResource& dest, ImageData&image)
 		{
 			
-
 			UINT64 textureUploadBufferSize = GetRequiredIntermediateSize(dest.NativeResource(), 0, 1);
 			
 			D3D12_SUBRESOURCE_DATA initData = { image.pData.get(), image.Pitch,image.Size };
 
 			CommandContext* initContext = CommandContext::Begin();
-			initContext->TransitionBarrier(dest, D3D12_RESOURCE_STATE_COPY_DEST);
-			AllocateBuffer upload_buffer = initContext->GetAllocateUploadBuffer(textureUploadBufferSize);
-			ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->NativeCommandList(), dest.NativeResource(), upload_buffer.Buffer.NativeResource(), 0, 0, 1, &initData));
+			initContext->TransitionBarrier(dest, D3D12_RESOURCE_STATE_COPY_DEST) ;
+			GpuBuffer& upload_buffer = initContext->AllocateTemplateUploadBuffer(textureUploadBufferSize);
+
+
+			ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->NativeCommandList(), dest.NativeResource(), upload_buffer.NativeResource(), 0, 0, 1, &initData));
 			initContext->TransitionBarrier(dest,  D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 			initContext->End();
 
@@ -135,17 +136,21 @@ namespace YiaEngine
 		{
 			UINT bufferSize = dest.BufferSize();
 			CommandContext* initContext = CommandContext::Begin();
-			AllocateBuffer upload_buffer = initContext->GetAllocateUploadBuffer(bufferSize);
+			GpuBuffer& upload_buffer = initContext->AllocateTemplateUploadBuffer(bufferSize);
+
 			D3D12_SUBRESOURCE_DATA data;
 			data.pData = initData;
 			data.RowPitch = bufferSize;
 			
+
 			initContext->TransitionBarrier(dest, D3D12_RESOURCE_STATE_COPY_DEST);
-			ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->NativeCommandList(), dest.NativeResource(), upload_buffer.Buffer.NativeResource(), 0, 0, 1, &data));
+			ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->NativeCommandList(), dest.NativeResource(), upload_buffer.NativeResource(), 0, 0, 1, &data));
 			initContext->TransitionBarrier(dest,D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 			initContext->End();
 
 		}
+
+		
 
 		void CommandContext::UpdateBufferData(GpuBuffer& dest, const UploadBuffer& uploadBuffer, UINT srcOffset, UINT destOffset, size_t numByte)
 		{

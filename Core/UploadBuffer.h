@@ -6,10 +6,10 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
-		class UploadBuffer:public GpuBuffer
+		class UploadBuffer :public GpuResource
 		{
 		public:
-			UploadBuffer(const GpuResource& resource, size_t dataSize) :GpuResource(resource), bufferSize_(dataSize) {}
+		//	UploadBuffer(const GpuResource& resource, size_t dataSize) :GpuResource(resource), bufferSize_(dataSize) {}
 			UploadBuffer() = default;
 			void Create(const wchar_t* Name, size_t dataSize);
 			void* Map();

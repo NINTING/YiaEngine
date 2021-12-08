@@ -33,7 +33,7 @@ namespace YiaEngine
 			kGpuAllocatorSize = 0x10000,	//64kb
 			kCpuAllocatorSize = 0x20000,	//2Mb
 		};
-
+		
 		struct AllocateBuffer
 		{
 			AllocateBuffer(GpuResource& buffer, UINT64 offset,UINT64 size,void* cpuAddress = nullptr, D3D12_GPU_VIRTUAL_ADDRESS gpuAddress = -1)
@@ -54,7 +54,7 @@ namespace YiaEngine
 			ResourceAllocatePage(ID3D12Resource* NativeResource, D3D12_RESOURCE_STATES usage)
 			{
 				resource_.Attach(NativeResource);
-				usage_ = usage;
+				state_ = usage;
 				resource_->Map(0, nullptr, &Cpu_address_);
 				Gpu_address_ = NativeResource->GetGPUVirtualAddress();
 			}
@@ -134,10 +134,15 @@ namespace YiaEngine
 			}
 		};
 
-		class FenceResourceManager {
-		
-			std::queue <std::pair<UINT64, GpuResource*>>delete_queue;
-			void CraeteUploadResource(int size);
+		class TemplateResourceManager {
+		public:
+			void AddResource(GpuResource* res);
+			void FreeResource(UINT64 fence);           
+			void RecoverResource();
+		private:
+			std::queue <std::pair<UINT64, GpuResource*>>deleteQueue;
+			std::vector<GpuResource*>resourceList_;
+			
 		};
 
 		class GpuResourceAllocator

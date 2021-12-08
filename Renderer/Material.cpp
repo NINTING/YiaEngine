@@ -104,8 +104,14 @@ namespace YiaEngine
 					if (resData.Freq!=ResourceFrequenceType::UPDATE_FREQ_PER_DRAW)
 					{
 						resData.BufferIndex = cbvList.size();
-						cbvList.push_back(std::shared_ptr<GpuBuffer>(new GpuBuffer()));
-						cbvList.back()->Create(resources[i].Name, resData.Size);
+						BufferDesc desc;
+						desc.Size = resData.Size;
+						desc.name = resources[i].Name;
+						desc.MemoryUsage = RESOURCE_USAGE_GPU_ONLY;
+						desc.DescriptorType = DescriptorTypeFlags::DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+						desc.CreationFlags = BUFFER_CREATION_FLAG_NONE;
+						cbvList.push_back(std::shared_ptr<GpuBuffer>(GpuBuffer::CreateBuffer(desc)));
+					
 					}
 					resourceDatas_.push_back(resData);
 				}

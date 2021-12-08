@@ -23,7 +23,7 @@ namespace YiaEngine
 		{
 			resource_.Attach(resource);
 			resource_->SetName(Name);
-			usage_ = D3D12_RESOURCE_STATE_PRESENT;
+			state_ = D3D12_RESOURCE_STATE_PRESENT;
 			D3D12_RESOURCE_DESC desc = resource->GetDesc();
 
 			describe_.Width = desc.Width;

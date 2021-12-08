@@ -54,9 +54,25 @@ namespace YiaEngine
 
 			AllocateBuffer GetAllocateUploadBuffer(UINT64 size_byte, int aligment = 256) {
 				
-				g_GpuResourceAllocator.CreateResource()
+			//	g_GpuResourceAllocator.CreateResource()
 				return upload_allocator_.Allocate(size_byte,aligment);
+
+				
 			}
+
+			GpuBuffer& AllocateTemplateUploadBuffer(UINT64 size_byte) {
+
+				templateResourceManager_.RecoverResource();
+				BufferDesc desc = {};
+				desc.CreationFlags = BUFFER_CREATION_FLAG_NO_DESCRIPTOR_VIEW_CREATION;
+				desc.MemoryUsage = RESOURCE_USAGE_CPU_TO_GPU;
+				desc.Size = size_byte;
+				GpuBuffer* IntermediateResource = GpuBuffer::CreateBuffer(desc);
+				templateResourceManager_.AddResource(IntermediateResource);
+				return *IntermediateResource;
+			}
+
+
 			/*AllocateBuffer GetTemplateUploadBuffer(size_t size_byte) {
 
 				return upload_allocator_.Allocate(size_byte);
@@ -112,6 +128,8 @@ namespace YiaEngine
 			D3D12_CPU_DESCRIPTOR_HANDLE cpuDescriptorPool_[kMaxDescriptorNum];
 			UINT tableSize_ = 0;
 			ID3D12DescriptorHeap* currentDescriptorHeaps[2];
+
+			TemplateResourceManager templateResourceManager_;
 		};
 	}
 		

@@ -199,6 +199,35 @@ namespace YiaEngine
                
 		}
 
+		void TemplateResourceManager::AddResource(GpuResource* res)
+		{
+            resourceList_.push_back(res);
+		}
+
+		void TemplateResourceManager::FreeResource(UINT64 fence)
+		{
+			while (!deleteQueue.empty() && g_commandManager.IsComplete(deleteQueue.front().first))
+			{
+				delete deleteQueue.front().second;
+                deleteQueue.pop();
+			}
+
+            for (int i = 0;i<resourceList_.size();i++)
+            {
+                deleteQueue.push({fence,resourceList_[i]});
+            }
+		}
+
+        void TemplateResourceManager::RecoverResource()
+        {
+			while (!deleteQueue.empty() && g_commandManager.IsComplete(deleteQueue.front().first))
+			{
+				delete deleteQueue.front().second;
+				deleteQueue.pop();
+			}
+
+        }
+
 	}
 }
 

@@ -90,7 +90,8 @@ namespace YiaEngine
 		D3D12MA::Allocator* allocator = nullptr;
 		
 		SUCCEEDED( D3D12MA::CreateAllocator(&allocatorDesc, &allocator));
-		
+
+
 	}
 	void  Application::OnEvent(Event& e)
 	{

@@ -60,8 +60,11 @@ namespace YiaEngine
 		memcpy(memory + offset, indices_.data(), indices_.size()*sizeof(UINT));
 
 		upload.UnMap();
-
-		gpuBuffer_.Create(name_.c_str(), gemoSize, 1, upload);
+		Graphic::BufferDesc meshBufferDesc = {};
+		meshBufferDesc.Size = gemoSize;
+		meshBufferDesc.DescriptorType =Graphic::DescriptorTypeFlags::DESCRIPTOR_TYPE_VERTEX_BUFFER | Graphic::DescriptorTypeFlags::DESCRIPTOR_TYPE_INDEX_BUFFER;
+		meshBufferDesc.MemoryUsage = Graphic::ResourceUsageEnum::RESOURCE_USAGE_CPU_TO_GPU;
+		gpuBuffer_.Create(meshBufferDesc);
 	}
 	VertexAttributeArray CreateVertexAttribute(VertexAttributeEnum attribute, DataFormate formate, size_t count, void* data)
 	{

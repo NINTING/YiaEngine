@@ -69,7 +69,7 @@ namespace YiaEngine
                 &allocation_,
                &resource_
             );
-            usage_ = D3D12_RESOURCE_STATE_COMMON;
+            state_ = D3D12_RESOURCE_STATE_COMMON;
 #endif // DIRECT12
         }
         DXGI_FORMAT GpuTexture::GetStencilFormat(DXGI_FORMAT format)
