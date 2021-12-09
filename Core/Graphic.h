@@ -50,7 +50,7 @@ namespace YiaEngine
 			bool requestHighPerformanceAdapter);
 		void ResizeScreen(UINT width, UINT Height);
 
-		enum class DescriptorTypeFlags : int
+		enum DescriptorTypeFlags
 		{
 			DESCRIPTOR_TYPE_UNDEFINED = 0,
 			DESCRIPTOR_TYPE_SAMPLER = 0x01,
@@ -65,6 +65,7 @@ namespace YiaEngine
 			DESCRIPTOR_TYPE_RW_BUFFER = (DESCRIPTOR_TYPE_BUFFER << 1),
 		};
 		MAKE_ENUM_FLAG(UINT, DescriptorTypeFlags);
+
 		enum ResourceUsageEnum
 		{
 			RESOURCE_USAGE_UNKONE = 0,

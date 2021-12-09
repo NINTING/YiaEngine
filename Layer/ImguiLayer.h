@@ -20,8 +20,10 @@ namespace YiaEngine
 		void End();
 		void Render();
 
-		Graphic::RenderBuffer& SceneColorBuffer() {return sceneColorBuffer;};
-		Graphic::DepthBuffer& SceneDepthBuffer() { return sceneDepthBuffer; };
+		//Graphic::RenderBuffer& SceneColorBuffer() {return sceneColorBuffer;};
+		//Graphic::DepthBuffer& SceneDepthBuffer() { return sceneDepthBuffer; };
+
+		void BindImage(Graphic::GpuTexture* texture);
 	private:
 		bool OnMouseMoveEvent(MouseMoveEvent& e);
 		bool OnMouseDownEvent(MouseButtonDownEvent& e);
@@ -37,9 +39,10 @@ namespace YiaEngine
 		UINT64 time_;
 		Graphic::GpuDescriptorAllocator imageHandleAllocator_;
 
-		Graphic::RenderBuffer sceneColorBuffer;
-		Graphic::DepthBuffer sceneDepthBuffer;
+		/*Graphic::RenderBuffer sceneColorBuffer;
+		Graphic::DepthBuffer sceneDepthBuffer;*/
 		Graphic::DescriptorHandle sceneHandle;
+		Graphic::GpuTexture* showSceneTex;
 	};
 
 }

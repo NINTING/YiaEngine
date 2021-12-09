@@ -87,10 +87,8 @@ namespace YiaEngine
 		allocatorDesc.pDevice = device;
 		allocatorDesc.pAdapter = adapter;
 
-		D3D12MA::Allocator* allocator = nullptr;
-		
-		SUCCEEDED( D3D12MA::CreateAllocator(&allocatorDesc, &allocator));
-
+//		SUCCEEDED( D3D12MA::CreateAllocator(&allocatorDesc, &g_GpuResourceAllocator));
+//		Graphic::g_GpuResourceAllocator.Init();
 
 	}
 	void  Application::OnEvent(Event& e)

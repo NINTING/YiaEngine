@@ -124,7 +124,7 @@ namespace YiaEngine
 
         Graphic::GraphicContext& UiContext = Graphic::GraphicContext::Begin();
 
-            UiContext.TransitionBarrier(sceneColorBuffer, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+        UiContext.TransitionBarrier(*showSceneTex, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
         UiContext.SetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, gpuImGuiDescriptoHeap_.NativeHeap());
         UiContext.TransitionBarrier(Graphic::g_SwapRenderTarget[Graphic::g_FrameIndex], D3D12_RESOURCE_STATE_RENDER_TARGET);
         UiContext.SetRenderTarget(Graphic::g_SwapRenderTarget[Graphic::g_FrameIndex].RtvCpuHandlePtr(), nullptr);
@@ -208,6 +208,21 @@ namespace YiaEngine
         ImGui::End();
     }
 
+    void ImguiLayer::BindImage(Graphic::GpuTexture* texture)
+    {
+		UINT pSrcDescriptorRangeSizes[1] = { 1 };
+		UINT pDestDescriptorRangeSizes[1] = { 1 };
+		Graphic::g_Device->CopyDescriptors(
+			1,
+			sceneHandle.GetCpuHandleAddress(),
+			pSrcDescriptorRangeSizes,
+			1,
+            texture->SrvCpuHandle().GetCpuHandleAddress(),
+			pSrcDescriptorRangeSizes,
+			D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
+		);
+        showSceneTex = texture;
+    }
     
     void ImguiLayer::SceneWindow()
     {
@@ -216,26 +231,28 @@ namespace YiaEngine
         ImGui::Begin("Scene",&open);
         ImVec2 size = ImGui::GetWindowSize();
         
-        if (size.x != sceneColorBuffer.Size().x() || size.y != sceneColorBuffer.Size().y())
+       // if (size.x != sceneColorBuffer.Size().x() || size.y != sceneColorBuffer.Size().y())
+       // {
+       //     sceneColorBuffer.Destroy();
+       //     sceneColorBuffer.Create(L"SceneColorRT",size.x, size.y, DXGI_FORMAT_R8G8B8A8_UNORM);
+       //     sceneDepthBuffer.Create(L"SceneDepthRT", size.x, size.y, DXGI_FORMAT_D32_FLOAT);
+  
+       //     Graphic::g_Device->CopyDescriptors(
+       //         1,
+       //         sceneHandle.GetCpuAddress(),
+       //         pSrcDescriptorRangeSizes,
+       //         1,
+       //         sceneColorBuffer.SrvCpuHandle().GetCpuAddress(),
+       //         pSrcDescriptorRangeSizes,
+       //         D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
+       //     );
+       ////     sceneDepthBuffer.Destroy();
+       // //    sceneDepthBuffer.Create(L"SceneDepthRT", size.x, size.y, DXGI_FORMAT_D32_FLOAT);
+       // }
+        if (sceneHandle.GpuDescriptorValuePtr()!=ADDRESS_UNKOWN)
         {
-            sceneColorBuffer.Destroy();
-            sceneColorBuffer.Create(L"SceneColorRT",size.x, size.y, DXGI_FORMAT_R8G8B8A8_UNORM);
-            sceneDepthBuffer.Create(L"SceneDepthRT", size.x, size.y, DXGI_FORMAT_D32_FLOAT);
-            UINT pSrcDescriptorRangeSizes[1] = { 1 };
-            UINT pDestDescriptorRangeSizes[1] = { 1 };
-            Graphic::g_Device->CopyDescriptors(
-                1,
-                sceneHandle.GetCpuAddress(),
-                pSrcDescriptorRangeSizes,
-                1,
-                sceneColorBuffer.SrvCpuHandle().GetCpuAddress(),
-                pSrcDescriptorRangeSizes,
-                D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
-            );
-       //     sceneDepthBuffer.Destroy();
-        //    sceneDepthBuffer.Create(L"SceneDepthRT", size.x, size.y, DXGI_FORMAT_D32_FLOAT);
+			ImGui::Image((ImTextureID)sceneHandle.GetGpuHandleAddress()->ptr, size);
         }
-        ImGui::Image((ImTextureID)sceneHandle.GetGpuAddress()->ptr, size);
     
         ImGui::End();
     }

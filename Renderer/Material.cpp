@@ -104,7 +104,7 @@ namespace YiaEngine
 					if (resData.Freq!=ResourceFrequenceType::UPDATE_FREQ_PER_DRAW)
 					{
 						resData.BufferIndex = cbvList.size();
-						BufferDesc desc;
+						BufferDesc desc = {};
 						desc.Size = resData.Size;
 						desc.name = resources[i].Name;
 						desc.MemoryUsage = RESOURCE_USAGE_GPU_ONLY;

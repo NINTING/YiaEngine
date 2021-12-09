@@ -40,8 +40,8 @@ namespace YiaEngine
 			bool IsValide() { return cpu_handle_.ptr != ADDRESS_NULL; }
 			operator D3D12_CPU_DESCRIPTOR_HANDLE()const { return cpu_handle_; };
 			operator D3D12_GPU_DESCRIPTOR_HANDLE()const { return gpu_handle_; };
-			const D3D12_CPU_DESCRIPTOR_HANDLE* GetCpuAddress()const { return &cpu_handle_; };
-			const D3D12_GPU_DESCRIPTOR_HANDLE* GetGpuAddress()const { return &gpu_handle_; };
+			const D3D12_CPU_DESCRIPTOR_HANDLE* GetCpuHandleAddress()const { return &cpu_handle_; };
+			const D3D12_GPU_DESCRIPTOR_HANDLE* GetGpuHandleAddress()const { return &gpu_handle_; };
 			SIZE_T CpuDescriptorValuePtr()const { return cpu_handle_.ptr; };
 			SIZE_T GpuDescriptorValuePtr()const { return gpu_handle_.ptr; };
 			DescriptorHandle operator +(int offset)const

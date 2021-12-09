@@ -33,7 +33,8 @@ namespace YiaEngine:: Graphic
 		DescriptorTypeFlags DescriptorType;
 
 		const char* name;
-		void* InitData;
+		void* InitData = nullptr;
+		
 	};
 
 	class GpuBuffer:public GpuResource

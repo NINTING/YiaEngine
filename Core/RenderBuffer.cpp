@@ -64,7 +64,7 @@ namespace YiaEngine
 			srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
 			srvDesc.Format = format;
 			rtvDesc.Format = format;
-			if (srvHandle_.GetCpuAddress()->ptr == ADDRESS_NULL)
+			if (srvHandle_.GetCpuHandleAddress()->ptr == ADDRESS_NULL)
 			{
 				srvHandle_ = g_CpuDescriptorAllocator[D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV].Alloc(1);
 				rtvHandle_ = g_CpuDescriptorAllocator[D3D12_DESCRIPTOR_HEAP_TYPE_RTV].Alloc(1);

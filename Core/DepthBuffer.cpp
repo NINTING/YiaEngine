@@ -47,7 +47,7 @@ namespace YiaEngine
 			//stencil enable
 			if (stencilFormat != DXGI_FORMAT_UNKNOWN)
 			{
-				if (dsvHandle_[2].GetCpuAddress()->ptr == ADDRESS_NULL)
+				if (dsvHandle_[2].GetCpuHandleAddress()->ptr == ADDRESS_NULL)
 				{
 					dsvHandle_[2] = g_CpuDescriptorAllocator[D3D12_DESCRIPTOR_HEAP_TYPE_DSV].Alloc(1);
 					dsvHandle_[3] = g_CpuDescriptorAllocator[D3D12_DESCRIPTOR_HEAP_TYPE_DSV].Alloc(1);

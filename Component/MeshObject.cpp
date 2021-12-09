@@ -40,12 +40,9 @@ namespace YiaEngine
 		ss << name_;
 		ss << "_UploadGemoBuffer";
 
-		wchar_t* wname = new wchar_t[ss.str().length()+1];
-		Char2Wchar(ss.str().c_str(), wname);
+		
+		uint8_t* memory = new uint8_t[gemoSize];
 
-		upload.Create(wname, gemoSize);
-		delete wname;
-		uint8_t* memory = (uint8_t*)upload.Map();
 		UINT offset = 0;
 		for (size_t i = 0; i < attributes_.size(); i++)
 		{
@@ -57,14 +54,19 @@ namespace YiaEngine
 		}
 		offset += attributes_[attributes_.size() - 1].DataSize;
 		if (indices_.size())
-		memcpy(memory + offset, indices_.data(), indices_.size()*sizeof(UINT));
+			memcpy(memory + offset, indices_.data(), indices_.size()*sizeof(UINT));
 
-		upload.UnMap();
+		
+
+
 		Graphic::BufferDesc meshBufferDesc = {};
 		meshBufferDesc.Size = gemoSize;
 		meshBufferDesc.DescriptorType =Graphic::DescriptorTypeFlags::DESCRIPTOR_TYPE_VERTEX_BUFFER | Graphic::DescriptorTypeFlags::DESCRIPTOR_TYPE_INDEX_BUFFER;
-		meshBufferDesc.MemoryUsage = Graphic::ResourceUsageEnum::RESOURCE_USAGE_CPU_TO_GPU;
+		meshBufferDesc.MemoryUsage = Graphic::ResourceUsageEnum::RESOURCE_USAGE_GPU_ONLY;
+		meshBufferDesc.InitData = memory;
 		gpuBuffer_.Create(meshBufferDesc);
+
+		delete memory;
 	}
 	VertexAttributeArray CreateVertexAttribute(VertexAttributeEnum attribute, DataFormate formate, size_t count, void* data)
 	{
@@ -82,6 +84,7 @@ namespace YiaEngine
 
 	D3D12_VERTEX_BUFFER_VIEW Mesh::GetVertexBuffer(VertexAttributeEnum attribute)const
 	{
+		
 		size_t offset = 0;
 		for (size_t i = 0; i < attributes_.size(); i++)
 		{

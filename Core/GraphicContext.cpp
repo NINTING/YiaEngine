@@ -91,13 +91,13 @@ namespace YiaEngine
 					}
 					if (validCount == kMaxDescriptorNumPerCopy)
 					{
-						viewDescriptorAllocator.CopyToGpuDescriptor(validCount, copySrc, gpuCurrentHandle.GetCpuAddress());
+						viewDescriptorAllocator.CopyToGpuDescriptor(validCount, copySrc, gpuCurrentHandle.GetCpuHandleAddress());
 						gpuCurrentHandle += validCount * handleIncrementSize;
 						validCount = 0;
 					}
 				}
 				if(validCount!=0)
-					viewDescriptorAllocator.CopyToGpuDescriptor(validCount, copySrc, gpuCurrentHandle.GetCpuAddress());
+					viewDescriptorAllocator.CopyToGpuDescriptor(validCount, copySrc, gpuCurrentHandle.GetCpuHandleAddress());
 			}
 		}
 		void GraphicContext::BindTestConstBufferView(int rootIndex, D3D12_GPU_VIRTUAL_ADDRESS address)
@@ -169,7 +169,7 @@ namespace YiaEngine
 			{
 				renderTargets[i] = RTS[i];
 			}
-			commandList_->OMSetRenderTargets(numRT, renderTargets, false, depth->GetCpuAddress());
+			commandList_->OMSetRenderTargets(numRT, renderTargets, false, depth->GetCpuHandleAddress());
 		}
 		void GraphicContext::SetVertexBuffers(UINT slot, UINT bufferCount, const D3D12_VERTEX_BUFFER_VIEW* vertexView)
 		{

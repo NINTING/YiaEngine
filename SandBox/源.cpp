@@ -298,19 +298,22 @@ public:
 		albedoGBuffer->Create(L"albedoGBuffer", camera.GetCameraWidth(), camera.GetCameraHeight(), DXGI_FORMAT_B8G8R8A8_UNORM);
 
 
-
 		
+		sceneColorBuffer.Create(L"SceneColorRT", camera.GetCameraWidth(), camera.GetCameraHeight(), DXGI_FORMAT_R8G8B8A8_UNORM);
+		sceneDepthBuffer.Create(L"SceneDepthRT", camera.GetCameraWidth(), camera.GetCameraHeight(), DXGI_FORMAT_D32_FLOAT);
 
 
 	}
 	virtual void Init() 
 	{
+
 		Application::Init();
 		imGuiLayer.OnAwake();
 		PushLayer(&sampleLayer);
 		PushLayer(&imGuiLayer);
 
 		Load();
+		imGuiLayer.BindImage(&sceneColorBuffer);
 	};
 		
 	virtual void Update(Timestep  timestep)
@@ -341,9 +344,9 @@ public:
 
 
 	void RenderObject(Math::Vec3f pos)
-	{
+	{/*
 		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
-		Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();
+		Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();*/
 		
 		DefaultRenderer.Begin();
 		DefaultRenderer.SetRenderTarget(&sceneColorBuffer, &sceneDepthBuffer);
@@ -365,9 +368,9 @@ public:
 		DefaultRenderer.End();
 	}
 	void RenderImage()
-	{
+	{/*
 		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
-		Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();
+		Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();*/
 
 		TextureMaterial.SetTexture("MainTexture", testTexture);
 
@@ -380,8 +383,8 @@ public:
 	}
 	void RenderPBR(Timestep  timestep)
 	{
-		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
-		Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();
+	/*	Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
+		Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();*/
 
 		DefaultRenderer.Begin();
 		DefaultRenderer.SetRenderTarget(&sceneColorBuffer, &sceneDepthBuffer);
@@ -419,8 +422,8 @@ public:
 		Graphic::RenderBuffer* gbuffers[] = { 
 			positionGbuffer.get(),normalGbuffer.get(),albedoGBuffer.get() };
 
-		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
-		Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();
+		//Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
+		//Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();
 		
 		// Deferred Opaque Feature
 		//Gbuffer Pass
@@ -518,9 +521,9 @@ public:
 		*/
 	}
 	void RenderScene(Timestep  timestep)
-	{
+	{/*
 		Graphic::RenderBuffer& sceneColorBuffer = imGuiLayer.SceneColorBuffer();
-		Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();
+		Graphic::DepthBuffer& sceneDepthBuffer = imGuiLayer.SceneDepthBuffer();*/
 		//DefaultRenderer.Begin();
 		//DefaultRenderer.SetRenderTarget(&sceneColorBuffer);
 		//DefaultRenderer.SetRootSignature(signature);
@@ -595,6 +598,10 @@ public:
 	std::shared_ptr< Graphic::RenderBuffer> positionGbuffer;
 	std::shared_ptr < Graphic::RenderBuffer> normalGbuffer;
 	std::shared_ptr < Graphic::RenderBuffer> albedoGBuffer;
+
+
+	Graphic::RenderBuffer sceneColorBuffer;
+	Graphic::DepthBuffer sceneDepthBuffer;
 };
 
 

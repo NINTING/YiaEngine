@@ -23,7 +23,13 @@ namespace YiaEngine
 			ID3D12Resource* NativeResource() {
 				return resource_.Get();
 			}
-			D3D12_GPU_VIRTUAL_ADDRESS GetGpuAddress() { return gpuVirtualAddress_; };
+			D3D12_GPU_VIRTUAL_ADDRESS GetGpuAddress() { 
+				if (resource_)
+				{
+					return gpuVirtualAddress_ = resource_->GetGPUVirtualAddress();
+				}
+				return ADDRESS_UNKOWN;
+			};
 			D3D12_RESOURCE_STATES State() { return state_; };
 			virtual ~GpuResource() { Destroy(); }
 			void State(D3D12_RESOURCE_STATES state) { state_ = state; }
@@ -51,6 +57,8 @@ namespace YiaEngine
 			D3D12MA::Allocation* allocation_;
 
 			D3D12_GPU_VIRTUAL_ADDRESS gpuVirtualAddress_ = ADDRESS_UNKOWN;
+
+
 		};
 	}
 		
