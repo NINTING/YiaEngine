@@ -27,6 +27,8 @@ UINT TextureHeight = 200;
 UINT TexturePixelSize = 4;
 Graphic::ImageData GenerateTextureData()
 {
+
+
 	Graphic::ImageData retImage;
 	retImage.Width = 200;
 	retImage.Height = 200;
@@ -222,7 +224,7 @@ public:
 		
 
 	
-		
+
 
 
 		fullScreenRect.SetName("FullScreenRect");
@@ -301,6 +303,11 @@ public:
 		
 		sceneColorBuffer.Create(L"SceneColorRT", camera.GetCameraWidth(), camera.GetCameraHeight(), DXGI_FORMAT_R8G8B8A8_UNORM);
 		sceneDepthBuffer.Create(L"SceneDepthRT", camera.GetCameraWidth(), camera.GetCameraHeight(), DXGI_FORMAT_D32_FLOAT);
+
+		Graphic::ImageData loadImage = {};
+		Graphic::LoadImageFile("bb.bmp",&loadImage);
+		loadedTexture.InitializeByImage(loadImage, DXGI_FORMAT_R8G8B8A8_UNORM);
+
 
 
 	}
@@ -587,9 +594,10 @@ public:
 	Graphic::Material TextureMaterial;
 	Graphic::Material gbufferMaterial;
 	Graphic::Material lightingMaterial;
-
+	 
 	Graphic::Texture testTexture;
-	
+	Graphic::Texture loadedTexture;
+
 	Math::Vec3f BoxPos;
 	Light mainLight;
 	SurfaceData surfaceData;

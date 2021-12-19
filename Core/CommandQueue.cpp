@@ -20,17 +20,18 @@ namespace YiaEngine
 			fence_(nullptr), 
 			fence_value_((UINT64)type<<56 | 1), 
 			complete_fence_value_((UINT64)type << 56),
-			fence_event_(nullptr)
+			fence_event_(nullptr),
+			type_(type)
 		{
 		}
 		void CommandQueue::Create(ID3D12Device* device)
 		{
-			D3D12_COMMAND_QUEUE_DESC queueDesc = {};
-			queueDesc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
-			queueDesc.Type = type_;
+
+			desc_.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
+			desc_.Type = type_;
 
 			ASSERT_SUCCEEDED(Graphic::g_Device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fence_)));
-			ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommandQueue(&queueDesc, IID_PPV_ARGS(&command_queue_)));
+			ASSERT_SUCCEEDED(Graphic::g_Device->CreateCommandQueue(&desc_, IID_PPV_ARGS(&command_queue_)));
 			fence_event_ = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 			
 			if (fence_event_ == nullptr)
@@ -38,6 +39,20 @@ namespace YiaEngine
 				ASSERT_SUCCEEDED(HRESULT_FROM_WIN32(GetLastError()));
 			}
 		}
+
+	
+		
+
+	
+		struct QueueExecuteDesc
+		{
+			ID3D12CommandList* list;
+
+		};
+		/*void CommandQueue::Execute(const QueueExecuteDesc& )
+		{
+
+		}*/
 
 		UINT64 CommandQueue::Execute(ID3D12CommandList* list)
 		{
@@ -53,6 +68,8 @@ namespace YiaEngine
 				YiaEngine::Utility::Print("\n"); 
 				__debugbreak();
 			}*/
+
+			/*µÈ´ýwait*/
 
 			command_queue_->ExecuteCommandLists(1, &list);
 			ASSERT_SUCCEEDED(command_queue_->Signal(fence_.Get(), fence_value_));
@@ -91,6 +108,23 @@ namespace YiaEngine
 			return complete_fence_value_ >= fence_value;
 			
 		}
+
+		void CreateFence(Fence** outFence)
+		{
+			Fence* fence = new Fence();
+
+			ASSERT_SUCCEEDED(Graphic::g_Device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fence->FenceHandle)));
+			 fence->FenceEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
+
+			if (fence->FenceEvent == nullptr)
+			{
+				ASSERT_SUCCEEDED(HRESULT_FROM_WIN32(GetLastError()));
+			}
+			fence->FenceValue = 1;
+
+			*outFence = fence;
+		}
+
 	}
 		
 }

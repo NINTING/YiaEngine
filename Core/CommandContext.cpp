@@ -13,11 +13,11 @@ namespace YiaEngine
 	{
 		CommandContextManager CommandContext::s_context_manager;
 	
-		CommandContext* CommandContext::Begin(const wchar_t* Name)
+		CommandContext* CommandContext::Begin(const wchar_t* Name,D3D12_COMMAND_LIST_TYPE type)
 		{
 
 
-			auto ret = s_context_manager.Allocator(D3D12_COMMAND_LIST_TYPE_DIRECT);
+			auto ret = s_context_manager.Allocator(type);
 			ret->Name = Name;
 			/*auto ret = new CommandContext(D3D12_COMMAND_LIST_TYPE_DIRECT);
 			ret->Initialize();*/
@@ -28,7 +28,7 @@ namespace YiaEngine
 		}
 		void CommandContext::Initialize()
 		{
-			g_commandManager.CreateNewCommandList(D3D12_COMMAND_LIST_TYPE_DIRECT, &commandList_, &command_allocator_);
+			g_commandManager.CreateNewCommandList(type_, &commandList_, &command_allocator_);
 			memset(tableCache_, 0, sizeof(GpuDescriptorTable) * kMaxDescriptorTableNum);
 		}
 
@@ -46,6 +46,9 @@ namespace YiaEngine
 
 		void CommandContext::End(bool wait_for_complete)
 		{
+
+
+
 			auto& command_queue = g_commandManager.GetQueue(type_);
 		//	UINT64 fence = command_queue_.Execute(command_list_.Get());
 			UINT64 fence = command_queue.Execute(commandList_.Get());
@@ -61,6 +64,8 @@ namespace YiaEngine
 			{
 				command_queue.WaitForFence(fence);
 			}
+
+
 			s_context_manager.Free(this);
 		}
 		CommandContext::CommandContext(D3D12_COMMAND_LIST_TYPE listType):
@@ -128,6 +133,8 @@ namespace YiaEngine
 			ASSERT_SUCCEEDED(UpdateSubresources<1>(initContext->NativeCommandList(), dest.NativeResource(), upload_buffer.NativeResource(), 0, 0, 1, &initData));
 			initContext->TransitionBarrier(dest,  D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 			initContext->End();
+
+			
 
 
 		}

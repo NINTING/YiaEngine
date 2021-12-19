@@ -237,7 +237,9 @@ namespace YiaEngine
 					{
 						if (resourceDatas_[i].Freq!=ResourceFrequenceType::UPDATE_FREQ_PER_DRAW)
 						{
-							CommandContext::UpdateBufferData(*cbvList[resourceDatas_[i].BufferIndex], resourceDatas_[i].Data);
+
+   							CopyContext::UpdateBufferData(*cbvList[resourceDatas_[i].BufferIndex], resourceDatas_[i].Data);
+							//CommandContext::UpdateBufferData(*cbvList[resourceDatas_[i].BufferIndex], resourceDatas_[i].Data);
 						}
 					
 					}

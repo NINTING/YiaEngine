@@ -11,6 +11,18 @@ namespace YiaEngine
 {
 	namespace Graphic
 	{
+		struct Fence
+		{
+			UINT64		 FenceValue;
+			ID3D12Fence* FenceHandle;
+			HANDLE       FenceEvent;
+		};
+		struct Semaphore
+		{
+			Fence value;
+		};
+		static void CreateFence(Fence*);
+
 		class CommandQueue
 		{
 		public:
@@ -34,6 +46,8 @@ namespace YiaEngine
 			UINT64 fence_value_ = 0;
 
 			CommandAllocatorManager command_allocator_manager;
+
+			Fence* fence;
 		};
 	}
 		

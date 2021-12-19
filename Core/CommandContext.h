@@ -47,7 +47,8 @@ namespace YiaEngine
 		{
 			friend CommandContextManager;
 		public:
-			static CommandContext* Begin(const wchar_t* Name = L"");
+			static CommandContext* Begin(const wchar_t* Name = L"", D3D12_COMMAND_LIST_TYPE type = D3D12_COMMAND_LIST_TYPE_DIRECT);
+			static CommandContext* BeginCopy(const wchar_t* Name = L"");
 			void End(bool wait_for_complete = true);
 
 		//	CommandContext();

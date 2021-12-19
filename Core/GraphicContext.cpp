@@ -14,7 +14,7 @@ namespace YiaEngine
 	{
 		 GraphicContext& GraphicContext::Begin(const wchar_t* Name)
 		{
-			 CommandContext* commandContext = CommandContext::Begin(Name);
+			 CommandContext* commandContext = CommandContext::Begin(Name,D3D12_COMMAND_LIST_TYPE_DIRECT);
 			 
 			return reinterpret_cast<GraphicContext&>(*commandContext);
 		}
@@ -102,6 +102,7 @@ namespace YiaEngine
 		}
 		void GraphicContext::BindTestConstBufferView(int rootIndex, D3D12_GPU_VIRTUAL_ADDRESS address)
 		{
+
 			commandList_->SetGraphicsRootConstantBufferView(rootIndex, address);
 		}
 		void GraphicContext::BindDynamicConstBufferView(int rootIndex, UINT size, void* data)

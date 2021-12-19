@@ -23,11 +23,15 @@ namespace YiaEngine
 			void Create(ID3D12Device* device) 
 			{
 				graphicCommandQueue_.Create(device);
-
+				copyCommandQueue_.Create(device);
 			}
 			CommandQueue& graphic_command_queue() {
 				return graphicCommandQueue_;
 			};
+			CommandQueue& copy_command_queue() {
+				return copyCommandQueue_;
+			};
+
 			UINT64 ExecuteGraphicCommandList(ID3D12CommandList* list)
 			{
 				return graphicCommandQueue_.Execute(list);
@@ -46,7 +50,6 @@ namespace YiaEngine
 					YIA_GRAPHIC_ERR("Not Impelemnt Computer Queue");
 					return computerCommandQueue_;
 				case D3D12_COMMAND_LIST_TYPE_COPY:
-					YIA_GRAPHIC_ERR("Not Impelemnt Copy Queue");
 					return copyCommandQueue_;
 					break;
 				default:
@@ -69,6 +72,7 @@ namespace YiaEngine
 				case D3D12_COMMAND_LIST_TYPE_COMPUTE:
 					break;
 				case D3D12_COMMAND_LIST_TYPE_COPY:
+					*out_allocator = copyCommandQueue_.RequireCommandAlloctor();
 					break;
 				default:
 					break;

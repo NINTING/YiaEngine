@@ -23,3 +23,5 @@
 #include<Renderer/YiaRenderer.h>
 
 #include"FrameGraph/YiaFrameGraph.h"
+
+#include "ThirdParty/freeImage/FreeImage.h"

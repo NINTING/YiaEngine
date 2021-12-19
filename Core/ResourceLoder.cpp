@@ -388,5 +388,37 @@ namespace YiaEngine::Graphic
 		}
 	
 	}
-	
+	static ResourceLoder* s_Loder;
+
+	static void ThreadResourceFunc(void* data)
+	{
+		ResourceLoder* loder = (ResourceLoder*)data;
+		
+		while (loder->isRun)
+		{
+			for (int i = 0;i < s_Loder->requestQueue.size();i++)
+			{
+
+			}
+		}
+
+	}
+
+	void UpdateGpuResource(const RequestDesc& desc)
+	{
+		s_Loder->requestQueue.emplace_back(desc);
+		
+	}
+
+	void InitGpuResourceLoder(CommandManager* commandMananger)
+	{
+		s_Loder = new ResourceLoder();
+		s_Loder->pCommandManager = commandMananger;
+		s_Loder->requestQueue.clear();
+		ThreadSystem::ThreadDesc desc = {};
+		s_Loder->threadDesc.pData = s_Loder;
+		s_Loder->threadDesc.pFunc = ThreadResourceFunc;
+		s_Loder->thread = ThreadSystem::CreateThread(&s_Loder->threadDesc);
+	}
+
 }

@@ -222,7 +222,7 @@ namespace YiaEngine
 				{
 					GpuTexture* texData = (GpuTexture*)(data.Data);
 					auto handle = texData->SrvCpuHandle();
-
+					//graphicContext->TransitionBarrier(handle,)
 					graphicContext->BindCpuDescriptor(data.location.RootIndex, data.location.Offset, data.Count, &handle);
 					bindGpuDescriptor = true;
 				}
